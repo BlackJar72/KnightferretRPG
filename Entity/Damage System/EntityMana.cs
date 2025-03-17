@@ -8,8 +8,8 @@ namespace kfutils {
     [SerializeField]
     public class EntityMana {
 
-        public const float BASE_REGEN_RATE = 0.1f;
-        public const float BASE_REGEN_ADJUST = 0.0025f;
+        public const float BASE_REGEN_RATE = 0.05f;
+        public const float BASE_REGEN_ADJUST = 0.000833333333333f; // 1/1200f, or full regen in 20 minutes (minus effects of base regen rate)
 
         public float baseMana;
         public float currentMana;

@@ -20,7 +20,8 @@ namespace kfutils.rpg {
         [SerializeField] public int naturalArmor = 0; // Natural, not derived from worn armor
         [SerializeField] public int meleeDamageBonus = 0; // Bonus damage for melee attacks
 
-        [SerializeField] public DamageAdjustType damageAdjuster = DamageAdjustType.NONE; // The type of damage adjuster this entity has
+        [SerializeField] public DamageAdjustType damageAdjuster = DamageAdjustType.NONE; // The type of natural damage adjuster this entity has
+        [SerializeField] public DamageModifiers damageModifiers; // The damage modifiers the entity currently has (due to status effects)
 
 
         public void DeriveAttributesForHuman(EntityHealth health, EntityStamina stamina, EntityMana mana) {
