@@ -1,0 +1,34 @@
+using System;
+using UnityEngine;
+
+namespace kfutils.rpg {
+
+
+    [Serializable]
+    public class EntityBaseStats
+    {
+        public const int MIN_SCORE = 1; // Minimum score for a player character
+        public const int MAX_SCORE = 20; // Maximum score for a player character (or any human)
+        public const int DEFAULT_SCORE = 10; // Average score for a human, and default for a player character
+
+        [SerializeField] int strength = DEFAULT_SCORE;
+        [SerializeField] int agility = DEFAULT_SCORE;
+        [SerializeField] int vitality = DEFAULT_SCORE;
+        [SerializeField] int endurance = DEFAULT_SCORE;
+        [SerializeField] int intelligence = DEFAULT_SCORE;
+        [SerializeField] int charisma = DEFAULT_SCORE;
+        [SerializeField] int spirit = DEFAULT_SCORE;
+
+        public int Strength { get => strength; set => strength = value; }
+        public int Agility { get => agility; set => agility = value; }
+        public int Vitality { get => vitality; set => vitality = value; }
+        public int Endurance { get => endurance; set => endurance = value; }    
+        public int Intelligence { get => intelligence; set => intelligence = value; }
+        public int Charisma { get => charisma; set => charisma = value; }
+        public int Spirit { get => spirit; set => spirit = value; } 
+
+
+
+    }
+
+}
