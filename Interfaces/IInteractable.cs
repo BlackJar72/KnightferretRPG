@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-
 namespace kfutils.rpg
 {
 
