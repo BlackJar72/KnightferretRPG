@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace kfutils.rpg
@@ -43,6 +44,27 @@ namespace kfutils.rpg
                 RecoverEntityStamina();
                 RecoverEntityMana();
                 
+            }
+
+
+            static public void AddWounded(EntityHealth entity) {
+                if(!waitingToHeal.Contains(entity)) {
+                    waitingToHeal.Add(entity);
+                    healingEntities.Remove(entity);
+                }
+            }
+
+
+            static public void AddExhausted(EntityStamina entity) {
+                if(!waitingToRecover.Contains(entity)) {
+                    waitingToRecover.Add(entity);
+                    recoveringEntities.Remove(entity);
+                }
+            }
+
+
+            static public void AddManaExhausted(EntityMana entity) {
+                if(!recoveringMana.Contains(entity)) recoveringMana.Add(entity);
             }
 
 

@@ -75,7 +75,7 @@ namespace kfutils {
             shock -= damage.shock;
             wound -= damage.wound;
             timeLastDamaged = Time.time;
-            EntityManagement.healingEntities.Add(this);
+            EntityManagement.AddWounded(this);
         }
 
 

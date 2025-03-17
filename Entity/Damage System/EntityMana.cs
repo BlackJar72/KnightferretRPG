@@ -51,7 +51,7 @@ namespace kfutils {
             bool result = currentMana >= amount;
             if (result) {
                 currentMana -= amount;
-                EntityManagement.recoveringMana.Add(this);
+                EntityManagement.AddManaExhausted(this);
             } else {
                 currentMana = 0;
             }

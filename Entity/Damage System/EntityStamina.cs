@@ -55,7 +55,7 @@ namespace kfutils {
             if (result) {
                 currentStamina -= amount;
                 timeLastTired = Time.time;
-                EntityManagement.waitingToRecover.Add(this);
+                EntityManagement.AddExhausted(this);
             } else {
                 currentStamina = 0;
             }
