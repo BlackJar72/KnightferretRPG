@@ -24,6 +24,13 @@ namespace kfutils.rpg {
         [SerializeField] public DamageModifiers damageModifiers; // The damage modifiers the entity currently has (due to status effects)
 
 
+        /// <summary>
+        /// Used for characters of playable races (human or not); other creatures will have bespoke attribute assignments, or perhaps 
+        /// different  specialized methods for special cases.
+        /// </summary>
+        /// <param name="health">Should be the EntityHealth field of the entity</param>
+        /// <param name="stamina">Should be the EntityStamina field of the entity</param>
+        /// <param name="mana">Should be the EntityMana field of the entity</param>
         public void DeriveAttributesForHuman(EntityHealth health, EntityStamina stamina, EntityMana mana) {
             crouchSpeed = 1.0f + (baseStats.Agility * 0.1f);
             walkSpeed = 4.5f + (baseStats.Agility * 0.05f);

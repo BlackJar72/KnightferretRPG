@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+
 namespace kfutils.rpg
 {
 
@@ -46,6 +48,9 @@ namespace kfutils.rpg
                 
             }
 
+
+#region Healing and Recovery
+            // Healing and Recovery
 
             static public void AddWounded(EntityHealth entity) {
                 if(!waitingToHeal.Contains(entity)) {
@@ -105,8 +110,10 @@ namespace kfutils.rpg
                     }
                 }
             }
+#endregion
 
-            
+
+
 
 
     }

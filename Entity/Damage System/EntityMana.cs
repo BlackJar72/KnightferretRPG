@@ -59,6 +59,11 @@ namespace kfutils {
         } 
 
 
+        public void HealFully() {
+            currentMana = baseMana + buff;
+        }
+
+
         public bool CanDoAction(float ManaCost) => currentMana > ManaCost;
 
 

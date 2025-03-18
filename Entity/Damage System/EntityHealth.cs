@@ -122,7 +122,7 @@ namespace kfutils {
 
 
         public void HealFully() {
-            shock = wound = baseHealth;
+            shock = wound = baseHealth + buff;
         }
 
 

@@ -75,6 +75,11 @@ namespace kfutils {
         }
 
 
+        public void HealFully() {
+            currentStamina = baseStamina + buff;
+        }
+
+
 
     }
 
