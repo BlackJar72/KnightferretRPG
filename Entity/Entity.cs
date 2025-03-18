@@ -4,8 +4,9 @@ using UnityEngine;
 namespace kfutils.rpg
 {
 
-    public abstract class Entity : MonoBehaviour
+    public abstract class Entity : MonoBehaviour, IHaveName 
     {
+        [SerializeField] string entityName;        
         public EntityHealth health;
         public EntityStamina stamina;
         public EntityMana mana;
@@ -18,14 +19,19 @@ namespace kfutils.rpg
 
         }
 
+
         // Update is called once per frame
         protected virtual void Update()
         {
             
         }
 
-        
 
+        public virtual string GetName() => entityName;
+        public virtual string GetPersonalName() => GetName();
+    
+    
+    
     }
 
 

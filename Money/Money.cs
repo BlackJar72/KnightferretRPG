@@ -123,16 +123,6 @@ namespace kfutils.rpg
                     copper %= (int)MoneyType.Platinum;
                     if(copper > 0) {
                         builder.Append(nextEntry);
-                        goto case MoneyType.Gold; // Unless set as standard, electrum is treated as special; goto gold
-                    }
-                    break;
-                case MoneyType.Electrum:
-                    builder.Append(copper / (int)MoneyType.Electrum);
-                    builder.Append(" ");
-                    builder.Append("Electrum");
-                    copper %= (int)MoneyType.Electrum;
-                    if(copper > 0) {
-                        builder.Append(nextEntry);
                         goto case MoneyType.Gold; 
                     }
                     break;
@@ -141,6 +131,16 @@ namespace kfutils.rpg
                     builder.Append(" ");
                     builder.Append("Gold");
                     copper %= (int)MoneyType.Gold;
+                    if(copper > 0) {
+                        builder.Append(nextEntry);
+                        goto case MoneyType.Silver; // Unless set as standard, electrum is treated as special; goto silver
+                    }
+                    break;
+                case MoneyType.Electrum:
+                    builder.Append(copper / (int)MoneyType.Electrum);
+                    builder.Append(" ");
+                    builder.Append("Electrum");
+                    copper %= (int)MoneyType.Electrum;
                     if(copper > 0) {
                         builder.Append(nextEntry);
                         goto case MoneyType.Silver; 
