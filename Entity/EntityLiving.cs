@@ -1,10 +1,9 @@
 using UnityEngine;
 
 
-namespace kfutils.rpg
-{
+namespace kfutils.rpg {
 
-    public abstract class Entity : MonoBehaviour, IHaveName 
+    public abstract class EntityLiving : MonoBehaviour, IHaveName 
     {
         [SerializeField] string entityName;        
         public EntityHealth health;

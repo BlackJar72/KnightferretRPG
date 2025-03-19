@@ -12,10 +12,10 @@ namespace kfutils.rpg
             // Should this be static? A Singleton? Or just a regular MonoBehaviour?
 
             // Core entity lists
-            static public List<Entity> allEntities;
-            static public List<Entity> persistentEntities;
-            static public List<Entity> spawnedEntities;
-            static public List<Entity> activeEntities;
+            static public List<EntityLiving> allEntities;
+            static public List<EntityLiving> persistentEntities;
+            static public List<EntityLiving> spawnedEntities;
+            static public List<EntityLiving> activeEntities;
 
             // Special entity lists
             static public List<EntityHealth> healingEntities; // Entities that are currently healing naturally 
@@ -27,10 +27,10 @@ namespace kfutils.rpg
 
 
             public static void Initialize() {
-                allEntities = new List<Entity>();
-                persistentEntities = new List<Entity>();
-                spawnedEntities = new List<Entity>();
-                activeEntities = new List<Entity>();
+                allEntities = new List<EntityLiving>();
+                persistentEntities = new List<EntityLiving>();
+                spawnedEntities = new List<EntityLiving>();
+                activeEntities = new List<EntityLiving>();
 
                 healingEntities = new List<EntityHealth>();
                 waitingToHeal = new List<EntityHealth>();
