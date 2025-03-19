@@ -19,9 +19,13 @@ namespace kfutils.rpg {
         [SerializeField] public float jumpForce = 1.0f; //TODO / FIXME: Implement jumping, then determine what this should be:
         [SerializeField] public int naturalArmor = 0; // Natural, not derived from worn armor
         [SerializeField] public int meleeDamageBonus = 0; // Bonus damage for melee attacks
+        [SerializeField] public float maxEncumbrance = 400f;
+        [SerializeField] public float halfEncumbrance = 200f;
+        [SerializeField] public float runningCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, probably not all stamina use
+        [SerializeField] public float manaCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, probably not all stamina use
 
         [SerializeField] public DamageAdjustType damageAdjuster = DamageAdjustType.NONE; // The type of natural damage adjuster this entity has
-        [SerializeField] public DamageModifiers damageModifiers; // The damage modifiers the entity currently has (due to status effects)
+        [SerializeField] public DamageModifiers damageModifiers = new DamageModifiers(); // The damage modifiers the entity currently has (due to status effects)
 
 
         /// <summary>
@@ -38,14 +42,17 @@ namespace kfutils.rpg {
             jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f), 0.25f, 1.75f);
             naturalArmor = Mathf.Max(0, baseStats.Agility / 2 - 10);
             meleeDamageBonus = Mathf.Max(0, baseStats.Strength / 2 - 10);
-            // TODO: Add other effects on health, stamina, and mana
+            maxEncumbrance = (float)(100 + (30 * baseStats.Strength));
+            halfEncumbrance = maxEncumbrance / 2f;
+            runningCostFactor = 1.5f - ((float)baseStats.Endurance / (float)EntityBaseStats.MAX_SCORE);
+            manaCostFactor = 1.5f - ((float)baseStats.Intelligence / (float)EntityBaseStats.MAX_SCORE);
             health.ChangeBaseHealth((20 + (baseStats.Vitality * 5)) * (1.0f + ((float)level * 0.1f)));
             stamina.ChangeBaseStamina((20 + (baseStats.Endurance * 5)) * (1.0f + ((float)level * 0.1f)));
             mana.ChangeBaseMana((20 + (baseStats.Spirit * 5)) * (1.0f + ((float)level * 0.1f)));
         }
 
 
-        public virtual int GetArmor() {
+        public virtual int GetNaturalArmor() {
             return naturalArmor;
         }
 
