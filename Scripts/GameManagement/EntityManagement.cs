@@ -24,7 +24,10 @@ namespace kfutils.rpg
             static public List<EntityStamina> waitingToRecover; // Entities whose stamina recovery has not yet started (paused by recnently using stamina)
             static public List<EntityMana> recoveringMana; // Entities that are currently recovering mana
 
-
+            // FIXME: Need to remove entities that are unloaded.
+            //  *OR*  Perhaps all remain loaded but become innactive, attached to a special scene that holds perpetual data and gameme management?  
+            //          (How much data? -- not that much per entity, but how many entities might there be?  
+            //          In the age of multi-gigabyte ram, probably not a lot relatively speaking.)  
 
             public static void Initialize() {
                 allEntities = new List<EntityLiving>();

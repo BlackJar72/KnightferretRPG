@@ -52,11 +52,6 @@ namespace kfutils.rpg {
         }
 
 
-        public virtual int GetNaturalArmor() {
-            return naturalArmor;
-        }
-
-
     }
 
 
