@@ -10,8 +10,8 @@ namespace kfutils {
     [Serializable]
     public class EntityHealth {
         public const float HEALING_PAUSE_TIME = 5.0f; // in seconds
-        public const float BASE_REGEN_RATE = 0.5f;
-        public const float BASE_REGEN_ADJUST = 0.005f;
+        public const float BASE_REGEN_RATE = 1.0f;
+        public const float BASE_REGEN_ADJUST = 0.01f;
         public static readonly DefaultDamageAdjuster defaultDamageAdjuster = new DefaultDamageAdjuster();
 
         [SerializeField] float baseHealth;

@@ -10,8 +10,8 @@ namespace kfutils {
     public class EntityStamina {
 
         public const float HEALING_PAUSE_TIME = 1.0f; 
-        public const float BASE_REGEN_RATE = 1.0f;
-        public const float BASE_REGEN_ADJUST = 0.01f;
+        public const float BASE_REGEN_RATE = 2.5f;
+        public const float BASE_REGEN_ADJUST = 0.025f;
 
         public float baseStamina;
         public float currentStamina;

@@ -6,10 +6,10 @@ namespace kfutils.rpg {
     public abstract class EntityLiving : MonoBehaviour, IHaveName 
     {
         [SerializeField] string entityName;        
-        public EntityHealth health;
-        public EntityStamina stamina;
-        public EntityMana mana;
-        public EntityAttributes attributes;
+        [SerializeField] public EntityHealth health;
+        [SerializeField] public EntityStamina stamina;
+        [SerializeField] public EntityMana mana;
+        [SerializeField] public EntityAttributes attributes;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
