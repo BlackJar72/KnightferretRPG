@@ -46,9 +46,9 @@ namespace kfutils.rpg {
             halfEncumbrance = maxEncumbrance / 2f;
             runningCostFactor = 2.0f - ((float)baseStats.Endurance / (float)EntityBaseStats.MAX_SCORE);
             manaCostFactor = 1.5f - ((float)baseStats.Intelligence / (float)EntityBaseStats.MAX_SCORE);
-            health.ChangeBaseHealth((20 + (baseStats.Vitality * 5)) * (1.0f + ((float)level * 0.1f)));
-            stamina.ChangeBaseStamina((20 + (baseStats.Endurance * 5)) * (1.0f + ((float)level * 0.1f)));
-            mana.ChangeBaseMana((20 + (baseStats.Spirit * 5)) * (1.0f + ((float)level * 0.1f)));
+            health.ChangeBaseHealth((20 + (baseStats.Vitality * 5)) * (0.9f + ((float)level * 0.1f)));
+            stamina.ChangeBaseStamina((20 + (baseStats.Endurance * 5)) * (0.9f + ((float)level * 0.1f)));
+            mana.ChangeBaseMana((20 + (baseStats.Spirit * 5)) * (0.9f + ((float)level * 0.1f)));
         }
 
 
