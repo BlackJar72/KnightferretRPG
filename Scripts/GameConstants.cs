@@ -9,6 +9,7 @@ namespace kfutils.rpg {
     /// </summary>
     public static class GameConstants {
         public const float GRAVITY = 9.8f;
+        public const float GRAVITY3 = 3.27f; // One third gravity
         
 
 

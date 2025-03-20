@@ -207,11 +207,14 @@ namespace kfutils.rpg {
                 if (shouldJump && stamina.CanDoAction(10f)) {
                     vSpeed = Mathf.Sqrt(attributes.jumpForce * GameConstants.GRAVITY);;
                     stamina.UseStamina(10f);                    
-                } 
-            }
-            vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
-            if (!falling && (velocity.y < -5)) {
-                falling = true;
+                } else {
+                    vSpeed = -GameConstants.GRAVITY3;
+                }
+            } else {
+                vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
+                if (!falling && (velocity.y < -5)) {
+                    falling = true;
+                }
             }
 
             velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
