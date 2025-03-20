@@ -1,3 +1,4 @@
+using System;
 using kfutils.rpg;
 using Unity.Entities.UniversalDelegates;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace kfutils {
 
-    [SerializeField]
+    [Serializable]
     public class EntityMana {
 
         public const float BASE_REGEN_RATE = 0.05f;

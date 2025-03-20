@@ -2,17 +2,16 @@ using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 
-namespace kfutils.rpg
-{
+namespace kfutils.rpg {
 
-    public interface IWeapon
+    public interface IWeapon : IUsable 
     {
         int GetDamage();
         float GetAttackSpeed();
 
-        void AttackMelee(IWeaponUser attacker);
+        void AttackMelee(IAttacker attacker);
         
-        void AttackRanged(IWeaponUser attacker, Vector3 direction);
+        void AttackRanged(IAttacker attacker, Vector3 direction);
 
         
     }

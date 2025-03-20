@@ -1,3 +1,4 @@
+using System;
 using kfutils.rpg;
 using Unity.Entities.UniversalDelegates;
 using UnityEngine;
@@ -5,12 +6,12 @@ using UnityEngine;
 
 namespace kfutils {
 
-    [SerializeField]
+    [Serializable]
     public class EntityStamina {
 
-        public const float HEALING_PAUSE_TIME = 0.5f; 
-        public const float BASE_REGEN_RATE = 2.5f;
-        public const float BASE_REGEN_ADJUST = 0.025f;
+        public const float HEALING_PAUSE_TIME = 1.0f; 
+        public const float BASE_REGEN_RATE = 1.0f;
+        public const float BASE_REGEN_ADJUST = 0.01f;
 
         public float baseStamina;
         public float currentStamina;
@@ -20,8 +21,8 @@ namespace kfutils {
         public float Stamina { get => currentStamina;  set { currentStamina = value; } }
         public float Buff { get => buff;  set { buff = value; MakeSane(); } }
 
-        public float timeLastTired = float.MinValue;
-        public bool CanHeal { get => (timeLastTired + HEALING_PAUSE_TIME) > Time.time; }
+        public float timeToHeal = float.MinValue;
+        public bool CanHeal { get => timeToHeal < Time.time; }
         public bool HasStamina { get => currentStamina > 0; }
         
 
@@ -44,6 +45,8 @@ namespace kfutils {
             } else {
                 baseStamina = newStamina;
                 currentStamina = baseStamina * RelativeStamina;
+                timeToHeal = Time.time; // No pause when this happens
+                EntityManagement.AddExhausted(this);
             }
             MakeSane();
         }
@@ -54,7 +57,7 @@ namespace kfutils {
             bool result = currentStamina >= amount;
             if (result) {
                 currentStamina -= amount;
-                timeLastTired = Time.time;
+                timeToHeal = Time.time + HEALING_PAUSE_TIME;
                 EntityManagement.AddExhausted(this);
             } else {
                 currentStamina = 0;

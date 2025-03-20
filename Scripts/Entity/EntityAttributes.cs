@@ -39,7 +39,7 @@ namespace kfutils.rpg {
             crouchSpeed = 1.0f + (baseStats.Agility * 0.1f);
             walkSpeed = 4.5f + (baseStats.Agility * 0.05f);
             runSpeed  = walkSpeed + (baseStats.Agility * 0.25f);
-            jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f), 0.25f, 1.75f);
+            jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f), 0.25f, 2.0f);
             naturalArmor = Mathf.Max(0, baseStats.Agility / 2 - 10);
             meleeDamageBonus = Mathf.Max(0, baseStats.Strength / 2 - 10);
             maxEncumbrance = (float)(100 + (30 * baseStats.Strength));

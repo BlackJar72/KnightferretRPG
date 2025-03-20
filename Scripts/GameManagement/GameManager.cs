@@ -7,6 +7,12 @@ namespace kfutils.rpg
 
     public class GameManager : MonoBehaviour
     {
+
+        void Awake()
+        {
+            EntityManagement.Initialize();
+        }
+
         /*// Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {

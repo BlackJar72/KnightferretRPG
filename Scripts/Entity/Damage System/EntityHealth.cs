@@ -10,8 +10,8 @@ namespace kfutils {
     [Serializable]
     public class EntityHealth {
         public const float HEALING_PAUSE_TIME = 5.0f; // in seconds
-        public const float BASE_REGEN_RATE = 1.0f;
-        public const float BASE_REGEN_ADJUST = 0.01f;
+        public const float BASE_REGEN_RATE = 0.5f;
+        public const float BASE_REGEN_ADJUST = 0.005f;
         public static readonly DefaultDamageAdjuster defaultDamageAdjuster = new DefaultDamageAdjuster();
 
         [SerializeField] float baseHealth;
@@ -33,8 +33,8 @@ namespace kfutils {
 
         public bool ShouldDie { get => ((wound < 1) || (shock < 1)); }
 
-        public float timeLastDamaged = float.MinValue;
-        public bool CanHeal { get => (timeLastDamaged + HEALING_PAUSE_TIME) > Time.time; }
+        public float timeToHeal = float.MinValue;
+        public bool CanHeal { get => timeToHeal < Time.time; }
 
         //Tried to fix BTree error, didn't work.
         //There really should be no conversion as errors found by the IDE help find places that need to be edited.
@@ -60,7 +60,9 @@ namespace kfutils {
                 float shockDiff = RelativeShock;
                 baseHealth = newHealth;
                 wound = baseHealth * woundDiff;
-                shock = shock * shockDiff;
+                shock = shock * shockDiff;                
+                timeToHeal = Time.time; // No pause when this happens!
+                EntityManagement.AddWounded(this);
             }
             MakeSane();
         }
@@ -74,7 +76,7 @@ namespace kfutils {
         public void TakeDamage(Damages damage) {            
             shock -= damage.shock;
             wound -= damage.wound;
-            timeLastDamaged = Time.time;
+            timeToHeal = Time.time + HEALING_PAUSE_TIME;
             EntityManagement.AddWounded(this);
         }
 
