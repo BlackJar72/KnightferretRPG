@@ -13,6 +13,10 @@ namespace kfutils.rpg {
             RUN = 2
         }
 
+        // Camera
+        public GameObject camPivot;
+        public Camera playerCam;
+
         // Movement and Position Data
         public Vector3 movement;
         public MoveType moveType = MoveType.NORMAL;
@@ -47,6 +51,9 @@ namespace kfutils.rpg {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Start()
         {
+            // Temporary for Testing; TODO: Remove this! (It should be called elsewhere.)
+            attributes.DeriveAttributesForHuman(health, stamina, mana);
+            // Normal stuff below
             hasJumped = false;
             InitInput(); // FIXME: Move to OnEnable(), with an OnDisable() to remover the bindings.
             characterController = GetComponent<CharacterController>();            
@@ -170,8 +177,8 @@ namespace kfutils.rpg {
             );
 
             looky = Mathf.Clamp(looky - lookIn[3].y, -70f, 70f);
-            //camPivot.transform.rotation = Quaternion.Euler(looky / 2, transform.eulerAngles.y, 0).normalized;
-            //playerCam.transform.localRotation = Quaternion.Euler(looky / 2, camPivot.transform.eulerAngles.z, 0).normalized;
+            camPivot.transform.rotation = Quaternion.Euler(looky / 2, transform.eulerAngles.y, 0).normalized;
+            playerCam.transform.localRotation = Quaternion.Euler(looky / 2, camPivot.transform.eulerAngles.z, 0).normalized;
         }
 
 
