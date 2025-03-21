@@ -91,7 +91,7 @@ namespace kfutils.rpg {
 
 #region Input
 
-        protected void InitInput()
+        private void InitInput()
         {
             input = GetComponent<PlayerInput>();
             moveAction = input.actions["Move"];

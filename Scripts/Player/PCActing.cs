@@ -56,7 +56,7 @@ namespace kfutils.rpg {
 
         private void InitInput()
         {
-            input = GetComponent<PlayerInput>();
+            //input = GetComponent<PlayerInput>();
             rightAttackAction = input.actions["RightUseAttack"];
             activateObjectAction = input.actions["Interact"];
             
