@@ -21,32 +21,32 @@ namespace kfutils.rpg {
         // Movement and Position Data
         public Vector3 movement;
         public MoveType moveType = MoveType.NORMAL;
-        private float baseSpeed;
-        private Vector3 hVelocity;
-        private float vSpeed;
-        private Vector3 velocity;
-        private bool falling;
-        private bool onGround;
-        private Collider[] footContats;
-        private CharacterController characterController;
+        protected float baseSpeed;
+        protected Vector3 hVelocity;
+        protected float vSpeed;
+        protected Vector3 velocity;
+        protected bool falling;
+        protected bool onGround;
+        protected Collider[] footContats;
+        protected CharacterController characterController;
 
         // Input System
-        private PlayerInput input;
-        private InputAction moveAction;
-        private InputAction lookAction;
-        private InputAction jumpAction;
-        private InputAction sprintAction;
-        private InputAction sprintToggle;
-        private InputAction crouchAction;
-        private InputAction crouchToggle;
-        private bool shouldJump;
-        private bool hasJumped;
-        private bool shouldSprint;
-        private bool shouldCrouch;
+        protected PlayerInput input;
+        protected InputAction moveAction;
+        protected InputAction lookAction;
+        protected InputAction jumpAction;
+        protected InputAction sprintAction;
+        protected InputAction sprintToggle;
+        protected InputAction crouchAction;
+        protected InputAction crouchToggle;
+        protected bool shouldJump;
+        protected bool hasJumped;
+        protected bool shouldSprint;
+        protected bool shouldCrouch;
 
-        private float looky;
-        private Vector2[] moveIn = new Vector2[4];
-        private Vector2[] lookIn = new Vector2[4];
+        protected float looky;
+        protected Vector2[] moveIn = new Vector2[4];
+        protected Vector2[] lookIn = new Vector2[4];
 
 
         protected virtual void Awake() {
@@ -91,7 +91,7 @@ namespace kfutils.rpg {
 
 #region Input
 
-        private void InitInput()
+        protected void InitInput()
         {
             input = GetComponent<PlayerInput>();
             moveAction = input.actions["Move"];
@@ -126,7 +126,7 @@ namespace kfutils.rpg {
         }
 
 
-        private void GetLookInput()
+        protected void GetLookInput()
         {
             lookIn[0] = lookIn[1]; lookIn[1] = lookIn[2];
             lookIn[2] = lookAction.ReadValue<Vector2>(); // * Options.lookSensitivity;
@@ -134,7 +134,7 @@ namespace kfutils.rpg {
         }
 
 
-        private void GetMoveInput()
+        protected void GetMoveInput()
         {
             moveIn[0] = moveIn[1]; moveIn[1] = moveIn[2];
             moveIn[2] = moveAction.ReadValue<Vector2>() ; // * Options.moveSensitivity;
@@ -142,44 +142,44 @@ namespace kfutils.rpg {
         }
 
 
-        private void TriggerJump(InputAction.CallbackContext context)
+        protected void TriggerJump(InputAction.CallbackContext context)
         {
             shouldJump = true;
         }
 
 
-        private void StartSprint(InputAction.CallbackContext context)
+        protected void StartSprint(InputAction.CallbackContext context)
         {
             shouldSprint = true;
         }
 
 
-        private void StopSprint(InputAction.CallbackContext context)
+        protected void StopSprint(InputAction.CallbackContext context)
         {
             shouldSprint = false;
         }
 
 
-        private void ToggleSprint(InputAction.CallbackContext context)
+        protected void ToggleSprint(InputAction.CallbackContext context)
         {
             shouldSprint = !shouldSprint;
         }
 
 
-        private void StartCrouch(InputAction.CallbackContext context)
+        protected void StartCrouch(InputAction.CallbackContext context)
         {
             shouldCrouch = true;
             shouldSprint = false;
         }
 
 
-        private void StopCrouch(InputAction.CallbackContext context)
+        protected void StopCrouch(InputAction.CallbackContext context)
         {
             shouldCrouch = false;
         }
 
 
-        private void ToggleCrouch(InputAction.CallbackContext context)
+        protected void ToggleCrouch(InputAction.CallbackContext context)
         {
             shouldCrouch = !shouldCrouch;
             shouldSprint = false;
@@ -188,7 +188,7 @@ namespace kfutils.rpg {
 #endregion
 
 
-        private void AdjustHeading()
+        protected void AdjustHeading()
         {
             GetLookInput();
 
@@ -204,7 +204,7 @@ namespace kfutils.rpg {
         }
 
 
-        private void Move() {
+        protected void Move() {
             GetMoveInput();
             movement.Set(moveIn[3].x, 0, moveIn[3].y);
             Vector3 newVelocity = new Vector3(0, velocity.y, 0);

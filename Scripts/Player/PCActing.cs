@@ -9,29 +9,28 @@ namespace kfutils.rpg {
 
 
         // Input System
-        private PlayerInput input;
-        private InputAction rightAttackAction;
-        private InputAction leftBlcokAction;
-        private InputAction activateObjectAction;
-        private InputAction toggleInventoryAction;
-        private InputAction sheathWeaponAction;
-        private InputAction questJournalAction;
-        private InputAction pauseAction;
-        private InputAction dragObjectAction;
-        private InputAction castSpellAction;
-        private InputAction throwItemAction;
-        private InputAction toggleViewModeAction;
-        private InputAction freeTPSAction;
-        private InputAction quickSlot1Action;
-        private InputAction quickSlot2Action;
-        private InputAction quickSlotAction;
-        private InputAction quickSlot4Action;
-        private InputAction quickSlot5Action;
-        private InputAction quickSlot6Action;
-        private InputAction quickSlot7Action;
-        private InputAction quickSlot8Action;
-        private InputAction quickSlot9Action;
-        private InputAction screenshot;
+        protected InputAction rightAttackAction;
+        protected InputAction leftBlcokAction;
+        protected InputAction activateObjectAction;
+        protected InputAction toggleInventoryAction;
+        protected InputAction sheathWeaponAction;
+        protected InputAction questJournalAction;
+        protected InputAction pauseAction;
+        protected InputAction dragObjectAction;
+        protected InputAction castSpellAction;
+        protected InputAction throwItemAction;
+        protected InputAction toggleViewModeAction;
+        protected InputAction freeTPSAction;
+        protected InputAction quickSlot1Action;
+        protected InputAction quickSlot2Action;
+        protected InputAction quickSlotAction;
+        protected InputAction quickSlot4Action;
+        protected InputAction quickSlot5Action;
+        protected InputAction quickSlot6Action;
+        protected InputAction quickSlot7Action;
+        protected InputAction quickSlot8Action;
+        protected InputAction quickSlot9Action;
+        protected InputAction screenshot;
 
 
         protected override void Awake() {
@@ -58,7 +57,6 @@ namespace kfutils.rpg {
         private void InitInput()
         {
             input = GetComponent<PlayerInput>();
-
             rightAttackAction = input.actions["RightUseAttack"];
             activateObjectAction = input.actions["Interact"];
             
@@ -84,7 +82,7 @@ namespace kfutils.rpg {
 
 
         // A temptoray dummy method for un-implemented actions
-        private void Dummy(InputAction.CallbackContext context) {/*DO NOTHING*/}
+        protected void Dummy(InputAction.CallbackContext context) {/*DO NOTHING*/}
 
 
 #endregion
@@ -97,7 +95,7 @@ namespace kfutils.rpg {
         }
 
 
-        private void UseObject(InputAction.CallbackContext context)
+        protected void UseObject(InputAction.CallbackContext context)
         {
             AimParams aim;
             GetAimParams(out aim);
