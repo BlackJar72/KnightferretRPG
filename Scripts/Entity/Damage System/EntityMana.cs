@@ -37,12 +37,9 @@ namespace kfutils {
 
 
         public void ChangeBaseMana(float newMana) {
-            if(newMana > baseMana) {
-                baseMana = newMana;
-            } else {
-                baseMana = newMana;
-                currentMana = baseMana * RelativeMana;
-            }
+            float relative = RelativeMana;
+            baseMana = newMana;
+            currentMana = baseMana * relative;
             MakeSane();
         }
 

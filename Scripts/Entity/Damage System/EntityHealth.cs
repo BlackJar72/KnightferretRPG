@@ -33,7 +33,7 @@ namespace kfutils {
 
         public bool ShouldDie { get => ((wound < 1) || (shock < 1)); }
 
-        public float timeToHeal = float.MinValue;
+        public float timeToHeal = float.NegativeInfinity;
         public bool CanHeal { get => timeToHeal < Time.time; }
 
         //Tried to fix BTree error, didn't work.
@@ -55,14 +55,13 @@ namespace kfutils {
         public void ChangeBaseHealth(float newHealth) {
             if(newHealth > baseHealth) {
                 baseHealth = newHealth;
+                HealFully();
             } else {
                 float woundDiff = RelativeWound;
                 float shockDiff = RelativeShock;
                 baseHealth = newHealth;
                 wound = baseHealth * woundDiff;
-                shock = shock * shockDiff;                
-                timeToHeal = Time.time; // No pause when this happens!
-                EntityManagement.AddWounded(this);
+                shock = shock * shockDiff;                  
             }
             MakeSane();
         }

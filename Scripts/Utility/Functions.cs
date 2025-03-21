@@ -4,13 +4,15 @@ namespace kfutils.rpg {
 
     public static class Functions {
         
-        public static int CalcFallDamage(float vSpeed) {
+        public static Damages CalcFallDamage(float vSpeed, int naturalArmor) {
             vSpeed = -vSpeed;
-            vSpeed = Mathf.Max((vSpeed - 7.0f) / GameConstants.GRAVITY, 0);
+            vSpeed = Mathf.Max((vSpeed - 5.0f) / GameConstants.GRAVITY3, 0);
             vSpeed *= vSpeed;
-            return Mathf.FloorToInt(vSpeed * 8.0f);
+            int dmgBase = Mathf.FloorToInt(vSpeed * 8.0f);
+            return DamageUtils.CalcDamage(dmgBase, naturalArmor);
         }
 
     }
+
 
 }

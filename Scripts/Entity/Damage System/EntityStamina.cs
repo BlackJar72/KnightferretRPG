@@ -43,11 +43,12 @@ namespace kfutils {
             if(newStamina > baseStamina) {
                 baseStamina = newStamina;
             } else {
+                float relative = RelativeStamina;
                 baseStamina = newStamina;
-                currentStamina = baseStamina * RelativeStamina;
-                timeToHeal = Time.time; // No pause when this happens
-                EntityManagement.AddExhausted(this);
+                currentStamina = baseStamina * relative;
             }
+            timeToHeal = Time.time; // No pause when this happens
+            EntityManagement.AddExhausted(this);
             MakeSane();
         }
 

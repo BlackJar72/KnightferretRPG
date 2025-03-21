@@ -21,8 +21,8 @@ namespace kfutils.rpg {
         [SerializeField] public int meleeDamageBonus = 0; // Bonus damage for melee attacks
         [SerializeField] public float maxEncumbrance = 400f;
         [SerializeField] public float halfEncumbrance = 200f;
-        [SerializeField] public float runningCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, probably not all stamina use
-        [SerializeField] public float manaCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, probably not all stamina use
+        [SerializeField] public float runningCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, not all stamina use
+        [SerializeField] public float manaCostFactor = 1.0f; // Modifies the cost of casting spells
 
         [SerializeField] public DamageAdjustType damageAdjuster = DamageAdjustType.NONE; // The type of natural damage adjuster this entity has
         [SerializeField] public DamageModifiers damageModifiers = new DamageModifiers(); // The damage modifiers the entity currently has (due to status effects)
@@ -40,8 +40,8 @@ namespace kfutils.rpg {
             walkSpeed = 4.5f + (baseStats.Agility * 0.05f);
             runSpeed  = walkSpeed + (baseStats.Agility * 0.25f);
             jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f), 0.25f, 2.0f);
-            naturalArmor = Mathf.Max(0, baseStats.Agility / 2 - 10);
-            meleeDamageBonus = Mathf.Max(0, baseStats.Strength / 2 - 10);
+            naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5);
+            meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);
             maxEncumbrance = (float)(100 + (30 * baseStats.Strength));
             halfEncumbrance = maxEncumbrance / 2f;
             runningCostFactor = 2.0f - ((float)baseStats.Endurance / (float)EntityBaseStats.MAX_SCORE);

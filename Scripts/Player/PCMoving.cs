@@ -201,6 +201,9 @@ namespace kfutils.rpg {
             hVelocity = newVelocity;
 
             onGround = characterController.isGrounded;
+
+            if(falling && onGround) health.TakeDamage(Functions.CalcFallDamage(vSpeed, attributes.naturalArmor));
+
             falling = falling && !onGround;
 
             if (onGround) {
