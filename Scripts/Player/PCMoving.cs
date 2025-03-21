@@ -1,4 +1,5 @@
 using kfutils.rpg;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder;
@@ -46,6 +47,12 @@ namespace kfutils.rpg {
         private float looky;
         private Vector2[] moveIn = new Vector2[4];
         private Vector2[] lookIn = new Vector2[4];
+
+
+        protected virtual void Awake() {
+            hasJumped = false;
+            InitInput(); 
+        }
         
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -53,9 +60,8 @@ namespace kfutils.rpg {
         {
             // Temporary for Testing; TODO: Remove this! (It should be called elsewhere.)
             attributes.DeriveAttributesForHuman(health, stamina, mana);
+
             // Normal stuff below
-            hasJumped = false;
-            InitInput(); // FIXME: Move to OnEnable(), with an OnDisable() to remover the bindings.
             characterController = GetComponent<CharacterController>();            
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -83,7 +89,8 @@ namespace kfutils.rpg {
         }
 
 
-        #region Input
+#region Input
+
         private void InitInput()
         {
             input = GetComponent<PlayerInput>();
@@ -94,6 +101,10 @@ namespace kfutils.rpg {
             //sprintToggle = input.actions["Toggle Sprint"];
             crouchAction = input.actions["Crouch"];
             //crouchToggle = input.actions["Toggle Crouch"];
+        }
+
+
+        protected virtual void OnEnable() {
             jumpAction.started += TriggerJump;
             sprintAction.started += StartSprint;
             sprintAction.canceled += StopSprint;
@@ -101,6 +112,17 @@ namespace kfutils.rpg {
             crouchAction.started += StartCrouch;
             crouchAction.canceled += StopCrouch;
             //crouchToggle.started += ToggleCrouch;
+        }
+
+
+        protected virtual void OnDisable() {
+            jumpAction.started -= TriggerJump;
+            sprintAction.started -= StartSprint;
+            sprintAction.canceled -= StopSprint;
+            //sprintToggle.started -= ToggleSprint;
+            crouchAction.started -= StartCrouch;
+            crouchAction.canceled -= StopCrouch;
+            //crouchToggle.started -= ToggleCrouch;
         }
 
 

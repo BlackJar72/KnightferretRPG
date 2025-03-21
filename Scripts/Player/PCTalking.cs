@@ -5,6 +5,8 @@ namespace kfutils.rpg {
 
     public class PCTalking : PCActing {
 
+        [SerializeField] string characterName;
+
         /*// Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Start()
         {
@@ -17,6 +19,13 @@ namespace kfutils.rpg {
         {
             
         }*/
+
+
+        public override string GetPersonalName()
+        {
+            return characterName;
+        }
+
 
 
     }
