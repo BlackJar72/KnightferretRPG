@@ -67,6 +67,25 @@ namespace kfutils {
         }
 
 
+        // For a nights (or days) sleep; i.e., a sleep / rest option in hours, not a full day of rest
+        // This is set up to ensure full recovery after a full 8 hours of sleep.
+        public void RestAndHealHours(float hours) {
+            if(hours < 1) return;
+            // First we calculate the percentage of health to heal (as an actual percent for understandability)
+            float amount = hours >= 8 ? 2 : 0;
+            amount += Math.Clamp((hours - 8.0f) / 16.0f, 0.0f, 1.0f) * 5.0f;
+            hours = Mathf.Min(hours, 8.0f);
+            amount += (10.0f * ((hours * hours) / 64.0f)) + hours;
+            // convert from a percentage to an actual amount of health, including form percent to decimal fraction
+            float altAmount = Mathf.Min((currentMana + ((baseMana * BASE_REGEN_ADJUST) + BASE_REGEN_RATE) 
+                                                        * hours * GameConstants.TIME_SCALE), baseMana);
+            amount *= baseMana * 0.05f;
+            amount = Mathf.Max(amount, altAmount);
+            // Now apply it by adding and clamping between 0 and fully healed
+            currentMana = Mathf.Clamp(currentMana + amount, 0, baseMana + buff);
+        }
+
+
         public bool CanDoAction(float ManaCost) => currentMana > ManaCost;
 
 

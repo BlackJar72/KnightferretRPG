@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using UnityEngine;
 
 
@@ -56,6 +57,11 @@ namespace kfutils {
 
         public void Nullify() {
             shock = wound = 0;
+        }
+
+        public override string ToString()
+        {
+            return " { S = " + shock + "; " + " W = " + wound + "; type = " + type + "} " ;
         }
     }
 

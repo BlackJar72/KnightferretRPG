@@ -78,7 +78,7 @@ namespace kfutils {
         }
 
 
-        public void TakeDamage(Damages damage) {            
+        public void TakeDamage(Damages damage) {  
             shock -= damage.shock;
             wound -= damage.wound;
             timeToHeal = Time.time + HEALING_PAUSE_TIME;
@@ -98,6 +98,7 @@ namespace kfutils {
 
 
         // For a nights (or days) sleep; i.e., a sleep / rest option in hours, not a full day of rest
+        // This is set up to heal 20% health with a full 8 hours of sleep.
         public void RestAndHealHours(float hours) {
             if(hours < 1) return;
             // First we calculate the percentage of health to heal (as an actual percent for understandability)
