@@ -8,11 +8,14 @@ using kfutils.rpg;
 namespace kfutils {
 
     [Serializable]
-    public class EntityHealth {
+    public class EntityHealth : IHaveStringID {
         public const float HEALING_PAUSE_TIME = 5.0f; // in seconds
         public const float BASE_REGEN_RATE = 1.0f;
         public const float BASE_REGEN_ADJUST = 0.01f;
         public static readonly DefaultDamageAdjuster defaultDamageAdjuster = new DefaultDamageAdjuster();
+
+        [NonSerialized] private EntityLiving owner = null;
+        public EntityLiving Owner { get => owner; }
 
         [SerializeField] float baseHealth;
 
@@ -35,6 +38,9 @@ namespace kfutils {
 
         public float timeToHeal = float.NegativeInfinity;
         public bool CanHeal { get => timeToHeal < Time.time; }
+
+        public string ID { get => owner.ID; }
+        public string GetID => ID;
 
         //Tried to fix BTree error, didn't work.
         //There really should be no conversion as errors found by the IDE help find places that need to be edited.
@@ -141,7 +147,17 @@ namespace kfutils {
         }
 
 
-        //public static EntityHealth operator +(EntityHealth a) => a;
+        /// <summary>
+        /// This is to set the owner.  Should function, essentially, like a readonly value, but as it cannot 
+        /// be set in a constructor, it is instead set up so that it can only be set once (though with  
+        /// more flexibility as to when as is required).  This largely so to allow for acces to the owners ID 
+        /// for use in (de)serialization.
+        /// </summary>
+        /// <param name="owner"></param>
+        public void SetOnwer(EntityLiving owner) {
+            // Only allow this to change if it has not yet been set.
+            if(this.owner == null) this.owner = owner;
+        }
 
 
     }

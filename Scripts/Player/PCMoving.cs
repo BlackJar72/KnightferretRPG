@@ -14,6 +14,8 @@ namespace kfutils.rpg {
             RUN = 2
         }
 
+        public const string PC = "PLAYER_CHARACTER";
+
         // Camera
         public GameObject camPivot;
         public Camera playerCam;
@@ -49,7 +51,8 @@ namespace kfutils.rpg {
         protected Vector2[] lookIn = new Vector2[4];
 
 
-        protected virtual void Awake() {
+        protected override void Awake() {
+            base.Awake();
             hasJumped = false;
             InitInput(); 
         }
