@@ -45,6 +45,7 @@ namespace kfutils {
             float relative = RelativeMana;
             baseMana = newMana;
             currentMana = baseMana * relative;
+            EntityManagement.AddManaExhausted(this);
             MakeSane();
         }
 

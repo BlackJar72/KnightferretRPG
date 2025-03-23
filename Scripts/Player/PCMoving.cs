@@ -240,7 +240,7 @@ namespace kfutils.rpg {
                 }
             } else {
                 vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
-                if (!falling && (velocity.y < -5)) {
+                if (!falling && (velocity.y < -10)) {
                     falling = true;
                 }
             }
