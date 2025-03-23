@@ -7,8 +7,10 @@ namespace kfutils.rpg {
 
 
     [RequireComponent(typeof(NavMeshAgent))]
-    public class EntityMoving : EntityLiving
-    {
+    public class EntityMoving : EntityLiving {
+
+        // This is to make sure this is never overriden into something harmful.
+        protected sealed override void MakePC(string id) { base.MakePC(ID); }
 
         public NavMeshAgent navMeshAgent;
 

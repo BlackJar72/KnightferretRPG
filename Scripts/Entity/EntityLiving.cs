@@ -17,6 +17,11 @@ namespace kfutils.rpg {
 
         public string ID { get => id;
                            protected set { if(string.IsNullOrEmpty(id)) id = value; }  }
+        // Seems sligihtly convoluted, but this should allow id to remain private while allowing for the PC to always have its ID
+        protected virtual void MakePC(string id) { 
+            if(this is not PCMoving) Debug.LogError("You are not allowed to reset this ID!"); 
+            this.id = id; 
+        }
 
 
         protected virtual void Awake() {

@@ -50,9 +50,12 @@ namespace kfutils.rpg {
         protected Vector2[] moveIn = new Vector2[4];
         protected Vector2[] lookIn = new Vector2[4];
 
+        protected sealed override void MakePC(string id) { base.MakePC(PC); }
+
 
         protected override void Awake() {
             base.Awake();
+            MakePC(PC);
             hasJumped = false;
             InitInput(); 
         }
@@ -62,11 +65,27 @@ namespace kfutils.rpg {
         protected override void Start()
         {
             // Temporary for Testing; TODO: Remove this! (It should be called elsewhere.)
-            attributes.DeriveAttributesForHuman(health, stamina, mana);
+            NewCharacterInit();
 
             // Normal stuff below
             characterController = GetComponent<CharacterController>();            
             Cursor.lockState = CursorLockMode.Locked;
+        }
+
+
+        /// <summary>
+        /// Initialize a new character, to be called after character creation but before 
+        /// the start of the game.
+        /// </summary>
+        /// TODO / FIXME?  This may need to take a some character creation data as an argument later
+        public virtual void NewCharacterInit() {
+            // First, we need to handle the derived attribute (may be moved to more derived class later)
+            attributes.DeriveAttributesForHuman(health, stamina, mana);
+            // Make sure all the bars are full.
+            health.HealFully();
+            stamina.HealFully();
+            mana.HealFully();
+            // TODO ...?
         }
 
 
