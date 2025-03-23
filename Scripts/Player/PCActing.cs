@@ -14,7 +14,6 @@ namespace kfutils.rpg {
         protected InputAction activateObjectAction;
         protected InputAction toggleInventoryAction;
         protected InputAction sheathWeaponAction;
-        protected InputAction questJournalAction;
         protected InputAction pauseAction;
         protected InputAction dragObjectAction;
         protected InputAction castSpellAction;
@@ -67,7 +66,7 @@ namespace kfutils.rpg {
         {   
             base.OnEnable();
             rightAttackAction.started += Dummy;
-            activateObjectAction.started += UseObject;
+            if(this is not PCTalking) activateObjectAction.started += Interact;
             
         }
 
@@ -76,7 +75,7 @@ namespace kfutils.rpg {
         {
             base.OnDisable();
             rightAttackAction.started -= Dummy;
-            activateObjectAction.started -= UseObject;
+            if(this is not PCTalking) activateObjectAction.started -= Interact;
             
         }
 
@@ -95,7 +94,7 @@ namespace kfutils.rpg {
         }
 
 
-        protected void UseObject(InputAction.CallbackContext context)
+        protected virtual void Interact(InputAction.CallbackContext context)
         {
             AimParams aim;
             GetAimParams(out aim);

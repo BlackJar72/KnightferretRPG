@@ -14,6 +14,7 @@ namespace kfutils.rpg {
 
             // A central registry for entities, which should work and not be too hard to do if using EasySave as it handles inheritance for us.
             static private Dictionary<string, EntityLiving> entityRegistry;
+            static public PCTalking playerCharacter; 
 
             // Core entity lists
             static public List<EntityLiving> allEntities;
