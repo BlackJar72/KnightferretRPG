@@ -362,6 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8511805601429153171}
   - component: {fileID: 5839727794395758580}
+  - component: {fileID: 6983218460896025671}
   m_Layer: 5
   m_Name: Character Panel
   m_TagString: Untagged
@@ -400,6 +401,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4316584703933946233}
   m_CullTransparentMesh: 1
+--- !u!114 &6983218460896025671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316584703933946233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a2484929df6fe149a592a6912ffae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showAtStart: 0
 --- !u!1 &5886586448321161621
 GameObject:
   m_ObjectHideFlags: 0
@@ -4987,7 +5001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8449645803735872518, guid: a65389ce1276fbd7bb2429cc9cb3d1d8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 9087338134875895045, guid: a65389ce1276fbd7bb2429cc9cb3d1d8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5705,7 +5719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4039335461656120769, guid: 9b2b790f0ed4a88c18f59aec8621c4a9, type: 3}
       propertyPath: m_Value
-      value: 1.0000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4039335461656120769, guid: 9b2b790f0ed4a88c18f59aec8621c4a9, type: 3}
       propertyPath: m_NumberOfSteps

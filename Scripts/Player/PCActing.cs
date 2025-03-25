@@ -32,6 +32,7 @@ namespace kfutils.rpg {
         protected InputAction screenshot;
 
 
+
         protected override void Awake() {
             base.Awake();
             InitInput(); 
@@ -55,7 +56,7 @@ namespace kfutils.rpg {
 
         private void InitInput()
         {
-            //input = GetComponent<PlayerInput>();
+            toggleInventoryAction = input.actions["OpenCloseInventory"];
             rightAttackAction = input.actions["RightUseAttack"];
             activateObjectAction = input.actions["Interact"];
             
@@ -65,18 +66,50 @@ namespace kfutils.rpg {
         protected override void OnEnable()
         {   
             base.OnEnable();
-            rightAttackAction.started += Dummy;
-            if(this is not PCTalking) activateObjectAction.started += Interact;
-            
+            EnableAction();  
+            EnableUIActions();          
         }
 
 
         protected override void OnDisable()
         {
             base.OnDisable();
+            DisableAction();
+            DisableUIActions();
+        }
+
+
+        protected void EnableUIActions() {
+            toggleInventoryAction.started += ToggleCharacterSheet;
+        }
+
+
+        protected void DisableUIActions() {
+            toggleInventoryAction.started -= ToggleCharacterSheet;            
+        }
+
+
+        protected virtual void EnableControls() {
+            EnableMovement();
+            EnableAction();
+        }
+
+
+        protected virtual void DisableControls() {
+            DisableMovement();
+            DisableAction();
+        }
+
+
+        protected void EnableAction() {
+            rightAttackAction.started += Dummy;
+            if(this is not PCTalking) activateObjectAction.started += Interact;        
+        }
+
+
+        protected virtual void DisableAction() {
             rightAttackAction.started -= Dummy;
             if(this is not PCTalking) activateObjectAction.started -= Interact;
-            
         }
 
 
@@ -103,6 +136,18 @@ namespace kfutils.rpg {
             {
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null) interactable.Use();
+            }
+        }
+
+
+        // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
+        protected virtual void ToggleCharacterSheet(InputAction.CallbackContext context) {
+            if(gameManager.UIManager.ToggleCharacterSheet()) {
+                DisableMovement();
+                DisableAction();
+            } else {
+                EnableMovement();
+                EnableAction();
             }
         }
 

@@ -16,6 +16,9 @@ namespace kfutils.rpg {
 
         public const string PC = "PLAYER_CHARACTER";
 
+        [SerializeField] protected GameManager gameManager;
+
+
         // Camera
         public GameObject camPivot;
         public Camera playerCam;
@@ -45,6 +48,7 @@ namespace kfutils.rpg {
         protected bool hasJumped;
         protected bool shouldSprint;
         protected bool shouldCrouch;
+        protected bool movementAllowed;
 
         protected float looky;
         protected Vector2[] moveIn = new Vector2[4];
@@ -68,7 +72,8 @@ namespace kfutils.rpg {
             NewCharacterInit();
 
             // Normal stuff below
-            characterController = GetComponent<CharacterController>();            
+            characterController = GetComponent<CharacterController>();  
+            if(gameManager == null) gameManager = FindFirstObjectByType<GameManager>();          
             Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -94,20 +99,22 @@ namespace kfutils.rpg {
         {
             // FIXME? Move to another update???
 
-            // Determine Movement type
-            if(shouldCrouch) {
-                moveType = MoveType.CROUCH;
-                baseSpeed = attributes.crouchSpeed;
-            } else if (shouldSprint && stamina.HasStamina && (movement != Vector3.zero)) {
-                moveType = MoveType.RUN;
-                baseSpeed = attributes.runSpeed;
-            } else {
-                moveType = MoveType.NORMAL;
-                baseSpeed = attributes.walkSpeed;
+            if(movementAllowed) {
+                // Determine Movement type
+                if(shouldCrouch) {
+                    moveType = MoveType.CROUCH;
+                    baseSpeed = attributes.crouchSpeed;
+                } else if (shouldSprint && stamina.HasStamina && (movement != Vector3.zero)) {
+                    moveType = MoveType.RUN;
+                    baseSpeed = attributes.runSpeed;
+                } else {
+                    moveType = MoveType.NORMAL;
+                    baseSpeed = attributes.walkSpeed;
+                }
+                // Do Movement
+                AdjustHeading();
+                Move();
             }
-            // Do Movement
-            AdjustHeading();
-            Move();
         }
 
 
@@ -127,17 +134,38 @@ namespace kfutils.rpg {
 
 
         protected virtual void OnEnable() {
+            EnableMovement();
+        }
+
+
+        protected virtual void OnDisable() {
+            DisableMovement();
+        }
+
+
+        protected virtual void EnableControls() {
+            EnableMovement();
+        }
+
+
+        protected virtual void DisableControls() {
+            DisableMovement();
+        }
+
+
+        protected void EnableMovement() {
             jumpAction.started += TriggerJump;
             sprintAction.started += StartSprint;
             sprintAction.canceled += StopSprint;
             //sprintToggle.started += ToggleSprint;
             crouchAction.started += StartCrouch;
             crouchAction.canceled += StopCrouch;
-            //crouchToggle.started += ToggleCrouch;
+            //crouchToggle.started += ToggleCrouch; 
+            movementAllowed = true;       
         }
 
 
-        protected virtual void OnDisable() {
+        protected virtual void DisableMovement() {
             jumpAction.started -= TriggerJump;
             sprintAction.started -= StartSprint;
             sprintAction.canceled -= StopSprint;
@@ -145,6 +173,7 @@ namespace kfutils.rpg {
             crouchAction.started -= StartCrouch;
             crouchAction.canceled -= StopCrouch;
             //crouchToggle.started -= ToggleCrouch;
+            movementAllowed = false;
         }
 
 
