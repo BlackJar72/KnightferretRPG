@@ -1,13 +1,10 @@
 using UnityEngine;
 
-
 namespace kfutils.rpg {
-    
-    public class ItemInInventory
-    {
-        
-        
 
+    public class ItemStack {
+    
+        
 
     }
 
