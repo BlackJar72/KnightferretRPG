@@ -15,7 +15,7 @@ namespace kfutils.rpg.ui {
         void Start()
         {
             isVisible = showAtStart;
-            gameObject.SetActive(isVisible);
+            Apply();
         }
 
 

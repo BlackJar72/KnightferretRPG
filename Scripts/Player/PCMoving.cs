@@ -6,6 +6,7 @@ using UnityEngine.ProBuilder;
 
 namespace kfutils.rpg {
 
+    [RequireComponent(typeof(PlayerInput))]
     public class PCMoving : EntityLiving {
 
         public enum MoveType {

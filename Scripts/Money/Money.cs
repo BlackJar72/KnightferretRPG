@@ -8,8 +8,7 @@ namespace kfutils.rpg
 
     
 
-     public class Money
-    {
+     public class Money {
         public enum MoneyType {
             Copper = 1,
             Silver = 10,

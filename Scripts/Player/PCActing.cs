@@ -89,13 +89,13 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void EnableControls() {
+        protected override void EnableControls() {
             EnableMovement();
             EnableAction();
         }
 
 
-        protected virtual void DisableControls() {
+        protected override void DisableControls() {
             DisableMovement();
             DisableAction();
         }

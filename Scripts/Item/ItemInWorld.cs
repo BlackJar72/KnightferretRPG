@@ -5,7 +5,7 @@ namespace kfutils.rpg {
     
     public class ItemInWorld : MonoBehaviour
     {
-
+        
 
 
 
