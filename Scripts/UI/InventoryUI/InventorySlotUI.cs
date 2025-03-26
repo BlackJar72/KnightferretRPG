@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor.Experimental.GraphView;
 
 namespace kfutils.rpg.ui {
 
@@ -19,20 +20,30 @@ namespace kfutils.rpg.ui {
 
 
         public virtual void SwapWith(InventorySlotUI other) {
-            if((other.item.item == item.item) && item.item.IsStackable) {
-                other.item.stackSize += item.stackSize;
-                inventory.RemoveItem(item);
-            } else {
-                item.slot = other.slotNumber;
-                other.item.slot = slotNumber;
+            if((other.item.item == null) || (other.icon.sprite == null)) {
+                item.slot = slotNumber = other.slotNumber;
                 if(other.inventory != inventory) {
-                    Inventory originalInv = inventory;
+                    other.inventory.AddItemToSlot(slotNumber, item, item.stackSize);
                     inventory.RemoveItem(item);
-                    other.inventory.AddItem(item);
                     inventory = other.inventory;
-                    other.inventory.RemoveItem(item);
-                    originalInv.AddItem(other.item);
-                    other.inventory = originalInv;
+                }
+            } else {
+                if((other.item.item == item.item) && item.item.IsStackable) {
+                    item.stackSize += other.item.stackSize;
+                    inventory.RemoveItem(other.item);
+                } else {
+                    int oriSlot = slotNumber;
+                    item.slot = slotNumber = other.slotNumber;
+                    other.item.slot = other.slotNumber = oriSlot;
+                    if(other.inventory != inventory) {
+                        Inventory originalInv = inventory;
+                        inventory.RemoveItem(item);
+                        other.inventory.AddItemToSlot(slotNumber, item, item.stackSize);
+                        inventory = other.inventory;
+                        other.inventory.RemoveItem(item);
+                        originalInv.AddItemToSlot(other.slotNumber, other.item, other.item.stackSize);
+                        other.inventory = originalInv;
+                    } 
                 }
             }
             inventory.SignalUpdate();           
@@ -82,7 +93,9 @@ namespace kfutils.rpg.ui {
 
         public void OnBeginDrag(PointerEventData eventData) {
             //Debug.Log("Starting Drag");
-            icon.transform.SetParent(GetComponentInParent<Canvas>().rootCanvas.transform);
+            if(icon.sprite != null) {
+                icon.transform.SetParent(GetComponentInParent<Canvas>().rootCanvas.transform);
+            }
         }
 
 
@@ -98,13 +111,14 @@ namespace kfutils.rpg.ui {
             icon.transform.position = Input.mousePosition;
         }
 
-        public void OnDrop(PointerEventData eventData)
-        {
+
+        public void OnDrop(PointerEventData eventData) {
             GameObject other = eventData.pointerDrag;
             if(other == gameObject) {
-                Debug.Log("Back home!");
+                //Debug.Log("Back home!");
             } else {
-                Debug.Log("Not Home!");
+                InventorySlotUI otherSlot = other.GetComponent<InventorySlotUI>();
+                if((otherSlot != null) && (otherSlot.icon.sprite != null)) SwapWith(otherSlot);
             }
         }
 

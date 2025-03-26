@@ -6,11 +6,13 @@ namespace kfutils.rpg {
     /// <summary>
     /// FIXME???  Not sure I should do it this way, it jsut put the relevant field data here -- that might actually be better.
     /// </summary>
+    [CreateAssetMenu(menuName = "KF-RPG/Items/Item Prototype", fileName = "ItemPrototype", order = 10)]
     public class ItemPrototype : ScriptableObject {
 
         [SerializeField] string id;
         [SerializeField] Sprite icon;
         [SerializeField] bool isStackable;
+        [SerializeField] EEquiptSlot equiptType;
 
         [SerializeField] float weight;
         [Tooltip("The value of the item in copper.  (Multiply value in gold by 100, or in silver by 10.)")]
@@ -30,6 +32,7 @@ namespace kfutils.rpg {
         public ItemEquipt EquiptItem {get => equiptItem; }
         public Sprite Icon {get => icon; }
         public bool IsStackable {get => isStackable; }
+        public EEquiptSlot EquiptType { get => equiptType; }
 
 
         //-----------------------------------------------------------------------------------------------------------//
@@ -37,7 +40,9 @@ namespace kfutils.rpg {
         //-----------------------------------------------------------------------------------------------------------//
 
 
-        
+        public ItemStack ItemStackFactory(int number, int slot) {
+            return new ItemStack(this, number, slot);
+        }
     
         
     }

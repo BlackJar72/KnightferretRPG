@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
-using Unity.Entities.UniversalDelegates;
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace kfutils.rpg.ui {
@@ -12,6 +14,8 @@ namespace kfutils.rpg.ui {
         [SerializeField] int columns = 8;
 
         private int slots, rows;
+
+        private bool shouldRedraw = false;
 
         private List<InventorySlotUI> inventorySlots = new();
 
@@ -27,7 +31,21 @@ namespace kfutils.rpg.ui {
         }
 
 
+        //FIXME: Created manager to handle this so all inventories in the world are not checking every frame
+        void Update() {
+            if(shouldRedraw) {
+                DoRedraw();
+                shouldRedraw = false;
+            }
+        }
+
+
         private void Redraw() {
+            shouldRedraw = true;
+        }
+
+
+        private void DoRedraw() {
             GetInventorySize();
             foreach (Transform child in transform) {
                 Destroy(child.gameObject);
@@ -37,16 +55,25 @@ namespace kfutils.rpg.ui {
             {
                 InventorySlotUI slotUI = Instantiate(slotPrefab, transform);
                 slotUI.inventory = inventory;
-                slotUI.slotNumber = i;
-                slotUI.item = inventory.GetItemInSlot(i);
-                slotUI.icon.sprite = slotUI.item.item.Icon;
-                if(slotUI.item.item.IsStackable) {
-                    slotUI.SetText(slotUI.item.stackSize);
-                    slotUI.ShowText();
-                } else {
-                    slotUI.HideText();
-                }
+                slotUI.slotNumber = i;                
+                slotUI.icon.gameObject.SetActive(false);
+                slotUI.HideText();
                 inventorySlots.Add(slotUI);
+            }
+            for(int i = 0; i < inventory.inventory.Count; i++) {
+                ItemStack stack = inventory.inventory[i];
+                InventorySlotUI slotUI = inventorySlots[stack.slot];
+                slotUI.item = stack;
+                if(slotUI.item != null) {
+                    slotUI.icon.sprite = slotUI.item.item.Icon;
+                    slotUI.icon.gameObject.SetActive(true);
+                    if(slotUI.item.item.IsStackable) {
+                        slotUI.SetText(slotUI.item.stackSize);
+                        slotUI.ShowText();
+                    } else {
+                        slotUI.HideText();
+                    }
+                } 
             }
         }
 

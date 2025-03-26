@@ -20,6 +20,16 @@ namespace kfutils.rpg {
         public event InventorySlotUpdate inventorySlotUpdated;
 
 
+        // For Testing; TODO??: Get rid of this, but add some other way to add starting gear ... or, do I need to...?
+        [SerializeField] ItemStack.ProtoStack[] startingItems;
+
+
+        void Start()
+        {
+            foreach(ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
+            SignalUpdate();
+        }
+
 
         public void AddItem(ItemStack item) {
             inventory.Add(item);
