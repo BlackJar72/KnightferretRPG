@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace kfutils.rpg.ui {
 
-    public class InventorySlotUI : MonoBehaviour {
+    public class InventorySlotUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
 
         
         public Image icon;
@@ -14,9 +15,11 @@ namespace kfutils.rpg.ui {
         
         public ItemStack item;
 
+        private RectTransform iconTransfrom;
+
 
         public virtual void SwapWith(InventorySlotUI other) {
-            if((other.item.item == item.item) && item.item.Inv.IsStackable) {
+            if((other.item.item == item.item) && item.item.IsStackable) {
                 other.item.stackSize += item.stackSize;
                 inventory.RemoveItem(item);
             } else {
@@ -49,7 +52,7 @@ namespace kfutils.rpg.ui {
                 inventory.RemoveItem(item);
                 icon.sprite = null;
                 icon.enabled = false;
-            } else if(item.item.Inv.IsStackable && (numberText != null)) {
+            } else if(item.item.IsStackable && (numberText != null)) {
                 numberText.SetText(item.stackSize.ToString());
             } 
         }
@@ -68,6 +71,45 @@ namespace kfutils.rpg.ui {
         public void SetText(int number) {
             numberText.SetText(number.ToString());
         }
+
+#region Drag and Drop
+
+
+        public void OnPointerDown(PointerEventData eventData) {            
+            //Debug.Log("Mouse Down at " + slotNumber);
+        }
+
+
+        public void OnBeginDrag(PointerEventData eventData) {
+            //Debug.Log("Starting Drag");
+            icon.transform.SetParent(GetComponentInParent<Canvas>().rootCanvas.transform);
+        }
+
+
+        public void OnEndDrag(PointerEventData eventData) {        
+            // Debug.Log("Drag Ended.");  
+            icon.transform.SetParent(transform);
+            icon.transform.localPosition = Vector2.zero;  
+        }
+
+
+        public void OnDrag(PointerEventData eventData) {
+            //Debug.Log("Dragging...");
+            icon.transform.position = Input.mousePosition;
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            GameObject other = eventData.pointerDrag;
+            if(other == gameObject) {
+                Debug.Log("Back home!");
+            } else {
+                Debug.Log("Not Home!");
+            }
+        }
+
+
+        #endregion
 
 
 

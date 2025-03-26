@@ -39,8 +39,8 @@ namespace kfutils.rpg.ui {
                 slotUI.inventory = inventory;
                 slotUI.slotNumber = i;
                 slotUI.item = inventory.GetItemInSlot(i);
-                slotUI.icon.sprite = slotUI.item.item.Inv.icon;
-                if(slotUI.item.item.Inv.IsStackable) {
+                slotUI.icon.sprite = slotUI.item.item.Icon;
+                if(slotUI.item.item.IsStackable) {
                     slotUI.SetText(slotUI.item.stackSize);
                     slotUI.ShowText();
                 } else {
@@ -66,7 +66,7 @@ namespace kfutils.rpg.ui {
         private void UpdateSlot(Inventory inv, int slot) {
             if(inventory == inv) {
                 if((slot < inventorySlots.Count) && (inventorySlots[slot] != null) 
-                            && inventorySlots[slot].item.item.Inv.IsStackable) {
+                            && inventorySlots[slot].item.item.IsStackable) {
                     inventorySlots[slot].SetText(inventorySlots[slot].item.stackSize);
                 }
             }

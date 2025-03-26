@@ -7,7 +7,7 @@ using UnityEditor.Rendering;
 
 namespace kfutils.rpg {
     
-    public class Inventory : MonoBehaviour {
+    public class Inventory : MonoBehaviour, IInventory {
 
         public List<ItemStack> inventory = new();
         public float weight;     
@@ -71,7 +71,7 @@ namespace kfutils.rpg {
         /// </summary>
         /// <returns>-1 if no stack exists or if the item is not stackable.</returns>
         private int FindStack(ItemStack stack) {
-            if (!stack.item.Inv.IsStackable) {
+            if (!stack.item.IsStackable) {
                 return -1;
             }
             for(int i = 0; i < inventory.Count; i++) {
@@ -163,7 +163,7 @@ namespace kfutils.rpg {
             int i;
             for(i = 0; (i < inventory.Count) && (inventory[i].slot != slot); i++);
             if(i >= inventory.Count) AddToFirstEmptySlot(item);
-            else if((inventory[i].item = item.item) && item.item.Inv.IsStackable) inventory[i].stackSize += item.stackSize; 
+            else if((inventory[i].item = item.item) && item.item.IsStackable) inventory[i].stackSize += item.stackSize; 
             else AddToFirstEmptySlot(item);
             SignalUpdate();
             return true;
