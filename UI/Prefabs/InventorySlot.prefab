@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -306,6 +306,10 @@ MonoBehaviour:
   inventory: {fileID: 0}
   slotNumber: 0
   numberText: {fileID: 4822879966649052683}
+  item:
+    item: {fileID: 0}
+    stackSize: 0
+    slot: 0
 --- !u!1 &7377874144447481473
 GameObject:
   m_ObjectHideFlags: 0
