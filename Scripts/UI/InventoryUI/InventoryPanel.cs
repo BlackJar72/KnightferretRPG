@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace kfutils.rpg.ui {
 
-    public class InventoryPanel : MonoBehaviour {
+    public class InventoryPanel : MonoBehaviour, IRedrawing  {
 
         [SerializeField] InventorySlotUI slotPrefab = null;
         [SerializeField] Inventory inventory;
@@ -31,21 +31,12 @@ namespace kfutils.rpg.ui {
         }
 
 
-        //FIXME: Created manager to handle this so all inventories in the world are not checking every frame
-        void Update() {
-            if(shouldRedraw) {
-                DoRedraw();
-                shouldRedraw = false;
-            }
+        public void Redraw() {
+            InventoryManager.AddRedraw(this);
         }
 
 
-        private void Redraw() {
-            shouldRedraw = true;
-        }
-
-
-        private void DoRedraw() {
+        public void DoRedraw() {
             GetInventorySize();
             foreach (Transform child in transform) {
                 Destroy(child.gameObject);
