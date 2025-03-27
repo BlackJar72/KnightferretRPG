@@ -23,7 +23,7 @@ namespace kfutils.rpg.ui {
             if((other.item.item == null) || (other.icon.sprite == null)) {
                 item.slot = slotNumber = other.slotNumber;
                 if(other.inventory != inventory) {
-                    other.inventory.AddItemToSlot(slotNumber, item, item.stackSize);
+                    other.inventory.AddItemToSlot(slotNumber, item);
                     inventory.RemoveItem(item);
                     inventory = other.inventory;
                 }
@@ -38,10 +38,10 @@ namespace kfutils.rpg.ui {
                     if(other.inventory != inventory) {
                         Inventory originalInv = inventory;
                         inventory.RemoveItem(item);
-                        other.inventory.AddItemToSlot(slotNumber, item, item.stackSize);
+                        other.inventory.AddItemToSlot(slotNumber, item);
                         inventory = other.inventory;
                         other.inventory.RemoveItem(item);
-                        originalInv.AddItemToSlot(other.slotNumber, other.item, other.item.stackSize);
+                        originalInv.AddItemToSlot(other.slotNumber, other.item);
                         other.inventory = originalInv;
                     } 
                 }
