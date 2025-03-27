@@ -20,29 +20,39 @@ namespace kfutils.rpg.ui {
 
 
         public virtual void SwapWith(InventorySlotUI other) {
+            bool successful = false;
             if((other.item.item == null) || (other.icon.sprite == null)) {
-                item.slot = slotNumber = other.slotNumber;
+                item.slot = other.slotNumber;
                 if(other.inventory != inventory) {
-                    other.inventory.AddItemToSlot(slotNumber, item);
-                    inventory.RemoveItem(item);
-                    inventory = other.inventory;
+                    successful = other.inventory.AddItemToSlot(slotNumber, item);
+                    if(successful) {
+                        inventory.RemoveItem(item);
+                        inventory = other.inventory;
+                    } else {
+                        item.slot = slotNumber;
+                    }
                 }
             } else {
                 if((other.item.item == item.item) && item.item.IsStackable) {
                     item.stackSize += other.item.stackSize;
                     inventory.RemoveItem(other.item);
+                    successful = true;
                 } else {
-                    int oriSlot = slotNumber;
-                    item.slot = slotNumber = other.slotNumber;
-                    other.item.slot = other.slotNumber = oriSlot;
+                    item.slot = other.slotNumber;
+                    other.item.slot = slotNumber;
                     if(other.inventory != inventory) {
                         Inventory originalInv = inventory;
-                        inventory.RemoveItem(item);
-                        other.inventory.AddItemToSlot(slotNumber, item);
-                        inventory = other.inventory;
-                        other.inventory.RemoveItem(item);
-                        originalInv.AddItemToSlot(other.slotNumber, other.item);
-                        other.inventory = originalInv;
+                        successful = other.inventory.AddItemToSlot(slotNumber, item);
+                        if(successful) successful = successful && originalInv.AddItemToSlot(other.slotNumber, other.item);
+                        if(successful) {
+                            inventory.RemoveItem(item);
+                            other.inventory.RemoveItem(item);
+                            inventory = other.inventory;
+                            other.inventory = originalInv;
+                        } else {
+                            item.slot = slotNumber;
+                            other.item.slot = other.slotNumber;
+                        }
                     } 
                 }
             }
