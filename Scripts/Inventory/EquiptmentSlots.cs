@@ -12,7 +12,7 @@ namespace kfutils.rpg {
         private ItemStack[] slots = new ItemStack[12];
 
         private float weight;
-        public float Weight { get => weight; }     
+        public float Weight { get => weight; } 
 
 
         public delegate void InventoryUpdate(Inventory inv);
@@ -48,6 +48,12 @@ namespace kfutils.rpg {
         }
 
 
+        private void ClearItem(ItemStack stack) {
+            stack.item = null;
+            stack.stackSize = 0;
+        }
+
+
         /// <summary>
         /// This will just return the index of the last equiptment slot, probably not 
         /// usedl in many (any?) circumstances, and I have no idea what another, more 
@@ -78,7 +84,7 @@ namespace kfutils.rpg {
             slots[slot].stackSize -= number;
             if(slots[slot].stackSize < 1) {
                 // TODO: Add unequipting of item
-                slots[slot] = null;
+                ClearItem(slots[slot]);
             }
         }
 
@@ -86,7 +92,7 @@ namespace kfutils.rpg {
         public void RemoveItem(ItemStack item) {
             for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == item) {
-                    slots[i] = null;
+                    ClearItem(slots[i]);
                     return;
                 }
             }            

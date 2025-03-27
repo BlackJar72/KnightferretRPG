@@ -9,10 +9,15 @@ namespace kfutils.rpg.ui {
     public class InventorySlotUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
 
         
-        public Image icon;
-        public Inventory inventory;
-        public int slotNumber;
+        [SerializeField] public Inventory inventory;
         [SerializeField] TMP_Text numberText;
+        
+        [Tooltip("Which slot type this is; this should only be set to one value, though items can have more than one.")]
+        [SerializeField] protected EEquiptSlot slotType;
+        public EEquiptSlot SlotType { get => slotType; }
+
+        public Image icon;
+        public int slotNumber;
         
         public ItemStack item;
 
@@ -20,7 +25,8 @@ namespace kfutils.rpg.ui {
 
 
         public virtual void SwapWith(InventorySlotUI other) {
-            bool successful = false;
+            bool successful = CanSwapSlotTypes(other);
+            if(!successful) return;
             if((other.item.item == null) || (other.icon.sprite == null)) {
                 item.slot = other.slotNumber;
                 if(other.inventory != inventory) {
@@ -57,6 +63,13 @@ namespace kfutils.rpg.ui {
                 }
             }
             inventory.SignalUpdate();           
+        }
+
+
+        protected bool CanSwapSlotTypes(InventorySlotUI other) {
+            bool result = (item.item == null) || ((item.item.EquiptType & other.slotType) > 0);
+            result = result && ((other.item.item == null) || ((other.item.item.EquiptType & slotType) > 0));
+            return result;
         }
 
 
