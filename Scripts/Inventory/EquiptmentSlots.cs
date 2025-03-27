@@ -1,49 +1,59 @@
 using UnityEngine;
 using kfutils.rpg.ui;
 using System;
-using UnityEditor.Build.Pipeline;
-using Unity.Cinemachine;
 
 
 namespace kfutils.rpg {
 
-    public class EquiptmentSlots : MonoBehaviour, IInventory {
+    public class EquiptmentSlots : AInventory {
 
-        private ItemStack[] slots = new ItemStack[12];
+        public ItemStack[] slots = new ItemStack[12];
 
         private float weight;
-        public float Weight { get => weight; } 
+        public override float Weight { get => weight; }
+
+        public override int Count => slots.Length;
+
+        public ItemStack GetItem(int index) => slots[index];
 
 
-        public delegate void InventoryUpdate(Inventory inv);
-        public event InventoryUpdate inventoryUpdated;
+        private void Awake() {
+            for(int i = 0; i < slots.Length; i++) {
+                slots[i] = new ItemStack(null, 0, i);
+            }
+        }
 
-        public delegate void InventorySlotUpdate(Inventory inv, int slot);
-        public event InventorySlotUpdate inventorySlotUpdated;
 
-
-        public bool AddItemToSlot(int slot, ItemStack item) {
+        public override bool AddItemToSlot(int slot, ItemStack item) {
             slots[slot] = item;
+            SignalUpdate();
             // TODO: Add equipting of item
-            return false;
+            return true;
         }
 
 
-        public bool AddToFirstEmptySlot(ItemStack item) {
-            return false;
+        public override bool AddToFirstEmptySlot(ItemStack item) {
+            return AddItemToSlot(item.slot, item);
         }
 
 
-        public float CalculateWeight() {
+        public override float CalculateWeight() {
             weight = 0f;
             for(int i = 0; i < slots.Length; i++) {
-                weight += slots[i].stackSize * slots[i].item.Weight;
+                if(slots[i].item != null) {
+                    weight += slots[i].stackSize * slots[i].item.Weight;
+                }
             }
             return weight;
         }
 
 
-        public ItemStack GetItemInSlot(int slot) {
+        public override ItemStack GetByBackingIndex(int index) {
+            return slots[index];
+        }
+
+
+        public override ItemStack GetItemInSlot(int slot) {
             return slots[slot];
         }
 
@@ -51,6 +61,7 @@ namespace kfutils.rpg {
         private void ClearItem(ItemStack stack) {
             stack.item = null;
             stack.stackSize = 0;
+            SignalUpdate();
         }
 
 
@@ -60,17 +71,17 @@ namespace kfutils.rpg {
         /// useful or meaningful interpretation of this.
         /// </summary>
         /// <returns></returns>
-        [Obsolete] public int GetLastSlot() {
+        [Obsolete] override public int GetLastSlot() {
             return slots.Length;
         }
 
 
-        public int GetNumberInSlot(int slot) {
+        public override int GetNumberInSlot(int slot) {
             return slots[slot].stackSize;
         }
 
 
-        public bool HasItem(ItemStack item) {
+        public override bool HasItem(ItemStack item) {
             bool output = false;
             for(int i = 0; (i < slots.Length) && !output; i++) {
                 output = output || (slots[i].item = item.item);
@@ -79,35 +90,31 @@ namespace kfutils.rpg {
         }
 
 
-        public void RemoveFromSlot(int slot, int number) {
+        public override void RemoveFromSlot(int slot, int number) {
             number = Mathf.Min(number, slots[slot].stackSize);
             slots[slot].stackSize -= number;
             if(slots[slot].stackSize < 1) {
                 // TODO: Add unequipting of item
                 ClearItem(slots[slot]);
+                SignalUpdate();
+            } else {
+                SignalSlotUpdate(slot);
             }
         }
 
 
-        public void RemoveItem(ItemStack item) {
+        public override void RemoveItem(ItemStack item) {
             for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == item) {
                     ClearItem(slots[i]);
+                    SignalUpdate();
                     return;
                 }
             }            
+
+
+
         }
-
-
-        public void SignalSlotUpdate(int slot) {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void SignalUpdate() {
-            throw new System.NotImplementedException();
-        }
-
 
     }
 

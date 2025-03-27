@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 865084112419221503}
   - component: {fileID: 5161066350690025886}
   - component: {fileID: 5615139877514442231}
-  - component: {fileID: 754919123222817847}
+  - component: {fileID: 2746530038795577628}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 33092a04170f5d34e93677b17b5dd41d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8ba32f125e406c4193369fb60ce7f54, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &754919123222817847
+--- !u!114 &2746530038795577628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -585,13 +585,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 737923149490755351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 7602259647727617458}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 8752592589393631483}
+  slotType: 5
+  icon: {fileID: 7602259647727617458}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 986714676100372686}
   - component: {fileID: 5057309490310657711}
   - component: {fileID: 5502305110502703814}
-  - component: {fileID: 849742575512066822}
+  - component: {fileID: 452248618431202212}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &849742575512066822
+--- !u!114 &452248618431202212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -684,13 +684,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 832400251319705638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 7507571431142797955}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 8703085581324939210}
+  slotType: 4096
+  icon: {fileID: 7507571431142797955}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -1102,7 +1102,7 @@ GameObject:
   - component: {fileID: 1823018867920676665}
   - component: {fileID: 5967838961009297752}
   - component: {fileID: 6386443596572867889}
-  - component: {fileID: 2249492606670316785}
+  - component: {fileID: 8672202113785965111}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -1170,7 +1170,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2249492606670316785
+--- !u!114 &8672202113785965111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1179,13 +1179,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2265431949692952529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 8992960260758867316}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 7798752399613349949}
+  slotType: 256
+  icon: {fileID: 8992960260758867316}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -1311,6 +1311,7 @@ GameObject:
   - component: {fileID: 4646059392684065157}
   - component: {fileID: 3806284995157008432}
   - component: {fileID: 5341845574764297687}
+  - component: {fileID: 7189487862342129242}
   m_Layer: 5
   m_Name: Equipment View
   m_TagString: Untagged
@@ -1378,6 +1379,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7189487862342129242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2488695134853444902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42c8eeefb519183faddcc25444a4c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
+  slots:
+  - {fileID: 1871441151362964105}
+  - {fileID: 5497677173809939156}
+  - {fileID: 2746530038795577628}
+  - {fileID: 3341999720108277171}
+  - {fileID: 2828448742819231640}
+  - {fileID: 8267948478985892631}
+  - {fileID: 3248476680456586585}
+  - {fileID: 8672202113785965111}
+  - {fileID: 452248618431202212}
+  - {fileID: 6764567055274492796}
+  - {fileID: 4011244023541593501}
+  - {fileID: 264648680329667128}
 --- !u!1 &2614779245099312488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,7 +1641,7 @@ GameObject:
   - component: {fileID: 2422896416423653127}
   - component: {fileID: 7638514668422725990}
   - component: {fileID: 6949694043937551631}
-  - component: {fileID: 2874630200278330575}
+  - component: {fileID: 2828448742819231640}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -1682,7 +1709,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2874630200278330575
+--- !u!114 &2828448742819231640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1691,13 +1718,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2856160876699080687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 4908387863520609610}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 6118644257099962371}
+  slotType: 192
+  icon: {fileID: 4908387863520609610}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -1849,7 +1876,7 @@ GameObject:
   - component: {fileID: 3913414581825316642}
   - component: {fileID: 9066188298686630211}
   - component: {fileID: 8620632195070704938}
-  - component: {fileID: 3473500478174962922}
+  - component: {fileID: 3248476680456586585}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -1917,7 +1944,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3473500478174962922
+--- !u!114 &3248476680456586585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1926,13 +1953,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3491408501101813706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 6039043865666358639}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 4843951456595398694}
+  slotType: 512
+  icon: {fileID: 6039043865666358639}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -2093,7 +2120,7 @@ GameObject:
   - component: {fileID: 3557461891843516460}
   - component: {fileID: 8845082127450981965}
   - component: {fileID: 8120898476615037476}
-  - component: {fileID: 3973796813749545956}
+  - component: {fileID: 3341999720108277171}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -2161,7 +2188,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3973796813749545956
+--- !u!114 &3341999720108277171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2170,13 +2197,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3990858758147903684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 6115720119052255841}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 4911374690905268008}
+  slotType: 1024
+  icon: {fileID: 6115720119052255841}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -2975,7 +3002,7 @@ GameObject:
   - component: {fileID: 5413372722253440807}
   - component: {fileID: 53627741869279558}
   - component: {fileID: 778479873759952175}
-  - component: {fileID: 5574135089353729263}
+  - component: {fileID: 8267948478985892631}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -3043,7 +3070,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5574135089353729263
+--- !u!114 &8267948478985892631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3052,13 +3079,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5556577260914302927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 3360224610832813418}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 4491839473493364771}
+  slotType: 160
+  icon: {fileID: 3360224610832813418}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -3074,7 +3101,7 @@ GameObject:
   - component: {fileID: 6196312002626366460}
   - component: {fileID: 2189619154888525213}
   - component: {fileID: 1445697753819427316}
-  - component: {fileID: 6018743642179774516}
+  - component: {fileID: 264648680329667128}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -3142,7 +3169,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6018743642179774516
+--- !u!114 &264648680329667128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3151,13 +3178,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6035242091199812372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 3493803039264539057}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 2345153931473739000}
+  slotType: 2048
+  icon: {fileID: 3493803039264539057}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -3755,7 +3782,7 @@ GameObject:
   - component: {fileID: 6440530034527130195}
   - component: {fileID: 1369081210754858034}
   - component: {fileID: 1769005822367320155}
-  - component: {fileID: 6852856211133813147}
+  - component: {fileID: 4011244023541593501}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -3823,7 +3850,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6852856211133813147
+--- !u!114 &4011244023541593501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3832,13 +3859,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6871824158934870715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 4386673458604079134}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 3177089485689824599}
+  slotType: 16
+  icon: {fileID: 4386673458604079134}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -4426,7 +4453,7 @@ GameObject:
   - component: {fileID: 7667569317205582073}
   - component: {fileID: 2447145928003686040}
   - component: {fileID: 3135969023432145649}
-  - component: {fileID: 7787790490492314417}
+  - component: {fileID: 5497677173809939156}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -4494,7 +4521,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7787790490492314417
+--- !u!114 &5497677173809939156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4503,13 +4530,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7805980533850298385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 1146568658864736948}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 2242436750312724477}
+  slotType: 2
+  icon: {fileID: 1146568658864736948}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -4525,7 +4552,7 @@ GameObject:
   - component: {fileID: 7662304190186321160}
   - component: {fileID: 2435135657740852073}
   - component: {fileID: 3150381795438948096}
-  - component: {fileID: 7795342327299864256}
+  - component: {fileID: 1871441151362964105}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -4593,7 +4620,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7795342327299864256
+--- !u!114 &1871441151362964105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4602,13 +4629,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7811842421258522080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 1140601089423925061}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 2243893143799333388}
+  slotType: 1
+  icon: {fileID: 1140601089423925061}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0
@@ -4774,7 +4801,7 @@ GameObject:
   - component: {fileID: 8367837357561343047}
   - component: {fileID: 4593153024513458726}
   - component: {fileID: 3876782482239780431}
-  - component: {fileID: 8240426397485723535}
+  - component: {fileID: 6764567055274492796}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -4842,7 +4869,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8240426397485723535
+--- !u!114 &6764567055274492796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4851,13 +4878,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8222521677390812335}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d3b31c6359a88439e781d4e6ee2066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 1270371372239701514}
-  inventory: {fileID: 0}
-  slotNumber: 0
   numberText: {fileID: 96429650044853059}
+  slotType: 8
+  icon: {fileID: 1270371372239701514}
+  slotNumber: 0
   item:
     item: {fileID: 0}
     stackSize: 0

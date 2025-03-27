@@ -7,19 +7,22 @@ using UnityEditor.Rendering;
 
 namespace kfutils.rpg {
     
-    public class Inventory : MonoBehaviour, IInventory {
+    public class Inventory : AInventory {
 
         public List<ItemStack> inventory = new();
 
         private float weight;
-        public float Weight { get => weight; }     
+        public override float Weight { get => weight; }
+
+        public override int Count => inventory.Count;
 
 
-        public delegate void InventoryUpdate(Inventory inv);
+        public delegate void InventoryUpdate(IInventory inv);
         public event InventoryUpdate inventoryUpdated;
 
-        public delegate void InventorySlotUpdate(Inventory inv, int slot);
+        public delegate void InventorySlotUpdate(IInventory inv, int slot);
         public event InventorySlotUpdate inventorySlotUpdated;
+
 
 
         // For Testing; TODO??: Get rid of this, but add some other way to add starting gear ... or, do I need to...?
@@ -33,13 +36,18 @@ namespace kfutils.rpg {
         }
 
 
-        public void RemoveItem(ItemStack item) {
+        public override void RemoveItem(ItemStack item) {
             inventory.Remove(item);
             SignalUpdate();
         }
 
+        public override ItemStack GetByBackingIndex(int index) {
+            return inventory[index];
+        }
 
-        public int GetLastSlot() {
+
+
+        public override int GetLastSlot() {
             int output = 0;
             foreach(ItemStack stack in inventory) {
                 output = Mathf.Max(output, stack.slot);
@@ -48,31 +56,21 @@ namespace kfutils.rpg {
         }
 
 
-        public float CalculateWeight() {
+        public override float CalculateWeight() {
             weight = 0;
             foreach(ItemStack stack in inventory) {
-                weight += (stack.item.Weight * stack.stackSize);
+                if((stack != null) && (stack.item != null)) {
+                    weight += stack.item.Weight * stack.stackSize;
+                }
             }
             return weight;
-        }
-
-
-        public void SignalUpdate() {
-            inventoryUpdated?.Invoke(this);
-            CalculateWeight();
-        }
-
-
-        public void SignalSlotUpdate(int slot) {
-            inventorySlotUpdated?.Invoke(this, slot);
-            CalculateWeight();
         }
 
 
         /// <summary>
         /// Is there an instance of the item in the inventory?
         /// </summary>
-        public bool HasItem(ItemStack item) {
+        public override bool HasItem(ItemStack item) {
             return inventory.Contains(item);
         }
 
@@ -80,7 +78,7 @@ namespace kfutils.rpg {
         /// <summary>
         /// Return the item type in the given slot.
         /// </summary>
-        public ItemStack GetItemInSlot(int slot) {
+        public override ItemStack GetItemInSlot(int slot) {
             for(int i = 0; i < inventory.Count; i++ ) {
                 if(inventory[i].slot == slot) return inventory[i];
             }
@@ -91,7 +89,7 @@ namespace kfutils.rpg {
         /// <summary>
         /// Get the number of items in the given slot.
         /// </summary>
-        public int GetNumberInSlot(int slot) {
+        public override int GetNumberInSlot(int slot) {
             for(int i = 0; i < inventory.Count; i++ ) {
                 if(inventory[i].slot == slot) return inventory[i].stackSize;
             }
@@ -103,7 +101,7 @@ namespace kfutils.rpg {
         /// Remove a number of items from the given slot. Will never remove more
         /// that there are.
         /// </summary>
-        public void RemoveFromSlot(int slot, int number)
+        public override void RemoveFromSlot(int slot, int number)
         {
             for(int i = inventory.Count; i > -1; i-- ) {
                 if(inventory[i].slot == slot) {
@@ -130,14 +128,9 @@ namespace kfutils.rpg {
         /// <param name="item">The item type to add.</param>
         /// <param name="number">The number of items to add.</param>
         /// <returns>True if the item was added anywhere in the inventory.</returns>
-        public bool AddItemToSlot(int slot, ItemStack item)
+        public override bool AddItemToSlot(int slot, ItemStack item)
         {
-            int i;
-            for(i = 0; (i < inventory.Count) && (inventory[i].slot != slot); i++);
-            if(i >= inventory.Count) AddToFirstEmptySlot(item);
-            else if((inventory[i].item = item.item) && item.item.IsStackable) inventory[i].stackSize += item.stackSize; 
-            else AddToFirstEmptySlot(item);
-            SignalUpdate();
+            inventory.Add(item);
             return true;
         }
 
@@ -148,7 +141,8 @@ namespace kfutils.rpg {
         /// <param name="item">The item to add.</param>
         /// <param name="number">The number to add.</param>
         /// <returns>Whether or not the item could be added.</returns>
-        public bool AddToFirstEmptySlot(ItemStack item) {
+        public override bool AddToFirstEmptySlot(ItemStack item) {
+            if((item == null) || (item.item == false)) return true;
             inventory.Add(item);
             item.slot = inventory.IndexOf(item);
             return true;

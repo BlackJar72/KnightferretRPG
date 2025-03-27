@@ -9,7 +9,16 @@ namespace kfutils.rpg {
 
     public static class InventoryManager {
 
+
+#region Redraw Control
+
         private static List<IRedrawing> waitingToRedraw = new ();
+
+        public delegate void InventoryUpdate(IInventory inv);
+        public static event InventoryUpdate inventoryUpdated;
+
+        public delegate void InventorySlotUpdate(IInventory inv, int slot);
+        public static event InventorySlotUpdate inventorySlotUpdated;
 
 
         public static void Initialize() {
@@ -28,6 +37,19 @@ namespace kfutils.rpg {
                 waitingToRedraw.RemoveAt(i);
             }
         }
+
+
+        public static void SignalUpdate(IInventory inv) {
+            inventoryUpdated?.Invoke(inv);
+        }
+
+
+        public static void SignalSlotUpdate(IInventory inv, int slot) {
+            inventorySlotUpdated?.Invoke(inv, slot);
+        }
+
+#endregion
+
 
     }
 

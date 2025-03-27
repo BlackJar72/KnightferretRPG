@@ -9,7 +9,7 @@ namespace kfutils.rpg.ui {
     public class InventorySlotUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
 
         
-        [SerializeField] public Inventory inventory;
+        [SerializeField] public IInventory inventory;
         [SerializeField] TMP_Text numberText;
         
         [Tooltip("Which slot type this is; this should only be set to one value, though items can have more than one.")]
@@ -22,45 +22,26 @@ namespace kfutils.rpg.ui {
         public ItemStack item;
 
         private RectTransform iconTransfrom;
+        
 
 
         public virtual void SwapWith(InventorySlotUI other) {
-            bool successful = CanSwapSlotTypes(other);
-            if(!successful) return;
-            if((other.item.item == null) || (other.icon.sprite == null)) {
-                item.slot = other.slotNumber;
-                if(other.inventory != inventory) {
-                    successful = other.inventory.AddItemToSlot(slotNumber, item);
-                    if(successful) {
-                        inventory.RemoveItem(item);
-                        inventory = other.inventory;
-                    } else {
-                        item.slot = slotNumber;
-                    }
-                }
+            if(!CanSwapSlotTypes(other)) return;
+            if((other.item.item == item.item) && item.item.IsStackable) {
+                item.stackSize += other.item.stackSize;
+                other.inventory.RemoveItem(other.item);
             } else {
-                if((other.item.item == item.item) && item.item.IsStackable) {
-                    item.stackSize += other.item.stackSize;
-                    inventory.RemoveItem(other.item);
-                    successful = true;
-                } else {
-                    item.slot = other.slotNumber;
-                    other.item.slot = slotNumber;
-                    if(other.inventory != inventory) {
-                        Inventory originalInv = inventory;
-                        successful = other.inventory.AddItemToSlot(slotNumber, item);
-                        if(successful) successful = successful && originalInv.AddItemToSlot(other.slotNumber, other.item);
-                        if(successful) {
-                            inventory.RemoveItem(item);
-                            other.inventory.RemoveItem(item);
-                            inventory = other.inventory;
-                            other.inventory = originalInv;
-                        } else {
-                            item.slot = slotNumber;
-                            other.item.slot = other.slotNumber;
-                        }
-                    } 
-                }
+                item.slot = other.slotNumber;
+                other.item.slot = slotNumber;
+                if(other.inventory != inventory) {
+                    IInventory originalInv = inventory;
+                    other.inventory.AddItemToSlot(item.slot, item);
+                    inventory.AddItemToSlot(other.item.slot, other.item);
+                    inventory.RemoveItem(item);
+                    other.inventory.RemoveItem(other.item);
+                    inventory = other.inventory;
+                    other.inventory = originalInv;
+                } 
             }
             inventory.SignalUpdate();           
         }
@@ -99,6 +80,11 @@ namespace kfutils.rpg.ui {
 
         public void ShowText() {
             numberText.gameObject.SetActive(true);
+        }
+
+
+        public void ShowText(bool visible) {
+            numberText.gameObject.SetActive(visible);
         }
 
 

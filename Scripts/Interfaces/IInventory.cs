@@ -14,6 +14,10 @@ namespace kfutils.rpg {
         public void SignalSlotUpdate(int slot);
 
 
+        public int Count { get; }
+
+        public ItemStack GetByBackingIndex(int index);
+
         public float Weight { get; } 
         
 

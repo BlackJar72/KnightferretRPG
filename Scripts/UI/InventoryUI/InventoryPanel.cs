@@ -20,14 +20,20 @@ namespace kfutils.rpg.ui {
         private List<InventorySlotUI> inventorySlots = new();
 
 
-        private void Awake() {
-            inventory.inventoryUpdated += UpdateInventory;
-            inventory.inventorySlotUpdated += UpdateSlot;
+        // private void Awake() {}
+        //private void Start() {}
+
+
+        private void OnEnable() {
+            InventoryManager.inventoryUpdated += UpdateInventory;
+            InventoryManager.inventorySlotUpdated += UpdateSlot;
+            Redraw();
         }
 
 
-        private void Start() {
-            Redraw();
+        private void OnDisable() {
+            InventoryManager.inventoryUpdated -= UpdateInventory;
+            InventoryManager.inventorySlotUpdated -= UpdateSlot;
         }
 
 
@@ -51,9 +57,13 @@ namespace kfutils.rpg.ui {
                 slotUI.HideText();
                 inventorySlots.Add(slotUI);
             }
-            for(int i = 0; i < inventory.inventory.Count; i++) {
-                ItemStack stack = inventory.inventory[i];
+            for(int i = 0; i < inventory.Count; i++) {
+                ItemStack stack = inventory.GetByBackingIndex(i);
                 InventorySlotUI slotUI = inventorySlots[stack.slot];
+                if((stack == null) || (stack.item ==  null)) {
+                    inventory.RemoveItem(stack);
+                    continue;
+                }
                 slotUI.item = stack;
                 if(slotUI.item != null) {
                     slotUI.icon.sprite = slotUI.item.item.Icon;
@@ -69,7 +79,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        private void UpdateInventory(Inventory inv) {
+        private void UpdateInventory(IInventory inv) {
             if(inv == inventory) Redraw();
         }
 
@@ -81,7 +91,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        private void UpdateSlot(Inventory inv, int slot) {
+        private void UpdateSlot(IInventory inv, int slot) {
             if(inventory == inv) {
                 if((slot < inventorySlots.Count) && (inventorySlots[slot] != null) 
                             && inventorySlots[slot].item.item.IsStackable) {
