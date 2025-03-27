@@ -1,5 +1,6 @@
 using kfutils.rpg.ui;
 using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 
 
@@ -58,7 +59,11 @@ namespace kfutils.rpg {
                     slots[i].icon.gameObject.SetActive(true);
                     slots[i].icon.sprite = slots[i].item.item.Icon;
                     slots[i].SetText(slots[i].item.stackSize);
-                    slots[i].ShowText(slots[i].item.item.IsStackable);
+                    if(slots[i].item.item.IsStackable) {
+                        slots[i].ShowText();
+                    } else {
+                        slots[i].HideText();
+                    }
                 }
             }
         }

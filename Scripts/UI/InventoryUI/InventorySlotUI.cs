@@ -34,13 +34,10 @@ namespace kfutils.rpg.ui {
                 item.slot = other.slotNumber;
                 other.item.slot = slotNumber;
                 if(other.inventory != inventory) {
-                    IInventory originalInv = inventory;
                     other.inventory.AddItemToSlot(item.slot, item);
                     inventory.AddItemToSlot(other.item.slot, other.item);
                     inventory.RemoveItem(item);
                     other.inventory.RemoveItem(other.item);
-                    inventory = other.inventory;
-                    other.inventory = originalInv;
                 } 
             }
             inventory.SignalUpdate();           
