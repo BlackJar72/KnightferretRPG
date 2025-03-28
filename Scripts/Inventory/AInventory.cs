@@ -21,13 +21,13 @@ namespace kfutils.rpg {
         public abstract void RemoveItem(ItemStack item);
 
 
-        public void SignalUpdate() {
+        public virtual void SignalUpdate() {
             InventoryManager.SignalUpdate(this);
             CalculateWeight();
         }
 
 
-        public void SignalSlotUpdate(int slot) {
+        public virtual void SignalSlotUpdate(int slot) {
             InventoryManager.SignalSlotUpdate(this, slot);
             CalculateWeight();
         }

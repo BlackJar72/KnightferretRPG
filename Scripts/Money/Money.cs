@@ -8,6 +8,7 @@ namespace kfutils.rpg
 
     
 
+    [Serializable]
      public class Money {
         public enum MoneyType {
             Copper = 1,
