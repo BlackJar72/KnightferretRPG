@@ -135,7 +135,7 @@ namespace kfutils.rpg {
             if (Physics.Raycast(aim.from, aim.toward, out hit, 2f))
             {
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-                if (interactable != null) interactable.Use();
+                if (interactable != null) interactable.Use(gameObject);
             }
         }
 

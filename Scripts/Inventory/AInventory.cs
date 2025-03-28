@@ -17,6 +17,7 @@ namespace kfutils.rpg {
         public abstract int GetNumberInSlot(int slot);
         public abstract bool HasItem(ItemStack item);
         public abstract void RemoveFromSlot(int slot, int number);
+        public abstract void RemoveAllFromSlot(int slot);
         public abstract void RemoveItem(ItemStack item);
 
 

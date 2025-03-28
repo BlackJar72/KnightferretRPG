@@ -6,7 +6,7 @@ namespace kfutils.rpg
 
     public interface IInteractable
     {
-        public void Use();
+        public void Use(GameObject from);
     }
 
 

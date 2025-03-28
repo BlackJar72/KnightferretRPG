@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using kfutils.rpg.ui;
-using UnityEditor.Rendering;
 
 
 namespace kfutils.rpg {
@@ -119,6 +118,16 @@ namespace kfutils.rpg {
         }
 
 
+        public override void RemoveAllFromSlot(int slot) {
+            for(int i = inventory.Count; i > -1; i--) {
+                if(inventory[i].slot == slot) {
+                    inventory.RemoveAt(i);
+                    return;
+                }
+            }
+        }
+
+
         /// <summary>
         /// Will add an item to the given slot if possible. If there is already
         /// a stack of this type, it will add to the existing stack. Otherwise,
@@ -143,9 +152,27 @@ namespace kfutils.rpg {
         /// <returns>Whether or not the item could be added.</returns>
         public override bool AddToFirstEmptySlot(ItemStack item) {
             if((item == null) || (item.item == false)) return true;
+            if((item.slot < 0) || (GetItemInSlot(item.slot) != null)) {
+                item.slot = FindFirstEmptySlot();
+            }
             inventory.Add(item);
-            item.slot = inventory.IndexOf(item);
             return true;
+        }
+
+
+        private int FindFirstEmptySlot() {
+            // FIXME: Find a way with better time complexity than O=n^2
+            int i = 0;
+            int last = GetLastSlot() + 1;
+            bool found = false;
+            for(i = 0; i < last; i++) {
+                found = true;
+                foreach(ItemStack stack in inventory) {
+                    found = found && (stack.slot != i);
+                }
+                if(found) break;
+            }                
+            return i;
         }
 
 

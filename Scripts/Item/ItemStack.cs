@@ -1,4 +1,5 @@
 using System;
+using Gaia.GX.ProceduralWorlds;
 using UnityEngine;
 
 namespace kfutils.rpg {
@@ -25,6 +26,13 @@ namespace kfutils.rpg {
             this.stackSize = number;
             this.slot = slot;
         }
+
+
+        public ItemStack Copy() {
+            return new ItemStack(item, stackSize, slot);
+        }
+
+
     }
 
 

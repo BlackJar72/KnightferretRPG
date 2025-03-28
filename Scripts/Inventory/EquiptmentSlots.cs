@@ -103,6 +103,12 @@ namespace kfutils.rpg {
         }
 
 
+        public override void RemoveAllFromSlot(int slot) {
+            ClearItem(slots[slot]);
+            SignalUpdate();
+        }
+
+
         public override void RemoveItem(ItemStack item) {
             for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == item) {

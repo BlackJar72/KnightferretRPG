@@ -44,6 +44,8 @@ namespace kfutils.rpg {
         /// that there are.
         /// </summary>
         public void RemoveFromSlot(int slot, int number);
+        
+        public void RemoveAllFromSlot(int slot);
 
 
         /// <summary>
