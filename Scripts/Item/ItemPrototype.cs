@@ -43,6 +43,16 @@ namespace kfutils.rpg {
         public ItemStack ItemStackFactory(int number, int slot) {
             return new ItemStack(this, number, slot);
         }
+
+
+        public ItemInWorld DropItemInWorld(Transform where, float distance, float force = 0.0f) {
+            ItemInWorld dropped = Instantiate(worldItem);
+            dropped.transform.position = where.position + (where.forward * distance);
+            dropped.EnablePhysics();
+            if(force == 0.0f) return dropped;
+            dropped.ApplyImpulseForce(where.forward * force);
+            return dropped;
+        }
     
         
     }

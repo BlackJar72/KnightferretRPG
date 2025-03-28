@@ -100,9 +100,8 @@ namespace kfutils.rpg {
         /// Remove a number of items from the given slot. Will never remove more
         /// that there are.
         /// </summary>
-        public override void RemoveFromSlot(int slot, int number)
-        {
-            for(int i = inventory.Count; i > -1; i-- ) {
+        public override void RemoveFromSlot(int slot, int number) {
+            for(int i = inventory.Count - 1; i > -1; i-- ) {
                 if(inventory[i].slot == slot) {
                     number = Mathf.Min(number, inventory[i].stackSize);
                     inventory[i].stackSize -= number;
