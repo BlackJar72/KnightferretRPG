@@ -24,7 +24,6 @@ namespace kfutils.rpg {
 
 
         private void  OnDisable() {
-            //if (gameObject.activeInHierarchy) {}
             InventoryManager.inventoryUpdated -= UpdateBottomBar;
             InventoryManager.inventorySlotUpdated -= UpdateBottomBar;
         }
@@ -36,7 +35,7 @@ namespace kfutils.rpg {
                 int weight = Mathf.RoundToInt(CalculateWeight() + equiptment.CalculateWeight());
                 weightText.SetText("Weight: " + weight);
             }
-            moneyText.SetText(money.GetSimpleMoneyString());
+            moneyText.SetText("Money: " + money.GetSimpleMoneyString() + " Gold");
         }
 
 

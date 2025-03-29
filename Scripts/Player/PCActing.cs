@@ -101,7 +101,7 @@ namespace kfutils.rpg {
         }
 
 
-        protected void EnableAction() {
+        protected virtual void EnableAction() {
             rightAttackAction.started += Dummy;
             if(this is not PCTalking) activateObjectAction.started += Interact;        
         }
@@ -142,7 +142,25 @@ namespace kfutils.rpg {
 
         // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
         protected virtual void ToggleCharacterSheet(InputAction.CallbackContext context) {
+            ToggleCharacterSheet();
+        }
+
+
+        // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
+        public virtual void ToggleCharacterSheet() {
             if(gameManager.UIManager.ToggleCharacterSheet()) {
+                DisableMovement();
+                DisableAction();
+            } else {
+                EnableMovement();
+                EnableAction();
+            }
+        }
+
+
+        // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
+        public virtual void AllowActions(bool allow) {
+            if(!allow) {
                 DisableMovement();
                 DisableAction();
             } else {

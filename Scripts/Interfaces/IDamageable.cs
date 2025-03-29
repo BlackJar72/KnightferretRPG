@@ -1,5 +1,3 @@
-using Unity.Entities.UniversalDelegates;
-using UnityEngine;
 
 
 namespace kfutils.rpg

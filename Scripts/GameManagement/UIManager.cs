@@ -1,6 +1,7 @@
 using UnityEngine;
 using kfutils.rpg.ui;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 
 
@@ -11,6 +12,12 @@ namespace kfutils.rpg {
 
         // UI Control
         [SerializeField] ShowOrHide characterPanelToggler;
+        [SerializeField] Canvas mainCanvas;
+        [SerializeField] ShowOrHide containerUI;
+        [SerializeField] ContainerUI containerLogic;
+
+
+        public Canvas MainCanvas { get => mainCanvas; }
 
 
         // Input System
@@ -32,12 +39,37 @@ namespace kfutils.rpg {
                 Cursor.lockState = CursorLockMode.None;
             } else {                          
                 Cursor.lockState = CursorLockMode.Locked;
+                InventoryManager.SignalCloseUIs();
             }
             return characterPanelToggler.IsVisible;
         }
 
 
+        public void OpenContainerUI(Inventory inventory, Container container) {
+            containerLogic.Initialize(inventory, container);
+            containerUI.SetVisible();
+        }
 
+
+        public void CloseContainerUI() {
+            containerUI.SetHidden();
+        }
+ 
+
+        public void ToggleContainerUI(Inventory inventory, Container container, GameObject from) {
+            if(containerUI.gameObject.activeSelf) {
+                CloseContainerUI();
+                characterPanelToggler.SetHidden();
+                Cursor.lockState = CursorLockMode.Locked;
+                EntityManagement.playerCharacter.AllowActions(true);
+            } else {
+                OpenContainerUI(inventory, container);
+                characterPanelToggler.SetVisible();
+                Cursor.lockState = CursorLockMode.None;
+                EntityManagement.playerCharacter.AllowActions(false);
+            }
+        }
+ 
 
     }
 

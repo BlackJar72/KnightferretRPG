@@ -11,7 +11,7 @@ namespace kfutils.rpg.ui {
             if((other.item != null) && (other.item.item != null) && (other.item.item.InWorld != null)) {
                 PCActing pc = EntityManagement.playerCharacter;
                 if(shouldThrow) {
-                    other.item.item.DropItemInWorld(pc.playerCam.transform, 0.5f, 20f + pc.attributes.jumpForce * 10);
+                    other.item.item.DropItemInWorld(pc.playerCam.transform, 0.5f, 5.0f * (1  + pc.attributes.jumpForce) * Mathf.Sqrt(other.item.item.Weight));
                 } else {
                     other.item.item.DropItemInWorld(pc.playerCam.transform, 0.5f);
                 }

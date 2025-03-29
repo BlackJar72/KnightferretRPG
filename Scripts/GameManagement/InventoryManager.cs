@@ -20,6 +20,9 @@ namespace kfutils.rpg {
         public delegate void InventorySlotUpdate(IInventory inv, int slot);
         public static event InventorySlotUpdate inventorySlotUpdated;
 
+        public delegate void CloseAllInventories();
+        public static event CloseAllInventories closeAllInvUI;
+
 
         public static void Initialize() {
             waitingToRedraw = new List<IRedrawing>();
@@ -47,6 +50,13 @@ namespace kfutils.rpg {
         public static void SignalSlotUpdate(IInventory inv, int slot) {
             inventorySlotUpdated?.Invoke(inv, slot);
         }
+
+
+        public static void SignalCloseUIs() {
+            closeAllInvUI?.Invoke();
+        }
+
+
 
 #endregion
 

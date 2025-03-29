@@ -1,37 +1,33 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace kfutils.rpg.ui {
 
     public class InventoryPanel : MonoBehaviour, IRedrawing  {
 
-        [SerializeField] InventorySlotUI slotPrefab = null;
-        [SerializeField] Inventory inventory;
-        [SerializeField] int minRows = 4;
-        [SerializeField] int columns = 8;
+        [SerializeField] protected InventorySlotUI slotPrefab = null;
+        [SerializeField] protected Inventory inventory;
+        [SerializeField] protected int minRows = 4;
+        [SerializeField] protected int columns = 8;
 
-        private int slots, rows;
+        protected int slots, rows;
 
-        private bool shouldRedraw = false;
-
-        private List<InventorySlotUI> inventorySlots = new();
+        protected List<InventorySlotUI> inventorySlots = new();
 
 
-        // private void Awake() {}
+        //private void Awake() {}
         //private void Start() {}
 
 
-        private void OnEnable() {
+        protected virtual void OnEnable() {
             InventoryManager.inventoryUpdated += UpdateInventory;
             InventoryManager.inventorySlotUpdated += UpdateSlot;
             Redraw();
         }
 
 
-        private void OnDisable() {
+        protected virtual void OnDisable() {
             InventoryManager.inventoryUpdated -= UpdateInventory;
             InventoryManager.inventorySlotUpdated -= UpdateSlot;
         }
@@ -42,7 +38,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void DoRedraw() {
+        public virtual void DoRedraw() {
             GetInventorySize();
             foreach (Transform child in transform) {
                 Destroy(child.gameObject);
@@ -79,19 +75,19 @@ namespace kfutils.rpg.ui {
         }
 
 
-        private void UpdateInventory(IInventory inv) {
+        protected void UpdateInventory(IInventory inv) {
             if(inv == inventory) Redraw();
         }
 
 
-        private void GetInventorySize() {
+        protected void GetInventorySize() {
             slots = inventory.GetLastSlot();
             rows = Mathf.Max(minRows, (slots / columns) + 2);
             slots = rows * columns;
         }
 
 
-        private void UpdateSlot(IInventory inv, int slot) {
+        protected void UpdateSlot(IInventory inv, int slot) {
             if(inventory == inv) {
                 if((slot < inventorySlots.Count) && (inventorySlots[slot] != null) 
                             && inventorySlots[slot].item.item.IsStackable) {

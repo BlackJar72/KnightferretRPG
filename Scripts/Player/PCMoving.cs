@@ -1,8 +1,5 @@
-using kfutils.rpg;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.ProBuilder;
 
 namespace kfutils.rpg {
 

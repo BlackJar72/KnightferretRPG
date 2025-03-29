@@ -13,9 +13,12 @@ namespace kfutils.rpg {
         [SerializeField] UIManager ui;
         public UIManager UIManager { get => ui; }
 
+        private static GameManager instacnce;
+        public static GameManager Instance { get => instacnce; }
 
-        void Awake()
-        {
+
+        void Awake() {
+            instacnce = this;
             EntityManagement.Initialize();
         }
 
