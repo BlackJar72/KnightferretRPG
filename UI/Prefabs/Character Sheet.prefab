@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 7129683095464661424}
   - component: {fileID: 4648560959765616484}
   m_Layer: 5
-  m_Name: Defence Bonus (1)
+  m_Name: Melee Bonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3124,8 +3124,8 @@ RectTransform:
   - {fileID: 3404416007482426461}
   - {fileID: 5108361495823559662}
   - {fileID: 1160394108954610565}
-  - {fileID: 7703212231608003322}
   - {fileID: 4916489599041762800}
+  - {fileID: 7703212231608003322}
   - {fileID: 8653978255117015435}
   - {fileID: 474413976625816034}
   m_Father: {fileID: 3566936680760711338}
@@ -3668,6 +3668,7 @@ GameObject:
   - component: {fileID: 471722174703397317}
   - component: {fileID: 9152536005994320031}
   - component: {fileID: 1060417162396502808}
+  - component: {fileID: 4085397569737228988}
   m_Layer: 5
   m_Name: Character Sheet
   m_TagString: Untagged
@@ -3734,6 +3735,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4085397569737228988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7927414214238764873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790d5046f2bf50a02884477e1893ed8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pc: {fileID: 0}
+  pcName: {fileID: 635505001583222197}
+  levelTxt: {fileID: 8830189330889522986}
+  xpTxt: {fileID: 2910214147130636108}
+  strTxt: {fileID: 7918431006653828289}
+  agilTxt: {fileID: 8267061102549848615}
+  vitTxt: {fileID: 7007763525485019714}
+  endTxt: {fileID: 4405810545640742845}
+  intTxt: {fileID: 6565921595669307009}
+  chrTxt: {fileID: 4318946153576727635}
+  sprTxt: {fileID: 2000159715813593089}
+  healthTxt: {fileID: 461455813571909465}
+  staminaTxt: {fileID: 8995080175123008426}
+  manaTxt: {fileID: 7693529444666940107}
+  speedTxt: {fileID: 4110320234338943949}
+  encTxt: {fileID: 3009785358198266131}
+  jumpTxt: {fileID: 1070681529172062171}
+  defenceTxt: {fileID: 6815176023924460121}
+  attackTxt: {fileID: 4648560959765616484}
+  damageTxt: {fileID: 447497821899453494}
+  arTxt: {fileID: 8134767958869050445}
 --- !u!1 &8288374799543072933
 GameObject:
   m_ObjectHideFlags: 0

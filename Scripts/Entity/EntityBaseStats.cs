@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace kfutils.rpg {
 
 
-    [Serializable]
+    [System.Serializable]
     public class EntityBaseStats
     {
         public const int MIN_SCORE = 1; // Minimum score for a player character
@@ -27,7 +26,20 @@ namespace kfutils.rpg {
         public int Charisma { get => charisma; set => charisma = value; }
         public int Spirit { get => spirit; set => spirit = value; } 
 
+        public void GenRandomHumanStats() {
+            strength = RollStat();
+            agility = RollStat();
+            vitality = RollStat();
+            endurance = RollStat();
+            intelligence = RollStat();
+            charisma = RollStat();
+            spirit = RollStat();
+        }
 
+
+        private int RollStat() {
+            return Random.Range(1, 7) + Random.Range(1, 7) + Random.Range(1, 7);
+        }
 
     }
 

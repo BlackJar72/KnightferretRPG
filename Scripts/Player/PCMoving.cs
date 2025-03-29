@@ -83,7 +83,9 @@ namespace kfutils.rpg {
         /// TODO / FIXME?  This may need to take a some character creation data as an argument later
         public virtual void NewCharacterInit() {
             // First, we need to handle the derived attribute (may be moved to more derived class later)
+            attributes.baseStats.GenRandomHumanStats();
             attributes.DeriveAttributesForHuman(health, stamina, mana);
+
             // Make sure all the bars are full.
             health.HealFully();
             stamina.HealFully();
