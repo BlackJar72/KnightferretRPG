@@ -29,11 +29,18 @@ namespace kfutils.rpg {
         }
 
 
+        public int UpdateWeight() {
+            float weight = Mathf.RoundToInt(CalculateWeight() + equiptment.CalculateWeight());
+            PCMoving pc = GetComponent<PCMoving>();
+            if(pc != null) pc.SetWeightForMovement(weight);
+            return Mathf.RoundToInt(weight);
+        }
+
+
         private void UpdateBottomBar(IInventory inv, int slot) { UpdateBottomBar(inv); }
         private void UpdateBottomBar(IInventory inv) {
             if((inv == this) || (inv == equiptment)) {
-                int weight = Mathf.RoundToInt(CalculateWeight() + equiptment.CalculateWeight());
-                weightText.SetText("Weight: " + weight);
+                weightText.SetText("Weight: " + UpdateWeight());                
             }
             moneyText.SetText("Money: " + money.GetSimpleMoneyString() + " Gold");
         }

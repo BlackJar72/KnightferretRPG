@@ -47,12 +47,18 @@ namespace kfutils.rpg {
         protected bool shouldSprint;
         protected bool shouldCrouch;
         protected bool movementAllowed;
+        protected float weightMovementFactor = 1.0f;
 
         protected float looky;
         protected Vector2[] moveIn = new Vector2[4];
         protected Vector2[] lookIn = new Vector2[4];
 
         protected sealed override void MakePC(string id) { base.MakePC(PC); }
+
+
+        public void SetWeightForMovement(float weight) {
+            weightMovementFactor = Mathf.Max(1.0f - (Mathf.Max((weight - attributes.halfEncumbrance), 0.0f) / attributes.halfEncumbrance), 0.0001f);
+        }
 
 
         protected override void Awake() {
@@ -262,12 +268,12 @@ namespace kfutils.rpg {
 
             if (movement.magnitude > 0) {
                 if (movement.magnitude > 1) {
-                    newVelocity += transform.rotation * (movement.normalized * baseSpeed);
+                    newVelocity += transform.rotation * (movement.normalized * baseSpeed * weightMovementFactor);
                 } else {
-                    newVelocity += transform.rotation * (movement * baseSpeed);
+                    newVelocity += transform.rotation * (movement * baseSpeed * weightMovementFactor);
                 }
                 if(moveType == MoveType.RUN) {
-                    stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor);
+                    stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
                 }
             }
 
