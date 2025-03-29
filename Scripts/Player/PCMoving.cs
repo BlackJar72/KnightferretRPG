@@ -287,7 +287,7 @@ namespace kfutils.rpg {
 
             if (onGround) {
                 if (shouldJump && stamina.CanDoAction(10f)) {
-                    vSpeed = Mathf.Sqrt(attributes.jumpForce * GameConstants.GRAVITY);;
+                    vSpeed = Mathf.Sqrt(attributes.jumpForce * weightMovementFactor * GameConstants.GRAVITY);;
                     stamina.UseStamina(10f);                    
                 } else {
                     vSpeed = -GameConstants.GRAVITY3;

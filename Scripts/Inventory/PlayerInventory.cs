@@ -32,7 +32,9 @@ namespace kfutils.rpg {
         public int UpdateWeight() {
             float weight = Mathf.RoundToInt(CalculateWeight() + equiptment.CalculateWeight());
             PCMoving pc = GetComponent<PCMoving>();
-            if(pc != null) pc.SetWeightForMovement(weight);
+            if(pc != null) {
+                pc.SetWeightForMovement(weight);
+            }
             return Mathf.RoundToInt(weight);
         }
 
