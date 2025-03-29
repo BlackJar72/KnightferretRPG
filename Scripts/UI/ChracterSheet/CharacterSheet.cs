@@ -71,7 +71,7 @@ namespace kfutils.rpg.ui {
             // Second Pane
             healthTxt.SetText("Health: " + pc.health.BaseHealth);
             staminaTxt.SetText("Stamina: " + pc.stamina.baseStamina);;
-            manaTxt.SetText("Health: " + pc.mana.baseMana);
+            manaTxt.SetText("Mana: " + pc.mana.baseMana);
 
             speedTxt.SetText("Speed: " + pc.attributes.crouchSpeed + "/ " + pc.attributes.walkSpeed + " / " + pc.attributes.runSpeed);
             encTxt.SetText("Carry Weight: " + pc.attributes.halfEncumbrance);
