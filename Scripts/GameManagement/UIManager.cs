@@ -12,6 +12,7 @@ namespace kfutils.rpg {
         // UI Control
         [SerializeField] ShowOrHide characterPanelToggler;
         [SerializeField] Canvas mainCanvas;
+        [SerializeField] Toast toast;
         [SerializeField] ShowOrHide containerUI;
         [SerializeField] ContainerUI containerLogic;
 
@@ -67,6 +68,16 @@ namespace kfutils.rpg {
                 Cursor.lockState = CursorLockMode.None;
                 EntityManagement.playerCharacter.AllowActions(false);
             }
+        }
+
+        
+        public void ShowToast(string text) {
+            toast.Show(text);
+        }
+
+        
+        public void ShowToast(string text, float duration) {
+            toast.Show(text, duration);
         }
  
 
