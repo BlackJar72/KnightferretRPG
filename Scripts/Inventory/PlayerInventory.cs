@@ -44,7 +44,7 @@ namespace kfutils.rpg {
             if((inv == this) || (inv == equiptment)) {
                 weightText.SetText("Weight: " + UpdateWeight());                
             }
-            moneyText.SetText("Money: " + money.GetSimpleMoneyString() + " Gold");
+            moneyText.SetText("Money: " + money.GetGoodMoneyString());
         }
 
 

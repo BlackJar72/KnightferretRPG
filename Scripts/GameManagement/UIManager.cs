@@ -6,15 +6,16 @@ using UnityEngine.InputSystem;
 
 namespace kfutils.rpg {
 
-    //[RequireComponent(typeof(PlayerInput))]
     public class UIManager : MonoBehaviour {
 
         // UI Control
         [SerializeField] ShowOrHide characterPanelToggler;
         [SerializeField] Canvas mainCanvas;
+        [SerializeField] ShowOrHide crossHairs;
         [SerializeField] Toast toast;
         [SerializeField] ShowOrHide containerUI;
         [SerializeField] ContainerUI containerLogic;
+        [SerializeField] ItemToolTipUI itemToolTipUI;
 
 
         public Canvas MainCanvas { get => mainCanvas; }
@@ -33,13 +34,41 @@ namespace kfutils.rpg {
         protected InputAction crouchToggle;
 
 
+        /// <summary>
+        /// Handles things that should be done when opening any GUI.
+        /// </summary>
+        public void OpenGUI() {
+            Cursor.lockState = CursorLockMode.None;
+            crossHairs.SetHidden();
+        }
+
+
+        /// <summary>
+        /// Handles things that should be done when opening any GUI.
+        /// </summary>
+        public void CloseGUI() {                          
+            Cursor.lockState = CursorLockMode.Locked;
+            crossHairs.SetVisible();
+        }
+
+
+        public void ShowItemToolTip(ItemPrototype item) {
+            itemToolTipUI.ShowToolTip(item);            
+        }
+
+
+        public void HideItemToolTip() {
+            itemToolTipUI.HideToolTip();
+        }
+
+
         public bool ToggleCharacterSheet() {
             characterPanelToggler.Toggle();
             if(characterPanelToggler.IsVisible) {
-                Cursor.lockState = CursorLockMode.None;
-            } else {                          
-                Cursor.lockState = CursorLockMode.Locked;
+                OpenGUI();
+            } else {
                 InventoryManager.SignalCloseUIs();
+                CloseGUI();
             }
             return characterPanelToggler.IsVisible;
         }
@@ -58,11 +87,13 @@ namespace kfutils.rpg {
 
         public void ToggleContainerUI(Inventory inventory, Container container, GameObject from) {
             if(containerUI.gameObject.activeSelf) {
+                CloseGUI();
                 CloseContainerUI();
                 characterPanelToggler.SetHidden();
                 Cursor.lockState = CursorLockMode.Locked;
                 EntityManagement.playerCharacter.AllowActions(true);
             } else {
+                OpenGUI();
                 OpenContainerUI(inventory, container);
                 characterPanelToggler.SetVisible();
                 Cursor.lockState = CursorLockMode.None;

@@ -107,6 +107,59 @@ namespace kfutils.rpg
         }
 
 
+        public string GetGoodMoneyString() => GetGoodMoneyString(copper);
+
+
+        public static string GetGoodMoneyString(int copper) {
+            StringBuilder builder = new StringBuilder();
+            switch(standard) {
+                case MoneyType.Platinum:
+                    if((copper / (int)MoneyType.Platinum) == 0) goto case MoneyType.Gold;
+                    builder.Append(copper / (int)MoneyType.Platinum);
+                    if((copper % (int)MoneyType.Platinum) > 0) {
+                        builder.Append(".");
+                        builder.Append(copper % (int)MoneyType.Platinum);
+                    }
+                    builder.Append(" Platinum");
+                    break;
+                case MoneyType.Gold:
+                    if((copper / (int)MoneyType.Gold) == 0) goto case MoneyType.Silver;
+                    builder.Append(copper / (int)MoneyType.Gold);
+                    if((copper % (int)MoneyType.Gold) > 0) {
+                        builder.Append(".");
+                        builder.Append(copper % (int)MoneyType.Gold);
+                    }
+                    builder.Append(" Gold");
+                    break;
+                case MoneyType.Electrum:
+                    if((copper / (int)MoneyType.Electrum) == 0) goto case MoneyType.Silver;
+                    builder.Append(copper / (int)MoneyType.Electrum);
+                    if((copper % (int)MoneyType.Electrum) > 0) {
+                        builder.Append(".");
+                        builder.Append(copper % (int)MoneyType.Electrum);
+                    }
+                    builder.Append(" Electrum");
+                    break;
+                case MoneyType.Silver:
+                    if((copper / (int)MoneyType.Silver) == 0) goto case MoneyType.Copper;
+                    builder.Append(copper / (int)MoneyType.Silver);
+                    if((copper % (int)MoneyType.Silver) > 0) {
+                        builder.Append(".");
+                        builder.Append(copper % (int)MoneyType.Silver);
+                    }
+                    builder.Append(" Silver");
+                    break;
+                case MoneyType.Copper:
+                    builder.Append(copper);
+                    builder.Append(" Copper");
+                    break;
+                default: break;
+            }
+            return builder.ToString();
+        }
+
+
+
         public string GetComplexMoneyString(bool multiline = false) => GetComplexMoneyString(copper, multiline);
 
 

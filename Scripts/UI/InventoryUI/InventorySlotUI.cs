@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 
 namespace kfutils.rpg.ui {
 
-    public class InventorySlotUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
+    public class InventorySlotUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, 
+                                   IDropHandler, IPointerEnterHandler, IPointerExitHandler {
 
         
         [SerializeField] public IInventory inventory;
@@ -125,6 +126,18 @@ namespace kfutils.rpg.ui {
                 InventorySlotUI otherSlot = other.GetComponent<InventorySlotUI>();
                 if((otherSlot != null) && (otherSlot.icon.sprite != null)) SwapWith(otherSlot);
             }
+        }
+
+
+        public void OnPointerEnter(PointerEventData eventData) {
+            if((item != null) && (item.item != null)) {
+                GameManager.Instance.UIManager.ShowItemToolTip(item.item);
+            }
+        }
+
+
+        public void OnPointerExit(PointerEventData eventData) {
+            GameManager.Instance.UIManager.HideItemToolTip();
         }
 
 
