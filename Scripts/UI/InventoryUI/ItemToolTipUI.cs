@@ -10,7 +10,6 @@ namespace kfutils.rpg.ui {
 
         [SerializeField] TMP_Text itemName;
 
-        [SerializeField] TooltipLine itemType;
         [SerializeField] TooltipLine itemWeight;
         [SerializeField] TooltipLine itemValue;
         [SerializeField] TooltipLine itemDamage;
@@ -28,6 +27,16 @@ namespace kfutils.rpg.ui {
 
         private delegate void DataSetter(ItemPrototype item);
         private static DataSetter[] dataSetters;
+
+
+        protected void OnEnable() {
+            InventoryManager.closeAllInvUI += HideToolTip;
+        }
+
+
+        protected void OnDisable() {
+            InventoryManager.closeAllInvUI -= HideToolTip;
+        }
 
 
 
@@ -51,10 +60,7 @@ namespace kfutils.rpg.ui {
 
 
         public void SetDataForItem(ItemPrototype item) {
-            // For testing
-            SetFieldsForGeneral(item);
-            // Real version
-            //dataSetters[(int)item.ItemType](item);
+            dataSetters[(int)item.ItemType](item);
         }
 
 
@@ -69,14 +75,22 @@ namespace kfutils.rpg.ui {
         }
 
 
+        private void SetDescription(string text) {
+            itemDescription.SetText(text);
+            int w = Mathf.CeilToInt(itemDescription.GetPreferredValues(text)[0]);
+            Vector2 rtSize = itemDescription.rectTransform.sizeDelta;
+            rtSize[1] = ((w / 354) * 40) + 60;
+            itemDescription.rectTransform.sizeDelta = rtSize;
+        }
+
+
         private void SetFieldsForGeneral(ItemPrototype item) { 
             itemName.SetText(item.Name);
 
-            itemType.SetInfo("General");
             itemWeight.SetInfo(item.Weight.ToString());
             itemValue.SetInfo(item.Value.GetGoodMoneyString());
 
-            itemDescription.SetText(item.Description);
+            SetDescription(item.Description);
 
             itemDamage.SetInfo(null);
             itemSpeed.SetInfo(null);
@@ -92,41 +106,64 @@ namespace kfutils.rpg.ui {
 
 
         private void SetFieldsForWeapons(ItemPrototype item) {
+            itemName.SetText(item.Name);
 
+            itemWeight.SetInfo(item.Weight.ToString());
+            itemValue.SetInfo(item.Value.GetGoodMoneyString());
+
+            SetDescription(item.Description);
+
+            itemDamage.SetInfo(null);
+            itemSpeed.SetInfo(null);
+            itemDmgType.SetInfo(null);
+            itemAP.SetInfo(null);
+            itemBlock.SetInfo(null);
+            itemStability.SetInfo(null);
+            itemParry.SetInfo(null);
+            itemAR.SetInfo(null);
+
+            finalSpace.gameObject.SetActive(false);
         }
 
 
         private void SetFieldsForShield(ItemPrototype item) {
+            SetFieldsForGeneral(item);
 
         }
 
 
         private void SetFieldsForArmor(ItemPrototype item) {
+            SetFieldsForGeneral(item);
 
         }
 
 
         private void SetFieldsForWearable(ItemPrototype item) {
+            SetFieldsForGeneral(item);
 
         }
 
 
         private void SetFieldsForUsable(ItemPrototype item) {
+            SetFieldsForGeneral(item);
 
         }
 
 
         private void SetFieldsForConsumable(ItemPrototype item) {
+            SetFieldsForGeneral(item);
 
         }
 
 
         private void SetFieldsForWand(ItemPrototype item) {
+            SetFieldsForGeneral(item);
 
         }
 
 
         private void SetFieldsForSpecial(ItemPrototype item) {
+            SetFieldsForGeneral(item);
 
         }
 

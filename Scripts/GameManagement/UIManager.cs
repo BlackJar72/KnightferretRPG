@@ -67,8 +67,8 @@ namespace kfutils.rpg {
             if(characterPanelToggler.IsVisible) {
                 OpenGUI();
             } else {
-                InventoryManager.SignalCloseUIs();
                 CloseGUI();
+                InventoryManager.SignalCloseUIs();
             }
             return characterPanelToggler.IsVisible;
         }
@@ -110,7 +110,7 @@ namespace kfutils.rpg {
         public void ShowToast(string text, float duration) {
             toast.Show(text, duration);
         }
- 
+
 
     }
 
