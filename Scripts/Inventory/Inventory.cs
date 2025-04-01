@@ -169,6 +169,23 @@ namespace kfutils.rpg {
         }
 
 
+        /// <summary>
+        /// Attempt to add the items to the first available slot.
+        /// </summary>
+        /// <param name="item">The item to add.</param>
+        /// <param name="number">The number to add.</param>
+        /// <returns>Whether or not the item could be added.</returns>
+        public override bool AddToFirstReallyEmptySlot(ItemStack item) {
+            if((item == null) || (item.item == false)) return true;
+            if((item.slot < 0) || (GetItemInSlot(item.slot) != null)) {
+                item.slot = FindFirstEmptySlot();
+            }
+            inventory.Add(item);
+            SignalUpdate();
+            return true;
+        }
+
+
         private int FindFirstEmptySlot() {
             // FIXME: Find a way with better time complexity than O=n^2
             int i = 0;

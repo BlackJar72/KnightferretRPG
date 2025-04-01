@@ -22,6 +22,9 @@ namespace kfutils.rpg {
         public delegate void CloseAllInventories();
         public static event CloseAllInventories closeAllInvUI;
 
+        public delegate void CloseStackManipulators();
+        public static event CloseStackManipulators closeStackManUI;
+
 
         public static void Initialize() {
             waitingToRedraw = new List<IRedrawing>();
@@ -53,6 +56,11 @@ namespace kfutils.rpg {
 
         public static void SignalCloseUIs() {
             closeAllInvUI?.Invoke();
+        }
+
+
+        public static void SignalStackManUIs() {
+            closeStackManUI?.Invoke();
         }
 
 

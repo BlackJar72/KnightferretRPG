@@ -37,6 +37,11 @@ namespace kfutils.rpg {
         }
 
 
+        public override bool AddToFirstReallyEmptySlot(ItemStack item) {
+            return AddItemToSlot(item.slot, item);
+        }
+
+
         public override float CalculateWeight() {
             weight = 0f;
             for(int i = 0; i < slots.Length; i++) {

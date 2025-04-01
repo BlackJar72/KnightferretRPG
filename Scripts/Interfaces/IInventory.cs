@@ -69,6 +69,15 @@ namespace kfutils.rpg {
         public bool AddToFirstEmptySlot(ItemStack item);
 
 
+        /// <summary>
+        /// Attempt to add the items to the first available slot.
+        /// </summary>
+        /// <param name="item">The item to add.</param>
+        /// <param name="number">The number to add.</param>
+        /// <returns>Whether or not the item could be added.</returns>
+        public bool AddToFirstReallyEmptySlot(ItemStack item);
+
+
 
     }
 

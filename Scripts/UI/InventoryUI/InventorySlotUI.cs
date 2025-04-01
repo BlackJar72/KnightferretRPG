@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 namespace kfutils.rpg.ui {
 
     public class InventorySlotUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, 
-                                   IDropHandler, IPointerEnterHandler, IPointerExitHandler {
+                                   IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
         
         [SerializeField] public IInventory inventory;
@@ -101,6 +101,8 @@ namespace kfutils.rpg.ui {
             //Debug.Log("Starting Drag");
             if(icon.sprite != null) {
                 icon.transform.SetParent(GetComponentInParent<Canvas>().rootCanvas.transform);
+                GameManager.Instance.UIManager.HideItemToolTip();
+                GameManager.Instance.UIManager.HideItemStackManipulator();
             }
         }
 
@@ -138,6 +140,19 @@ namespace kfutils.rpg.ui {
 
         public void OnPointerExit(PointerEventData eventData) {
             GameManager.Instance.UIManager.HideItemToolTip();
+        }
+
+
+        public virtual void OnPointerClick(PointerEventData eventData) {
+            if(eventData.button == PointerEventData.InputButton.Left) {
+                GameManager.Instance.UIManager.HideItemToolTip();
+                GameManager.Instance.UIManager.HideItemStackManipulator();
+                // TODO: Called method to use or equpt the item
+                //       (Or, if a container inventory, tranfer to player inventory.)
+            } else if(eventData.button == PointerEventData.InputButton.Right) {
+                GameManager.Instance.UIManager.HideItemToolTip();
+                GameManager.Instance.UIManager.ShowItemStackManipulator(this);
+            }
         }
 
 

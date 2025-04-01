@@ -16,6 +16,7 @@ namespace kfutils.rpg {
         [SerializeField] ShowOrHide containerUI;
         [SerializeField] ContainerUI containerLogic;
         [SerializeField] ItemToolTipUI itemToolTipUI;
+        [SerializeField] ItemStackManipulator itemStackManipulator;
 
 
         public Canvas MainCanvas { get => mainCanvas; }
@@ -53,12 +54,25 @@ namespace kfutils.rpg {
 
 
         public void ShowItemToolTip(ItemPrototype item) {
-            itemToolTipUI.ShowToolTip(item);            
+            if(!itemStackManipulator.IsVisible) itemToolTipUI.ShowToolTip(item);            
         }
 
 
         public void HideItemToolTip() {
             itemToolTipUI.HideToolTip();
+        }
+
+
+        public void ShowItemStackManipulator(InventorySlotUI slot) {
+            if(slot is not EquipmentSlotUI) {
+                itemStackManipulator.Open(slot);
+                itemToolTipUI.HideToolTip();
+            }
+        }
+
+
+        public void HideItemStackManipulator() {
+            itemStackManipulator.Close();
         }
 
 
