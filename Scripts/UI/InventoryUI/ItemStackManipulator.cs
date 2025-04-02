@@ -40,10 +40,7 @@ namespace kfutils.rpg.ui {
         public void Open(InventorySlotUI selected) {
             stack = selected.item;
             inventory = selected.inventory;
-            slider.maxValue = stack.stackSize;
-            newStackSize = stack.stackSize / 2;
-            slider.value = newStackSize;
-            textInput.SetTextWithoutNotify(newStackSize.ToString());
+            UpdateSliderSettings();
             spliting.gameObject.SetActive(false);
             menu.gameObject.SetActive(true);
             UpdateSplittable();
@@ -55,6 +52,15 @@ namespace kfutils.rpg.ui {
             spliting.gameObject.SetActive(false);
             menu.gameObject.SetActive(false);
             SetHidden();
+        }
+
+
+        private void UpdateSliderSettings() {
+            slider.minValue = 1;
+            slider.maxValue = stack.stackSize - 1;
+            newStackSize = stack.stackSize / 2;
+            slider.value = newStackSize;
+            textInput.SetTextWithoutNotify(newStackSize.ToString());
         }
 
 
@@ -87,9 +93,7 @@ namespace kfutils.rpg.ui {
 
 
         public void SwitchToSplit() {
-            slider.maxValue = stack.stackSize;
-            newStackSize = stack.stackSize / 2;
-            slider.value = newStackSize;
+            UpdateSliderSettings();
             menu.gameObject.SetActive(false);
             spliting.gameObject.SetActive(true);
         }
@@ -117,9 +121,7 @@ namespace kfutils.rpg.ui {
             inventory.AddToFirstReallyEmptySlot(newStack);
             if(stack.stackSize < 2) Close();
             else {
-                slider.maxValue = stack.stackSize;
-                newStackSize = stack.stackSize / 2;
-                slider.value = newStackSize;
+                UpdateSliderSettings();
             }
         }
 
