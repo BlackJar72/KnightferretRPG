@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public abstract class AInventory : MonoBehaviour, IInventory
+    public abstract class AInventory : MonoBehaviour, IInventory<ItemStack>
     {
         public abstract int Count { get; }
         public abstract float Weight { get; }

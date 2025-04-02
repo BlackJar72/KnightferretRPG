@@ -16,10 +16,10 @@ namespace kfutils.rpg {
         public override int Count => inventory.Count;
 
 
-        public delegate void InventoryUpdate(IInventory inv);
+        public delegate void InventoryUpdate(IInventory<ItemStack> inv);
         public event InventoryUpdate inventoryUpdated;
 
-        public delegate void InventorySlotUpdate(IInventory inv, int slot);
+        public delegate void InventorySlotUpdate(IInventory<ItemStack> inv, int slot);
         public event InventorySlotUpdate inventorySlotUpdated;
 
 

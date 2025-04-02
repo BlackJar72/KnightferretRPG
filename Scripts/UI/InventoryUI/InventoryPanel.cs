@@ -80,7 +80,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        protected void UpdateInventory(IInventory inv) {
+        protected void UpdateInventory(IInventory<ItemStack> inv) {
             if(inv == inventory) Redraw();
         }
 
@@ -92,7 +92,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        protected void UpdateSlot(IInventory inv, int slot) {
+        protected void UpdateSlot(IInventory<ItemStack> inv, int slot) {
             if(inventory == inv) {
                 if((slot < inventorySlots.Count) && (inventorySlots[slot] != null) 
                             && inventorySlots[slot].item.item.IsStackable) {

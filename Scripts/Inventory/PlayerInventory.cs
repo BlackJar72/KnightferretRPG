@@ -39,8 +39,8 @@ namespace kfutils.rpg {
         }
 
 
-        private void UpdateBottomBar(IInventory inv, int slot) { UpdateBottomBar(inv); }
-        private void UpdateBottomBar(IInventory inv) {
+        private void UpdateBottomBar(IInventory<ItemStack> inv, int slot) { UpdateBottomBar(inv); }
+        private void UpdateBottomBar(IInventory<ItemStack> inv) {
             if((inv == this) || (inv == equiptment)) {
                 weightText.SetText("Weight: " + UpdateWeight());                
             }

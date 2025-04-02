@@ -22,7 +22,7 @@ namespace kfutils.rpg.ui {
 
         private ItemStack stack;
         private int newStackSize;
-        private IInventory inventory;
+        private IInventory<ItemStack> inventory;
 
 
         protected void OnEnable() {

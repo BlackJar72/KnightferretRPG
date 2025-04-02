@@ -37,6 +37,38 @@ namespace kfutils.rpg
         [SerializeField] int copper;
 
 
+        public Money(int copper) { this.copper = copper; }
+        public Money(int amount, MoneyType type) { copper = copper * (int)type; }
+        public Money(float amount, MoneyType type) { copper = (int)(copper * (int)type); }
+
+
+        // Basic math operator overrides
+        public static Money operator +(Money a) => a;
+        public static Money operator -(Money a) => new Money(a.copper);
+        public static Money operator +(Money a, Money b) => new Money(a.copper + b.copper);
+        public static Money operator -(Money a, Money b) => new Money(a.copper - b.copper);
+        public static Money operator +(Money a, int b) => new Money(a.copper + b);
+        public static Money operator -(Money a, int b) => new Money(a.copper - b);
+        public static Money operator *(Money a, int b) => new Money(a.copper * b);
+        public static Money operator /(Money a, int b) => new Money(a.copper / b);
+        public static Money operator *(Money a, float b) => new Money((int)(a.copper * b));
+        public static Money operator /(Money a, float b) => new Money((int)(a.copper / b));
+        public static bool operator ==(Money a, Money b) => a.copper == b.copper;
+        public static bool operator !=(Money a, Money b) => a.copper != b.copper;
+        public static bool operator  <(Money a, Money b) => a.copper < b.copper;
+        public static bool operator  >(Money a, Money b) => a.copper > b.copper;
+        public static bool operator <=(Money a, Money b) => a.copper <= b.copper;
+        public static bool operator >=(Money a, Money b) => a.copper >= b.copper;
+        public override bool Equals(object other) { return ((other is Money) && copper == (other as Money).copper); }
+        public override int GetHashCode() {
+            int result = copper;
+            result ^= result << 13;
+	        result ^= result >> 17;
+	        result ^= result << 5;
+            return result;
+        }
+
+
 
         public int Copper { get => copper; }
         public float AsSilver { get => (float)copper / (float)MoneyType.Silver; }
@@ -46,8 +78,7 @@ namespace kfutils.rpg
 
 
 
-        public void AddCopper(int copper)
-        {
+        public void AddCopper(int copper) {
             this.copper += copper;
         }
 
@@ -61,8 +92,7 @@ namespace kfutils.rpg
         /// Used to add or remove money (remember, adding a negative is subtracting, so there is no need for a remove money method).
         /// </summary>
         /// <param name="amount"></param>
-        public void AddMoney(float amount)
-        {
+        public void AddMoney(float amount) {
             copper = Mathf.Max(Mathf.RoundToInt((amount * conversionRateIn)), 0);
         }
 
@@ -93,8 +123,7 @@ namespace kfutils.rpg
         }
 
 
-        public float GetMoneyAsFloat()
-        {
+        public float GetMoneyAsFloat() {
             return (float)copper * conversionRateOut;
         }
 

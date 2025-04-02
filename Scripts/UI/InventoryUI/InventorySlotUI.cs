@@ -9,7 +9,7 @@ namespace kfutils.rpg.ui {
                                    IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
         
-        [SerializeField] public IInventory inventory;
+        [SerializeField] public IInventory<ItemStack> inventory;
         [SerializeField] TMP_Text numberText;
         
         [Tooltip("Which slot type this is; this should only be set to one value, though items can have more than one.")]
@@ -150,7 +150,7 @@ namespace kfutils.rpg.ui {
                 if(inventory == InventoryManager.currentContainerInventory) {
                     EntityManagement.playerCharacter.AddToMainInventory(item);
                     inventory.RemoveItem(item);
-                } else {
+                } else if(eventData.clickCount == 2) {
                     Debug.Log("Using " + item.item.Name);
                     // TODO: Called method to use or equpt the item
                     //       (Or, if a container inventory, tranfer to player inventory.)

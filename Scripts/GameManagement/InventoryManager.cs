@@ -15,10 +15,10 @@ namespace kfutils.rpg {
 
         private static List<IRedrawing> waitingToRedraw = new ();
 
-        public delegate void InventoryUpdate(IInventory inv);
+        public delegate void InventoryUpdate(IInventory<ItemStack> inv);
         public static event InventoryUpdate inventoryUpdated;
 
-        public delegate void InventorySlotUpdate(IInventory inv, int slot);
+        public delegate void InventorySlotUpdate(IInventory<ItemStack> inv, int slot);
         public static event InventorySlotUpdate inventorySlotUpdated;
 
 
@@ -41,12 +41,12 @@ namespace kfutils.rpg {
         }
 
 
-        public static void SignalUpdate(IInventory inv) {
+        public static void SignalUpdate(IInventory<ItemStack> inv) {
             inventoryUpdated?.Invoke(inv);
         }
 
 
-        public static void SignalSlotUpdate(IInventory inv, int slot) {
+        public static void SignalSlotUpdate(IInventory<ItemStack> inv, int slot) {
             inventorySlotUpdated?.Invoke(inv, slot);
         }
 

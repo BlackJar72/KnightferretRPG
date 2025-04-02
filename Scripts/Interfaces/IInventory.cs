@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public interface IInventory {
+    public interface IInventory<T> {
 
 
-        public void RemoveItem(ItemStack item);
+        public void RemoveItem(T item);
 
         public int GetLastSlot() ;
         public float CalculateWeight();
@@ -16,7 +16,7 @@ namespace kfutils.rpg {
 
         public int Count { get; }
 
-        public ItemStack GetByBackingIndex(int index);
+        public T GetByBackingIndex(int index);
 
         public float Weight { get; } 
         
@@ -24,13 +24,13 @@ namespace kfutils.rpg {
         /// <summary>
         /// Is there an instance of the item in the inventory?
         /// </summary>
-        public bool HasItem(ItemStack item);
+        public bool HasItem(T item);
 
 
         /// <summary>
         /// Return the item type in the given slot.
         /// </summary>
-        public ItemStack GetItemInSlot(int slot);
+        public T GetItemInSlot(int slot);
 
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace kfutils.rpg {
         /// <param name="item">The item type to add.</param>
         /// <param name="number">The number of items to add.</param>
         /// <returns>True if the item was added anywhere in the inventory.</returns>
-        public bool AddItemToSlot(int slot, ItemStack item);
+        public bool AddItemToSlot(int slot, T item);
 
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace kfutils.rpg {
         /// <param name="item">The item to add.</param>
         /// <param name="number">The number to add.</param>
         /// <returns>Whether or not the item could be added.</returns>
-        public bool AddToFirstEmptySlot(ItemStack item);
+        public bool AddToFirstEmptySlot(T item);
 
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace kfutils.rpg {
         /// <param name="item">The item to add.</param>
         /// <param name="number">The number to add.</param>
         /// <returns>Whether or not the item could be added.</returns>
-        public bool AddToFirstReallyEmptySlot(ItemStack item);
+        public bool AddToFirstReallyEmptySlot(T item);
 
 
 

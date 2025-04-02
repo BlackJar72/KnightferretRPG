@@ -56,7 +56,7 @@ namespace kfutils.rpg {
             dropped.transform.position = where.position + (where.forward * distance);
             dropped.EnablePhysics();
             if(force == 0.0f) return dropped;
-            dropped.ApplyImpulseForce(where.forward * force);
+            dropped.ApplyImpulseForce(where.forward * force * Random.Range(0.95f, 1.05f));
             return dropped;
         }
     
