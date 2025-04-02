@@ -112,7 +112,6 @@ namespace kfutils.rpg.ui {
 
 
         public void DoSplit() {
-            Debug.Log("Trying to do split");
             ItemStack newStack = new ItemStack(stack.item, (int)slider.value);
             stack.stackSize -= newStack.stackSize;
             inventory.AddToFirstReallyEmptySlot(newStack);

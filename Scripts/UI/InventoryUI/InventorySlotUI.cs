@@ -147,8 +147,14 @@ namespace kfutils.rpg.ui {
             if(eventData.button == PointerEventData.InputButton.Left) {
                 GameManager.Instance.UIManager.HideItemToolTip();
                 GameManager.Instance.UIManager.HideItemStackManipulator();
-                // TODO: Called method to use or equpt the item
-                //       (Or, if a container inventory, tranfer to player inventory.)
+                if(inventory == InventoryManager.currentContainerInventory) {
+                    EntityManagement.playerCharacter.AddToMainInventory(item);
+                    inventory.RemoveItem(item);
+                } else {
+                    Debug.Log("Using " + item.item.Name);
+                    // TODO: Called method to use or equpt the item
+                    //       (Or, if a container inventory, tranfer to player inventory.)
+                }
             } else if(eventData.button == PointerEventData.InputButton.Right) {
                 GameManager.Instance.UIManager.HideItemToolTip();
                 GameManager.Instance.UIManager.ShowItemStackManipulator(this);

@@ -33,6 +33,11 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void ToggleCharacterSheet() {
+            InventoryManager.SignalToggleCharacterSheet();
+        }
+
+
         public void Redraw() {
             InventoryManager.AddRedraw(this);
         }

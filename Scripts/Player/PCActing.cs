@@ -81,11 +81,13 @@ namespace kfutils.rpg {
 
         protected void EnableUIActions() {
             toggleInventoryAction.started += ToggleCharacterSheet;
+            InventoryManager.toggleCharacterSheet += ToggleCharacterSheet;
         }
 
 
         protected void DisableUIActions() {
-            toggleInventoryAction.started -= ToggleCharacterSheet;            
+            toggleInventoryAction.started -= ToggleCharacterSheet;   
+            InventoryManager.toggleCharacterSheet -= ToggleCharacterSheet;         
         }
 
 
@@ -170,7 +172,9 @@ namespace kfutils.rpg {
         }
 
         
-
+        public virtual void AddToMainInventory(ItemStack stack) {
+            GetComponent<Inventory>().AddToFirstEmptySlot(stack);
+        }
 
 
 

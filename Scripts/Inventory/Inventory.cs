@@ -118,7 +118,7 @@ namespace kfutils.rpg {
 
 
         public override void RemoveAllFromSlot(int slot) {
-            for(int i = inventory.Count; i > -1; i--) {
+            for(int i = inventory.Count - 1; i > -1; i--) {
                 if(inventory[i].slot == slot) {
                     inventory.RemoveAt(i);
                     return;
@@ -160,9 +160,7 @@ namespace kfutils.rpg {
                     }
                 }
             }
-            if((item.slot < 0) || (GetItemInSlot(item.slot) != null)) {
-                item.slot = FindFirstEmptySlot();
-            }
+            item.slot = FindFirstEmptySlot();
             inventory.Add(item);
             SignalUpdate();
             return true;

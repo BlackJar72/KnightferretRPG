@@ -8,6 +8,8 @@ namespace kfutils.rpg {
 
     public static class InventoryManager {
 
+        public static AInventory currentContainerInventory;
+
 
 #region Redraw Control
 
@@ -19,11 +21,6 @@ namespace kfutils.rpg {
         public delegate void InventorySlotUpdate(IInventory inv, int slot);
         public static event InventorySlotUpdate inventorySlotUpdated;
 
-        public delegate void CloseAllInventories();
-        public static event CloseAllInventories closeAllInvUI;
-
-        public delegate void CloseStackManipulators();
-        public static event CloseStackManipulators closeStackManUI;
 
 
         public static void Initialize() {
@@ -54,6 +51,20 @@ namespace kfutils.rpg {
         }
 
 
+
+#endregion
+#region Misc Event Signalling
+
+        public delegate void CloseAllInventories();
+        public static event CloseAllInventories closeAllInvUI;
+
+        public delegate void CloseStackManipulators();
+        public static event CloseStackManipulators closeStackManUI;
+
+        public delegate void ToggleCharacterSheet();
+        public static event ToggleCharacterSheet toggleCharacterSheet;
+
+
         public static void SignalCloseUIs() {
             closeAllInvUI?.Invoke();
         }
@@ -64,8 +75,16 @@ namespace kfutils.rpg {
         }
 
 
+        public static void SignalToggleCharacterSheet() {
+            toggleCharacterSheet?.Invoke();
+        }
+
 
 #endregion
+
+
+
+
 
 
     }
