@@ -23,7 +23,7 @@ namespace kfutils.rpg {
 
 
         public virtual void SignalUpdate() {
-            InventoryManager.SignalUpdate(this);
+            InventoryManager.SignalInventoryUpdate(this);
             CalculateWeight();
         }
 

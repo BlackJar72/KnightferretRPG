@@ -88,7 +88,13 @@ namespace kfutils.rpg.ui {
         protected void GetInventorySize() {
             RectTransform rt = GetComponent<RectTransform>();
             int lowestVisible = Mathf.CeilToInt(rt.localPosition.y / 128) + minRows;
-            slots = inventory.GetLastSlot();
+            try{
+                slots = inventory.GetLastSlot();
+            } catch (Exception e) {
+                Debug.Log(this.GetType() + ": " + gameObject.name);
+                Debug.Log(inventory);
+                throw e;
+            }
             rows = Mathf.Max(lowestVisible, (slots / columns) + 2);
             slots = rows * columns;
         }

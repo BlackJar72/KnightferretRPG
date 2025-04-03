@@ -21,6 +21,9 @@ namespace kfutils.rpg {
         public delegate void InventorySlotUpdate(IInventory<ItemStack> inv, int slot);
         public static event InventorySlotUpdate inventorySlotUpdated;
 
+        public delegate void SpellbookUpdate(Spellbook inv);
+        public static event SpellbookUpdate spellbookUpdated;
+
 
 
         public static void Initialize() {
@@ -41,13 +44,18 @@ namespace kfutils.rpg {
         }
 
 
-        public static void SignalUpdate(IInventory<ItemStack> inv) {
+        public static void SignalInventoryUpdate(IInventory<ItemStack> inv) {
             inventoryUpdated?.Invoke(inv);
         }
 
 
         public static void SignalSlotUpdate(IInventory<ItemStack> inv, int slot) {
             inventorySlotUpdated?.Invoke(inv, slot);
+        }
+
+
+        public static void SignalSpellbookUpdate(Spellbook inv) {
+            spellbookUpdated?.Invoke(inv);
         }
 
 

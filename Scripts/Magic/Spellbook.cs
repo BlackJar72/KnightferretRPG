@@ -5,132 +5,119 @@ using System.Collections.Generic;
 
 namespace kfutils.rpg {
     
-    public class Spellbook : MonoBehaviour, IInventory<SpellSlot> {
+    public class Spellbook : MonoBehaviour, IInventory<Spell> {
         
-        public List<SpellSlot> spells;
+        public List<Spell> spells;
+
+        public bool unlocked = false; // Spells should not normally be removed from list; can make it possible in special circumstances
 
 
         public int Count => spells.Count;
         public float Weight => 0.0f;
 
 
-        public bool AddItemToSlot(int slot, SpellSlot item) {
+
+        // For Testing; TODO??: Get rid of this, but add some other way to add starting gear ... or, do I need to...?
+        [SerializeField] Spell[] startingItems;
+
+
+        void Start() // FIXME: This will need to be moved to an method run only at the start of a new game!!
+        {
+            foreach(Spell spell in startingItems) AddToFirstEmptySlot(spell);
+            SignalUpdate();
+        }
+
+
+        public bool AddItemToSlot(int slot, Spell spell) {
             for(int i = 0; i < spells.Count; i++) {
-                if(spells[i].slot == item.slot) return AddToFirstEmptySlot(item);
+                if(spells[i] == spell) return false; // Do not add a spell more than once
             }
-            spells.Add(item);
+            spells.Add(spell);
+            SignalUpdate();
             return true;
         }
 
 
-        public bool AddToFirstEmptySlot(SpellSlot item) {
-            bool found = false;
-            int end = GetLastSlot() + 1;
-            for(int i = 0; i < end; i++) {
-                found = true;
-                for(int j = 0; j < spells.Count; i++) {
-                    found = found && (spells[j].slot != i);
-                }
-                if(found) {
-                    item.slot = i;
-                    spells.Add(item);
-                    return true;
-                }
-            }
-            item.slot = end;
-            spells.Add(item);
-            return true;
+        public bool AddToFirstEmptySlot(Spell spell) {
+            return AddItemToSlot(spells.Count, spell);
         }
 
 
-        public bool AddToFirstReallyEmptySlot(SpellSlot item) {
-            return AddToFirstEmptySlot(item);
+        public bool AddToFirstReallyEmptySlot(Spell spell) {
+            return AddItemToSlot(spells.Count, spell);
         }
 
 
         public float CalculateWeight() => 0.0f;
 
 
-        public SpellSlot GetByBackingIndex(int index) {
+        public Spell GetByBackingIndex(int index) {
             return spells[index];
         }
 
 
-        public SpellSlot GetItemInSlot(int slot) {
-            for(int i = 0; i < spells.Count; i++) {
-                if(spells[i].slot == slot) return spells[i];
-            }
-            return null;
+        public Spell GetItemInSlot(int slot) {
+            return GetByBackingIndex(slot);
         }
 
 
         public int GetLastSlot() {
-            int result = 0;
-            foreach(SpellSlot slot in spells) {
-                if(slot.slot > result) result = slot.slot;
-            }
-            return result;
+            return spells.Count - 1;
         }
 
 
         public int GetNumberInSlot(int slot) {
-            for(int i = spells.Count - 1; i > -1; i--) {
-                if(spells[i].slot == slot) {
-                    spells.RemoveAt(i);
-                    return 1;
-                }
-            }
+            if(slot < spells.Count) return 1;
             return 0;
         }
 
 
-        public bool HasItem(SpellSlot item) {
+        public bool HasItem(Spell spell) {
             for(int i = 0; i < spells.Count; i++) {
-                if(spells[i].spell == item.spell) return true;
+                if(spells[i] == spell) return true;
             }
             return false;
         }
 
 
         public void RemoveAllFromSlot(int slot) {
-            for(int i = spells.Count - 1; i > -1; i--) {
-                if(spells[i].slot == slot) {
-                    spells.RemoveAt(i);
-                    return;
-                }
+            if(unlocked) {
+                spells.RemoveAt(slot);
+                SignalUpdate();
             }
         }
 
 
         public void RemoveFromSlot(int slot, int number) {
-            for(int i = spells.Count - 1; i > -1; i--) {
-                if(spells[i].slot == slot) {
-                    spells.RemoveAt(i);
-                    return;
+            if(unlocked) {
+                spells.RemoveAt(slot);
+                SignalUpdate();
+            }
+        }
+
+
+        public void RemoveItem(Spell spell) {
+            if(unlocked) {
+                for(int i = spells.Count - 1; i > -1; i--) {
+                    if(spells[i] == spell) {
+                        spells.RemoveAt(i);
+                        SignalUpdate();
+                        return;
+                    }
                 }
             }
         }
 
 
-        public void RemoveItem(SpellSlot item) {
-            for(int i = spells.Count - 1; i > -1; i--) {
-                if(spells[i].spell == item.spell) {
-                    spells.RemoveAt(i);
-                    return;
-                }
-            }
+        public virtual void SignalUpdate() {
+            InventoryManager.SignalSpellbookUpdate(this);
+            CalculateWeight();
         }
 
 
-        public void SignalSlotUpdate(int slot) {
-            // TODO: Setup spellbook UI, then implement this
-            throw new System.NotImplementedException();
-        }
-
-
-        public void SignalUpdate() {
-            // TODO: Setup spellbook UI, then implement this
-            throw new System.NotImplementedException();
+        public virtual void SignalSlotUpdate(int slot) {
+            InventoryManager.SignalSpellbookUpdate(this);
+            CalculateWeight();
         }
 
 

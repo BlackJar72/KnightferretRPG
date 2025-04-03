@@ -28,7 +28,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemStack.ProtoStack[] startingItems;
 
 
-        void Start()
+        void Start() // FIXME: This will need to be moved to an method run only at the start of a new game!!
         {
             foreach(ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
             SignalUpdate();

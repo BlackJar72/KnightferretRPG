@@ -15,7 +15,7 @@ namespace kfutils.rpg {
             Inventory toInv = from.GetComponent<Inventory>();
             if(toInv != null) {
                 toInv.AddToFirstEmptySlot(new ItemStack(prototype, 1, -1));
-                InventoryManager.SignalUpdate(toInv);
+                InventoryManager.SignalInventoryUpdate(toInv);
                 GameObject.Destroy(gameObject);
             }
         }
