@@ -7,7 +7,7 @@ namespace kfutils.rpg.ui {
         [SerializeField] bool shouldThrow;
 
 
-        public override void SwapWith(InventorySlotUI other) {
+        public override bool SwapWith(InventorySlotUI other) {
             if((other.item != null) && (other.item.item != null) && (other.item.item.InWorld != null)) {
                 PCActing pc = EntityManagement.playerCharacter;
                 if(shouldThrow) {
@@ -17,6 +17,7 @@ namespace kfutils.rpg.ui {
                 }
                 other.inventory.RemoveFromSlot(other.item.slot, 1);
             }
+            return true;
         }
 
 

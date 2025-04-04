@@ -8,6 +8,9 @@ namespace kfutils.rpg {
     /// </summary>
     [CreateAssetMenu(menuName = "KF-RPG/Magic/Spell Prototype", fileName = "Spell", order = 10)]
     public class Spell : ScriptableObject {
+
+
+        public const EEquiptSlot equiptType = EEquiptSlot.SPELL; // Violating usual formating standards to mirror ItemPrototype
         
         // Identifying Data
         [SerializeField] string id;

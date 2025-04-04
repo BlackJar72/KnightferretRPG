@@ -13,8 +13,8 @@ namespace kfutils.rpg.ui {
         [SerializeField] TMP_Text numberText;
         
         [Tooltip("Which slot type this is; this should only be set to one value, though items can have more than one.")]
-        [SerializeField] protected EEquiptSlot slotType;
-        public EEquiptSlot SlotType { get => slotType; }
+        [SerializeField] protected EEquiptSlotFlags slotType;
+        public EEquiptSlotFlags SlotType { get => slotType; }
 
         public Image icon;
         public int slotNumber;
@@ -25,8 +25,9 @@ namespace kfutils.rpg.ui {
         
 
 
-        public virtual void SwapWith(InventorySlotUI other) {
-            if(!CanSwapSlotTypes(other)) return;
+        public virtual bool SwapWith(InventorySlotUI other) {
+            if(!CanSwapSlotTypes(other)) return false;
+            Debug.Log("Continuing with swap in InventorySlotUI.");
             if((other.item.item == item.item) && item.item.IsStackable) {
                 item.stackSize += other.item.stackSize;
                 other.inventory.RemoveItem(other.item);
@@ -40,16 +41,16 @@ namespace kfutils.rpg.ui {
                     other.inventory.RemoveItem(other.item);
                 } 
             }
-            inventory.SignalUpdate();           
+            inventory.SignalUpdate(); 
+            return true;          
         }
 
 
         protected bool CanSwapSlotTypes(InventorySlotUI other) {
-            bool result = (item.item == null) || ((item.item.EquiptType & other.slotType) > 0);
-            result = result && ((other.item.item == null) || ((other.item.item.EquiptType & slotType) > 0));
+            bool result = (item.item == null) || item.item.FitsFlags(other.slotType);
+            result = result && ((other.item.item == null) || other.item.item.FitsFlags(slotType));
             return result;
         }
-
 
         
 

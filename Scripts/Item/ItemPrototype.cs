@@ -1,3 +1,4 @@
+using kfutils.rpg.ui;
 using UnityEngine;
 
 
@@ -42,8 +43,26 @@ namespace kfutils.rpg {
 
 
         //-----------------------------------------------------------------------------------------------------------//
+        //                                       UTILITY METHODS                                                     //
+        //-----------------------------------------------------------------------------------------------------------//
+
+
+        public bool FitsFlags(EEquiptSlotFlags flags) {
+            return ((0x01 << (int)equiptType) & (int)flags) > 0;
+        }
+
+
+        public bool FitsSlot(EquipmentSlotUI slot) {
+            return ((0x01 << (int)equiptType) & (int)slot.SlotType) > 0;
+        }
+
+
+        //-----------------------------------------------------------------------------------------------------------//
         //                                       INSTANCE FACTORIES                                                  //
         //-----------------------------------------------------------------------------------------------------------//
+
+
+        
 
 
         public ItemStack ItemStackFactory(int number, int slot) {
