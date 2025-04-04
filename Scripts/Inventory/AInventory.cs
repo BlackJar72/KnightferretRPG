@@ -20,6 +20,7 @@ namespace kfutils.rpg {
         public abstract void RemoveFromSlot(int slot, int number);
         public abstract void RemoveAllFromSlot(int slot);
         public abstract void RemoveItem(ItemStack item);
+        public abstract int FindFirstEmptySlot();
 
 
         public virtual void SignalUpdate() {
@@ -32,7 +33,8 @@ namespace kfutils.rpg {
             InventoryManager.SignalSlotUpdate(this, slot);
             CalculateWeight();
         }
-        
+
+
     }
 
 }

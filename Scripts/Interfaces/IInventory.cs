@@ -76,9 +76,7 @@ namespace kfutils.rpg {
         /// <param name="number">The number to add.</param>
         /// <returns>Whether or not the item could be added.</returns>
         public bool AddToFirstReallyEmptySlot(T item);
-
-
-
+        int FindFirstEmptySlot();
     }
 
 }

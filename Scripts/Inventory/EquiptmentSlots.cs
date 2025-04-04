@@ -127,6 +127,15 @@ namespace kfutils.rpg {
 
         }
 
+
+    /// <summary>
+    ///  This is not meaningful in this context; it will give an invalid result by design.
+    ///  DO NOT USE THIS!
+    /// </summary>
+    /// <returns></returns>
+    [Obsolete] public override int FindFirstEmptySlot() {
+            return -1; // Invalid by design -- this should never be used.
+        }
     }
 
 

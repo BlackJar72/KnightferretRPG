@@ -1,3 +1,4 @@
+using kfutils.rpg.ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,11 @@ using UnityEngine.InputSystem;
 namespace kfutils.rpg {
 
     public class PCActing : PCMoving {
+
+        [SerializeField] PlayerInventory inventory;
+        [SerializeField] Spellbook spellbook;
+        [SerializeField] EquiptmentSlots equiptItems;
+        [SerializeField] SpellEquiptSlot equiptSpell;
 
 
 
@@ -32,8 +38,18 @@ namespace kfutils.rpg {
         protected InputAction screenshot;
 
 
+        // Accessor Properties
+        public PlayerInventory Inventory => inventory;
+        public Spellbook Spells => spellbook;
+        public EquiptmentSlots EquiptItems => equiptItems;
+        public SpellEquiptSlot EquiptSpell => equiptSpell;
+
+
 
         protected override void Awake() {
+            if(inventory == null) inventory = GetComponent<PlayerInventory>();
+            if(spellbook == null) spellbook = GetComponent<Spellbook>();
+            if(equiptItems == null) equiptItems = GetComponent<EquiptmentSlots>();
             base.Awake();
             InitInput(); 
         }

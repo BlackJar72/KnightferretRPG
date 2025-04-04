@@ -121,6 +121,11 @@ namespace kfutils.rpg {
         }
 
 
+        public int FindFirstEmptySlot() {
+            return spells.Count;
+        }
+
+
     }
 
 }

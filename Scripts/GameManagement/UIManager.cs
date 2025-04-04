@@ -17,6 +17,10 @@ namespace kfutils.rpg {
         [SerializeField] ContainerUI containerLogic;
         [SerializeField] ItemToolTipUI itemToolTipUI;
         [SerializeField] ItemStackManipulator itemStackManipulator;
+        [SerializeField] EquiptmentPanel pcEquiptPanel;
+
+
+        public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
 
 
         public Canvas MainCanvas { get => mainCanvas; }
@@ -58,6 +62,11 @@ namespace kfutils.rpg {
         }
 
 
+        public void ShowSpellToolTip(Spell spell) {
+            if(!itemStackManipulator.IsVisible) itemToolTipUI.ShowSpellToolTip(spell);            
+        }
+
+
         public void HideItemToolTip() {
             itemToolTipUI.HideToolTip();
         }
@@ -74,6 +83,9 @@ namespace kfutils.rpg {
         public void HideItemStackManipulator() {
             itemStackManipulator.Close();
         }
+
+
+        public bool IsContainerUIVisible => containerUI.IsVisible;
 
 
         public bool ToggleCharacterSheet() {

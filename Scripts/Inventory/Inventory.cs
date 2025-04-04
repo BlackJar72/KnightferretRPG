@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using kfutils.rpg.ui;
+using UnityEditor.Rendering;
 
 
 namespace kfutils.rpg {
@@ -184,7 +185,7 @@ namespace kfutils.rpg {
         }
 
 
-        private int FindFirstEmptySlot() {
+        public override int FindFirstEmptySlot() {
             // FIXME: Find a way with better time complexity than O=n^2
             int i = 0;
             int last = GetLastSlot() + 1;
@@ -201,8 +202,8 @@ namespace kfutils.rpg {
 
 
         public bool CanAddAtSlot(ItemStack item, int slot) => true;
-
-
+        
+        
     }
 
 

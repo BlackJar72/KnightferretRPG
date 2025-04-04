@@ -9,7 +9,8 @@ namespace kfutils.rpg
     
 
     [Serializable]
-     public class Money {
+     public struct Money {
+
         public enum MoneyType {
             Copper = 1,
             Silver = 10,
@@ -19,18 +20,18 @@ namespace kfutils.rpg
         }
 
 
-        private static readonly string COMA = ", ";
+        private const string COMA = ", ";
         private static readonly string NEW_LINE = Environment.NewLine;
 
 
         public static MoneyType standard = MoneyType.Gold;
-        private static float conversionRateOut = (float)Money.standard / (float)MoneyType.Copper;
+        private static float conversionRateOut = (float)MoneyType.Copper / (float)Money.standard;
         private static float conversionRateIn = (float)Money.standard;
 
         public static void SetStandard(MoneyType standard) {
             Money.standard = standard;
             conversionRateIn = (float)standard;
-            Money.conversionRateOut = (float)Money.standard / (float)MoneyType.Copper;
+            Money.conversionRateOut = (float)MoneyType.Copper / (float)Money.standard;
         }
     
 
@@ -38,8 +39,8 @@ namespace kfutils.rpg
 
 
         public Money(int copper) { this.copper = copper; }
-        public Money(int amount, MoneyType type) { copper = copper * (int)type; }
-        public Money(float amount, MoneyType type) { copper = (int)(copper * (int)type); }
+        public Money(int amount, MoneyType type) { copper = amount * (int)type; }
+        public Money(float amount, MoneyType type) { copper = (int)(amount * (int)type); }
 
 
         // Basic math operator overrides
@@ -53,13 +54,16 @@ namespace kfutils.rpg
         public static Money operator /(Money a, int b) => new Money(a.copper / b);
         public static Money operator *(Money a, float b) => new Money((int)(a.copper * b));
         public static Money operator /(Money a, float b) => new Money((int)(a.copper / b));
+        public static implicit operator Money(int a) => new Money(a);
+        public static implicit operator int(Money a) => a.copper;
+        public static implicit operator string(Money a) => a.GetGoodMoneyString();
         public static bool operator ==(Money a, Money b) => a.copper == b.copper;
         public static bool operator !=(Money a, Money b) => a.copper != b.copper;
         public static bool operator  <(Money a, Money b) => a.copper < b.copper;
         public static bool operator  >(Money a, Money b) => a.copper > b.copper;
         public static bool operator <=(Money a, Money b) => a.copper <= b.copper;
         public static bool operator >=(Money a, Money b) => a.copper >= b.copper;
-        public override bool Equals(object other) { return ((other is Money) && copper == (other as Money).copper); }
+        public override bool Equals(object other) { return ((other is Money) && copper == ((Money)other).copper); }
         public override int GetHashCode() {
             int result = copper;
             result ^= result << 13;
@@ -124,7 +128,17 @@ namespace kfutils.rpg
 
 
         public float GetMoneyAsFloat() {
-            return (float)copper * conversionRateOut;
+            return GetMoneyAsFloat(this);
+        }
+
+
+        public static float GetMoneyAsFloat(Money amount) {
+            return amount.copper * conversionRateOut;
+        }
+
+
+        public static Money GetMoneyFromFloat(float amount) {
+            return new Money((int)(amount * conversionRateIn));
         }
 
 

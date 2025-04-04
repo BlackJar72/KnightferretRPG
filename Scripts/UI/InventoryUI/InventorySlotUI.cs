@@ -20,14 +20,12 @@ namespace kfutils.rpg.ui {
         public int slotNumber;
         
         public ItemStack item;
-
-        private RectTransform iconTransfrom;
+        public InventoryPanel inventoryPanel;
         
 
 
         public virtual bool SwapWith(InventorySlotUI other) {
             if(!CanSwapSlotTypes(other)) return false;
-            Debug.Log("Continuing with swap in InventorySlotUI.");
             if((other.item.item == item.item) && item.item.IsStackable) {
                 item.stackSize += other.item.stackSize;
                 other.inventory.RemoveItem(other.item);
@@ -152,9 +150,12 @@ namespace kfutils.rpg.ui {
                     EntityManagement.playerCharacter.AddToMainInventory(item);
                     inventory.RemoveItem(item);
                 } else if(eventData.clickCount == 2) {
-                    Debug.Log("Using " + item.item.Name);
-                    // TODO: Called method to use or equpt the item
-                    //       (Or, if a container inventory, tranfer to player inventory.)
+                    if(GameManager.Instance.UIManager.IsContainerUIVisible) {
+                        InventoryManager.currentContainerInventory.AddToFirstEmptySlot(item);
+                        inventory.RemoveItem(item);
+                    } else {
+                        GameManager.Instance.UIManager.PlayerEquiptPanel.EquipItemFromSlot(this);
+                    }
                 }
             } else if(eventData.button == PointerEventData.InputButton.Right) {
                 GameManager.Instance.UIManager.HideItemToolTip();

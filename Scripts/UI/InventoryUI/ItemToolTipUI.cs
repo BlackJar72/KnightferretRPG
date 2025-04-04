@@ -168,6 +168,29 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void ShowSpellToolTip(Spell spell) {
+            itemName.SetText(spell.Name);
+
+            SetDescription(spell.Description);
+
+            itemWeight.SetInfo(null);
+            itemValue.SetInfo(null);
+
+            itemDamage.SetInfo(null);
+            itemSpeed.SetInfo(null);
+            itemDmgType.SetInfo(null);
+            itemAP.SetInfo(null);
+            itemBlock.SetInfo(null);
+            itemStability.SetInfo(null);
+            itemParry.SetInfo(null);
+            itemAR.SetInfo(null);
+
+            finalSpace.gameObject.SetActive(false); 
+
+            gameObject.SetActive(true);
+        }
+
+
     }
 
 }

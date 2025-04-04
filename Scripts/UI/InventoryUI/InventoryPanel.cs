@@ -53,6 +53,7 @@ namespace kfutils.rpg.ui {
             {
                 InventorySlotUI slotUI = Instantiate(slotPrefab, transform);
                 slotUI.inventory = inventory;
+                slotUI.inventoryPanel = this;
                 slotUI.slotNumber = i;                
                 slotUI.icon.gameObject.SetActive(false);
                 slotUI.HideText();
@@ -78,6 +79,9 @@ namespace kfutils.rpg.ui {
                 } 
             }
         }
+
+
+        public InventorySlotUI GetSlotAt(int index) => inventorySlots[index];
 
 
         protected void UpdateInventory(IInventory<ItemStack> inv) {
