@@ -156,7 +156,7 @@ namespace kfutils.rpg {
                 for(int i = 0; i < inventory.Count; i++) {
                     if(inventory[i].item == item.item) {
                         inventory[i].stackSize += item.stackSize;
-                        SignalSlotUpdate(i);
+                        SignalSlotUpdate(inventory[i].slot);
                         return true;
                     }
                 }

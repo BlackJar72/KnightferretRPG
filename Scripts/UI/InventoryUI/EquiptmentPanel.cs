@@ -7,7 +7,8 @@ namespace kfutils.rpg.ui {
     public class EquiptmentPanel : MonoBehaviour, IRedrawing {
 
         [Tooltip("This is the backing inventory, which must be an instace of type Equiptment slots.")]
-        [SerializeField] EquiptmentSlots inventory;
+        [SerializeField] CharacterInventory mainInventory;
+        private EquiptmentSlots inventory;
 
         [Tooltip("This should hold all the actual slots that are childrn of this (but not empties used as place holder) exactly once.")]
         [SerializeField] EquipmentSlotUI[] slots = new EquipmentSlotUI[11];
@@ -20,6 +21,7 @@ namespace kfutils.rpg.ui {
 
 
         private void Awake() {
+            inventory = mainInventory.Equipt;
             for(int i = 0; i < slots.Length; i++) {
                 slots[i].inventory = inventory;
                 slots[i].slotNumber = i;
@@ -88,7 +90,8 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void EquipItemFromSlot(InventorySlotUI externalSlot) { 
+        // FIXME: This method is broken and I don't know why.  Fix this before allowing it to be run!!!
+        public void EquipItemFromSlot(InventorySlotUI externalSlot) { /*
             // Not for swapping within eqipt area; must be external (really, should be main inventory)
             if(externalSlot.inventory is EquiptmentPanel) return;
             if((externalSlot.item.item.EquiptType == EEquiptSlot.RRING) 
@@ -126,7 +129,7 @@ namespace kfutils.rpg.ui {
 
 
 
-        }
+        */}
 
 
 

@@ -9,7 +9,6 @@ namespace kfutils.rpg {
 
         [SerializeField] PlayerInventory inventory;
         [SerializeField] Spellbook spellbook;
-        [SerializeField] EquiptmentSlots equiptItems;
         [SerializeField] SpellEquiptSlot equiptSpell;
 
 
@@ -41,7 +40,7 @@ namespace kfutils.rpg {
         // Accessor Properties
         public PlayerInventory Inventory => inventory;
         public Spellbook Spells => spellbook;
-        public EquiptmentSlots EquiptItems => equiptItems;
+        public EquiptmentSlots EquiptItems => inventory.Equipt;
         public SpellEquiptSlot EquiptSpell => equiptSpell;
 
 
@@ -49,7 +48,6 @@ namespace kfutils.rpg {
         protected override void Awake() {
             if(inventory == null) inventory = GetComponent<PlayerInventory>();
             if(spellbook == null) spellbook = GetComponent<Spellbook>();
-            if(equiptItems == null) equiptItems = GetComponent<EquiptmentSlots>();
             base.Awake();
             InitInput(); 
         }

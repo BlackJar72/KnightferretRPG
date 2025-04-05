@@ -5,16 +5,19 @@ using System;
 
 namespace kfutils.rpg {
 
-    public class EquiptmentSlots : AInventory {
+    [Serializable]
+    public class EquiptmentSlots : IInventory<ItemStack> {
 
         public ItemStack[] slots = new ItemStack[12];
 
         private float weight;
-        public override float Weight { get => weight; }
+        public float Weight { get => weight; }
 
-        public override int Count => slots.Length;
+        public int Count => slots.Length;
 
         public ItemStack GetItem(int index) => slots[index];
+
+        public CharacterInventory mainInventory;
 
 
         private void Awake() {
@@ -24,7 +27,7 @@ namespace kfutils.rpg {
         }
 
 
-        public override bool AddItemToSlot(int slot, ItemStack item) {
+        public bool AddItemToSlot(int slot, ItemStack item) {
             slots[slot] = item;
             item.CopyInto(slots[slot]);
             SignalUpdate();
@@ -33,17 +36,17 @@ namespace kfutils.rpg {
         }
 
 
-        public override bool AddToFirstEmptySlot(ItemStack item) {
+        public bool AddToFirstEmptySlot(ItemStack item) {
             return AddItemToSlot(item.slot, item);
         }
 
 
-        public override bool AddToFirstReallyEmptySlot(ItemStack item) {
+        public bool AddToFirstReallyEmptySlot(ItemStack item) {
             return AddItemToSlot(item.slot, item);
         }
 
 
-        public override float CalculateWeight() {
+        public float CalculateWeight() {
             weight = 0f;
             for(int i = 0; i < slots.Length; i++) {
                 if(slots[i].item != null) {
@@ -54,12 +57,12 @@ namespace kfutils.rpg {
         }
 
 
-        public override ItemStack GetByBackingIndex(int index) {
+        public ItemStack GetByBackingIndex(int index) {
             return slots[index];
         }
 
 
-        public override ItemStack GetItemInSlot(int slot) {
+        public ItemStack GetItemInSlot(int slot) {
             return slots[slot];
         }
 
@@ -77,17 +80,17 @@ namespace kfutils.rpg {
         /// useful or meaningful interpretation of this.
         /// </summary>
         /// <returns></returns>
-        [Obsolete] override public int GetLastSlot() {
+        [Obsolete] public int GetLastSlot() {
             return slots.Length;
         }
 
 
-        public override int GetNumberInSlot(int slot) {
+        public int GetNumberInSlot(int slot) {
             return slots[slot].stackSize;
         }
 
 
-        public override bool HasItem(ItemStack item) {
+        public bool HasItem(ItemStack item) {
             bool output = false;
             for(int i = 0; (i < slots.Length) && !output; i++) {
                 output = output || (slots[i].item = item.item);
@@ -96,7 +99,7 @@ namespace kfutils.rpg {
         }
 
 
-        public override void RemoveFromSlot(int slot, int number) {
+        public void RemoveFromSlot(int slot, int number) {
             number = Mathf.Min(number, slots[slot].stackSize);
             slots[slot].stackSize -= number;
             if(slots[slot].stackSize < 1) {
@@ -109,34 +112,45 @@ namespace kfutils.rpg {
         }
 
 
-        public override void RemoveAllFromSlot(int slot) {
+        public void RemoveAllFromSlot(int slot) {
             slots[slot] = new ItemStack(null, 0, slot);
             SignalUpdate();
         }
 
 
-        public override void RemoveItem(ItemStack item) {
+        public void RemoveItem(ItemStack item) {
             for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == item) {
                     slots[i] = new ItemStack(null, 0, i);
                     SignalUpdate();
                     return;
                 }
-            }            
-
-
-
+            }
         }
 
 
-    /// <summary>
-    ///  This is not meaningful in this context; it will give an invalid result by design.
-    ///  DO NOT USE THIS!
-    /// </summary>
-    /// <returns></returns>
-    [Obsolete] public override int FindFirstEmptySlot() {
-            return -1; // Invalid by design -- this should never be used.
+        public virtual void SignalUpdate() {
+            InventoryManager.SignalInventoryUpdate(this);
+            CalculateWeight();
         }
+
+
+        public virtual void SignalSlotUpdate(int slot) {
+            InventoryManager.SignalSlotUpdate(this, slot);
+            CalculateWeight();
+        }
+
+
+        /// <summary>
+        ///  This is not meaningful in this context; it will give an invalid result by design.
+        ///  DO NOT USE THIS!
+        /// </summary>
+        /// <returns></returns>
+        [Obsolete] public int FindFirstEmptySlot() {
+                return -1; // Invalid by design -- this should never be used.
+        }
+
+
     }
 
 

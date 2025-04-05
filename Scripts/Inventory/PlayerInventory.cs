@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace kfutils.rpg {
     
-    public class PlayerInventory : Inventory {
+    public class PlayerInventory : CharacterInventory {
         
-        [SerializeField] EquiptmentSlots equiptment;
         [SerializeField] Money money;
 
         [SerializeField] TMP_Text moneyText;
@@ -30,7 +29,7 @@ namespace kfutils.rpg {
 
 
         public int UpdateWeight() {
-            float weight = Mathf.RoundToInt(CalculateWeight() + equiptment.CalculateWeight());
+            float weight = Mathf.RoundToInt(CalculateWeight() + equipt.CalculateWeight());
             PCMoving pc = GetComponent<PCMoving>();
             if(pc != null) {
                 pc.SetWeightForMovement(weight);
@@ -41,7 +40,7 @@ namespace kfutils.rpg {
 
         private void UpdateBottomBar(IInventory<ItemStack> inv, int slot) { UpdateBottomBar(inv); }
         private void UpdateBottomBar(IInventory<ItemStack> inv) {
-            if((inv == this) || (inv == equiptment)) {
+            if((inv == this) || (inv == equipt)) {
                 weightText.SetText("Weight: " + UpdateWeight());                
             }
             moneyText.SetText("Money: " + money.GetGoodMoneyString());

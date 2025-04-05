@@ -10,7 +10,7 @@ namespace kfutils.rpg.ui {
         {
             // FIXME/TODO: This needs to handle two-handed items (both being added and being replaced); 
             //             c.f., note in EquiptmentPanel.cs.
-            if(base.SwapWith(other)) {/*
+            if(base.SwapWith(other)) {
                 if((inventory == other.inventory) && (item.slot != slotNumber)) {
                     if((other.item.item == item.item) && item.item.IsStackable) {
                         item.stackSize += other.item.stackSize;
@@ -28,7 +28,7 @@ namespace kfutils.rpg.ui {
                     inventory.SignalUpdate();
                 }
                 return true;
-            */}
+            }
             return false;
         }
 
