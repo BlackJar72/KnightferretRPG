@@ -13,11 +13,9 @@ namespace kfutils.rpg.ui {
         [Tooltip("This should hold all the actual slots that are childrn of this (but not empties used as place holder) exactly once.")]
         [SerializeField] EquipmentSlotUI[] slots = new EquipmentSlotUI[11];
         [Tooltip("The slots holding rings; these should also be in the slots array.")]
-        [SerializeField] EquipmentSlotUI[] rings = new EquipmentSlotUI[2];
-        [Tooltip("The slots represening the hands, for held items; these should also be in the slots array.")]
-        [SerializeField] EquipmentSlotUI[] hands = new EquipmentSlotUI[2];
-        [Tooltip("The slots slot for the currently equipt spell; this is not found in any other array.")]
         [SerializeField] SpellEquiptSlot spell;
+        [SerializeField] InventoryPanel mainInventoryPanel;
+
 
 
         private void Awake() {
@@ -90,46 +88,22 @@ namespace kfutils.rpg.ui {
         }
 
 
-        // FIXME: This method is broken and I don't know why.  Fix this before allowing it to be run!!!
-        public void EquipItemFromSlot(InventorySlotUI externalSlot) { /*
-            // Not for swapping within eqipt area; must be external (really, should be main inventory)
-            if(externalSlot.inventory is EquiptmentPanel) return;
-            if((externalSlot.item.item.EquiptType == EEquiptSlot.RRING) 
-                            || (externalSlot.item.item.EquiptType == EEquiptSlot.LRING)) {
-                if((rings[0].item == null) || (rings[0].item.item == null)) {
-                    rings[0].SwapWith(externalSlot);
-                } else {
-                    rings[1].SwapWith(externalSlot);
-                }
-            } else if(externalSlot.item.item.EquiptType == EEquiptSlot.HANDS) {
-                hands[0].SwapWith(externalSlot);
-                InventorySlotUI extraSlot = externalSlot.inventoryPanel.GetSlotAt(externalSlot.inventory.FindFirstEmptySlot());
-                if((hands[1] != null) && (hands[1].item != null) && (hands[1].item.item != null)) hands[1].SwapWith(extraSlot);
-                // FIXME: Properly handle two-handed ("HANDS") items 
-                //
-                // TODO (The plan): When adding a two-handed item, place it in both hands slots, but when moving it back to the
-                //                  main inventory only more one copy.  When putting a one-handed item into either hand slot 
-                //                  it will check if the current item is two two-hand, and if so clear both hand slots and send 
-                //                  (*only*) one copy back to the main inventory.  When only one handed items are involved nothing 
-                //                  special happens, just do a basic swap.
-                //                  
-                //                  This will require adding a section specifically for RHAND or LHAND to handle those possibilities.
-                //                  The hard part, where I'm liable to get tripped up and confuse myself with complexity is that I 
-                //                  must also check in EquipmentSlotUI, so as to handle items being dragged in as well as just clicked 
-                //                  -- which could tricky to handle as some of that is already convoluted plus it is less controlled 
-                //                  as far as player action at run time than clicking.       
-            } else {
-                for(int i = slots.Length - 1; i > -1; i--) { // Going backward to favor right hand (treated as dominant) 
-                    if(externalSlot.item.item.FitsSlot(slots[i])) {
-                        slots[i].SwapWith(externalSlot);
-                        break;
-                    }
-                }
-            }
-
-
-
-        */}
+        // TODO: Add a method to get for a given EEquiptSlot and return is, so that the swap method can 
+        //       be called on it with the clicked InventorySlotUI as the argument.  This will emulate 
+        //       dragging, as a drag will end up calling the EquiptSlotUI through its OnPointerDrop method.
+        //       Two-handing can then be handled on the inventory back-end and done strictly to work with 
+        //       drag-and-drop and clicking will excatly immitate dragging and dropping on the relevant 
+        //       UI slot.  In contrast, ring selection can be done in the context here in the context of 
+        //       selecting a slot to return, as rings are not two handed by simply need use the first 
+        //       available slot, or (probably) the second if both are full.  (Two handed items may still 
+        //       be a pain to work out.)  This should work better and be far simpler than trying to handle 
+        //       the swap here while also dealing with two handing at the same time.
+        //
+        //       This could be accomplished either by a switch statement selecting hand choosen slots, or by 
+        //       iterating (backward) through the array to find the first valid slot.  Pros and cons to both 
+        //       approachnes: Iteration ensure the slots will not deviate from those defined in the editor 
+        //       due to changing the prefabs, while a switch (or similar) based aproach would make handling 
+        //       special cases (rings) a lot simpler to handle.
 
 
 

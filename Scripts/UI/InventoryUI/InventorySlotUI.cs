@@ -154,7 +154,7 @@ namespace kfutils.rpg.ui {
                         InventoryManager.currentContainerInventory.AddToFirstEmptySlot(item);
                         inventory.RemoveItem(item);
                     } else {
-                        GameManager.Instance.UIManager.PlayerEquiptPanel.EquipItemFromSlot(this);
+                        // TODO: Handle click-to-equipt (c.f., not in EquiptmentPanel.cs)
                     }
                 }
             } else if(eventData.button == PointerEventData.InputButton.Right) {

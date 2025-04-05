@@ -10,6 +10,7 @@ namespace kfutils.rpg.ui {
         [SerializeField] protected Inventory inventory;
         [SerializeField] protected int minRows = 4;
         [SerializeField] protected int columns = 8;
+        [SerializeField] EquiptmentPanel equiptPanel;
 
         protected int slots, rows;
 
