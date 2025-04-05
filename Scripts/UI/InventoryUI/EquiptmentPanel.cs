@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 
@@ -103,8 +102,19 @@ namespace kfutils.rpg.ui {
                 hands[0].SwapWith(externalSlot);
                 InventorySlotUI extraSlot = externalSlot.inventoryPanel.GetSlotAt(externalSlot.inventory.FindFirstEmptySlot());
                 if((hands[1] != null) && (hands[1].item != null) && (hands[1].item.item != null)) hands[1].SwapWith(extraSlot);
-                // TODO/FIXME: Block off-hand while equipt; also needs to reverse effect when no two-handed weapon is equipt, 
-                //             and to detect drag-based equipting.
+                // FIXME: Properly handle two-handed ("HANDS") items 
+                //
+                // TODO (The plan): When adding a two-handed item, place it in both hands slots, but when moving it back to the
+                //                  main inventory only more one copy.  When putting a one-handed item into either hand slot 
+                //                  it will check if the current item is two two-hand, and if so clear both hand slots and send 
+                //                  (*only*) one copy back to the main inventory.  When only one handed items are involved nothing 
+                //                  special happens, just do a basic swap.
+                //                  
+                //                  This will require adding a section specifically for RHAND or LHAND to handle those possibilities.
+                //                  The hard part, where I'm liable to get tripped up and confuse myself with complexity is that I 
+                //                  must also check in EquipmentSlotUI, so as to handle items being dragged in as well as just clicked 
+                //                  -- which could tricky to handle as some of that is already convoluted plus it is less controlled 
+                //                  as far as player action at run time than clicking.       
             } else {
                 for(int i = slots.Length - 1; i > -1; i--) { // Going backward to favor right hand (treated as dominant) 
                     if(externalSlot.item.item.FitsSlot(slots[i])) {

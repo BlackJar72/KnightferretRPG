@@ -26,6 +26,7 @@ namespace kfutils.rpg {
 
         public override bool AddItemToSlot(int slot, ItemStack item) {
             slots[slot] = item;
+            item.CopyInto(slots[slot]);
             SignalUpdate();
             // TODO: Add equipting of item
             return true;
@@ -100,7 +101,7 @@ namespace kfutils.rpg {
             slots[slot].stackSize -= number;
             if(slots[slot].stackSize < 1) {
                 // TODO: Add unequipting of item
-                ClearItem(slots[slot]);
+                slots[slot] = new ItemStack(null, 0, slot);
                 SignalUpdate();
             } else {
                 SignalSlotUpdate(slot);
@@ -109,7 +110,7 @@ namespace kfutils.rpg {
 
 
         public override void RemoveAllFromSlot(int slot) {
-            ClearItem(slots[slot]);
+            slots[slot] = new ItemStack(null, 0, slot);
             SignalUpdate();
         }
 
@@ -117,7 +118,7 @@ namespace kfutils.rpg {
         public override void RemoveItem(ItemStack item) {
             for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == item) {
-                    ClearItem(slots[i]);
+                    slots[i] = new ItemStack(null, 0, i);
                     SignalUpdate();
                     return;
                 }

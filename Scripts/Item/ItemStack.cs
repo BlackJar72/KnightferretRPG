@@ -32,6 +32,20 @@ namespace kfutils.rpg {
         }
 
 
+        public ItemStack CopyInto(ItemStack other) {
+            other.item = item;
+            other.stackSize = stackSize;
+            other.slot = slot;
+            return other;
+        }
+
+
+        public override string ToString() {
+            if(item == null) return  "[NULL (item): " + "; stackSize = " + stackSize + "; slot = " + slot + "] ";
+            else return "[Item: " + item.ID + ", name = " + item.Name + "; stackSize = " + stackSize + "; slot = " + slot + "] ";
+        }
+
+
     }
 
 
