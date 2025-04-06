@@ -155,6 +155,10 @@ namespace kfutils.rpg.ui {
                         inventory.RemoveItem(item);
                     } else {
                         // TODO: Handle click-to-equipt (c.f., not in EquiptmentPanel.cs)
+                        EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item.EquiptType);
+                        if(destination != null) {
+                            destination.SwapWith(this);
+                        }
                     }
                 }
             } else if(eventData.button == PointerEventData.InputButton.Right) {

@@ -17,6 +17,10 @@ namespace kfutils.rpg.ui {
         [SerializeField] InventoryPanel mainInventoryPanel;
 
 
+        const int rhand = 4;
+        const int lhand = 3;
+
+
 
         private void Awake() {
             inventory = mainInventory.Equipt;
@@ -84,6 +88,25 @@ namespace kfutils.rpg.ui {
                             && slots[slot].item.item.IsStackable) {
                     slots[slot].SetText(slots[slot].item.stackSize);
                 }
+            }
+        }
+
+
+        public EquipmentSlotUI GetSlotForEquipt(EEquiptSlot equiptType) {
+            switch(equiptType) {
+                case EEquiptSlot.HEAD: return slots[0];
+                case EEquiptSlot.BODY: return slots[1];
+                case EEquiptSlot.ARMS: return slots[2];
+                case EEquiptSlot.LEGS: return slots[8];
+                case EEquiptSlot.FEET:  return slots[9];
+                case EEquiptSlot.RHAND: return slots[4];
+                case EEquiptSlot.LHAND: return slots[3];
+                case EEquiptSlot.HANDS: return slots[4];
+                case EEquiptSlot.RRING: return slots[6];
+                case EEquiptSlot.LRING: return slots[5];
+                case EEquiptSlot.NECK: return slots[10];
+                case EEquiptSlot.BELT: return slots[7];
+                default: return null;
             }
         }
 

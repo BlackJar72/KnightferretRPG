@@ -16,6 +16,8 @@ namespace kfutils.rpg.ui {
 
         protected List<InventorySlotUI> inventorySlots = new();
 
+        public EquiptmentPanel EquiptPanel => equiptPanel;
+
 
         //private void Awake() {}
         //private void Start() {}
