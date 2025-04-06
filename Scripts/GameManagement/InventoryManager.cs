@@ -25,20 +25,21 @@ namespace kfutils.rpg {
         public static event SpellbookUpdate spellbookUpdated;
 
 
-
         public static void Initialize() {
             waitingToRedraw = new List<IRedrawing>();
         }
 
 
         public static void AddRedraw(IRedrawing uiElement) {
-            waitingToRedraw.Add(uiElement);
+            if(!waitingToRedraw.Contains(uiElement)) waitingToRedraw.Add(uiElement);
         }
 
 
         public static void DoRedraws() {
             for(int i = waitingToRedraw.Count - 1; i > -1; i--) {
                 waitingToRedraw[i].DoRedraw();
+                EquiptmentPanel equipt = waitingToRedraw[i] as EquiptmentPanel;
+                if(equipt != null) equipt.ForwardUpdate();
                 waitingToRedraw.RemoveAt(i);
             }
         }
@@ -67,7 +68,7 @@ namespace kfutils.rpg {
         public static event CloseAllInventories closeAllInvUI;
 
         public delegate void CloseStackManipulators();
-        public static event CloseStackManipulators closeStackManUI;
+        public static event CloseStackManipulators closeStackMainUI;
 
         public delegate void ToggleCharacterSheet();
         public static event ToggleCharacterSheet toggleCharacterSheet;
@@ -79,7 +80,7 @@ namespace kfutils.rpg {
 
 
         public static void SignalStackManUIs() {
-            closeStackManUI?.Invoke();
+            closeStackMainUI?.Invoke();
         }
 
 

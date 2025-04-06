@@ -20,6 +20,10 @@ namespace kfutils.rpg {
         public CharacterInventory mainInventory;
 
 
+        const int rhand = 4;
+        const int lhand = 3;
+
+
         private void Awake() {
             for(int i = 0; i < slots.Length; i++) {
                 slots[i] = new ItemStack(null, 0, i);
@@ -28,11 +32,33 @@ namespace kfutils.rpg {
 
 
         public bool AddItemToSlot(int slot, ItemStack item) {
+            if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
-            item.CopyInto(slots[slot]);
             SignalUpdate();
             // TODO: Add equipting of item
             return true;
+        }
+
+
+        public ItemStack GetLHandItem() => slots[lhand];
+
+
+        public ItemStack GetOtherHandItem(int slot) {
+            if(slot == rhand) return slots[lhand];
+            else return slots[rhand];
+        }
+
+
+        public bool AddTwoHandedItem(ItemStack item) {
+            if(item.slot == lhand) item.slot = rhand;
+            if(item.slot == rhand) {
+                slots[rhand] = item;
+                slots[lhand] = item.Copy();
+                slots[lhand].slot = lhand;
+                SignalUpdate();
+                return true;
+            }
+            return false;
         }
 
 
@@ -49,7 +75,7 @@ namespace kfutils.rpg {
         public float CalculateWeight() {
             weight = 0f;
             for(int i = 0; i < slots.Length; i++) {
-                if(slots[i].item != null) {
+                if((slots[i].item != null) && !((i == lhand) && (slots[i].item.EquiptType == EEquiptSlot.HANDS))) {
                     weight += slots[i].stackSize * slots[i].item.Weight;
                 }
             }
@@ -71,6 +97,13 @@ namespace kfutils.rpg {
             stack.item = null;
             stack.stackSize = 0;
             SignalUpdate();
+        }
+
+
+        private void ClearTwoHandedItem(ItemStack stack) {
+            slots[rhand] = new ItemStack(null, 0, rhand);
+            slots[lhand] = new ItemStack(null, 0, lhand); 
+            SignalUpdate();           
         }
 
 
@@ -104,8 +137,7 @@ namespace kfutils.rpg {
             slots[slot].stackSize -= number;
             if(slots[slot].stackSize < 1) {
                 // TODO: Add unequipting of item
-                slots[slot] = new ItemStack(null, 0, slot);
-                SignalUpdate();
+                RemoveAllFromSlot(slot);
             } else {
                 SignalSlotUpdate(slot);
             }
@@ -113,13 +145,20 @@ namespace kfutils.rpg {
 
 
         public void RemoveAllFromSlot(int slot) {
-            slots[slot] = new ItemStack(null, 0, slot);
+                if(((slot == rhand) || (slot == lhand)) && (slots[slot] != null) && (slots[slot].item != null) 
+                            && (slots[slot].item.EquiptType == EEquiptSlot.HANDS)) {
+                    ClearTwoHandedItem(slots[slot]);
+                } else {
+                    slots[slot] = new ItemStack(null, 0, slot);
+                    SignalUpdate();
+                }
             SignalUpdate();
         }
 
 
         public void RemoveItem(ItemStack item) {
-            for(int i = 0; i < slots.Length; i++) {
+            if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) ClearTwoHandedItem(item);
+            else for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == item) {
                     slots[i] = new ItemStack(null, 0, i);
                     SignalUpdate();

@@ -94,7 +94,9 @@ namespace kfutils.rpg {
                 OpenGUI();
             } else {
                 CloseGUI();
-                InventoryManager.SignalCloseUIs();
+                CloseContainerUI();
+                HideItemToolTip();
+                HideItemStackManipulator();
             }
             return characterPanelToggler.IsVisible;
         }
@@ -112,7 +114,7 @@ namespace kfutils.rpg {
  
 
         public void ToggleContainerUI(Inventory inventory, Container container, GameObject from) {
-            if(containerUI.gameObject.activeSelf) {
+            if(containerUI.IsVisible) {
                 CloseGUI();
                 CloseContainerUI();
                 characterPanelToggler.SetHidden();

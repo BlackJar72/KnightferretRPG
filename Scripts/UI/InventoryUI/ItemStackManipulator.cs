@@ -27,13 +27,13 @@ namespace kfutils.rpg.ui {
 
         protected void OnEnable() {
             InventoryManager.closeAllInvUI += Close;
-            InventoryManager.closeStackManUI += Close;
+            InventoryManager.closeStackMainUI += Close;
         }
 
 
         protected void OnDisable() {
             InventoryManager.closeAllInvUI -= Close;
-            InventoryManager.closeStackManUI -= Close;
+            InventoryManager.closeStackMainUI -= Close;
         }
 
 

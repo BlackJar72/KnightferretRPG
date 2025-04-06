@@ -32,7 +32,6 @@ namespace kfutils.rpg {
         void Start() // FIXME: This will need to be moved to an method run only at the start of a new game!!
         {
             foreach(ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
-            SignalUpdate();
         }
 
 
@@ -122,6 +121,7 @@ namespace kfutils.rpg {
             for(int i = inventory.Count - 1; i > -1; i--) {
                 if(inventory[i].slot == slot) {
                     inventory.RemoveAt(i);
+                    SignalUpdate();
                     return;
                 }
             }
@@ -140,6 +140,7 @@ namespace kfutils.rpg {
         public override bool AddItemToSlot(int slot, ItemStack item)
         {
             inventory.Add(item);
+            SignalUpdate();
             return true;
         }
 

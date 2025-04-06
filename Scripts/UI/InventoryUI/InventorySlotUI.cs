@@ -33,10 +33,20 @@ namespace kfutils.rpg.ui {
                 item.slot = other.slotNumber;
                 other.item.slot = slotNumber;
                 if(other.inventory != inventory) {
-                    other.inventory.AddItemToSlot(item.slot, item);
-                    inventory.AddItemToSlot(other.item.slot, other.item);
+                    ItemStack localItem = item;
+                    ItemStack otherItem = other.item;
+                    ItemStack otherHand = null;
+                    if((other.item.item.EquiptType == EEquiptSlot.HANDS) && (inventory is EquiptmentSlots)) {
+                        EquiptmentSlots eqiptSlots = inventory as EquiptmentSlots;
+                        otherHand = eqiptSlots.GetOtherHandItem(slotNumber);
+                    }
                     inventory.RemoveItem(item);
                     other.inventory.RemoveItem(other.item);
+                    other.inventory.AddItemToSlot(item.slot, localItem);
+                    inventory.AddItemToSlot(other.item.slot, otherItem);
+                    if(otherHand != null) {
+                        other.inventory.AddToFirstEmptySlot(otherHand);
+                    }
                 } 
             }
             inventory.SignalUpdate(); 
@@ -87,6 +97,7 @@ namespace kfutils.rpg.ui {
         public void SetText(int number) {
             numberText.SetText(number.ToString());
         }
+
 
 #region Drag and Drop
 

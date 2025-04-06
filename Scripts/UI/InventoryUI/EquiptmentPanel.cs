@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -15,10 +16,6 @@ namespace kfutils.rpg.ui {
         [Tooltip("The slots holding rings; these should also be in the slots array.")]
         [SerializeField] SpellEquiptSlot spell;
         [SerializeField] InventoryPanel mainInventoryPanel;
-
-
-        const int rhand = 4;
-        const int lhand = 3;
 
 
 
@@ -108,6 +105,11 @@ namespace kfutils.rpg.ui {
                 case EEquiptSlot.BELT: return slots[7];
                 default: return null;
             }
+        }
+
+
+        public void ForwardUpdate() {
+            mainInventory.SignalUpdate();
         }
 
 
