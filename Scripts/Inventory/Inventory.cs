@@ -193,8 +193,8 @@ namespace kfutils.rpg {
             bool found = false;
             for(i = 0; i < last; i++) {
                 found = true;
-                foreach(ItemStack stack in inventory) {
-                    found = found && (stack.slot != i);
+                for(int j = 0; (j < inventory.Count) && found; j++) {
+                    found = found && (inventory[j].slot != i);
                 }
                 if(found) break;
             }                
