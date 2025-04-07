@@ -65,7 +65,7 @@ namespace kfutils.rpg {
         RRING = 8,
         LRING = 9,
         NECK  = 10, // For necklace / pendant / amulatet / talisman
-        CLOTH  = 11, // Fot non-armor items such as cloaks, capes, etc.
+        CLOTH  = 11, // Fot non-armor items such as cloaks, capes, etc. (Not currently used!)
         BELT  = 12,
 
         // Special slots for non-items (e.g., spells, abilities, etc.)

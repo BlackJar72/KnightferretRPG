@@ -40,7 +40,7 @@ namespace kfutils.rpg {
             jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f), 0.25f, 2.0f);
             naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5);
             meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);
-            maxEncumbrance = (float)(50 + (15 * baseStats.Strength));
+            maxEncumbrance = (float)(50 + (10 * baseStats.Strength));
             halfEncumbrance = maxEncumbrance / 2f;
             runningCostFactor = 2.0f - ((float)baseStats.Endurance / (float)EntityBaseStats.MAX_SCORE);
             manaCostFactor = 1.5f - ((float)baseStats.Intelligence / (float)EntityBaseStats.MAX_SCORE);

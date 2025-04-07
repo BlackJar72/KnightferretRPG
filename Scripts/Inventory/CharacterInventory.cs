@@ -8,9 +8,18 @@ namespace kfutils.rpg {
     public class CharacterInventory : Inventory {
 
         [SerializeField] protected EquiptmentSlots equipt;
+        
+        protected IActor owner;
 
 
         public EquiptmentSlots Equipt => equipt;
+        public IActor Owner => owner;
+
+
+        public void SetOwner(IActor actor) {
+            // Do not allow this to be changed once set
+            if(owner == null) owner = actor;
+        }
 
 
         void Awake() {

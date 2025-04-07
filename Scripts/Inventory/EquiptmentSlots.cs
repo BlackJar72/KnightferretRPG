@@ -32,10 +32,13 @@ namespace kfutils.rpg {
 
 
         public bool AddItemToSlot(int slot, ItemStack item) {
+            if((slots[slot] != null) && (slots[slot].item != null)) {
+                mainInventory.Owner.UnequiptItem(slots[slot].item.EquiptType);
+            }
             if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
+            mainInventory.Owner.EquiptItem(item);
             SignalUpdate();
-            // TODO: Add equipting of item
             return true;
         }
 
@@ -55,6 +58,8 @@ namespace kfutils.rpg {
                 slots[rhand] = item;
                 slots[lhand] = item.Copy();
                 slots[lhand].slot = lhand;
+                mainInventory.Owner.EquiptItem(item);
+                mainInventory.Owner.UnequiptItem(EEquiptSlot.LHAND);
                 SignalUpdate();
                 return true;
             }
@@ -103,6 +108,8 @@ namespace kfutils.rpg {
         private void ClearTwoHandedItem(ItemStack stack) {
             slots[rhand] = new ItemStack(null, 0, rhand);
             slots[lhand] = new ItemStack(null, 0, lhand); 
+            mainInventory.Owner.UnequiptItem(EEquiptSlot.RHAND);
+            mainInventory.Owner.UnequiptItem(EEquiptSlot.LHAND);
             SignalUpdate();           
         }
 
@@ -137,6 +144,7 @@ namespace kfutils.rpg {
             slots[slot].stackSize -= number;
             if(slots[slot].stackSize < 1) {
                 // TODO: Add unequipting of item
+                mainInventory.Owner.UnequiptItem(slots[slot]);
                 RemoveAllFromSlot(slot);
             } else {
                 SignalSlotUpdate(slot);
@@ -149,6 +157,7 @@ namespace kfutils.rpg {
                             && (slots[slot].item.EquiptType == EEquiptSlot.HANDS)) {
                     ClearTwoHandedItem(slots[slot]);
                 } else {
+                    mainInventory.Owner.UnequiptItem(slots[slot]);
                     slots[slot] = new ItemStack(null, 0, slot);
                     SignalUpdate();
                 }
@@ -160,6 +169,7 @@ namespace kfutils.rpg {
             if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) ClearTwoHandedItem(item);
             else for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == item) {
+                    mainInventory.Owner.UnequiptItem(item);
                     slots[i] = new ItemStack(null, 0, i);
                     SignalUpdate();
                     return;

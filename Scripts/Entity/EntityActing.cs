@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class EntityActing : EntityMoving
+    public class EntityActing : EntityMoving, IActor
     {
 
 
@@ -21,8 +21,22 @@ namespace kfutils.rpg {
         }*/
 
 
+        public void EquiptItem(ItemStack item)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public void UnequiptItem(ItemStack item)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public void UnequiptItem(EEquiptSlot slot)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        
     }
 
 

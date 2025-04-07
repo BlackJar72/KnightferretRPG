@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 
 namespace kfutils.rpg {
 
-    public class PCActing : PCMoving {
+    public class PCActing : PCMoving, IActor {
 
         [SerializeField] PlayerInventory inventory;
         [SerializeField] Spellbook spellbook;
         [SerializeField] SpellEquiptSlot equiptSpell;
+
+        [SerializeField] CharacterEquipt itemLocations;
 
 
 
@@ -48,6 +50,7 @@ namespace kfutils.rpg {
         protected override void Awake() {
             if(inventory == null) inventory = GetComponent<PlayerInventory>();
             if(spellbook == null) spellbook = GetComponent<Spellbook>();
+            inventory.SetOwner(this); // Just in case it wasn't set correctly
             base.Awake();
             InitInput(); 
         }
@@ -189,6 +192,31 @@ namespace kfutils.rpg {
         public virtual void AddToMainInventory(ItemStack stack) {
             GetComponent<Inventory>().AddToFirstEmptySlot(stack);
         }
+
+
+#region Equipment
+
+
+        public virtual void EquiptItem(ItemStack item) {
+            if(item != null) {
+                itemLocations.EquipItem(item);
+            } 
+        }
+
+
+        public virtual void UnequiptItem(ItemStack item) {
+            if(item != null) {
+                itemLocations.UnequipItem(item);
+            } 
+        }
+
+
+        public virtual void UnequiptItem(EEquiptSlot slot) {
+            itemLocations.UnequipItem(slot);
+        }
+
+
+#endregion
 
 
 

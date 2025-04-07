@@ -46,6 +46,11 @@ namespace kfutils.rpg {
         }
 
 
+        public bool CanEquipt() {
+            return (item != null) && (item.EquiptItem != null);
+        }
+
+
     }
 
 
