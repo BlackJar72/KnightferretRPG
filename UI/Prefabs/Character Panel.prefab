@@ -1819,6 +1819,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4554376985977420543}
   m_SourcePrefab: {fileID: 100100000, guid: 9b2b790f0ed4a88c18f59aec8621c4a9, type: 3}
+--- !u!114 &5010635115606459966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5020971599045845498, guid: 9b2b790f0ed4a88c18f59aec8621c4a9, type: 3}
+  m_PrefabInstance: {fileID: 11057815160465348}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101815756119296414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5383857009475623016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5372799212589891500, guid: 9b2b790f0ed4a88c18f59aec8621c4a9, type: 3}
@@ -1841,6 +1852,7 @@ MonoBehaviour:
   minRows: 4
   columns: 8
   equiptPanel: {fileID: 8094621692428314204}
+  scrollRect: {fileID: 5010635115606459966}
 --- !u!224 &5996075222444411054 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5985600165916159850, guid: 9b2b790f0ed4a88c18f59aec8621c4a9, type: 3}

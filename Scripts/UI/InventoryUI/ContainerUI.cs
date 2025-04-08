@@ -19,6 +19,16 @@ namespace kfutils.rpg.ui {
             top.SetActive(true);
             Redraw();
         } 
+
+
+        protected virtual void OnEnable() {
+            base.OnEnable();
+        }
+
+
+        protected virtual void OnDisable() {
+            base.OnDisable();
+        }
         
 
 

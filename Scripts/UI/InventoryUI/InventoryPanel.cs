@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace kfutils.rpg.ui {
 
@@ -11,6 +12,7 @@ namespace kfutils.rpg.ui {
         [SerializeField] protected int minRows = 4;
         [SerializeField] protected int columns = 8;
         [SerializeField] EquiptmentPanel equiptPanel;
+        [SerializeField] protected ScrollRect scrollRect;
 
         protected int slots, rows;
 
@@ -26,6 +28,7 @@ namespace kfutils.rpg.ui {
         protected virtual void OnEnable() {
             InventoryManager.inventoryUpdated += UpdateInventory;
             InventoryManager.inventorySlotUpdated += UpdateSlot;
+            scrollRect.verticalNormalizedPosition = 1.0f;
             Redraw();
         }
 
@@ -102,7 +105,7 @@ namespace kfutils.rpg.ui {
                 Debug.Log(inventory);
                 throw e;
             }
-            rows = Mathf.Max(lowestVisible, (slots / columns) + 2);
+            rows = Mathf.Min(Mathf.Max(lowestVisible, (slots / columns) + 2), 64);
             slots = rows * columns;
         }
 
