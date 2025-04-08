@@ -5,6 +5,7 @@ namespace kfutils.rpg {
     
     public class ItemEquipt : MonoBehaviour {
 
+        [SerializeField] protected ItemPrototype prototype;
 
         [Tooltip("This holds a copy of the items local transform data, which will " 
                     + "be copied on to the items real transform after it has been parented to the bones.")]
