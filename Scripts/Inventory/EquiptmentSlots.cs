@@ -22,6 +22,9 @@ namespace kfutils.rpg {
 
         const int rhand = 4;
         const int lhand = 3;
+        
+        public const int rring = 6;
+        public const int lring = 5;
 
 
         private void Awake() {
@@ -32,9 +35,6 @@ namespace kfutils.rpg {
 
 
         public bool AddItemToSlot(int slot, ItemStack item) {
-            if((slots[slot] != null) && (slots[slot].item != null)) {
-                mainInventory.Owner.UnequiptItem(slots[slot].item.EquiptType);
-            }
             if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
             mainInventory.Owner.EquiptItem(item);

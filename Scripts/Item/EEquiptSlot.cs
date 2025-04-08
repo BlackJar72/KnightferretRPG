@@ -29,8 +29,7 @@ namespace kfutils.rpg {
         HANDS = 0x1 << EEquiptSlot.HANDS, // For two handed items; such items should flag this plus each hand
 
         // Special worn items, especially those which may be worn for magical or similar effects
-        RRING = 0x1 << EEquiptSlot.RRING,
-        LRING = 0x1 << EEquiptSlot.LRING,
+        RING = 0x1 << EEquiptSlot.RING,
         NECK  = 0x1 << EEquiptSlot.NECK, // For necklace / pendant / amulatet / talisman
         CLOTH  = 0x1 << EEquiptSlot.CLOTH,
         BELT  = 0x1 << EEquiptSlot.BELT,
@@ -62,17 +61,16 @@ namespace kfutils.rpg {
         HANDS = 7, // For two handed items; such items should flag this plus eahc hand
 
         // Special worn items, especially those which may be worn for magical or similar effects
-        RRING = 8,
-        LRING = 9,
-        NECK  = 10, // For necklace / pendant / amulatet / talisman
-        CLOTH  = 11, // Fot non-armor items such as cloaks, capes, etc. (Not currently used!)
-        BELT  = 12,
+        RING = 8,
+        NECK  = 9, // For necklace / pendant / amulatet / talisman
+        CLOTH  = 10, // Fot non-armor items such as cloaks, capes, etc. (Not currently used!)
+        BELT  = 11,
 
         // Special slots for non-items (e.g., spells, abilities, etc.)
-        SPELL = 13, // For currently selected (equipt) spell
+        SPELL = 12, // For currently selected (equipt) spell
 
         // Items that can be placed in the hot bar
-        HOTBAR = 14
+        HOTBAR = 13
         
     }
 

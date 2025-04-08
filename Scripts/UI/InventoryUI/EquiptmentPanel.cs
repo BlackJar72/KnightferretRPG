@@ -89,7 +89,8 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public EquipmentSlotUI GetSlotForEquipt(EEquiptSlot equiptType) {
+        public EquipmentSlotUI GetSlotForEquipt(ItemPrototype item) {
+            EEquiptSlot  equiptType = item.EquiptType;
             switch(equiptType) {
                 case EEquiptSlot.HEAD: return slots[0];
                 case EEquiptSlot.BODY: return slots[1];
@@ -99,8 +100,10 @@ namespace kfutils.rpg.ui {
                 case EEquiptSlot.RHAND: return slots[4];
                 case EEquiptSlot.LHAND: return slots[3];
                 case EEquiptSlot.HANDS: return slots[4];
-                case EEquiptSlot.RRING: return slots[6];
-                case EEquiptSlot.LRING: return slots[5];
+                case EEquiptSlot.RING: {
+                    if(slots[6].item.item == null) return slots[6];
+                    else return slots[5];
+                }
                 case EEquiptSlot.NECK: return slots[10];
                 case EEquiptSlot.BELT: return slots[7];
                 default: return null;

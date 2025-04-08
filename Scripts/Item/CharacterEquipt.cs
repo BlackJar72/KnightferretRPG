@@ -47,11 +47,12 @@ namespace kfutils.rpg {
                     case EEquiptSlot.LHAND:
                         LHAND.EquipItem(item);
                         break;
-                    case EEquiptSlot.RRING:
-                        RRING.EquipItem(item);
-                        break;
-                    case EEquiptSlot.LRING:
-                        LRING.EquipItem(item);
+                    case EEquiptSlot.RING:
+                        if(item.slot == EquiptmentSlots.rring) {
+                            RRING.EquipItem(item);
+                        } else {
+                            LRING.EquipItem(item);
+                        }
                         break;
                     case EEquiptSlot.NECK:
                         break;
@@ -85,11 +86,12 @@ namespace kfutils.rpg {
                     case EEquiptSlot.LHAND:
                         LHAND.UnequiptCurrentItem();
                         break;
-                    case EEquiptSlot.RRING:
-                        RRING.UnequiptCurrentItem();
-                        break;
-                    case EEquiptSlot.LRING:
-                        LRING.UnequiptCurrentItem();
+                    case EEquiptSlot.RING:
+                        if(item.slot == EquiptmentSlots.rring) {
+                            RRING.UnequiptCurrentItem();
+                        } else {
+                            LRING.UnequiptCurrentItem();
+                        }
                         break;
                     case EEquiptSlot.NECK:
                         break;
@@ -122,10 +124,9 @@ namespace kfutils.rpg {
                 case EEquiptSlot.LHAND:
                     LHAND.UnequiptCurrentItem();
                     break;
-                case EEquiptSlot.RRING:
+                case EEquiptSlot.RING:
+                    Debug.LogWarning("UnequipItem(EEquiptSlot slot) being used from RING (all rings removed); this is not intended for rings.");
                     RRING.UnequiptCurrentItem();
-                    break;
-                case EEquiptSlot.LRING:
                     LRING.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.NECK:

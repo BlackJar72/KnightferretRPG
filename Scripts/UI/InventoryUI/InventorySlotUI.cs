@@ -47,6 +47,7 @@ namespace kfutils.rpg.ui {
                     if(otherHand != null) {
                         other.inventory.AddToFirstEmptySlot(otherHand);
                     }
+                    GameManager.Instance.UIManager.HideItemToolTip();
                 } 
             }
             inventory.SignalUpdate(); 
@@ -166,7 +167,8 @@ namespace kfutils.rpg.ui {
                         inventory.RemoveItem(item);
                     } else {
                         // TODO: Handle click-to-equipt (c.f., not in EquiptmentPanel.cs)
-                        EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item.EquiptType);
+                        EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);
+                        GameManager.Instance.UIManager.HideItemToolTip();
                         if(destination != null) {
                             destination.SwapWith(this);
                         }
