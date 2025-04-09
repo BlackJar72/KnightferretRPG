@@ -46,12 +46,14 @@ namespace kfutils.rpg {
 
 
         protected override void EnableAction() {
+            base.EnableAction();
             rightAttackAction.started += Dummy;
             activateObjectAction.started += Interact;        
         }
 
 
         protected override void DisableAction() {
+            base.DisableAction();
             rightAttackAction.started -= Dummy;
             activateObjectAction.started -= Interact;
         }

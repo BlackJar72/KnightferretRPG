@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 
@@ -11,6 +12,9 @@ namespace kfutils.rpg {
     /// </summary>
     public interface IUsable
     {
+
+        public AnimationClip UseAnimation { get; }
+
         /// <summary>
         /// To use the item, called when using a selected item.
         /// </summary>
@@ -22,6 +26,9 @@ namespace kfutils.rpg {
         /// that must be eqipt to use this would instead equipt the item to the its default slot.
         /// </summary>
         public void OnActivate();
+
+
+        public void PlayeUseAnimation(AnimancerComponent animancer);
 
         
 

@@ -44,6 +44,7 @@ namespace kfutils.rpg {
 
 
         public ItemStack GetLHandItem() => slots[lhand];
+        public ItemStack GetRHandItem() => slots[rhand];
 
 
         public ItemStack GetOtherHandItem(int slot) {

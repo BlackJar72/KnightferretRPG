@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 
@@ -9,6 +10,11 @@ namespace kfutils.rpg {
         [SerializeField] float attackTime;
         [SerializeField] int baseDamage;
         [SerializeField] BoxCollider attackCollider;
+
+        [SerializeField] AnimationClip useAnimation;
+
+        public AnimationClip UseAnimation => useAnimation;
+
         // TODO: Some reference to the animation (Animancer; but if not labels for mechanim)
 
 
@@ -16,7 +22,7 @@ namespace kfutils.rpg {
 
         public void AttackMelee(IAttacker attacker) {
             attackCollider.enabled = true;
-            // TODO: Initiate attack animation
+            // TODO: Initiate attack animation            
         }
 
 
@@ -57,7 +63,9 @@ namespace kfutils.rpg {
         }
 
 
-
+        public void PlayeUseAnimation(AnimancerComponent animancer) {
+            animancer.Play(useAnimation).Time = 0;
+        }
     }
 
 }

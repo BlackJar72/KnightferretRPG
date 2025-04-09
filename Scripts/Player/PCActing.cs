@@ -120,15 +120,15 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void EnableAction() {
-            rightAttackAction.started += Dummy;
-            if(this is not PCTalking) activateObjectAction.started += Interact;        
+        protected virtual void EnableAction() { 
+            rightAttackAction.started += UseRightItem;
+            if(this is not PCTalking) activateObjectAction.started += Interact;  
         }
 
 
-        protected virtual void DisableAction() {
-            rightAttackAction.started -= Dummy;
-            if(this is not PCTalking) activateObjectAction.started -= Interact;
+        protected virtual void DisableAction() { 
+            rightAttackAction.started -= UseRightItem;
+            if(this is not PCTalking) activateObjectAction.started -= Interact;  
         }
 
 
@@ -213,6 +213,17 @@ namespace kfutils.rpg {
 
         public virtual void UnequiptItem(EEquiptSlot slot) {
             itemLocations.UnequipItem(slot);
+        }
+
+
+        public void UseRightItem(InputAction.CallbackContext context) {
+            ItemStack requipt = inventory.Equipt.GetRHandItem();
+            if((requipt != null) && (requipt.item != null)) {
+                IUsable usable = requipt.item.EquiptItem as IUsable;
+                if(usable != null) {
+                    usable.PlayeUseAnimation(animancer);
+                }
+            }
         }
 
 
