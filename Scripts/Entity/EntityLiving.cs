@@ -1,4 +1,5 @@
 using UnityEngine;
+using Animancer;
 
 
 namespace kfutils.rpg {
@@ -13,6 +14,11 @@ namespace kfutils.rpg {
         [SerializeField] public EntityStamina stamina;
         [SerializeField] public EntityMana mana;
         [SerializeField] public EntityAttributes attributes;
+
+        [SerializeField] protected AnimancerComponent animancer;
+
+
+        public AnimancerComponent anim { get => animancer; }
 
 
         public string ID { get => id;

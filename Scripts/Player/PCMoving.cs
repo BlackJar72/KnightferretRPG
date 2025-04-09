@@ -22,8 +22,8 @@ namespace kfutils.rpg {
         public Camera playerCam;
 
         // Movement and Position Data
-        public Vector3 movement;
-        public MoveType moveType = MoveType.NORMAL;
+        protected Vector3 movement;
+        protected MoveType moveType = MoveType.NORMAL;
         protected float baseSpeed;
         protected Vector3 hVelocity;
         protected float vSpeed;
@@ -103,7 +103,7 @@ namespace kfutils.rpg {
         // Update is called once per frame
         protected override void Update()
         {
-            // FIXME? Move to another update???
+            // FIXME? Move to fixed update???
 
             if(movementAllowed) {
                 // Determine Movement type
@@ -125,6 +125,7 @@ namespace kfutils.rpg {
 
 
 #region Input
+
 
         private void InitInput()
         {
