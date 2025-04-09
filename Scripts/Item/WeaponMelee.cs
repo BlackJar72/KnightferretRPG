@@ -1,3 +1,4 @@
+using System.Collections;
 using Animancer;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace kfutils.rpg {
 
         // TODO: Some reference to the animation (Animancer; but if not labels for mechanim)
 
-
+        private AnimancerState animState;
 
 
         public void AttackMelee(IAttacker attacker) {
@@ -64,8 +65,13 @@ namespace kfutils.rpg {
 
 
         public void PlayeUseAnimation(AnimancerComponent animancer) {
-            animancer.Play(useAnimation).Time = 0;
+            if((animState == null) || (animState.NormalizedTime >= 1)) {
+                animState = animancer.Play(useAnimation);
+                animState.Time = 0; 
+            }    
         }
+
+
     }
 
 }
