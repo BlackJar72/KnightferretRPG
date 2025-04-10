@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,8 @@ namespace kfutils.rpg {
 
         [SerializeField] protected GameManager gameManager;
 
+        [SerializeField] protected MixerTransition2D moveMixer;
+
 
         // Camera
         public GameObject camPivot;
@@ -28,10 +31,12 @@ namespace kfutils.rpg {
         protected Vector3 hVelocity;
         protected float vSpeed;
         protected Vector3 velocity;
+        protected float animMoveSpeed;
         protected bool falling;
         protected bool onGround;
         protected Collider[] footContats;
         protected CharacterController characterController;
+        protected AnimancerState moveState;
 
         // Input System
         protected PlayerInput input;
@@ -79,6 +84,8 @@ namespace kfutils.rpg {
             characterController = GetComponent<CharacterController>();  
             if(gameManager == null) gameManager = FindFirstObjectByType<GameManager>();          
             Cursor.lockState = CursorLockMode.Locked;
+
+            moveState = animancer.Play(moveMixer);
         }
 
 
@@ -110,12 +117,15 @@ namespace kfutils.rpg {
                 if(shouldCrouch) {
                     moveType = MoveType.CROUCH;
                     baseSpeed = attributes.crouchSpeed;
+                    animMoveSpeed = 0.25f;
                 } else if (shouldSprint && stamina.HasStamina && (movement != Vector3.zero)) {
                     moveType = MoveType.RUN;
                     baseSpeed = attributes.runSpeed;
+                    animMoveSpeed = 1.0f;
                 } else {
                     moveType = MoveType.NORMAL;
                     baseSpeed = attributes.walkSpeed;
+                    animMoveSpeed = 0.5f;
                 }
                 // Do Movement
                 AdjustHeading();
@@ -277,6 +287,12 @@ namespace kfutils.rpg {
                     stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
                 }
             }
+
+            DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+            if(dms != null) { 
+                dms.ParameterX = movement.x * animMoveSpeed;
+                dms.ParameterY = movement.z * animMoveSpeed;
+            } 
 
             hVelocity = newVelocity;
 
