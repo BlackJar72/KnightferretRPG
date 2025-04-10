@@ -13,7 +13,7 @@ namespace kfutils.rpg {
     public interface IUsable
     {
 
-        public ClipTransition UseAnimation { get; }
+        public AbstractAction UseAnimation { get; }
 
         /// <summary>
         /// To use the item, called when using a selected item.
@@ -21,7 +21,7 @@ namespace kfutils.rpg {
         public void OnUse(IActor actor);
 
 
-        public void PlayeUseAnimation(AnimancerComponent animancer);
+        public void PlayeUseAnimation(AnimancerLayer animancer, AnimancerState animState);
 
         
 

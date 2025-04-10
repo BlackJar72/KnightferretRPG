@@ -1,3 +1,4 @@
+using Animancer;
 using kfutils.rpg.ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,9 @@ namespace kfutils.rpg {
 
         [SerializeField] CharacterEquipt itemLocations;
 
+
+        protected AnimancerLayer actionLayer;
+        protected AnimancerState actionState;
 
 
         // Input System
@@ -45,6 +49,8 @@ namespace kfutils.rpg {
         public EquiptmentSlots EquiptItems => inventory.Equipt;
         public SpellEquiptSlot EquiptSpell => equiptSpell;
 
+        public AnimancerLayer ActtionLayer => actionLayer;
+
 
 
         protected override void Awake() {
@@ -59,6 +65,8 @@ namespace kfutils.rpg {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Start() {
             base.Start();
+            actionLayer = animancer.Layers[1];
+            actionState = moveState;
         }
 
 
@@ -223,7 +231,7 @@ namespace kfutils.rpg {
             if((requipt != null) && (requipt.item != null)) {
                 IUsable usable = requipt.item.EquiptItem as IUsable;
                 if(usable != null) {
-                    usable.PlayeUseAnimation(animancer);
+                    usable.PlayeUseAnimation(actionLayer, actionState);
                 }
             }
         }

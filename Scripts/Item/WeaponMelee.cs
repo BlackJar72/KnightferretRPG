@@ -12,13 +12,11 @@ namespace kfutils.rpg {
         [SerializeField] int baseDamage;
         [SerializeField] BoxCollider attackCollider;
 
-        [SerializeField] ClipTransition useAnimation;
+        [SerializeField] AbstractAction useAnimation;
 
-        public ClipTransition UseAnimation => useAnimation;
+        public AbstractAction UseAnimation => useAnimation;
 
         // TODO: Some reference to the animation (Animancer; but if not labels for mechanim)
-
-        private AnimancerState animState;
 
 
         public void AttackMelee(IAttacker attacker) {
@@ -60,9 +58,10 @@ namespace kfutils.rpg {
         }
 
 
-        public void PlayeUseAnimation(AnimancerComponent animancer) {
+        public void PlayeUseAnimation(AnimancerLayer animancer, AnimancerState animState) {
             if((animState == null) || (animState.NormalizedTime >= 1)) {
-                animState = animancer.Play(useAnimation);
+                animancer.SetMask(useAnimation.mask);
+                animState = animancer.Play(useAnimation.anim);
                 animState.Time = 0; 
             }
         }

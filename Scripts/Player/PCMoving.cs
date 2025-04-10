@@ -17,7 +17,7 @@ namespace kfutils.rpg {
 
         [SerializeField] protected GameManager gameManager;
 
-        [SerializeField] protected MixerTransition2D moveMixer;
+        [SerializeField] protected MovementSet movementSet;
 
 
         // Camera
@@ -31,12 +31,13 @@ namespace kfutils.rpg {
         protected Vector3 hVelocity;
         protected float vSpeed;
         protected Vector3 velocity;
-        protected float animMoveSpeed;
         protected bool falling;
         protected bool onGround;
         protected Collider[] footContats;
         protected CharacterController characterController;
         protected AnimancerState moveState;
+        protected AnimancerLayer moveLayer;
+        protected MixerTransition2D moveMixer;
 
         // Input System
         protected PlayerInput input;
@@ -85,7 +86,9 @@ namespace kfutils.rpg {
             if(gameManager == null) gameManager = FindFirstObjectByType<GameManager>();          
             Cursor.lockState = CursorLockMode.Locked;
 
-            moveState = animancer.Play(moveMixer);
+            moveMixer = movementSet.Walk;
+            moveLayer = animancer.Layers[0];
+            moveState = moveLayer.Play(moveMixer);            
         }
 
 
@@ -116,16 +119,16 @@ namespace kfutils.rpg {
                 // Determine Movement type
                 if(shouldCrouch) {
                     moveType = MoveType.CROUCH;
-                    baseSpeed = attributes.crouchSpeed;
-                    animMoveSpeed = 0.25f;
+                    baseSpeed = attributes.crouchSpeed;                    
+                    moveMixer = movementSet.Crouch;
                 } else if (shouldSprint && stamina.HasStamina && (movement != Vector3.zero)) {
                     moveType = MoveType.RUN;
-                    baseSpeed = attributes.runSpeed;
-                    animMoveSpeed = 1.0f;
+                    baseSpeed = attributes.runSpeed;                  
+                    moveMixer = movementSet.Run;
                 } else {
                     moveType = MoveType.NORMAL;
-                    baseSpeed = attributes.walkSpeed;
-                    animMoveSpeed = 0.5f;
+                    baseSpeed = attributes.walkSpeed;                  
+                    moveMixer = movementSet.Walk;
                 }
                 // Do Movement
                 AdjustHeading();
@@ -290,8 +293,8 @@ namespace kfutils.rpg {
 
             DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
             if(dms != null) { 
-                dms.ParameterX = movement.x * animMoveSpeed;
-                dms.ParameterY = movement.z * animMoveSpeed;
+                dms.ParameterX = movement.x;
+                dms.ParameterY = movement.z;
             } 
 
             hVelocity = newVelocity;
@@ -305,14 +308,17 @@ namespace kfutils.rpg {
             if (onGround) {
                 if (shouldJump && stamina.CanDoAction(10f)) {
                     vSpeed = Mathf.Sqrt(attributes.jumpForce * weightMovementFactor * GameConstants.GRAVITY);;
-                    stamina.UseStamina(10f);                    
+                    stamina.UseStamina(10f);  
+                    moveState = moveLayer.Play(movementSet.Jump);                  
                 } else {
                     vSpeed = -GameConstants.GRAVITY3;
+                    moveState = moveLayer.Play(moveMixer); 
                 }
             } else {
                 vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
                 if (!falling && (velocity.y < -10)) {
                     falling = true;
+                    moveState = moveLayer.Play(movementSet.Fall);
                 }
             }
 
