@@ -13,19 +13,12 @@ namespace kfutils.rpg {
     public interface IUsable
     {
 
-        public AnimationClip UseAnimation { get; }
+        public ClipTransition UseAnimation { get; }
 
         /// <summary>
         /// To use the item, called when using a selected item.
         /// </summary>
-        public void OnUse();
-
-        /// <summary>
-        /// To use an item from an inventory; for consumables and similar items this should be a 
-        /// synonym for OnUse(), probably as a wrapper.  For some items, such as weapons and tools,  
-        /// that must be eqipt to use this would instead equipt the item to the its default slot.
-        /// </summary>
-        public void OnActivate();
+        public void OnUse(IActor actor);
 
 
         public void PlayeUseAnimation(AnimancerComponent animancer);

@@ -8,6 +8,7 @@ namespace kfutils.rpg {
         public void UnequiptItem(ItemStack item);
         public void UnequiptItem(EEquiptSlot slot);
 
+        
 
     }
 

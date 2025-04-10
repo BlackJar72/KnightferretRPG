@@ -12,9 +12,9 @@ namespace kfutils.rpg {
         [SerializeField] int baseDamage;
         [SerializeField] BoxCollider attackCollider;
 
-        [SerializeField] AnimationClip useAnimation;
+        [SerializeField] ClipTransition useAnimation;
 
-        public AnimationClip UseAnimation => useAnimation;
+        public ClipTransition UseAnimation => useAnimation;
 
         // TODO: Some reference to the animation (Animancer; but if not labels for mechanim)
 
@@ -54,13 +54,9 @@ namespace kfutils.rpg {
         //        But, should they use wrap attack, or should one or both be used to draw/sheath the weapon
 
 
-        public void OnActivate() {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void OnUse() {
-            throw new System.NotImplementedException();
+        public void OnUse(IActor actor) {
+            IAttacker attacker = actor as IAttacker;
+            if(attacker != null) AttackMelee(attacker);
         }
 
 
@@ -68,7 +64,7 @@ namespace kfutils.rpg {
             if((animState == null) || (animState.NormalizedTime >= 1)) {
                 animState = animancer.Play(useAnimation);
                 animState.Time = 0; 
-            }    
+            }
         }
 
 
