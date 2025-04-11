@@ -1,4 +1,5 @@
 using Animancer;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -20,8 +21,11 @@ namespace kfutils.rpg {
         /// </summary>
         public void OnUse(IActor actor);
 
+        public void PlayUseAnimation(AnimancerLayer animancer, AnimancerState animState);
 
-        public void PlayeUseAnimation(AnimancerLayer animancer, AnimancerState animState);
+        public void PlayEquipAnimation(AnimancerLayer animancer, AnimancerState animState);
+
+        public IActor Holder { get; set; }
 
         
 

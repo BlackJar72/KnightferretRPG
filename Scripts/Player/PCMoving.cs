@@ -38,6 +38,7 @@ namespace kfutils.rpg {
         protected AnimancerState moveState;
         protected AnimancerLayer moveLayer;
         protected MixerTransition2D moveMixer;
+        protected MixerParameterTweenVector2 moveTween;
 
         // Input System
         protected PlayerInput input;
@@ -88,7 +89,8 @@ namespace kfutils.rpg {
 
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
-            moveState = moveLayer.Play(moveMixer);            
+            moveState = moveLayer.Play(moveMixer);    
+            moveTween = new MixerParameterTweenVector2(moveMixer.State);        
         }
 
 
@@ -239,6 +241,7 @@ namespace kfutils.rpg {
 
         protected void StartCrouch(InputAction.CallbackContext context)
         {
+            //Debug.Log("Start Crouch");
             shouldCrouch = true;
             shouldSprint = false;
         }
@@ -246,6 +249,7 @@ namespace kfutils.rpg {
 
         protected void StopCrouch(InputAction.CallbackContext context)
         {
+            //Debug.Log("Stop Crouch");
             shouldCrouch = false;
         }
 
@@ -277,6 +281,7 @@ namespace kfutils.rpg {
 
         protected void Move() {
             GetMoveInput();
+            Vector3 oldMove = movement;
             movement.Set(moveIn[3].x, 0, moveIn[3].y);
             Vector3 newVelocity = new Vector3(0, velocity.y, 0);
 
@@ -293,8 +298,9 @@ namespace kfutils.rpg {
 
             DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
             if(dms != null) { 
-                dms.ParameterX = movement.x;
-                dms.ParameterY = movement.z;
+                dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
+                //dms.ParameterX = movement.x;
+                //dms.ParameterY = movement.z;
             } 
 
             hVelocity = newVelocity;

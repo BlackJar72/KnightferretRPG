@@ -1,5 +1,6 @@
 using System.Collections;
 using Animancer;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -13,6 +14,13 @@ namespace kfutils.rpg {
         [SerializeField] BoxCollider attackCollider;
 
         [SerializeField] AbstractAction useAnimation;
+
+        public IAttacker holder;
+
+        public IActor Holder { get => holder; set {holder = value as IAttacker; } }
+
+        private bool busy = false;
+
 
         public AbstractAction UseAnimation => useAnimation;
 
@@ -58,15 +66,66 @@ namespace kfutils.rpg {
         }
 
 
-        public void PlayeUseAnimation(AnimancerLayer animancer, AnimancerState animState) {
-            if((animState == null) || (animState.NormalizedTime >= 1)) {
+        public void PlayUseAnimation(AnimancerLayer animancer, AnimancerState animState) {
+            if((animState == null) || (!busy)) {
                 animancer.SetMask(useAnimation.mask);
                 animState = animancer.Play(useAnimation.anim);
                 animState.Time = 0; 
+                busy = true;
+                animState.Events.OnEnd = OnUseAnimationEnd;
             }
         }
 
 
+        private void OnUseAnimationEnd() {
+            busy = false;
+            ReplayEquipAnimation();
+        }
+
+
+        public void PlayEquipAnimation(AnimancerLayer animancer, AnimancerState animState) {
+            if((animState == null) || (animState.NormalizedTime >= 1)) {
+                animancer.SetMask(useAnimation.mask);
+                animState = animancer.Play(equiptAnim);
+                animState.NormalizedTime = 0; 
+                busy = true;
+                animState.Events.OnEnd = OnEqipAnimationEnd;
+            }
+        }
+
+
+        public void ReplayEquipAnimation() {
+            AnimancerLayer animancer = holder.ActionLayer;
+            AnimancerState animState = holder.ActionState;
+            if((animState == null) || (animState.NormalizedTime >= 1)) {
+                animancer.SetMask(useAnimation.mask);
+                animState = animancer.Play(equiptAnim);
+                animState.NormalizedTime = 0; 
+                busy = false;
+            }
+        }
+
+
+        private void OnEqipAnimationEnd() {
+            busy = false;
+        }
+
+
+        public void Sheath() {
+            // TODO:  Switch animation layer 1 to use moveState (or to have an empty mask?)
+            //        Figure out the dynamic mixer so you can do this right.   
+            throw new System.NotImplementedException();
+        }
+
+
+        public void Draw() {
+            // TODO: Have the character draw and hold the weapon.
+            //       Question -- do I need separate drawn and hold animations? Or just idle (holding), and the transition is the draw?
+            throw new System.NotImplementedException();
+        }
+
+
     }
+
 
 }

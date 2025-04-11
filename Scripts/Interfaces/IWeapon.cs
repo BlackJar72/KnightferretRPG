@@ -12,6 +12,10 @@ namespace kfutils.rpg {
         
         void AttackRanged(IAttacker attacker, Vector3 direction);
 
+        void Sheath();
+        
+        void Draw();
+
         
     }
 

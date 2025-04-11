@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 
@@ -5,6 +6,9 @@ namespace kfutils.rpg {
 
     public class EntityActing : EntityMoving, IActor
     {
+        public AnimancerLayer ActionLayer => throw new System.NotImplementedException();
+
+        public AnimancerState ActionState => throw new System.NotImplementedException();
 
 
 

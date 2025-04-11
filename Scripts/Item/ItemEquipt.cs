@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 
@@ -10,6 +11,9 @@ namespace kfutils.rpg {
         [Tooltip("This holds a copy of the items local transform data, which will " 
                     + "be copied on to the items real transform after it has been parented to the bones.")]
         [SerializeField] TransformData itemTransform;
+        [SerializeField] protected ClipTransition equiptAnim;
+
+        public ClipTransition EquiptAnim => equiptAnim;
 
 
         public TransformData ItemTransform => itemTransform;

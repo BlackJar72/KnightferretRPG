@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace kfutils.rpg {
 
-    public class PCActing : PCMoving, IActor {
+    public class PCActing : PCMoving, IAttacker {
 
         [SerializeField] PlayerInventory inventory;
         [SerializeField] Spellbook spellbook;
@@ -49,7 +49,9 @@ namespace kfutils.rpg {
         public EquiptmentSlots EquiptItems => inventory.Equipt;
         public SpellEquiptSlot EquiptSpell => equiptSpell;
 
-        public AnimancerLayer ActtionLayer => actionLayer;
+        public AnimancerLayer ActionLayer => actionLayer;
+
+        public AnimancerState ActionState => actionState;
 
 
 
@@ -208,6 +210,11 @@ namespace kfutils.rpg {
         public virtual void EquiptItem(ItemStack item) {
             if(item != null) {
                 itemLocations.EquipItem(item);
+                IUsable usable = item.item.EquiptItem as IUsable;
+                if(usable != null) {
+                    usable.Holder = this;
+                    usable.PlayEquipAnimation(actionLayer, actionState);
+                }            
             } 
         }
 
@@ -231,12 +238,52 @@ namespace kfutils.rpg {
             if((requipt != null) && (requipt.item != null)) {
                 IUsable usable = requipt.item.EquiptItem as IUsable;
                 if(usable != null) {
-                    usable.PlayeUseAnimation(actionLayer, actionState);
+                    usable.PlayUseAnimation(actionLayer, actionState);
                 }
             }
         }
 
 
+#region 
+
+
+        public void MeleeAttack(IWeapon weapon)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RangedAttack(IWeapon weapon, Vector3 direction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Block()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DrawWeapon(IWeapon weapon)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SheatheWeapon(IWeapon weapon)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AttackBlocked()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+#endregion
 #endregion
 
 

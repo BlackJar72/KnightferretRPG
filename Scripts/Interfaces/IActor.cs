@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 namespace kfutils.rpg {
@@ -7,6 +8,10 @@ namespace kfutils.rpg {
         public void EquiptItem(ItemStack item);
         public void UnequiptItem(ItemStack item);
         public void UnequiptItem(EEquiptSlot slot);
+
+        public AnimancerLayer ActionLayer { get; }
+
+        public AnimancerState ActionState { get; }
 
         
 
