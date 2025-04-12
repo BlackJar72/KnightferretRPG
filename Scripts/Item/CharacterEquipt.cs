@@ -21,29 +21,31 @@ namespace kfutils.rpg {
         [SerializeField] ItemEquiptLocation RRING;
         [SerializeField] ItemEquiptLocation LRING;
         [SerializeField] ItemEquiptLocation NECK;
-        //[SerializeField] ItemEquiptLocation CLOTH;
         [SerializeField] ItemEquiptLocation BELT;
 
 
         public ItemEquipt EquipItem(ItemStack item) {
             if(item.CanEquipt()) {
                 switch(item.item.EquiptType) {
+                    // Armor
                     case EEquiptSlot.HEAD:
-                        break;
+                        return HEAD.EquiptArmor(item);
                     case EEquiptSlot.BODY:
-                        break;
+                        return BODY.EquiptArmor(item);
                     case EEquiptSlot.ARMS:
-                        break;
+                        return ARMS.EquiptArmor(item);
                     case EEquiptSlot.LEGS:
-                        break;
+                        return LEGS.EquiptArmor(item);
                     case EEquiptSlot.FEET:
-                        break;
+                        return FEET.EquiptArmor(item);
+                    // Equipment
                     case EEquiptSlot.RHAND:
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.HANDS:
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.LHAND:
                         return LHAND.EquipItem(item);
+                    // Accessories
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
                             return RRING.EquipItem(item);
@@ -51,9 +53,9 @@ namespace kfutils.rpg {
                             return LRING.EquipItem(item);
                         }
                     case EEquiptSlot.NECK:
-                        break;
+                        return NECK.EquiptArmor(item);
                     case EEquiptSlot.BELT:
-                        break;
+                        return BELT.EquiptArmor(item);
                     default: return null;
                 }
             }
@@ -61,19 +63,56 @@ namespace kfutils.rpg {
         }
 
 
+        public ItemEquipt GetItem(EEquiptSlot slot, int slotNumber = 0) {
+            switch(slot) {
+                // Armor
+                case EEquiptSlot.HEAD:
+                    return HEAD.CurrentItem;
+                case EEquiptSlot.BODY:
+                    return BODY.CurrentItem;
+                case EEquiptSlot.ARMS:
+                    return ARMS.CurrentItem;
+                case EEquiptSlot.LEGS:
+                    return LEGS.CurrentItem;
+                case EEquiptSlot.FEET:
+                    return FEET.CurrentItem;
+                // Equipment
+                case EEquiptSlot.RHAND:
+                    return RHAND.CurrentItem;
+                case EEquiptSlot.HANDS:
+                    return RHAND.CurrentItem;
+                case EEquiptSlot.LHAND:
+                    return LHAND.CurrentItem;
+                // Accessories
+                case EEquiptSlot.RING:
+                    if((slotNumber % 2) == 0) {
+                        return RRING.CurrentItem;
+                    } else {
+                        return LRING.CurrentItem;
+                    }
+                case EEquiptSlot.NECK:
+                    return NECK.CurrentItem;
+                case EEquiptSlot.BELT:
+                    return BELT.CurrentItem;
+                default: return null;
+            }
+        }
+
+
         public ItemEquipt GetRHandItem() {
-            return RHAND.CurrectItem;
+            return RHAND.CurrentItem;
         }
 
 
         public ItemEquipt GetLHandItem() {
-            return LHAND.CurrectItem;
+            return LHAND.CurrentItem;
         }
 
 
         public void UnequipItem(ItemStack item) {
             if(item.CanEquipt()) {
                 switch(item.item.EquiptType) {
+                    // Armor
                     case EEquiptSlot.HEAD:
                         break;
                     case EEquiptSlot.BODY:
@@ -84,6 +123,7 @@ namespace kfutils.rpg {
                         break;
                     case EEquiptSlot.FEET:
                         break;
+                    // Equipment
                     case EEquiptSlot.RHAND:
                         RHAND.UnequiptCurrentItem();
                         break;
@@ -93,6 +133,7 @@ namespace kfutils.rpg {
                     case EEquiptSlot.LHAND:
                         LHAND.UnequiptCurrentItem();
                         break;
+                    // Accessories
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
                             RRING.UnequiptCurrentItem();
@@ -112,6 +153,7 @@ namespace kfutils.rpg {
 
         public void UnequipItem(EEquiptSlot slot) {
             switch(slot) {
+                // Armor
                 case EEquiptSlot.HEAD:
                     break;
                 case EEquiptSlot.BODY:
@@ -122,6 +164,7 @@ namespace kfutils.rpg {
                     break;
                 case EEquiptSlot.FEET:
                     break;
+                // Equipment
                 case EEquiptSlot.RHAND:
                     RHAND.UnequiptCurrentItem();
                     break;
@@ -131,6 +174,7 @@ namespace kfutils.rpg {
                 case EEquiptSlot.LHAND:
                     LHAND.UnequiptCurrentItem();
                     break;
+                // Accessories
                 case EEquiptSlot.RING:
                     Debug.LogWarning("UnequipItem(EEquiptSlot slot) being used from RING (all rings removed); this is not intended for rings.");
                     RRING.UnequiptCurrentItem();

@@ -247,38 +247,37 @@ namespace kfutils.rpg {
 #region 
 
 
-        public void MeleeAttack(IWeapon weapon)
-        {
+        public void MeleeAttack(IWeapon weapon) {
             throw new System.NotImplementedException();
         }
 
-        public void RangedAttack(IWeapon weapon, Vector3 direction)
-        {
+
+        public void RangedAttack(IWeapon weapon, Vector3 direction) {
             throw new System.NotImplementedException();
         }
 
-        public void Block()
-        {
+
+        public void Block() {
             throw new System.NotImplementedException();
         }
 
-        public void DrawWeapon(IWeapon weapon)
-        {
+
+        public void DrawWeapon(IWeapon weapon) {
             throw new System.NotImplementedException();
         }
 
-        public void SheatheWeapon(IWeapon weapon)
-        {
+
+        public void SheatheWeapon(IWeapon weapon) {
             throw new System.NotImplementedException();
         }
 
-        public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon)
-        {
+
+        public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon) {
             throw new System.NotImplementedException();
         }
 
-        public void AttackBlocked()
-        {
+
+        public void AttackBlocked() {
             throw new System.NotImplementedException();
         }
 

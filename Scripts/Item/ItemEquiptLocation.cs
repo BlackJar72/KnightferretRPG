@@ -11,7 +11,7 @@ namespace kfutils.rpg {
 
         ItemEquipt  equiptItem;
 
-        public ItemEquipt CurrectItem { get => equiptItem; }
+        public ItemEquipt CurrentItem { get => equiptItem; }
 
 
         void Awake() {
@@ -40,6 +40,29 @@ namespace kfutils.rpg {
         public void UnequiptCurrentItem() {
             if(equiptItem != null) Destroy(equiptItem.gameObject);
         }
+
+
+        public ItemEquipt EquiptArmor(ItemEquipt prefab) {
+            // TODO: Equip as armor (i.e., attach to armature as skinned mesh)
+            Debug.LogWarning("Using incomplete method; skinned mesh will be attached as non-skinned mesh.");
+            return EquipItem(prefab);
+        }
+
+
+        public ItemEquipt EquiptArmor(ItemPrototype item) {
+            // TODO: Equip as armor (i.e., attach to armature as skinned mesh)
+            Debug.LogWarning("Using incomplete method; skinned mesh will be attached as non-skinned mesh.");
+            return EquipItem(item.EquiptItem);
+        }
+
+
+        public ItemEquipt EquiptArmor(ItemStack item) {
+            // TODO: Equip as armor (i.e., attach to armature as skinned mesh)
+            Debug.LogWarning("Using incomplete method; skinned mesh will be attached as non-skinned mesh.");
+            return EquipItem(item.item.EquiptItem);
+        }
+
+        
 
     }
 
