@@ -25,7 +25,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemEquiptLocation BELT;
 
 
-        public void EquipItem(ItemStack item) {
+        public ItemEquipt EquipItem(ItemStack item) {
             if(item.CanEquipt()) {
                 switch(item.item.EquiptType) {
                     case EEquiptSlot.HEAD:
@@ -39,28 +39,35 @@ namespace kfutils.rpg {
                     case EEquiptSlot.FEET:
                         break;
                     case EEquiptSlot.RHAND:
-                        RHAND.EquipItem(item);
-                        break;
+                        return RHAND.EquipItem(item);
                     case EEquiptSlot.HANDS:
-                        RHAND.EquipItem(item);
-                        break;
+                        return RHAND.EquipItem(item);
                     case EEquiptSlot.LHAND:
-                        LHAND.EquipItem(item);
-                        break;
+                        return LHAND.EquipItem(item);
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
-                            RRING.EquipItem(item);
+                            return RRING.EquipItem(item);
                         } else {
-                            LRING.EquipItem(item);
+                            return LRING.EquipItem(item);
                         }
-                        break;
                     case EEquiptSlot.NECK:
                         break;
                     case EEquiptSlot.BELT:
                         break;
-                    default: break;
+                    default: return null;
                 }
             }
+            return null;
+        }
+
+
+        public ItemEquipt GetRHandItem() {
+            return RHAND.CurrectItem;
+        }
+
+
+        public ItemEquipt GetLHandItem() {
+            return LHAND.CurrectItem;
         }
 
 

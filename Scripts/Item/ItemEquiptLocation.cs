@@ -9,9 +9,9 @@ namespace kfutils.rpg {
                     + " This could also be an empty attached to the bone.")]
         [SerializeField] Transform bone; // The bone in the animation rig the item should be parented too
 
-        ItemEquipt equiptItem;
+        ItemEquipt  equiptItem;
 
-        ItemEquipt CurrectItem { get => equiptItem; }
+        public ItemEquipt CurrectItem { get => equiptItem; }
 
 
         void Awake() {
@@ -19,20 +19,21 @@ namespace kfutils.rpg {
         }
 
 
-        public void EquipItem(ItemEquipt prefab) {
+        public ItemEquipt EquipItem(ItemEquipt prefab) {
             UnequiptCurrentItem();
             equiptItem = Instantiate(prefab, bone);
             equiptItem.SetEquiptTransform();
+            return equiptItem;
         }
 
 
-        public void EquipItem(ItemPrototype item) {
-            EquipItem(item.EquiptItem);
+        public ItemEquipt EquipItem(ItemPrototype item) {
+            return EquipItem(item.EquiptItem);
         }
 
 
-        public void EquipItem(ItemStack item) {
-            EquipItem(item.item.EquiptItem);
+        public ItemEquipt EquipItem(ItemStack item) {
+            return EquipItem(item.item.EquiptItem);
         }
 
 

@@ -209,11 +209,11 @@ namespace kfutils.rpg {
 
         public virtual void EquiptItem(ItemStack item) {
             if(item != null) {
-                itemLocations.EquipItem(item);
-                IUsable usable = item.item.EquiptItem as IUsable;
-                if(usable != null) {
-                    usable.Holder = this;
-                    usable.PlayEquipAnimation(actionLayer, actionState);
+                ItemEquipt equipt = itemLocations.EquipItem(item);
+                IUsable usable = equipt as IUsable;
+                if(usable != null) {                     
+                    usable.OnEquipt(this);              
+                    //usable.PlayEquipAnimation(actionLayer, actionState);
                 }            
             } 
         }
@@ -232,13 +232,13 @@ namespace kfutils.rpg {
 
 
         public void UseRightItem(InputAction.CallbackContext context) {
-            ItemStack requipt = inventory.Equipt.GetRHandItem();
+            ItemEquipt requipt = itemLocations.GetRHandItem();
             // FIXME/TODO: This should call OnUse() of the item (if is IUsable)
             //               -- perhaps that also means OnUse() should take an AnimancerComponent?
-            if((requipt != null) && (requipt.item != null)) {
-                IUsable usable = requipt.item.EquiptItem as IUsable;
+            if(requipt != null) {
+                IUsable usable = requipt as IUsable;
                 if(usable != null) {
-                    usable.PlayUseAnimation(actionLayer, actionState);
+                    usable.OnUse(this);
                 }
             }
         }

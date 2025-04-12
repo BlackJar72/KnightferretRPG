@@ -201,6 +201,17 @@ namespace kfutils.rpg {
         }
 
 
+        public ItemStack GetItemForForSlotType(EEquiptSlot slot) { 
+            if(slot == EEquiptSlot.HANDS) {
+                return slots[rhand];
+            }
+            for(int i = 0; i < slots.Length; i++) {
+                if((slots[i].item != null) && slots[i].item.EquiptType == slot) return slots[i];
+            }
+            return null;
+        }
+
+
     }
 
 

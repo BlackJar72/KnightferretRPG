@@ -1,6 +1,4 @@
-using System.Collections;
 using Animancer;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -11,24 +9,21 @@ namespace kfutils.rpg {
 
         [SerializeField] float attackTime;
         [SerializeField] int baseDamage;
-        [SerializeField] BoxCollider attackCollider;
 
         [SerializeField] AbstractAction useAnimation;
 
-        public IAttacker holder;
+        private IAttacker holder;
 
-        public IActor Holder { get => holder; set {holder = value as IAttacker; } }
-
-        private bool busy = false;
+        public bool busy = false;
+        public bool attacking = false;
+        public bool queued = false;
 
 
         public AbstractAction UseAnimation => useAnimation;
 
-        // TODO: Some reference to the animation (Animancer; but if not labels for mechanim)
-
 
         public void AttackMelee(IAttacker attacker) {
-            attackCollider.enabled = true;
+            attacking = true;
             // TODO: Initiate attack animation            
         }
 
@@ -51,8 +46,13 @@ namespace kfutils.rpg {
 
         void OnTriggerEnter(Collider other) {
             GameObject hit = other.gameObject;
+            EntityLiving living = hit.GetComponent<EntityLiving>();
+            if(attacking && (living != null) /*&& (holder != null)*/ && (living != holder)) {
+                Debug.Log("Hit " + living.GetName());
+                attacking = false; 
+            }
             // TODO: Get health, calculate damage, apply modifiers, and apply damage to health (if not null)
-            attackCollider.enabled = false; // Hit one enemy, and don't hit over and over if it moves
+            // Hit one enemy, and don't hit over and over if it moves
         }
 
 
@@ -60,9 +60,16 @@ namespace kfutils.rpg {
         //        But, should they use wrap attack, or should one or both be used to draw/sheath the weapon
 
 
+
         public void OnUse(IActor actor) {
             IAttacker attacker = actor as IAttacker;
-            if(attacker != null) AttackMelee(attacker);
+            if(attacker != null) {
+                if(busy) queued = true;
+                else {
+                    AttackMelee(attacker);
+                    PlayUseAnimation(attacker.ActionLayer, attacker.ActionState);
+                }
+            }
         }
 
 
@@ -79,7 +86,18 @@ namespace kfutils.rpg {
 
         private void OnUseAnimationEnd() {
             busy = false;
-            ReplayEquipAnimation();
+            attacking = false;
+            if(queued) {
+                queued = false;
+                OnUse(holder);
+            }
+            else ReplayEquipAnimation();
+        }
+
+
+        public void OnEquipt(IActor actor) {
+            holder = actor as IAttacker;
+            PlayEquipAnimation(actor.ActionLayer, actor.ActionState);
         }
 
 
@@ -88,13 +106,15 @@ namespace kfutils.rpg {
                 animancer.SetMask(useAnimation.mask);
                 animState = animancer.Play(equiptAnim);
                 animState.NormalizedTime = 0; 
-                busy = true;
                 animState.Events.OnEnd = OnEqipAnimationEnd;
+                busy = true;
+                attacking = false;
             }
         }
 
 
         public void ReplayEquipAnimation() {
+            if(holder == null) return;
             AnimancerLayer animancer = holder.ActionLayer;
             AnimancerState animState = holder.ActionState;
             if((animState == null) || (animState.NormalizedTime >= 1)) {
