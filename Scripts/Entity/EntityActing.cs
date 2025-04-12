@@ -25,18 +25,22 @@ namespace kfutils.rpg {
         }*/
 
 
-        public void EquiptItem(ItemStack item)
-        {
+        public void EquiptItem(ItemStack item) {
             throw new System.NotImplementedException();
         }
 
-        public void UnequiptItem(ItemStack item)
-        {
+
+        public void RemoveEquiptAnimation() {
             throw new System.NotImplementedException();
         }
 
-        public void UnequiptItem(EEquiptSlot slot)
-        {
+
+        public void UnequiptItem(ItemStack item) {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void UnequiptItem(EEquiptSlot slot) {
             throw new System.NotImplementedException();
         }
 

@@ -13,7 +13,7 @@ namespace kfutils.rpg {
 
         public AnimancerState ActionState { get; }
 
-        
+        public void RemoveEquiptAnimation();
 
     }
 

@@ -13,6 +13,7 @@ namespace kfutils.rpg {
         [SerializeField] SpellEquiptSlot equiptSpell;
 
         [SerializeField] CharacterEquipt itemLocations;
+        //[SerializeField] AvatarMask emptyMask; 
 
 
         protected AnimancerLayer actionLayer;
@@ -214,6 +215,12 @@ namespace kfutils.rpg {
                     //usable.PlayEquipAnimation(actionLayer, actionState);
                 }            
             } 
+        }
+
+
+        public void RemoveEquiptAnimation() {
+            //actionLayer.SetMask(emptyMask);
+            actionLayer.StartFade(0);
         }
 
 

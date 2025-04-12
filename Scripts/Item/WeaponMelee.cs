@@ -103,6 +103,7 @@ namespace kfutils.rpg {
 
         public void OnUnequipt() {
             Debug.Log(holder.GetName() + " has unequipped " + this);
+            holder.RemoveEquiptAnimation();
             // TODO: Reset the holder's animation to default and do general clean-up
         }
 
