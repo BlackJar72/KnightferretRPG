@@ -149,15 +149,13 @@ namespace kfutils.rpg {
 #endregion
 
 
-        public void GetAimParams(out AimParams aim)
-        {
+        public void GetAimParams(out AimParams aim) {
             aim.from = playerCam.transform.position;
             aim.toward = playerCam.transform.forward;
         }
 
 
-        protected virtual void Interact(InputAction.CallbackContext context)
-        {
+        protected virtual void Interact(InputAction.CallbackContext context) {
             AimParams aim;
             GetAimParams(out aim);
             RaycastHit hit;
@@ -233,8 +231,6 @@ namespace kfutils.rpg {
 
         public void UseRightItem(InputAction.CallbackContext context) {
             ItemEquipt requipt = itemLocations.GetRHandItem();
-            // FIXME/TODO: This should call OnUse() of the item (if is IUsable)
-            //               -- perhaps that also means OnUse() should take an AnimancerComponent?
             if(requipt != null) {
                 IUsable usable = requipt as IUsable;
                 if(usable != null) {

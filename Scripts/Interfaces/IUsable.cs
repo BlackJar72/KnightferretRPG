@@ -23,6 +23,8 @@ namespace kfutils.rpg {
 
         public void OnEquipt(IActor actor);
 
+        public void OnUnequipt();
+
         public void PlayUseAnimation(AnimancerLayer animancer, AnimancerState animState);
 
         public void PlayEquipAnimation(AnimancerLayer animancer, AnimancerState animState);

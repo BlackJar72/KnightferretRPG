@@ -101,6 +101,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void OnUnequipt() {
+            Debug.Log(holder.GetName() + " has unequipped " + this);
+            // TODO: Reset the holder's animation to default and do general clean-up
+        }
+
+
         public void PlayEquipAnimation(AnimancerLayer animancer, AnimancerState animState) {
             if((animState == null) || (animState.NormalizedTime >= 1)) {
                 animancer.SetMask(useAnimation.mask);

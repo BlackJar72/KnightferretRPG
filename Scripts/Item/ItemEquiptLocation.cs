@@ -38,7 +38,8 @@ namespace kfutils.rpg {
 
 
         public void UnequiptCurrentItem() {
-            if(equiptItem != null) Destroy(equiptItem.gameObject);
+            if (equiptItem is IUsable usable) usable.OnUnequipt();
+            if (equiptItem != null) Destroy(equiptItem.gameObject);
         }
 
 
