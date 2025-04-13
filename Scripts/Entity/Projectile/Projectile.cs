@@ -1,52 +1,49 @@
+using Gaia;
 using UnityEngine;
 
 namespace kfutils.rpg {
 
     [RequireComponent(typeof(Rigidbody))]
-    public class KineProjectile : MonoBehaviour {
+    public class Projectile : MonoBehaviour {
 
         [SerializeField] GameObject impactPrefab;
         [SerializeField] DamageSource damage;
         [SerializeField] float speed;
+        [SerializeField] Rigidbody rb;
 
         private IAttacker sender;
-        private Vector3 velocity;
-        private Rigidbody rb;
+       //private bool launched = false;
 
 
-        void Start() {
-            rb = GetComponent<Rigidbody>();
+        void Awake() {
+            if(rb == null) rb = gameObject.GetComponent<Rigidbody>();
         }
 
 
         public void Launch(IAttacker sender, Vector3 direction) {
             this.sender = sender;
-            this.velocity = direction * speed;
-        }
-
-
-        // Update is called once per frame
-        void FixedUpdate() {
-            rb.MovePosition(velocity);
+            rb.linearVelocity = direction * speed;
+            //launched = true;
         }
 
 
         void OnCollisionEnter(Collision collision) {
+            //if(!launched) return;
             GameObject impact;
-            if(impactPrefab != null) { 
+            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+            if(impactPrefab != null && (damageable != sender)) { 
                 impact = Instantiate(impactPrefab, transform);
                 impact.transform.SetParent(impact.transform.parent);
             }
-            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-            if(damageable != null) {
+            if((damageable != null) && (damageable != sender)) {
                 damage.DoDamage(sender, damageable);
             }
-            Destroy(this);
+            if(damageable != sender) Destroy(gameObject);
         }
 
 
 
-    }
+   }
 
 
 }

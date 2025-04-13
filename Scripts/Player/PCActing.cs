@@ -86,6 +86,7 @@ namespace kfutils.rpg {
             toggleInventoryAction = input.actions["OpenCloseInventory"];
             rightAttackAction = input.actions["RightUseAttack"];
             activateObjectAction = input.actions["Interact"];
+            castSpellAction = input.actions["CastSpell"];
             
         }
 
@@ -133,12 +134,14 @@ namespace kfutils.rpg {
         protected virtual void EnableAction() { 
             rightAttackAction.started += UseRightItem;
             if(this is not PCTalking) activateObjectAction.started += Interact;  
+            castSpellAction.started += CastSpell; // FIXME: Include start and stop events
         }
 
 
         protected virtual void DisableAction() { 
             rightAttackAction.started -= UseRightItem;
-            if(this is not PCTalking) activateObjectAction.started -= Interact;  
+            if(this is not PCTalking) activateObjectAction.started -= Interact; 
+            castSpellAction.started -= CastSpell; 
         }
 
 
@@ -163,6 +166,17 @@ namespace kfutils.rpg {
             {
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null) interactable.Use(gameObject);
+            }
+        }
+
+
+        protected virtual void CastSpell(InputAction.CallbackContext context) {
+            if(equiptSpell.currentSpell != null) {
+                float cost =  equiptSpell.currentSpell.ManaCost * attributes.manaCostFactor;
+                if(mana.CanDoAction(cost)) {
+                    mana.UseMana(cost);
+                    equiptSpell.currentSpell.SpellEffect.Cast(this);
+                }
             }
         }
 

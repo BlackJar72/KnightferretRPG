@@ -5,7 +5,7 @@ namespace kfutils.rpg {
 
     public interface ISpellCast {
 
-        public void Cast(IActor caster);
+        public void Cast(IAttacker caster);
 
     }
 

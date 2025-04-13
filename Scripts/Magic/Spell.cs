@@ -6,7 +6,7 @@ namespace kfutils.rpg {
     /// <summary>
     /// FIXME???  Not sure I should do it this way, it jsut put the relevant field data here -- that might actually be better.
     /// </summary>
-    [CreateAssetMenu(menuName = "KF-RPG/Magic/Spell Prototype", fileName = "Spell", order = 20)]
+    [CreateAssetMenu(menuName = "KF-RPG/Magic/Spell Prototype", fileName = "Spell", order = 10)]
     public class Spell : ScriptableObject {
 
 
@@ -32,6 +32,11 @@ namespace kfutils.rpg {
         public string Name { get => spellName; }
         public Sprite Icon {get => icon; } 
         public string Description { get => description; }
+        public ESpellTypes CastType => castType;
+        public ISpellCast SpellEffect => spellEffect;
+        public int ManaCost => manaCost;
+        public float Range => range;
+        public float CastTime => castTime;
 
 
         
