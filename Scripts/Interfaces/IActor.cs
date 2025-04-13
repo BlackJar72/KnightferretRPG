@@ -15,6 +15,8 @@ namespace kfutils.rpg {
 
         public void RemoveEquiptAnimation();
 
+        public void GetAimParams(out AimParams aim);
+
     }
 
 

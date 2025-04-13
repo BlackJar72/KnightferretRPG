@@ -25,7 +25,14 @@ namespace kfutils.rpg {
         }*/
 
 
+
         public void EquiptItem(ItemStack item) {
+            throw new System.NotImplementedException();
+        }
+
+
+        public virtual void GetAimParams(out AimParams aim)
+        {
             throw new System.NotImplementedException();
         }
 

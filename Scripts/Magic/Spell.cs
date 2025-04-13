@@ -6,7 +6,7 @@ namespace kfutils.rpg {
     /// <summary>
     /// FIXME???  Not sure I should do it this way, it jsut put the relevant field data here -- that might actually be better.
     /// </summary>
-    [CreateAssetMenu(menuName = "KF-RPG/Magic/Spell Prototype", fileName = "Spell", order = 10)]
+    [CreateAssetMenu(menuName = "KF-RPG/Magic/Spell Prototype", fileName = "Spell", order = 20)]
     public class Spell : ScriptableObject {
 
 
@@ -19,7 +19,12 @@ namespace kfutils.rpg {
         [SerializeField] string description;
 
         //Technical Data
-        
+        [SerializeField] ESpellTypes castType;
+        [SerializeField] ASpellCast spellEffect;
+        [SerializeField] int manaCost;
+        [SerializeField] float range;
+        [SerializeField] float castTime; 
+
 
 
         // Accessor Properties

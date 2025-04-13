@@ -299,8 +299,6 @@ namespace kfutils.rpg {
             DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
             if(dms != null) { 
                 dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
-                //dms.ParameterX = movement.x;
-                //dms.ParameterY = movement.z;
             } 
 
             hVelocity = newVelocity;

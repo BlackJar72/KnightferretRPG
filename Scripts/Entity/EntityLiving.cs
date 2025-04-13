@@ -4,7 +4,7 @@ using Animancer;
 
 namespace kfutils.rpg {
 
-    public abstract class EntityLiving : MonoBehaviour, IHaveName, IHaveStringID 
+    public abstract class EntityLiving : MonoBehaviour, IHaveName, IHaveStringID, IDamageable  
     {
 
         [SerializeField] private string id; // Should this be a string? A number? A UUID?  String for now.  Also, this must never change!
@@ -53,6 +53,22 @@ namespace kfutils.rpg {
 
         public virtual string GetName() => entityName;
         public virtual string GetPersonalName() => GetName();
+
+
+        public virtual int GetArmor() {
+            return attributes.naturalArmor;
+        }
+
+
+        public void TakeDamage(Damages damage) {
+            health.TakeDamage(attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage, attributes.damageAdjuster)));
+        }
+
+
+        public virtual void TakeDamage(DamageData damage) {
+            health.TakeDamage(attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage.damage, attributes.damageAdjuster)));
+            // TODO: Include overrides that can react to the IAttacker
+        }
     
     
     

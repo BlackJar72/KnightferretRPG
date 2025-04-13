@@ -13,7 +13,6 @@ namespace kfutils.rpg {
         [SerializeField] SpellEquiptSlot equiptSpell;
 
         [SerializeField] CharacterEquipt itemLocations;
-        //[SerializeField] AvatarMask emptyMask; 
 
 
         protected AnimancerLayer actionLayer;

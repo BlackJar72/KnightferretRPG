@@ -8,7 +8,7 @@ namespace kfutils.rpg {
     {
 
         [SerializeField] float attackTime;
-        [SerializeField] int baseDamage;
+        [SerializeField] DamageSource damage;
 
         [SerializeField] AbstractAction useAnimation;
 
@@ -40,15 +40,16 @@ namespace kfutils.rpg {
 
 
         public int GetDamage() {
-            return baseDamage;
+            return damage.BaseDamage;
         }
 
 
         void OnTriggerEnter(Collider other) {
             GameObject hit = other.gameObject;
-            EntityLiving living = hit.GetComponent<EntityLiving>();
-            if(attacking && (living != null) /*&& (holder != null)*/ && (living != holder)) {
-                Debug.Log("Hit " + living.GetName());
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if(attacking && (damageable != null) && (damageable != holder)) {
+                if(damageable is EntityLiving living) Debug.Log("Hit " + living.GetName());
+                damage.DoDamage(holder, damageable);
                 attacking = false; 
             }
             // TODO: Get health, calculate damage, apply modifiers, and apply damage to health (if not null)
