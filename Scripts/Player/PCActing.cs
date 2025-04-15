@@ -260,7 +260,9 @@ namespace kfutils.rpg {
             if(requipt != null) {
                 IUsable usable = requipt as IUsable;
                 if(usable != null) {
-                    usable.OnUse(this);
+                    if(stamina.UseStamina(usable.StaminaCost)) {
+                        usable.OnUse(this);
+                    }
                 }
             }
         }

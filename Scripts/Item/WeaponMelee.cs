@@ -11,17 +11,19 @@ namespace kfutils.rpg {
         [SerializeField] DamageSource damage;
 
         [SerializeField] AbstractAction useAnimation;
+        [SerializeField] int attackCost;
 
         private IAttacker holder;
 
-        public bool busy = false;
-        public bool attacking = false;
-        public bool queued = false;
-        public int attack = 0;
-
+        private bool busy = false;
+        private bool attacking = false;
+        private bool queued = false;
+        private int attack = 0;
 
 
         public AbstractAction UseAnimation => useAnimation;
+
+        public int StaminaCost => attackCost;
 
 
         public void AttackMelee(IAttacker attacker) {

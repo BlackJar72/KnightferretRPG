@@ -29,6 +29,9 @@ namespace kfutils.rpg {
 
         public void PlayEquipAnimation(AnimancerLayer animancer, AnimancerState animState);
 
+        [Tooltip("Stamina cost to use item; usually 0 except for weapons which cost stamina to attack")]
+        int StaminaCost { get; } // Stamina cost to use item; usually 0 for non-weapons
+
         
 
     }

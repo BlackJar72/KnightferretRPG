@@ -58,7 +58,7 @@ namespace kfutils.rpg.ui {
             pcName.SetText(pc.GetPersonalName());
 
             levelTxt.SetText("Level: " + pc.attributes.level);
-            xpTxt.SetText("Level: " + "TODO!!!");
+            xpTxt.SetText("XP: " + "TODO!!!");
 
             strTxt.SetText("Strength: " + pc.attributes.baseStats.Strength);
             agilTxt.SetText("Agility: " + pc.attributes.baseStats.Agility);
