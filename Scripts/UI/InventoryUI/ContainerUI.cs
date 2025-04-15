@@ -21,12 +21,12 @@ namespace kfutils.rpg.ui {
         } 
 
 
-        protected virtual void OnEnable() {
+        protected override void OnEnable() {
             base.OnEnable();
         }
 
 
-        protected virtual void OnDisable() {
+        protected override void OnDisable() {
             base.OnDisable();
         }
         

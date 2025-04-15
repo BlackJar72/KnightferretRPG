@@ -17,6 +17,8 @@ namespace kfutils.rpg {
         public bool busy = false;
         public bool attacking = false;
         public bool queued = false;
+        public int attack = 0;
+
 
 
         public AbstractAction UseAnimation => useAnimation;
@@ -48,7 +50,6 @@ namespace kfutils.rpg {
             GameObject hit = other.gameObject;
             IDamageable damageable = hit.GetComponent<IDamageable>();
             if(attacking && (damageable != null) && (damageable != holder)) {
-                if(damageable is EntityLiving living) Debug.Log("Hit " + living.GetName());
                 damage.DoDamage(holder, damageable);
                 attacking = false; 
             }
@@ -77,7 +78,7 @@ namespace kfutils.rpg {
         public void PlayUseAnimation(AnimancerLayer animancer, AnimancerState animState) {
             if((animState == null) || (!busy)) {
                 animancer.SetMask(useAnimation.mask);
-                animState = animancer.Play(useAnimation.anim);
+                animState = animancer.Play(useAnimation.GetSequential(ref attack));
                 animState.Time = 0; 
                 busy = true;
                 animState.Events.OnEnd = OnUseAnimationEnd;
@@ -90,9 +91,13 @@ namespace kfutils.rpg {
             attacking = false;
             if(queued) {
                 queued = false;
+                attack++;
                 OnUse(holder);
             }
-            else ReplayEquipAnimation();
+            else {
+                attack = 0;
+                ReplayEquipAnimation();
+            }
         }
 
 
@@ -103,7 +108,6 @@ namespace kfutils.rpg {
 
 
         public void OnUnequipt() {
-            Debug.Log(holder.GetName() + " has unequipped " + this);
             holder.RemoveEquiptAnimation();
             // TODO: Reset the holder's animation to default and do general clean-up
         }

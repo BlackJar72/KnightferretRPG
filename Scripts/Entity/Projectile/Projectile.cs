@@ -1,4 +1,3 @@
-using Gaia;
 using UnityEngine;
 
 namespace kfutils.rpg {
@@ -12,7 +11,6 @@ namespace kfutils.rpg {
         [SerializeField] Rigidbody rb;
 
         private IAttacker sender;
-       //private bool launched = false;
 
 
         void Awake() {
@@ -23,12 +21,10 @@ namespace kfutils.rpg {
         public void Launch(IAttacker sender, Vector3 direction) {
             this.sender = sender;
             rb.linearVelocity = direction * speed;
-            //launched = true;
         }
 
 
         void OnCollisionEnter(Collision collision) {
-            //if(!launched) return;
             GameObject impact;
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if(impactPrefab != null && (damageable != sender)) { 

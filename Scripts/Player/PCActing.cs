@@ -18,7 +18,7 @@ namespace kfutils.rpg {
         protected AnimancerLayer actionLayer;
         protected AnimancerState actionState;
 
-
+ 
         // Input System
         protected InputAction rightAttackAction;
         protected InputAction leftBlcokAction;
@@ -132,16 +132,16 @@ namespace kfutils.rpg {
 
 
         protected virtual void EnableAction() { 
-            rightAttackAction.started += UseRightItem;
+            rightAttackAction.canceled += UseRightItem;
             if(this is not PCTalking) activateObjectAction.started += Interact;  
-            castSpellAction.started += CastSpell; // FIXME: Include start and stop events
+            castSpellAction.canceled += CastSpell; // FIXME: Include start and stop events
         }
 
 
         protected virtual void DisableAction() { 
-            rightAttackAction.started -= UseRightItem;
+            rightAttackAction.canceled -= UseRightItem;
             if(this is not PCTalking) activateObjectAction.started -= Interact; 
-            castSpellAction.started -= CastSpell; 
+            castSpellAction.canceled -= CastSpell; 
         }
 
 
@@ -192,9 +192,13 @@ namespace kfutils.rpg {
             if(gameManager.UIManager.ToggleCharacterSheet()) {
                 DisableMovement();
                 DisableAction();
+                moveLayer.Speed = 0;
+                actionLayer.Speed = 0;
             } else {
                 EnableMovement();
                 EnableAction();
+                moveLayer.Speed = 1;
+                actionLayer.Speed = 1;
             }
         }
 
@@ -204,9 +208,13 @@ namespace kfutils.rpg {
             if(!allow) {
                 DisableMovement();
                 DisableAction();
+                moveLayer.Speed = 0;
+                actionLayer.Speed = 0;
             } else {
                 EnableMovement();
                 EnableAction();
+                moveLayer.Speed = 1;
+                actionLayer.Speed = 1;
             }
         }
 
@@ -224,15 +232,13 @@ namespace kfutils.rpg {
                 ItemEquipt equipt = itemLocations.EquipItem(item);
                 IUsable usable = equipt as IUsable;
                 if(usable != null) {                     
-                    usable.OnEquipt(this);              
-                    //usable.PlayEquipAnimation(actionLayer, actionState);
+                    usable.OnEquipt(this); 
                 }            
             } 
         }
 
 
         public void RemoveEquiptAnimation() {
-            //actionLayer.SetMask(emptyMask);
             actionLayer.StartFade(0);
         }
 

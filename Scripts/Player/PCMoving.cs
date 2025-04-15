@@ -241,9 +241,9 @@ namespace kfutils.rpg {
 
         protected void StartCrouch(InputAction.CallbackContext context)
         {
-            //Debug.Log("Start Crouch");
             shouldCrouch = true;
             shouldSprint = false;
+            CharacterController controller = GetComponent<CharacterController>();
         }
 
 

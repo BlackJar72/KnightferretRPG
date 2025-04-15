@@ -7,8 +7,16 @@ namespace kfutils.rpg {
     [CreateAssetMenu(menuName = "KF-RPG/Actions/Basic Action", fileName = "BasicAction", order = 20)]
     public class BasicAction : AbstractAction {
 
-        
+        [SerializeField] protected ClipTransition animation;
+        [SerializeField] protected AvatarMask avatarMask;
 
+
+        public override ClipTransition anim => animation;
+        public override AvatarMask mask => avatarMask;
+        public override int number => 1;
+
+        public override ClipTransition GetSequential(ref int index) => animation;
+        
     }
 
 }

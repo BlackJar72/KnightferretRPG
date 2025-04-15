@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using kfutils.rpg.ui;
-using UnityEditor.Rendering;
 
 
 namespace kfutils.rpg {

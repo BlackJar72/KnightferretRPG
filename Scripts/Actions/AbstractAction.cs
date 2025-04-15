@@ -6,12 +6,10 @@ namespace kfutils.rpg {
 
     public abstract class AbstractAction : ScriptableObject {
 
-        [SerializeField] protected ClipTransition animation;
-        [SerializeField] protected AvatarMask avatarMask;
-
-
-        public ClipTransition anim => animation;
-        public AvatarMask mask => avatarMask;
+        public abstract ClipTransition anim { get; }
+        public abstract AvatarMask mask { get; }
+        public abstract int number { get; }
+        public abstract ClipTransition GetSequential(ref int index);
 
 
     }
