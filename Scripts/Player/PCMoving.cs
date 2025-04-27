@@ -15,6 +15,8 @@ namespace kfutils.rpg {
 
         public const string PC = "PLAYER_CHARACTER";
 
+        public const float MAX_WATER_V = 2.5f;
+
         [SerializeField] protected GameManager gameManager;
 
         [SerializeField] protected MovementSet movementSet;
@@ -53,6 +55,8 @@ namespace kfutils.rpg {
         protected bool hasJumped;
         protected bool shouldSprint;
         protected bool shouldCrouch;
+        protected bool swimUp;
+        protected bool swimDown;
         protected bool movementAllowed;
         protected float weightMovementFactor = 1.0f;
 
@@ -61,6 +65,9 @@ namespace kfutils.rpg {
         protected Vector2[] lookIn = new Vector2[4];
 
         protected sealed override void MakePC(string id) { base.MakePC(PC); }
+
+        protected delegate void Movement();
+        protected Movement Move;
 
 
         public void SetWeightForMovement(float weight) {
@@ -71,6 +78,7 @@ namespace kfutils.rpg {
         protected override void Awake() {
             base.Awake();
             MakePC(PC);
+            Move = LandMove;
             hasJumped = false;
             InitInput(); 
         }
@@ -182,6 +190,7 @@ namespace kfutils.rpg {
             //sprintToggle.started += ToggleSprint;
             crouchAction.started += StartCrouch;
             crouchAction.canceled += StopCrouch;
+            crouchAction.performed += SwimDown;
             //crouchToggle.started += ToggleCrouch; 
             movementAllowed = true;       
         }
@@ -194,6 +203,7 @@ namespace kfutils.rpg {
             //sprintToggle.started -= ToggleSprint;
             crouchAction.started -= StartCrouch;
             crouchAction.canceled -= StopCrouch;
+            crouchAction.performed -= SwimDown;
             //crouchToggle.started -= ToggleCrouch;
             movementAllowed = false;
         }
@@ -218,6 +228,13 @@ namespace kfutils.rpg {
         protected void TriggerJump(InputAction.CallbackContext context)
         {
             shouldJump = true;
+            swimUp = true;
+        }
+
+
+        protected void StopSwimUp(InputAction.CallbackContext context)
+        {
+            swimUp = false;
         }
 
 
@@ -243,6 +260,7 @@ namespace kfutils.rpg {
         {
             shouldCrouch = true;
             shouldSprint = false;
+            swimDown = true;
             CharacterController controller = GetComponent<CharacterController>();
         }
 
@@ -251,6 +269,7 @@ namespace kfutils.rpg {
         {
             //Debug.Log("Stop Crouch");
             shouldCrouch = false;
+            swimDown = false;
         }
 
 
@@ -258,9 +277,22 @@ namespace kfutils.rpg {
         {
             shouldCrouch = !shouldCrouch;
             shouldSprint = false;
+            swimDown = shouldCrouch;
+        }
+
+
+        protected void SwimDown(InputAction.CallbackContext context)
+        {
+            swimDown = true;
         }
 
 #endregion
+
+
+        public void SetSwimming(bool swimming) {
+            if(swimming) Move = WaterMove;
+            else Move = LandMove;
+        }
 
 
         protected void AdjustHeading()
@@ -279,11 +311,10 @@ namespace kfutils.rpg {
         }
 
 
-        protected void Move() {
+        protected void LandMove() {
             GetMoveInput();
-            Vector3 oldMove = movement;
             movement.Set(moveIn[3].x, 0, moveIn[3].y);
-            Vector3 newVelocity = new Vector3(0, velocity.y, 0);
+            Vector3 newVelocity = Vector3.zero;
 
             if (movement.magnitude > 0) {
                 if (movement.magnitude > 1) {
@@ -311,7 +342,7 @@ namespace kfutils.rpg {
 
             if (onGround) {
                 if (shouldJump && stamina.CanDoAction(10f)) {
-                    vSpeed = Mathf.Sqrt(attributes.jumpForce * weightMovementFactor * GameConstants.GRAVITY);;
+                    vSpeed = Mathf.Sqrt(attributes.jumpForce * weightMovementFactor * GameConstants.GRAVITY);
                     stamina.UseStamina(10f);  
                     moveState = moveLayer.Play(movementSet.Jump);                  
                 } else {
@@ -325,6 +356,52 @@ namespace kfutils.rpg {
                     moveState = moveLayer.Play(movementSet.Fall);
                 }
             }
+
+            velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
+            characterController.Move(velocity * Time.deltaTime);
+            shouldJump = false;
+        }
+
+
+        protected void WaterMove() {
+            GetMoveInput();
+            movement.Set(moveIn[3].x, 0, moveIn[3].y);
+            Vector3 newVelocity = Vector3.zero;
+
+            if((movement.magnitude > 0) && stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor)) {
+                if (movement.magnitude > 1) {
+                    newVelocity += transform.rotation * (movement.normalized * attributes.crouchSpeed * weightMovementFactor);
+                } else {
+                    newVelocity += transform.rotation * (movement * attributes.crouchSpeed * weightMovementFactor);
+                }
+            }
+        
+            if(Input.GetKey(KeyCode.Space)) {
+                newVelocity.y = attributes.crouchSpeed * weightMovementFactor;    
+            } 
+            if(Input.GetKey(KeyCode.LeftShift)) {
+                newVelocity.y = -attributes.crouchSpeed;
+            }
+
+            if(newVelocity.magnitude > MAX_WATER_V) newVelocity = newVelocity.normalized * MAX_WATER_V;
+
+            DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+            if(dms != null) { 
+                dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
+            }
+
+            vSpeed += Time.deltaTime;
+            if(vSpeed > -MAX_WATER_V) vSpeed = Mathf.Min(MAX_WATER_V, vSpeed + newVelocity.y); 
+            else vSpeed -= Time.deltaTime * vSpeed;
+
+            hVelocity = newVelocity;
+            hVelocity.y = 0;
+            
+            onGround = characterController.isGrounded;
+
+            if(falling && onGround) health.TakeDamage(Functions.CalcFallDamage(vSpeed, attributes.naturalArmor));
+
+            falling = (vSpeed < -MAX_WATER_V) && falling && !onGround;
 
             velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
             characterController.Move(velocity * Time.deltaTime);
