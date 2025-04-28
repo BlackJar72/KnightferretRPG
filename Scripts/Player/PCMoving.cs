@@ -1,4 +1,5 @@
 using Animancer;
+using QFSW.QC.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,12 +52,11 @@ namespace kfutils.rpg {
         protected InputAction sprintToggle;
         protected InputAction crouchAction;
         protected InputAction crouchToggle;
+        protected InputAction swimAction;
         protected bool shouldJump;
         protected bool hasJumped;
         protected bool shouldSprint;
         protected bool shouldCrouch;
-        protected bool swimUp;
-        protected bool swimDown;
         protected bool movementAllowed;
         protected float weightMovementFactor = 1.0f;
 
@@ -160,6 +160,7 @@ namespace kfutils.rpg {
             //sprintToggle = input.actions["Toggle Sprint"];
             crouchAction = input.actions["Crouch"];
             //crouchToggle = input.actions["Toggle Crouch"];
+            swimAction = input.actions["SwimUp"];
         }
 
 
@@ -190,7 +191,6 @@ namespace kfutils.rpg {
             //sprintToggle.started += ToggleSprint;
             crouchAction.started += StartCrouch;
             crouchAction.canceled += StopCrouch;
-            crouchAction.performed += SwimDown;
             //crouchToggle.started += ToggleCrouch; 
             movementAllowed = true;       
         }
@@ -203,7 +203,6 @@ namespace kfutils.rpg {
             //sprintToggle.started -= ToggleSprint;
             crouchAction.started -= StartCrouch;
             crouchAction.canceled -= StopCrouch;
-            crouchAction.performed -= SwimDown;
             //crouchToggle.started -= ToggleCrouch;
             movementAllowed = false;
         }
@@ -228,13 +227,6 @@ namespace kfutils.rpg {
         protected void TriggerJump(InputAction.CallbackContext context)
         {
             shouldJump = true;
-            swimUp = true;
-        }
-
-
-        protected void StopSwimUp(InputAction.CallbackContext context)
-        {
-            swimUp = false;
         }
 
 
@@ -260,7 +252,6 @@ namespace kfutils.rpg {
         {
             shouldCrouch = true;
             shouldSprint = false;
-            swimDown = true;
             CharacterController controller = GetComponent<CharacterController>();
         }
 
@@ -269,7 +260,6 @@ namespace kfutils.rpg {
         {
             //Debug.Log("Stop Crouch");
             shouldCrouch = false;
-            swimDown = false;
         }
 
 
@@ -277,13 +267,6 @@ namespace kfutils.rpg {
         {
             shouldCrouch = !shouldCrouch;
             shouldSprint = false;
-            swimDown = shouldCrouch;
-        }
-
-
-        protected void SwimDown(InputAction.CallbackContext context)
-        {
-            swimDown = true;
         }
 
 #endregion
@@ -360,6 +343,7 @@ namespace kfutils.rpg {
             velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
             characterController.Move(velocity * Time.deltaTime);
             shouldJump = false;
+            SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
         }
 
 
@@ -367,20 +351,27 @@ namespace kfutils.rpg {
             GetMoveInput();
             movement.Set(moveIn[3].x, 0, moveIn[3].y);
             Vector3 newVelocity = Vector3.zero;
-
-            if((movement.magnitude > 0) && stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor)) {
-                if (movement.magnitude > 1) {
-                    newVelocity += transform.rotation * (movement.normalized * attributes.crouchSpeed * weightMovementFactor);
-                } else {
-                    newVelocity += transform.rotation * (movement * attributes.crouchSpeed * weightMovementFactor);
+            
+            if(stamina.CanDoAction(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor)) {
+                bool moved = false;
+                if(movement.magnitude > 0) {
+                    if (movement.magnitude > 1) {
+                        newVelocity += transform.rotation * (movement.normalized * attributes.crouchSpeed * weightMovementFactor);
+                    } else {
+                        newVelocity += transform.rotation * (movement * attributes.crouchSpeed * weightMovementFactor);
+                    }
+                    moved = true;
                 }
-            }
-        
-            if(Input.GetKey(KeyCode.Space)) {
-                newVelocity.y = attributes.crouchSpeed * weightMovementFactor;    
-            } 
-            if(Input.GetKey(KeyCode.LeftShift)) {
-                newVelocity.y = -attributes.crouchSpeed;
+            
+                if(Input.GetKey(KeyCode.Space)) {
+                    newVelocity.y = attributes.crouchSpeed * weightMovementFactor;
+                    moved = true; 
+                } 
+                if(Input.GetKey(KeyCode.LeftShift)) {
+                    newVelocity.y = -attributes.crouchSpeed;
+                    moved = true;
+                }
+                if(moved) stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
             }
 
             if(newVelocity.magnitude > MAX_WATER_V) newVelocity = newVelocity.normalized * MAX_WATER_V;
@@ -390,12 +381,14 @@ namespace kfutils.rpg {
                 dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
             }
 
-            vSpeed += Time.deltaTime;
+            vSpeed += ((weightMovementFactor * 2.0f) - 1.0f) * Time.deltaTime; // Byancy
             if(vSpeed > -MAX_WATER_V) vSpeed = Mathf.Min(MAX_WATER_V, vSpeed + newVelocity.y); 
-            else vSpeed -= Time.deltaTime * vSpeed;
+            vSpeed -= vSpeed * Time.deltaTime * 0.5f; // Drag
 
             hVelocity = newVelocity;
             hVelocity.y = 0;
+
+            if(camPivot.transform.position.y > (WorldManagement.SeaLevel + 0.25f)) vSpeed = Mathf.Min(vSpeed, 0);
             
             onGround = characterController.isGrounded;
 
@@ -406,6 +399,7 @@ namespace kfutils.rpg {
             velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
             characterController.Move(velocity * Time.deltaTime);
             shouldJump = false;
+            SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
         }
         
 
