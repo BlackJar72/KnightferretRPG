@@ -1,5 +1,4 @@
 using Animancer;
-using QFSW.QC.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -59,6 +58,7 @@ namespace kfutils.rpg {
         protected bool shouldCrouch;
         protected bool movementAllowed;
         protected float weightMovementFactor = 1.0f;
+        protected float weightBoyancyFactor = 1.0f;
 
         protected float looky;
         protected Vector2[] moveIn = new Vector2[4];
@@ -72,6 +72,7 @@ namespace kfutils.rpg {
 
         public void SetWeightForMovement(float weight) {
             weightMovementFactor = Mathf.Max(1.0f - (Mathf.Max((weight - attributes.halfEncumbrance), 0.0f) / attributes.halfEncumbrance), 0.0001f);
+            weightBoyancyFactor = 1.0f - (Mathf.Max((weight - (attributes.halfEncumbrance * 0.5f)), 0.0f) / (attributes.halfEncumbrance * 0.5f));
         }
 
 
@@ -123,10 +124,11 @@ namespace kfutils.rpg {
         // Update is called once per frame
         protected override void Update()
         {
-            // FIXME? Move to fixed update???
+            Move();
+        }
 
-            if(movementAllowed) {
-                // Determine Movement type
+
+        protected void UpdateMoveType() {
                 if(shouldCrouch) {
                     moveType = MoveType.CROUCH;
                     baseSpeed = attributes.crouchSpeed;                    
@@ -140,11 +142,10 @@ namespace kfutils.rpg {
                     baseSpeed = attributes.walkSpeed;                  
                     moveMixer = movementSet.Walk;
                 }
-                // Do Movement
-                AdjustHeading();
-                Move();
-            }
         }
+
+
+
 
 
 #region Input
@@ -295,27 +296,32 @@ namespace kfutils.rpg {
 
 
         protected void LandMove() {
-            GetMoveInput();
             movement.Set(moveIn[3].x, 0, moveIn[3].y);
             Vector3 newVelocity = Vector3.zero;
 
-            if (movement.magnitude > 0) {
-                if (movement.magnitude > 1) {
-                    newVelocity += transform.rotation * (movement.normalized * baseSpeed * weightMovementFactor);
-                } else {
-                    newVelocity += transform.rotation * (movement * baseSpeed * weightMovementFactor);
+            if(movementAllowed) {
+                UpdateMoveType();
+                AdjustHeading();
+                GetMoveInput();
+
+                if (movement.magnitude > 0) {
+                    if (movement.magnitude > 1) {
+                        newVelocity += transform.rotation * (movement.normalized * baseSpeed * weightMovementFactor);
+                    } else {
+                        newVelocity += transform.rotation * (movement * baseSpeed * weightMovementFactor);
+                    }
+                    if(moveType == MoveType.RUN) {
+                        stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
+                    }
                 }
-                if(moveType == MoveType.RUN) {
-                    stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
-                }
+
+                DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+                if(dms != null) { 
+                    dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
+                } 
+
+                hVelocity = newVelocity;
             }
-
-            DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
-            if(dms != null) { 
-                dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
-            } 
-
-            hVelocity = newVelocity;
 
             onGround = characterController.isGrounded;
 
@@ -324,7 +330,7 @@ namespace kfutils.rpg {
             falling = falling && !onGround;
 
             if (onGround) {
-                if (shouldJump && stamina.CanDoAction(10f)) {
+                if (shouldJump && stamina.CanDoAction(10f) && movementAllowed) {
                     vSpeed = Mathf.Sqrt(attributes.jumpForce * weightMovementFactor * GameConstants.GRAVITY);
                     stamina.UseStamina(10f);  
                     moveState = moveLayer.Play(movementSet.Jump);                  
@@ -348,12 +354,15 @@ namespace kfutils.rpg {
 
 
         protected void WaterMove() {
-            GetMoveInput();
-            movement.Set(moveIn[3].x, 0, moveIn[3].y);
             Vector3 newVelocity = Vector3.zero;
             
-            if(stamina.CanDoAction(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor)) {
+            if(movementAllowed && stamina.CanDoAction(1.0f)) {
+                moveType = MoveType.NORMAL;
+                AdjustHeading();
+                GetMoveInput();
+                movement.Set(moveIn[3].x, 0, moveIn[3].y);
                 bool moved = false;
+                
                 if(movement.magnitude > 0) {
                     if (movement.magnitude > 1) {
                         newVelocity += transform.rotation * (movement.normalized * attributes.crouchSpeed * weightMovementFactor);
@@ -364,7 +373,7 @@ namespace kfutils.rpg {
                 }
             
                 if(Input.GetKey(KeyCode.Space)) {
-                    newVelocity.y = attributes.crouchSpeed * weightMovementFactor;
+                    newVelocity.y = attributes.crouchSpeed * Mathf.Max(weightBoyancyFactor, 0);
                     moved = true; 
                 } 
                 if(Input.GetKey(KeyCode.LeftShift)) {
@@ -381,7 +390,7 @@ namespace kfutils.rpg {
                 dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
             }
 
-            vSpeed += ((weightMovementFactor * 2.0f) - 1.0f) * Time.deltaTime; // Byancy
+            vSpeed += (1.0f - ((1.0f - weightBoyancyFactor) * 2.0f)) * Time.deltaTime; // Byancy
             if(vSpeed > -MAX_WATER_V) vSpeed = Mathf.Min(MAX_WATER_V, vSpeed + newVelocity.y); 
             vSpeed -= vSpeed * Time.deltaTime * 0.5f; // Drag
 

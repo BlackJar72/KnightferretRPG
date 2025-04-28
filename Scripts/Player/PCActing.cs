@@ -161,11 +161,13 @@ namespace kfutils.rpg {
         protected virtual void Interact(InputAction.CallbackContext context) {
             AimParams aim;
             GetAimParams(out aim);
-            RaycastHit hit;
-            if (Physics.Raycast(aim.from, aim.toward, out hit, 2f))
-            {
+            RaycastHit hit;  
+            if (Physics.Raycast(aim.from, aim.toward, out hit, 2f, GameConstants.interactable))
+            {  
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-                if (interactable != null) interactable.Use(gameObject);
+                if(interactable != null) {
+                    interactable.Use(gameObject);
+                }
             }
         }
 
