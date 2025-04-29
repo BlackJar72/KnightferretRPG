@@ -18,15 +18,22 @@ namespace kfutils.rpg {
 
 
         void Awake() {
-            instacnce = this;
+            // Makeing this a true singleton, and warning with an error message if extra copies were made
+            if(instacnce == null) instacnce = this;
+            else if(instacnce != this) {
+                Debug.LogError("WARNING! GameManager was placed in scenes more than once, at " 
+                            + instacnce.gameObject.name + " and then at " + gameObject.name + "!");
+                Destroy(instacnce);
+                instacnce = this;
+            }
             EntityManagement.Initialize();
         }
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            if(ui == null) ui = GetComponent<UIManager>();    
+        void Start() {
+            if(ui == null) ui = GetComponent<UIManager>(); 
+            if(ui == null) Debug.LogError("No UI Manager provided for game manager!"); 
         }
 
 
