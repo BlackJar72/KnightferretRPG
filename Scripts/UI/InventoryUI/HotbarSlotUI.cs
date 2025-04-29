@@ -18,7 +18,9 @@ namespace kfutils.rpg.ui {
         public Image icon;
 
 
-
+        public void Redraw() {            
+            icon.gameObject.SetActive(hotBar.GetSlot(slotNumber).filled);
+        }
 
 
 
@@ -44,6 +46,18 @@ namespace kfutils.rpg.ui {
                 SetItemInSlot(slot, invSlot);
                 return;
             }
+            SpellEntry spellEntry = other.GetComponent<SpellEntry>();
+            if(spellEntry != null) {
+                SlotData slot = hotBar.GetSlot(slotNumber);
+                slot.inventory = InvType.SPELLS;
+                slot.invSlot = 0; // Number is technically irrelevant
+                slot.filled = true; 
+                icon.sprite = spellEntry.Icon.sprite;
+                icon.gameObject.SetActive(true);
+                hotBar.SlotData.CleanUpDuplicates(slotNumber, slot);
+                hotBar.Redraw();
+                return;
+            }
 
         }
 
@@ -53,6 +67,7 @@ namespace kfutils.rpg.ui {
                 slot.filled = true; 
                 icon.sprite = invSlot.icon.sprite;
                 icon.gameObject.SetActive(true);
+                hotBar.SlotData.CleanUpDuplicates(slotNumber, slot);
                 hotBar.Redraw();
         }
 

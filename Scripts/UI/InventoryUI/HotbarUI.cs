@@ -8,6 +8,10 @@ namespace kfutils.rpg.ui {
 
         [SerializeField] HotBar hotBar;
 
+
+        public HotBar SlotData => hotBar;
+
+
         public SlotData GetSlot(int index) => hotBar.GetSlot(index);
 
 
@@ -28,7 +32,8 @@ namespace kfutils.rpg.ui {
 
 
         public void Redraw() {
-
+            HotbarSlotUI[] slots = GetComponentsInChildren<HotbarSlotUI>();
+            for(int  i = 0; i < slots.Length; i++) slots[i].Redraw();
         }
 
 

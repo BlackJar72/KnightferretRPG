@@ -30,6 +30,15 @@ namespace kfutils.rpg {
         }
 
 
+        public void CleanUpDuplicates(int slotNumber, SlotData slot) {
+            for(int i = 0; i < slots.Length; i++) {
+                if((i != slotNumber) && (slots[i] == slot)) {
+                    slots[i].filled = false;
+                }
+            }
+        }
+
+
 
 
 
