@@ -10,6 +10,7 @@ namespace kfutils.rpg {
         public List<Spell> spells;
 
         public bool unlocked = false; // Spells should not normally be removed from list; can make it possible in special circumstances
+        public bool belongsToPC = false;
 
 
         public int Count => spells.Count;
@@ -125,7 +126,7 @@ namespace kfutils.rpg {
             return spells.Count;
         }
 
-
+        public bool BelongsToPC(IInventory<Spell> inv) => belongsToPC;
     }
 
 }

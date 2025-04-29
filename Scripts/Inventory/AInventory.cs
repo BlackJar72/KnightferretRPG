@@ -34,6 +34,7 @@ namespace kfutils.rpg {
             CalculateWeight();
         }
 
+        public virtual bool BelongsToPC(IInventory<ItemStack> inv) => false;
 
     }
 

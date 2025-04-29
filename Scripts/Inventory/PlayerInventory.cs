@@ -16,6 +16,7 @@ namespace kfutils.rpg {
 
 
         private void OnEnable() {
+            equipt.belongsToPC = true;
             InventoryManagement.inventoryUpdated += UpdateBottomBar;
             InventoryManagement.inventorySlotUpdated += UpdateBottomBar;
             UpdateBottomBar(this);
@@ -45,6 +46,9 @@ namespace kfutils.rpg {
             }
             moneyText.SetText("Money: " + money.GetGoodMoneyString());
         }
+
+
+        public override bool BelongsToPC(IInventory<ItemStack> inv) => true;
 
 
         // TODO: Handle money changes

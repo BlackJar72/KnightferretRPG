@@ -206,6 +206,7 @@ namespace kfutils.rpg {
             crouchAction.canceled -= StopCrouch;
             //crouchToggle.started -= ToggleCrouch;
             movementAllowed = false;
+            hVelocity = Vector3.zero;
         }
 
 

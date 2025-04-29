@@ -77,6 +77,8 @@ namespace kfutils.rpg {
         /// <returns>Whether or not the item could be added.</returns>
         public bool AddToFirstReallyEmptySlot(T item);
         int FindFirstEmptySlot();
+
+        public bool BelongsToPC(IInventory<T> inv);
     }
 
 }

@@ -8,6 +8,8 @@ namespace kfutils.rpg {
     [Serializable]
     public class EquiptmentSlots : IInventory<ItemStack> {
 
+        public bool belongsToPC = false;
+
         public ItemStack[] slots = new ItemStack[12];
 
         private float weight;
@@ -204,6 +206,7 @@ namespace kfutils.rpg {
             return null;
         }
 
+        public bool BelongsToPC(IInventory<ItemStack> inv) => belongsToPC;
 
     }
 
