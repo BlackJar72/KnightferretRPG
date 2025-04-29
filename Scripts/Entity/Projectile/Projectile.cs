@@ -5,31 +5,31 @@ namespace kfutils.rpg {
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour {
 
-        [SerializeField] GameObject impactPrefab;
-        [SerializeField] DamageSource damage;
-        [SerializeField] float speed;
-        [SerializeField] Rigidbody rb;
+        [SerializeField] protected GameObject impactPrefab;
+        [SerializeField] protected DamageSource damage;
+        [SerializeField] protected float speed;
+        [SerializeField] protected Rigidbody rb;
 
         private IAttacker sender;
 
 
-        void Awake() {
+        protected virtual void Awake() {
             if(rb == null) rb = gameObject.GetComponent<Rigidbody>();
         }
 
 
-        public void Launch(IAttacker sender, Vector3 direction) {
+        public virtual void Launch(IAttacker sender, Vector3 direction) {
             this.sender = sender;
             rb.linearVelocity = direction * speed;
         }
 
 
-        void OnCollisionEnter(Collision collision) {
+        protected virtual void OnCollisionEnter(Collision collision) {
             GameObject impact;
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-            if(impactPrefab != null && (damageable != sender)) { 
+            if(impactPrefab != null) {
                 impact = Instantiate(impactPrefab, transform);
-                impact.transform.SetParent(impact.transform.parent);
+                impact.transform.SetParent(impact.transform.parent.root);
             }
             if((damageable != null) && (damageable != sender)) {
                 damage.DoDamage(sender, damageable);

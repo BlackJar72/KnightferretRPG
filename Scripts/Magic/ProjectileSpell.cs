@@ -16,6 +16,9 @@ namespace kfutils.rpg {
             projectileObj.transform.parent = projectileObj.transform.root; 
             Projectile projectile = projectileObj.GetComponent<Projectile>();
             if(projectile != null) {
+                if(projectile is SpellProjectile spellProj) {
+                    spellProj.SetRange(spell.Range, aimParams.from);
+                }
                 projectile.Launch(caster, aimParams.toward);
             }
 
