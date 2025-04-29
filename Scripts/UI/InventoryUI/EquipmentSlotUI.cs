@@ -6,10 +6,7 @@ namespace kfutils.rpg.ui {
     public class EquipmentSlotUI : InventorySlotUI {
 
 
-        public override bool SwapWith(InventorySlotUI other)
-        {
-            // FIXME/TODO: This needs to handle two-handed items (both being added and being replaced); 
-            //             c.f., note in EquiptmentPanel.cs.
+        public override bool SwapWith(InventorySlotUI other) {
             if(base.SwapWith(other)) {
                 if((inventory == other.inventory) && (item.slot != slotNumber)) {
                     if((other.item.item == item.item) && item.item.IsStackable) {
@@ -30,6 +27,14 @@ namespace kfutils.rpg.ui {
                 return true;
             }
             return false;
+        }
+
+
+        public override SlotData SlotDataFromSlot() {
+            SlotData result = new SlotData();
+            result.inventory = InvType.EQUIPT;
+            result.invSlot = slotNumber;
+            return result;
         }
 
 

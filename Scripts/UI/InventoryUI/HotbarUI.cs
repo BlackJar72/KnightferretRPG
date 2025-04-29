@@ -17,17 +17,23 @@ namespace kfutils.rpg.ui {
 
         private void OnEnable() {
             InventoryManagement.slotsSwappedEvent += OnSlotsSwapped;
+            InventoryManagement.slotEmptiedEvent += OnSlotEmptied;
         }
 
 
         private void OnDisable() {
             InventoryManagement.slotsSwappedEvent -= OnSlotsSwapped;
+            InventoryManagement.slotEmptiedEvent -= OnSlotEmptied;
         }
 
 
         public void OnSlotsSwapped(SlotData slot1, SlotData slot2) {
             hotBar.OnSlotsSwapped(slot1, slot2);
-            Redraw();
+        }
+
+
+        public void OnSlotEmptied(SlotData slot) {
+            if(hotBar.OnSlotEmptied(slot)) Redraw();
         }
 
 

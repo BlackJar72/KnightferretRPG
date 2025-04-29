@@ -27,13 +27,6 @@ namespace kfutils.rpg {
         public const int lring = 5;
 
 
-        private void Awake() {
-            for(int i = 0; i < slots.Length; i++) {
-                slots[i] = new ItemStack(null, 0, i);
-            }
-        }
-
-
         public bool AddItemToSlot(int slot, ItemStack item) {
             if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;

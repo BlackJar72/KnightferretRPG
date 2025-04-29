@@ -27,6 +27,9 @@ namespace kfutils.rpg {
         public delegate void SlotsSwapped(SlotData slot1, SlotData slot2);
         public static event SlotsSwapped slotsSwappedEvent;
 
+        public delegate void SlotEmptied(SlotData slot);
+        public static event SlotEmptied slotEmptiedEvent;
+
 
         public static void Initialize() {
             waitingToRedraw = new List<IRedrawing>();
@@ -65,6 +68,11 @@ namespace kfutils.rpg {
 
         public static void SignalSlotsSwapped(SlotData slot1, SlotData slot2) {
             slotsSwappedEvent?.Invoke(slot1, slot2);
+        }
+
+
+        public static void SignSlotEmptied(SlotData slot) {
+            slotEmptiedEvent?.Invoke(slot);
         }
 
 

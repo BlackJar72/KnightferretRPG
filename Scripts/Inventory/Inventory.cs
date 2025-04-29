@@ -107,6 +107,7 @@ namespace kfutils.rpg {
                     if(inventory[i].stackSize < 1) {
                         inventory.RemoveAt(i);
                         SignalUpdate();
+                        SignalSlotEmptied(slot);
                     } else {
                         SignalSlotUpdate(i);
                     }
@@ -198,6 +199,14 @@ namespace kfutils.rpg {
                 if(found) break;
             }                
             return i;
+        }
+
+
+        private void SignalSlotEmptied(int slot) {
+            SlotData result = new SlotData();
+            result.inventory = InvType.MAIN;
+            result.invSlot = slot;
+            InventoryManagement.SignSlotEmptied(result);
         }
 
 
