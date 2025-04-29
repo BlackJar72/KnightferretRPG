@@ -180,13 +180,13 @@ namespace kfutils.rpg {
 
 
         public virtual void SignalUpdate() {
-            InventoryManager.SignalInventoryUpdate(this);
+            InventoryManagement.SignalInventoryUpdate(this);
             CalculateWeight();
         }
 
 
         public virtual void SignalSlotUpdate(int slot) {
-            InventoryManager.SignalSlotUpdate(this, slot);
+            InventoryManagement.SignalSlotUpdate(this, slot);
             CalculateWeight();
         }
 

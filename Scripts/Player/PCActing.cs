@@ -109,13 +109,13 @@ namespace kfutils.rpg {
 
         protected void EnableUIActions() {
             toggleInventoryAction.started += ToggleCharacterSheet;
-            InventoryManager.toggleCharacterSheet += ToggleCharacterSheet;
+            InventoryManagement.toggleCharacterSheet += ToggleCharacterSheet;
         }
 
 
         protected void DisableUIActions() {
             toggleInventoryAction.started -= ToggleCharacterSheet;   
-            InventoryManager.toggleCharacterSheet -= ToggleCharacterSheet;         
+            InventoryManagement.toggleCharacterSheet -= ToggleCharacterSheet;         
         }
 
 

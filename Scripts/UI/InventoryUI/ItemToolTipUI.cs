@@ -30,12 +30,12 @@ namespace kfutils.rpg.ui {
 
 
         protected void OnEnable() {
-            InventoryManager.closeAllInvUI += HideToolTip;
+            InventoryManagement.closeAllInvUI += HideToolTip;
         }
 
 
         protected void OnDisable() {
-            InventoryManager.closeAllInvUI -= HideToolTip;
+            InventoryManagement.closeAllInvUI -= HideToolTip;
         }
 
 

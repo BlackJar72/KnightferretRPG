@@ -158,12 +158,12 @@ namespace kfutils.rpg.ui {
             if(eventData.button == PointerEventData.InputButton.Left) {
                 GameManager.Instance.UIManager.HideItemToolTip();
                 GameManager.Instance.UIManager.HideItemStackManipulator();
-                if(inventory == InventoryManager.currentContainerInventory) {
+                if(inventory == InventoryManagement.currentContainerInventory) {
                     EntityManagement.playerCharacter.AddToMainInventory(item);
                     inventory.RemoveItem(item);
                 } else if(eventData.clickCount == 2) {
                     if(GameManager.Instance.UIManager.IsContainerUIVisible) {
-                        InventoryManager.currentContainerInventory.AddToFirstEmptySlot(item);
+                        InventoryManagement.currentContainerInventory.AddToFirstEmptySlot(item);
                         inventory.RemoveItem(item);
                     } else {
                         EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);

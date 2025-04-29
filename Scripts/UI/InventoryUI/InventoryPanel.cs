@@ -26,26 +26,26 @@ namespace kfutils.rpg.ui {
 
 
         protected virtual void OnEnable() {
-            InventoryManager.inventoryUpdated += UpdateInventory;
-            InventoryManager.inventorySlotUpdated += UpdateSlot;
+            InventoryManagement.inventoryUpdated += UpdateInventory;
+            InventoryManagement.inventorySlotUpdated += UpdateSlot;
             scrollRect.verticalNormalizedPosition = 1.0f;
             Redraw();
         }
 
 
         protected virtual void OnDisable() {
-            InventoryManager.inventoryUpdated -= UpdateInventory;
-            InventoryManager.inventorySlotUpdated -= UpdateSlot;
+            InventoryManagement.inventoryUpdated -= UpdateInventory;
+            InventoryManagement.inventorySlotUpdated -= UpdateSlot;
         }
 
 
         public void ToggleCharacterSheet() {
-            InventoryManager.SignalToggleCharacterSheet();
+            InventoryManagement.SignalToggleCharacterSheet();
         }
 
 
         public void Redraw() {
-            InventoryManager.AddRedraw(this);
+            InventoryManagement.AddRedraw(this);
         }
 
 

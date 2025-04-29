@@ -42,7 +42,7 @@ namespace kfutils.rpg {
         {
             EntityManagement.Update();
             // Other game management stuff will go here
-            InventoryManager.DoRedraws();
+            InventoryManagement.DoRedraws();
             
         }
 

@@ -13,7 +13,7 @@ namespace kfutils.rpg.ui {
 
 
         public void Initialize(Inventory inventory, Container container) {
-            InventoryManager.currentContainerInventory = inventory;
+            InventoryManagement.currentContainerInventory = inventory;
             this.inventory = inventory;
             this.container = container;
             top.SetActive(true);

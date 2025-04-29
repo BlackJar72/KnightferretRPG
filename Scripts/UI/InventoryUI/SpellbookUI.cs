@@ -15,18 +15,18 @@ namespace kfutils.rpg.ui {
 
 
         protected virtual void OnEnable() {
-            InventoryManager.spellbookUpdated += UpdateInventory;
+            InventoryManagement.spellbookUpdated += UpdateInventory;
             Redraw();
         }
 
 
         protected virtual void OnDisable() {
-            InventoryManager.spellbookUpdated -= UpdateInventory;
+            InventoryManagement.spellbookUpdated -= UpdateInventory;
         }
 
 
         public void Redraw() {
-            InventoryManager.AddRedraw(this);
+            InventoryManagement.AddRedraw(this);
         }
 
 

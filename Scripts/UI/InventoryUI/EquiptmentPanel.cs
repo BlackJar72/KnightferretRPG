@@ -32,21 +32,21 @@ namespace kfutils.rpg.ui {
 
 
         private void OnEnable() {
-            InventoryManager.inventoryUpdated += UpdateInventory;
-            InventoryManager.inventorySlotUpdated += UpdateSlot;
+            InventoryManagement.inventoryUpdated += UpdateInventory;
+            InventoryManagement.inventorySlotUpdated += UpdateSlot;
             Redraw();
         }
 
 
         private void OnDisable() {
-            InventoryManager.inventoryUpdated -= UpdateInventory;
-            InventoryManager.inventorySlotUpdated -= UpdateSlot;
+            InventoryManagement.inventoryUpdated -= UpdateInventory;
+            InventoryManagement.inventorySlotUpdated -= UpdateSlot;
         }
 
 
         public void Redraw()
         {
-            InventoryManager.AddRedraw(this);
+            InventoryManagement.AddRedraw(this);
         }
 
 

@@ -16,15 +16,15 @@ namespace kfutils.rpg {
 
 
         private void OnEnable() {
-            InventoryManager.inventoryUpdated += UpdateBottomBar;
-            InventoryManager.inventorySlotUpdated += UpdateBottomBar;
+            InventoryManagement.inventoryUpdated += UpdateBottomBar;
+            InventoryManagement.inventorySlotUpdated += UpdateBottomBar;
             UpdateBottomBar(this);
         }
 
 
         private void  OnDisable() {
-            InventoryManager.inventoryUpdated -= UpdateBottomBar;
-            InventoryManager.inventorySlotUpdated -= UpdateBottomBar;
+            InventoryManagement.inventoryUpdated -= UpdateBottomBar;
+            InventoryManagement.inventorySlotUpdated -= UpdateBottomBar;
         }
 
 

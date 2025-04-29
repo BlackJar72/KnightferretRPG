@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace kfutils.rpg {
 
-    public static class InventoryManager {
+    public static class InventoryManagement {
 
         public static AInventory currentContainerInventory;
 
