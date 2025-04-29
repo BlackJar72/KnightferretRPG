@@ -2,22 +2,37 @@ using UnityEngine;
 
 
 
-namespace kfutils.rpg {
+namespace kfutils.rpg.ui {
     
     public class HotbarUI : MonoBehaviour {
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            
+        [SerializeField] HotBar hotBar;
+
+        public SlotData GetSlot(int index) => hotBar.GetSlot(index);
+
+
+        private void OnEnable() {
+            InventoryManagement.slotsSwappedEvent += OnSlotsSwapped;
         }
 
 
-        // Update is called once per frame
-        void Update()
-        {
-            
+        private void OnDisable() {
+            InventoryManagement.slotsSwappedEvent -= OnSlotsSwapped;
         }
+
+
+        public void OnSlotsSwapped(SlotData slot1, SlotData slot2) {
+            hotBar.OnSlotsSwapped(slot1, slot2);
+            Redraw();
+        }
+
+
+        public void Redraw() {
+
+        }
+
+
+
 
     }
 

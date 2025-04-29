@@ -133,9 +133,7 @@ namespace kfutils.rpg.ui {
 
         public void OnDrop(PointerEventData eventData) {
             GameObject other = eventData.pointerDrag;
-            if(other == gameObject) {
-                //Debug.Log("Back home!");
-            } else {
+            if(other != gameObject) {
                 InventorySlotUI otherSlot = other.GetComponent<InventorySlotUI>();
                 if((otherSlot != null) && (otherSlot.icon.sprite != null)) SwapWith(otherSlot);
             }
