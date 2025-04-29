@@ -162,9 +162,20 @@ namespace kfutils.rpg {
             AimParams aim;
             GetAimParams(out aim);
             RaycastHit hit;  
+            IInteractable interactable = null;
+            // First we use a raycast to prioritize objects directly aimed at, and avoid the problem
+            // from Thief 3 where objects to side are grabbed because they were closer.
             if (Physics.Raycast(aim.from, aim.toward, out hit, 2f, GameConstants.interactable))
             {  
-                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                interactable = hit.collider.GetComponent<IInteractable>();
+                if(interactable != null) {
+                    interactable.Use(gameObject);
+                }
+            }
+            // If this fails, try a fairly narrow sphere cast to decrease the required percision so it doesn't feel like 
+            // the interaction has to be "pixel perfect."
+            if((interactable == null) && Physics.SphereCast(aim.from, 0.1f, aim.toward, out hit, 2f, GameConstants.interactable)) {                 
+                interactable = hit.collider.GetComponent<IInteractable>();
                 if(interactable != null) {
                     interactable.Use(gameObject);
                 }

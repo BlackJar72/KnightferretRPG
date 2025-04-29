@@ -25,7 +25,7 @@ namespace kfutils.rpg {
         public const int pcArmsLayer = 0x1 << 8;
         public const int npcLayer = 0x1 << 9;
 
-        public const int interactable = interactableLayer | npcLayer;
+        public const int interactable = interactableLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
 #endregion
 
 
