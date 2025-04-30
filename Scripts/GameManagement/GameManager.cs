@@ -16,6 +16,8 @@ namespace kfutils.rpg {
         private static GameManager instacnce;
         public static GameManager Instance { get => instacnce; }
 
+        [SerializeField] Worldspace startingWorldspace;
+
 
         void Awake() {
             // Makeing this a true singleton, and warning with an error message if extra copies were made
@@ -27,6 +29,7 @@ namespace kfutils.rpg {
                 instacnce = this;
             }
             EntityManagement.Initialize();
+            startingWorldspace.Load();
         }
 
 
