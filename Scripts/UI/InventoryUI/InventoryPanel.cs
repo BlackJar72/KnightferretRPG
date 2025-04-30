@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,20 +25,26 @@ namespace kfutils.rpg.ui {
         //private void Awake() {}
         //private void Start() {}
 
+        protected virtual void Start() {
+            if(inventory.GetType() == typeof(PlayerInventory)) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
+        }
+
 
         protected virtual void OnEnable() {
             InventoryManagement.inventoryUpdated += UpdateInventory;
             InventoryManagement.inventorySlotUpdated += UpdateSlot;
-            if(inventory.GetType().IsAssignableFrom(typeof(PlayerInventory))) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
             scrollRect.verticalNormalizedPosition = 1.0f;
             Redraw();
         }
 
 
-        protected virtual void OnDisable() {
+        protected virtual void OnDisable() {}
+
+
+        void OnDestroy() {   
             InventoryManagement.inventoryUpdated -= UpdateInventory;
-            InventoryManagement.inventorySlotUpdated -= UpdateSlot;
-            if(inventory is PlayerInventory) InventoryManagement.HotbarActivatedEvent -= RespondToHotbar;
+            InventoryManagement.inventorySlotUpdated -= UpdateSlot;         
+            InventoryManagement.HotbarActivatedEvent -= RespondToHotbar;
         }
 
 
@@ -91,6 +98,16 @@ namespace kfutils.rpg.ui {
 
         public InventorySlotUI GetSlotAt(int index) => inventorySlots[index];
 
+        public InventorySlotUI GetFirstEmptrySlot() {
+            for(int i = 0; i < inventorySlots.Count; i++) {
+                InventorySlotUI tmp = inventorySlots[i]; 
+                if((tmp.item == null) || (tmp.item.item == null)) {
+                    return tmp;
+                }
+            }
+            return null;
+        }
+
 
         protected void UpdateInventory(IInventory<ItemStack> inv) {
             if(inv == inventory) Redraw();
@@ -131,7 +148,7 @@ namespace kfutils.rpg.ui {
                     }
                 }
             }
-            else if((inventory is PlayerInventory) && (slot.inventory == InvType.EQUIPT)) {
+            else if(slot.inventory == InvType.EQUIPT) {
                 equiptPanel.RespondToHotbar(slot);
             }
         }

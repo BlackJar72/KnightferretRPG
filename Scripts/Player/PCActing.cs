@@ -146,15 +146,15 @@ namespace kfutils.rpg {
             if(this is not PCTalking) activateObjectAction.started += Interact;  
             castSpellAction.canceled += CastSpell; // FIXME: Include start and stop events
             // Hotbar Quickslots
-            quickSlot1Action.started += QuickSlot1;
-            quickSlot2Action.started += QuickSlot2;
-            quickSlot3Action.started += QuickSlot3;
-            quickSlot4Action.started += QuickSlot4;
-            quickSlot5Action.started += QuickSlot5;
-            quickSlot6Action.started += QuickSlot6;
-            quickSlot7Action.started += QuickSlot7;
-            quickSlot8Action.started += QuickSlot8;
-            quickSlot9Action.started += QuickSlot9;
+            quickSlot1Action.canceled += QuickSlot1;
+            quickSlot2Action.canceled += QuickSlot2;
+            quickSlot3Action.canceled += QuickSlot3;
+            quickSlot4Action.canceled += QuickSlot4;
+            quickSlot5Action.canceled += QuickSlot5;
+            quickSlot6Action.canceled += QuickSlot6;
+            quickSlot7Action.canceled += QuickSlot7;
+            quickSlot8Action.canceled += QuickSlot8;
+            quickSlot9Action.canceled += QuickSlot9;
         }
 
 
@@ -163,15 +163,15 @@ namespace kfutils.rpg {
             if(this is not PCTalking) activateObjectAction.started -= Interact; 
             castSpellAction.canceled -= CastSpell; 
             // Hotbar Quickslots
-            quickSlot1Action.started -= QuickSlot1;
-            quickSlot2Action.started -= QuickSlot2;
-            quickSlot3Action.started -= QuickSlot3;
-            quickSlot4Action.started -= QuickSlot4;
-            quickSlot5Action.started -= QuickSlot5;
-            quickSlot6Action.started -= QuickSlot6;
-            quickSlot7Action.started -= QuickSlot7;
-            quickSlot8Action.started -= QuickSlot8;
-            quickSlot9Action.started -= QuickSlot9;
+            quickSlot1Action.canceled -= QuickSlot1;
+            quickSlot2Action.canceled -= QuickSlot2;
+            quickSlot3Action.canceled -= QuickSlot3;
+            quickSlot4Action.canceled -= QuickSlot4;
+            quickSlot5Action.canceled -= QuickSlot5;
+            quickSlot6Action.canceled -= QuickSlot6;
+            quickSlot7Action.canceled -= QuickSlot7;
+            quickSlot8Action.canceled -= QuickSlot8;
+            quickSlot9Action.canceled -= QuickSlot9;
         }
 
 

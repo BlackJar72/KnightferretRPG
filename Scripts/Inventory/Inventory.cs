@@ -151,21 +151,21 @@ namespace kfutils.rpg {
         /// <param name="item">The item to add.</param>
         /// <param name="number">The number to add.</param>
         /// <returns>Whether or not the item could be added.</returns>
-        public override bool AddToFirstEmptySlot(ItemStack item) {
-            if((item == null) || (item.item == false)) return true;
+        public override int AddToFirstEmptySlot(ItemStack item) {
+            if((item == null) || (item.item == false)) return -1;
             if(item.item.IsStackable) {
                 for(int i = 0; i < inventory.Count; i++) {
                     if(inventory[i].item == item.item) {
                         inventory[i].stackSize += item.stackSize;
                         SignalSlotUpdate(inventory[i].slot);
-                        return true;
+                        return inventory[i].slot;
                     }
                 }
             }
             item.slot = FindFirstEmptySlot();
             inventory.Add(item);
             SignalUpdate();
-            return true;
+            return item.slot;
         }
 
 
@@ -175,14 +175,14 @@ namespace kfutils.rpg {
         /// <param name="item">The item to add.</param>
         /// <param name="number">The number to add.</param>
         /// <returns>Whether or not the item could be added.</returns>
-        public override bool AddToFirstReallyEmptySlot(ItemStack item) {
-            if((item == null) || (item.item == false)) return true;
+        public override int AddToFirstReallyEmptySlot(ItemStack item) {
+            if((item == null) || (item.item == false)) return -1;
             if((item.slot < 0) || (GetItemInSlot(item.slot) != null)) {
                 item.slot = FindFirstEmptySlot();
             }
             inventory.Add(item);
             SignalUpdate();
-            return true;
+            return item.slot;
         }
 
 

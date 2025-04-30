@@ -9,8 +9,8 @@ namespace kfutils.rpg {
         public abstract int Count { get; }
         public abstract float Weight { get; }
         public abstract bool AddItemToSlot(int slot, ItemStack item);
-        public abstract bool AddToFirstEmptySlot(ItemStack item);
-        public abstract bool AddToFirstReallyEmptySlot(ItemStack item);
+        public abstract int AddToFirstEmptySlot(ItemStack item);
+        public abstract int AddToFirstReallyEmptySlot(ItemStack item);
         public abstract float CalculateWeight();
         public abstract ItemStack GetByBackingIndex(int index);
         public abstract ItemStack GetItemInSlot(int slot);

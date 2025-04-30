@@ -8,8 +8,19 @@ namespace kfutils.rpg.ui {
     public class SpellEquiptSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler  {
 
         [SerializeField] Image icon;
+        [SerializeField] bool belongsToPC;
 
         [HideInInspector] public Spell currentSpell;
+
+
+        protected virtual void Start() {
+            if(belongsToPC) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
+        }
+
+
+        void OnDestroy() {        
+            InventoryManagement.HotbarActivatedEvent -= RespondToHotbar;
+        }
 
 
         public void OnDrop(PointerEventData eventData) {            
@@ -43,6 +54,21 @@ namespace kfutils.rpg.ui {
                 currentSpell = null;
                 icon.gameObject.SetActive(false);
             } 
+        }
+
+
+        public void RespondToHotbar(SlotData slot) {
+            if(slot.inventory == InvType.SPELLS) {
+                Spell otherSpell = EntityManagement.playerCharacter.Spells.spells[slot.invSlot];
+                if(otherSpell == currentSpell) {
+                    currentSpell = null;
+                    icon.gameObject.SetActive(false);
+                } else {
+                    currentSpell = otherSpell;
+                    icon.sprite = otherSpell.Icon;
+                    icon.gameObject.SetActive(true);
+                }
+            }
         }
 
 

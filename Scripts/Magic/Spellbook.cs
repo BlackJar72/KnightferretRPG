@@ -39,13 +39,15 @@ namespace kfutils.rpg {
         }
 
 
-        public bool AddToFirstEmptySlot(Spell spell) {
-            return AddItemToSlot(spells.Count, spell);
+        public int AddToFirstEmptySlot(Spell spell) {
+            AddItemToSlot(spells.Count, spell);
+            return spells.Count - 1;
         }
 
 
-        public bool AddToFirstReallyEmptySlot(Spell spell) {
-            return AddItemToSlot(spells.Count, spell);
+        public int AddToFirstReallyEmptySlot(Spell spell) {
+            AddItemToSlot(spells.Count, spell);
+            return spells.Count - 1;
         }
 
 
@@ -125,6 +127,12 @@ namespace kfutils.rpg {
         public int FindFirstEmptySlot() {
             return spells.Count;
         }
+
+
+        public int GetIndexOfSpell(Spell spell) {
+            return spells.IndexOf(spell);            
+        }
+
 
         public bool BelongsToPC(IInventory<Spell> inv) => belongsToPC;
     }

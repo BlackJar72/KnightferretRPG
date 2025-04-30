@@ -5,6 +5,8 @@ namespace kfutils.rpg.ui {
 
     public class EquipmentSlotUI : InventorySlotUI {
 
+        public EquiptmentPanel equiptPanel;
+
 
         public override bool SwapWith(InventorySlotUI other) {
             if(base.SwapWith(other)) {
@@ -44,19 +46,28 @@ namespace kfutils.rpg.ui {
                 GameManager.Instance.UIManager.HideItemToolTip();
                 GameManager.Instance.UIManager.HideItemStackManipulator();
                 if(eventData.clickCount == 2) {
-                    ItemStack toMove = item.Copy();
-                    inventory.RemoveItem(item);
-                    EntityManagement.playerCharacter.Inventory.AddToFirstEmptySlot(toMove);
+                    InventorySlotUI other = equiptPanel.MainInventoryPanel.GetFirstEmptrySlot();
+                    if(other != null) {
+                        GameManager.Instance.UIManager.HideItemToolTip();
+                        if(other != null) {
+                            other.SwapWith(this);
+                        }
+                    }
+
                 }
             } 
         }
 
 
         public override void EquipItem() {
-            ItemStack toMove = item.Copy();
-            inventory.RemoveItem(item);
-            EntityManagement.playerCharacter.Inventory.AddToFirstEmptySlot(toMove);
-        }
+                    InventorySlotUI other = equiptPanel.MainInventoryPanel.GetFirstEmptrySlot();
+                    if(other != null) {
+                        if(other != null) {
+                            other.SwapWith(this);
+                        }
+                    }
+
+                }
 
 
     }

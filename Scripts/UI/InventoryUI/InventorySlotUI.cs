@@ -193,9 +193,7 @@ namespace kfutils.rpg.ui {
 
 
         public virtual void EquipItem() {
-            Debug.Log("EquipItem()");
             EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);
-            GameManager.Instance.UIManager.HideItemToolTip();
             if(destination != null) {
                 destination.SwapWith(this);
             }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace kfutils.rpg.ui {
 
 
-    public class HotbarSlotUI : MonoBehaviour, IDropHandler {
+    public class HotbarSlotUI : MonoBehaviour, IDropHandler, IPointerClickHandler {
 
         
         [SerializeField] public HotbarUI hotBar;
@@ -23,11 +23,15 @@ namespace kfutils.rpg.ui {
         }
 
 
-
-
-
-
-
+        public void OnPointerClick(PointerEventData eventData) {
+            if((eventData.button == PointerEventData.InputButton.Left) && (eventData.clickCount == 2)) {                
+                SlotData slot = hotBar.GetSlot(slotNumber);
+                slot.inventory = InvType.NONE;
+                slot.invSlot = -1;
+                slot.filled = false;
+                hotBar.Redraw();
+            } 
+        }
 
 
         public void OnDrop(PointerEventData eventData) {
@@ -50,7 +54,7 @@ namespace kfutils.rpg.ui {
             if(spellEntry != null) {
                 SlotData slot = hotBar.GetSlot(slotNumber);
                 slot.inventory = InvType.SPELLS;
-                slot.invSlot = 0; // Number is technically irrelevant
+                slot.invSlot = EntityManagement.playerCharacter.Spells.GetIndexOfSpell(spellEntry.Spell);
                 slot.filled = true; 
                 icon.sprite = spellEntry.Icon.sprite;
                 icon.gameObject.SetActive(true);

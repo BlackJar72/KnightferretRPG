@@ -17,6 +17,8 @@ namespace kfutils.rpg.ui {
         [SerializeField] SpellEquiptSlot spell;
         [SerializeField] InventoryPanel mainInventoryPanel;
 
+        public InventoryPanel MainInventoryPanel => mainInventoryPanel;
+
 
 
         private void Awake() {
@@ -24,6 +26,7 @@ namespace kfutils.rpg.ui {
             for(int i = 0; i < slots.Length; i++) {
                 slots[i].inventory = inventory;
                 slots[i].slotNumber = i;
+                slots[i].equiptPanel = this;
             }
         }
         
@@ -38,7 +41,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        private void OnDisable() {
+        private void OnDestroy() {
             InventoryManagement.inventoryUpdated -= UpdateInventory;
             InventoryManagement.inventorySlotUpdated -= UpdateSlot;
         }

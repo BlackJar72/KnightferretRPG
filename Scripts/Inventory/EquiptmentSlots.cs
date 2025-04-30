@@ -63,13 +63,15 @@ namespace kfutils.rpg {
         }
 
 
-        public bool AddToFirstEmptySlot(ItemStack item) {
-            return AddItemToSlot(item.slot, item);
+        public int AddToFirstEmptySlot(ItemStack item) {
+            AddItemToSlot(item.slot, item);
+            return item.slot;
         }
 
 
-        public bool AddToFirstReallyEmptySlot(ItemStack item) {
-            return AddItemToSlot(item.slot, item);
+        public int AddToFirstReallyEmptySlot(ItemStack item) {
+            AddItemToSlot(item.slot, item);
+            return item.slot;
         }
 
 
@@ -91,13 +93,6 @@ namespace kfutils.rpg {
 
         public ItemStack GetItemInSlot(int slot) {
             return slots[slot];
-        }
-
-
-        private void ClearItem(ItemStack stack) {
-            stack.item = null;
-            stack.stackSize = 0;
-            SignalUpdate();
         }
 
 
@@ -207,7 +202,6 @@ namespace kfutils.rpg {
         }
 
         public bool BelongsToPC(IInventory<ItemStack> inv) => belongsToPC;
-
     }
 
 
