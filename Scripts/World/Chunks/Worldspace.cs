@@ -10,10 +10,12 @@ namespace kfutils.rpg {
 
         [SerializeField] string scenePath;
         [SerializeField] float seaLevel;
+        [SerializeField] TransformData defaultStartLocation;
 
 
         public string ScenePath => scenePath;
         public float SeaLevel => seaLevel;
+        public TransformData DefaultStart => defaultStartLocation;
 
 
         /// <summary>
@@ -29,6 +31,26 @@ namespace kfutils.rpg {
             WorldManagement.SetWorldspace(this);
             Time.timeScale = 1.0f;
         }
+
+
+        /// <summary>
+        /// Loads the world space, unloading the previous world space.
+        /// This pauses time while loading syncronously (not asynchronously) so that the scene 
+        /// can definitely be fully loaded before resuming gameplay.
+        /// </summary>
+        /// <param name="old">A previously loaded worldspace (whose scene must be unloaded)</param>
+        public void LoadAsSpawn(Worldspace old = null) {
+            Time.timeScale = 0.0f;
+            if(old != null) SceneManager.UnloadSceneAsync(old.scenePath);
+            SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
+            WorldManagement.SetWorldspace(this);
+            EntityManagement.playerCharacter.transform.position = defaultStartLocation.position;
+            EntityManagement.playerCharacter.transform.rotation = defaultStartLocation.rotation;
+            EntityManagement.playerCharacter.transform.localScale = defaultStartLocation.scale;
+            Time.timeScale = 1.0f;
+        }
+
+
     }
 
 }

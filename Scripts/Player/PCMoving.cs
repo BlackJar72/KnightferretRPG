@@ -92,8 +92,7 @@ namespace kfutils.rpg {
             NewCharacterInit();
 
             // Normal stuff below
-            characterController = GetComponent<CharacterController>();  
-            if(gameManager == null) gameManager = FindFirstObjectByType<GameManager>();          
+            characterController = GetComponent<CharacterController>();          
             Cursor.lockState = CursorLockMode.Locked;
 
             moveMixer = movementSet.Walk;

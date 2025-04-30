@@ -16,6 +16,7 @@ namespace kfutils.rpg {
 
 
         protected override void Awake() {
+            EntityManagement.playerCharacter = this; 
             base.Awake();
             InitInput(); 
         }
@@ -24,7 +25,6 @@ namespace kfutils.rpg {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Start() {
             base.Start();
-            EntityManagement.playerCharacter = this; 
         }
 
 
