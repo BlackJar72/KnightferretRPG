@@ -206,7 +206,7 @@ namespace kfutils.rpg {
             SlotData result = new SlotData();
             result.inventory = InvType.MAIN;
             result.invSlot = slot;
-            InventoryManagement.SignSlotEmptied(result);
+            InventoryManagement.SignalSlotEmptied(result);
         }
 
 

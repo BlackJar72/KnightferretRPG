@@ -1,3 +1,4 @@
+using kfutils.rpg.ui;
 using TMPro;
 using UnityEngine;
 
@@ -10,9 +11,7 @@ namespace kfutils.rpg {
 
         [SerializeField] TMP_Text moneyText;
         [SerializeField] TMP_Text weightText;
-
-
-
+        [SerializeField] HotbarUI hotbarUI;
 
 
         private void OnEnable() {
@@ -51,10 +50,13 @@ namespace kfutils.rpg {
         public override bool BelongsToPC(IInventory<ItemStack> inv) => true;
 
 
+        public void UseHotbar(int slotNumber) {
+            SlotData slot = hotbarUI.GetSlot(slotNumber);            
+            if(slot.filled) InventoryManagement.SigalHotbarActivated(slot);
+        }
+
+
         // TODO: Handle money changes
-
-
-        
 
 
     }

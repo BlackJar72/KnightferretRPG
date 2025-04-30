@@ -34,6 +34,7 @@ namespace kfutils.rpg.ui {
             SlotData result = new SlotData();
             result.inventory = InvType.EQUIPT;
             result.invSlot = slotNumber;
+            result.filled = (item != null) && (item.item != null);
             return result;
         }
 
@@ -48,6 +49,13 @@ namespace kfutils.rpg.ui {
                     EntityManagement.playerCharacter.Inventory.AddToFirstEmptySlot(toMove);
                 }
             } 
+        }
+
+
+        public override void EquipItem() {
+            ItemStack toMove = item.Copy();
+            inventory.RemoveItem(item);
+            EntityManagement.playerCharacter.Inventory.AddToFirstEmptySlot(toMove);
         }
 
 

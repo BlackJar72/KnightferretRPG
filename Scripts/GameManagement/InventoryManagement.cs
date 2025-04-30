@@ -30,6 +30,9 @@ namespace kfutils.rpg {
         public delegate void SlotEmptied(SlotData slot);
         public static event SlotEmptied slotEmptiedEvent;
 
+        public delegate void HotbarActivated(SlotData slot);
+        public static event HotbarActivated HotbarActivatedEvent;
+
 
         public static void Initialize() {
             waitingToRedraw = new List<IRedrawing>();
@@ -71,8 +74,13 @@ namespace kfutils.rpg {
         }
 
 
-        public static void SignSlotEmptied(SlotData slot) {
+        public static void SignalSlotEmptied(SlotData slot) {
             slotEmptiedEvent?.Invoke(slot);
+        }
+
+
+        public static void SigalHotbarActivated(SlotData slot) {
+            HotbarActivatedEvent?.Invoke(slot);
         }
 
 

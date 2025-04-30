@@ -28,6 +28,7 @@ namespace kfutils.rpg.ui {
         protected virtual void OnEnable() {
             InventoryManagement.inventoryUpdated += UpdateInventory;
             InventoryManagement.inventorySlotUpdated += UpdateSlot;
+            if(inventory.GetType().IsAssignableFrom(typeof(PlayerInventory))) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
             scrollRect.verticalNormalizedPosition = 1.0f;
             Redraw();
         }
@@ -36,6 +37,7 @@ namespace kfutils.rpg.ui {
         protected virtual void OnDisable() {
             InventoryManagement.inventoryUpdated -= UpdateInventory;
             InventoryManagement.inventorySlotUpdated -= UpdateSlot;
+            if(inventory is PlayerInventory) InventoryManagement.HotbarActivatedEvent -= RespondToHotbar;
         }
 
 
@@ -116,6 +118,21 @@ namespace kfutils.rpg.ui {
                             && inventorySlots[slot].item.item.IsStackable) {
                     inventorySlots[slot].SetText(inventorySlots[slot].item.stackSize);
                 }
+            }
+        }
+
+
+        public void RespondToHotbar(SlotData slot) {
+            if(slot.inventory == InvType.MAIN) {
+                for(int i = 0; i < inventorySlots.Count; i++) {
+                    if(inventorySlots[i].item.slot == slot.invSlot) {
+                        inventorySlots[i].EquipItem();
+                        return;
+                    }
+                }
+            }
+            else if((inventory is PlayerInventory) && (slot.inventory == InvType.EQUIPT)) {
+                equiptPanel.RespondToHotbar(slot);
             }
         }
 

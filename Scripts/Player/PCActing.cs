@@ -33,7 +33,7 @@ namespace kfutils.rpg {
         protected InputAction freeTPSAction;
         protected InputAction quickSlot1Action;
         protected InputAction quickSlot2Action;
-        protected InputAction quickSlotAction;
+        protected InputAction quickSlot3Action;
         protected InputAction quickSlot4Action;
         protected InputAction quickSlot5Action;
         protected InputAction quickSlot6Action;
@@ -87,6 +87,16 @@ namespace kfutils.rpg {
             rightAttackAction = input.actions["RightUseAttack"];
             activateObjectAction = input.actions["Interact"];
             castSpellAction = input.actions["CastSpell"];
+            // Hotbar Quickslots
+            quickSlot1Action = input.actions["Hotbar1"];
+            quickSlot2Action = input.actions["Hotbar2"];
+            quickSlot3Action = input.actions["Hotbar3"];
+            quickSlot4Action = input.actions["Hotbar4"];
+            quickSlot5Action = input.actions["Hotbar5"];
+            quickSlot6Action = input.actions["Hotbar6"];
+            quickSlot7Action = input.actions["Hotbar7"];
+            quickSlot8Action = input.actions["Hotbar8"];
+            quickSlot9Action = input.actions["Hotbar9"];
             
         }
 
@@ -135,6 +145,16 @@ namespace kfutils.rpg {
             rightAttackAction.canceled += UseRightItem;
             if(this is not PCTalking) activateObjectAction.started += Interact;  
             castSpellAction.canceled += CastSpell; // FIXME: Include start and stop events
+            // Hotbar Quickslots
+            quickSlot1Action.started += QuickSlot1;
+            quickSlot2Action.started += QuickSlot2;
+            quickSlot3Action.started += QuickSlot3;
+            quickSlot4Action.started += QuickSlot4;
+            quickSlot5Action.started += QuickSlot5;
+            quickSlot6Action.started += QuickSlot6;
+            quickSlot7Action.started += QuickSlot7;
+            quickSlot8Action.started += QuickSlot8;
+            quickSlot9Action.started += QuickSlot9;
         }
 
 
@@ -142,6 +162,16 @@ namespace kfutils.rpg {
             rightAttackAction.canceled -= UseRightItem;
             if(this is not PCTalking) activateObjectAction.started -= Interact; 
             castSpellAction.canceled -= CastSpell; 
+            // Hotbar Quickslots
+            quickSlot1Action.started -= QuickSlot1;
+            quickSlot2Action.started -= QuickSlot2;
+            quickSlot3Action.started -= QuickSlot3;
+            quickSlot4Action.started -= QuickSlot4;
+            quickSlot5Action.started -= QuickSlot5;
+            quickSlot6Action.started -= QuickSlot6;
+            quickSlot7Action.started -= QuickSlot7;
+            quickSlot8Action.started -= QuickSlot8;
+            quickSlot9Action.started -= QuickSlot9;
         }
 
 
@@ -150,6 +180,22 @@ namespace kfutils.rpg {
 
 
 #endregion
+
+#region QuickSlots
+
+        public void QuickSlot1(InputAction.CallbackContext context) => inventory.UseHotbar(0);
+        public void QuickSlot2(InputAction.CallbackContext context) => inventory.UseHotbar(1);
+        public void QuickSlot3(InputAction.CallbackContext context) => inventory.UseHotbar(2);
+        public void QuickSlot4(InputAction.CallbackContext context) => inventory.UseHotbar(3);
+        public void QuickSlot5(InputAction.CallbackContext context) => inventory.UseHotbar(4);
+        public void QuickSlot6(InputAction.CallbackContext context) => inventory.UseHotbar(5);
+        public void QuickSlot7(InputAction.CallbackContext context) => inventory.UseHotbar(6);
+        public void QuickSlot8(InputAction.CallbackContext context) => inventory.UseHotbar(7);
+        public void QuickSlot9(InputAction.CallbackContext context) => inventory.UseHotbar(8);
+        
+
+#endregion
+
 
 
         public void GetAimParams(out AimParams aim) {

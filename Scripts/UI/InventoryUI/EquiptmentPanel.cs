@@ -116,22 +116,9 @@ namespace kfutils.rpg.ui {
         }
 
 
-        // TODO: Add a method to get for a given EEquiptSlot and return is, so that the swap method can 
-        //       be called on it with the clicked InventorySlotUI as the argument.  This will emulate 
-        //       dragging, as a drag will end up calling the EquiptSlotUI through its OnPointerDrop method.
-        //       Two-handing can then be handled on the inventory back-end and done strictly to work with 
-        //       drag-and-drop and clicking will excatly immitate dragging and dropping on the relevant 
-        //       UI slot.  In contrast, ring selection can be done in the context here in the context of 
-        //       selecting a slot to return, as rings are not two handed by simply need use the first 
-        //       available slot, or (probably) the second if both are full.  (Two handed items may still 
-        //       be a pain to work out.)  This should work better and be far simpler than trying to handle 
-        //       the swap here while also dealing with two handing at the same time.
-        //
-        //       This could be accomplished either by a switch statement selecting hand choosen slots, or by 
-        //       iterating (backward) through the array to find the first valid slot.  Pros and cons to both 
-        //       approachnes: Iteration ensure the slots will not deviate from those defined in the editor 
-        //       due to changing the prefabs, while a switch (or similar) based aproach would make handling 
-        //       special cases (rings) a lot simpler to handle.
+        public void RespondToHotbar(SlotData slot) {
+            slots[slot.invSlot].EquipItem();
+        }
 
 
 

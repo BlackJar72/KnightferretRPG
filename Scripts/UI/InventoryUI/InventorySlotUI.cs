@@ -27,7 +27,7 @@ namespace kfutils.rpg.ui {
         public virtual bool SwapWith(InventorySlotUI other) {
             if(!CanSwapSlotTypes(other)) return false;
             if(inventory.BelongsToPC(inventory)) InventoryManagement.SignalSlotsSwapped(SlotDataFromSlot(), other.SlotDataFromSlot());
-            else InventoryManagement.SignSlotEmptied(other.SlotDataFromSlot());
+            else InventoryManagement.SignalSlotEmptied(other.SlotDataFromSlot());
             if((other.item.item == item.item) && item.item.IsStackable) {
                 item.stackSize += other.item.stackSize;
                 other.inventory.RemoveItem(other.item);
@@ -68,6 +68,7 @@ namespace kfutils.rpg.ui {
             SlotData result = new SlotData();
             result.inventory = InvType.MAIN;
             result.invSlot = slotNumber;
+            result.filled = (item != null) && (item.item != null);
             return result;
         }
 
@@ -191,6 +192,14 @@ namespace kfutils.rpg.ui {
         #endregion
 
 
+        public virtual void EquipItem() {
+            Debug.Log("EquipItem()");
+            EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);
+            GameManager.Instance.UIManager.HideItemToolTip();
+            if(destination != null) {
+                destination.SwapWith(this);
+            }
+        }
 
 
 

@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 
@@ -20,6 +21,9 @@ namespace kfutils.rpg {
         /// <param name="slot1"></param>
         /// <param name="slot2"></param>
         public void OnSlotsSwapped(SlotData slot1, SlotData slot2) {
+            bool tmp = slot1.filled;
+            slot1.filled = slot2.filled;
+            slot2.filled = tmp;
             int cur1 = -1, cur2 = -1;
             for(int i = 0; i < slots.Length; i++) {
                 if(slots[i] == slot1) cur1 = i;
@@ -44,6 +48,8 @@ namespace kfutils.rpg {
         public void CleanUpDuplicates(int slotNumber, SlotData slot) {
             for(int i = 0; i < slots.Length; i++) {
                 if((i != slotNumber) && (slots[i] == slot)) {
+                    slots[i].inventory = InvType.NONE;
+                    slots[i].invSlot = -1;
                     slots[i].filled = false;
                 }
             }
