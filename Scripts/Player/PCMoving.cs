@@ -412,7 +412,7 @@ namespace kfutils.rpg {
 
             vSpeed += (1.0f - ((1.0f - weightBoyancyFactor) * 2.0f)) * Time.deltaTime; // Byancy
             if(vSpeed > -MAX_WATER_V) vSpeed = Mathf.Min(MAX_WATER_V, vSpeed + newVelocity.y); 
-            vSpeed -= vSpeed * Time.deltaTime * 0.5f; // Drag
+            vSpeed -= vSpeed * Time.deltaTime; // Drag
 
             hVelocity = newVelocity;
             hVelocity.y = 0;
