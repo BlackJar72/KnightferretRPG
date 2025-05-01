@@ -157,6 +157,16 @@ namespace kfutils.rpg {
         }
 
 
+        public void Teleport(Transform destination) {
+            vSpeed = 0;
+            hVelocity = Vector3.zero;
+            characterController.enabled = false;
+            transform.position = destination.position;
+            transform.rotation = destination.rotation;
+            characterController.enabled = true; 
+        }
+
+
 #region Input
 
 

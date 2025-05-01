@@ -19,7 +19,7 @@ namespace kfutils.rpg {
 
         [SerializeField] Worldspace startingWorldspace;
 
-        public delegate void SpecialMethod();
+        public delegate bool SpecialMethod();
         public List<SpecialMethod> specialUpdates = new();
 
 
@@ -50,12 +50,14 @@ namespace kfutils.rpg {
             EntityManagement.Update();
             // Other game management stuff will go here
             InventoryManagement.DoRedraws();
-            for(int i = specialUpdates.Count - 1; i > -1; i--) specialUpdates[i]();            
+            for(int i = specialUpdates.Count - 1; i > -1; i--) {
+                if(specialUpdates[i]()) specialUpdates.RemoveAt(i);            
+            }
+
         }
 
+        
 
     }
-
-    
 
 }
