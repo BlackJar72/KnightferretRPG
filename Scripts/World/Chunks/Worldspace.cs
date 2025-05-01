@@ -44,9 +44,7 @@ namespace kfutils.rpg {
             if(old != null) SceneManager.UnloadSceneAsync(old.scenePath);
             SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
             WorldManagement.SetWorldspace(this);
-            EntityManagement.playerCharacter.transform.position = defaultStartLocation.position;
-            EntityManagement.playerCharacter.transform.rotation = defaultStartLocation.rotation;
-            EntityManagement.playerCharacter.transform.localScale = defaultStartLocation.scale;
+            EntityManagement.playerCharacter.Teleport(defaultStartLocation);
             Time.timeScale = 1.0f;
         }
 

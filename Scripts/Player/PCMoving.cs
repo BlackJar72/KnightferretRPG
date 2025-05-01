@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace kfutils.rpg {
 
     [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(CharacterController))]
     public class PCMoving : EntityLiving {
 
         public enum MoveType {
@@ -68,6 +69,7 @@ namespace kfutils.rpg {
 
         protected delegate void Movement();
         protected Movement Move;
+        
 
 
         public void SetWeightForMovement(float weight) {
@@ -77,7 +79,8 @@ namespace kfutils.rpg {
 
 
         protected override void Awake() {
-            base.Awake();
+            characterController = GetComponent<CharacterController>();  
+            base.Awake();  
             MakePC(PC);
             Move = LandMove;
             hasJumped = false;
@@ -91,8 +94,7 @@ namespace kfutils.rpg {
             // Temporary for Testing; TODO: Remove this! (It should be called elsewhere.)
             NewCharacterInit();
 
-            // Normal stuff below
-            characterController = GetComponent<CharacterController>();          
+            // Normal stuff below      
             Cursor.lockState = CursorLockMode.Locked;
 
             moveMixer = movementSet.Walk;
@@ -144,7 +146,15 @@ namespace kfutils.rpg {
         }
 
 
-
+        public void Teleport(TransformData destination) {
+            vSpeed = 0;
+            hVelocity = Vector3.zero;
+            characterController.enabled = false;
+            transform.position = destination.position;
+            transform.rotation = destination.rotation;
+            transform.localScale = destination.scale; 
+            characterController.enabled = true; 
+        }
 
 
 #region Input

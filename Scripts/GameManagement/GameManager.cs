@@ -2,6 +2,7 @@ using UnityEngine;
 using kfutils.rpg.ui;
 using UnityEngine.InputSystem;
 using System;
+using System.Collections.Generic;
 
 
 
@@ -17,6 +18,9 @@ namespace kfutils.rpg {
         public static GameManager Instance { get => instacnce; }
 
         [SerializeField] Worldspace startingWorldspace;
+
+        public delegate void SpecialMethod();
+        public List<SpecialMethod> specialUpdates = new();
 
 
         void Awake() {
@@ -46,7 +50,7 @@ namespace kfutils.rpg {
             EntityManagement.Update();
             // Other game management stuff will go here
             InventoryManagement.DoRedraws();
-            
+            for(int i = specialUpdates.Count - 1; i > -1; i--) specialUpdates[i]();            
         }
 
 
