@@ -12,6 +12,10 @@ namespace kfutils.rpg {
     public class ChunkManager : MonoBehaviour {
 
         [SerializeField] Transform looseItems;
+        
+        public Vector2Int location;
+
+
 
     }
 
