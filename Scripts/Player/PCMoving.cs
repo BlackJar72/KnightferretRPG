@@ -70,6 +70,9 @@ namespace kfutils.rpg {
         protected delegate void Movement();
         protected Movement Move;
         
+        private readonly Vector3 standingCenter = new Vector3(0f, 0.9f, 0f);
+        private readonly Vector3 crouchingCenter = new Vector3(0f, 0.6f, 0f);
+        
 
 
         public void SetWeightForMovement(float weight) {
@@ -134,14 +137,23 @@ namespace kfutils.rpg {
                     moveType = MoveType.CROUCH;
                     baseSpeed = attributes.crouchSpeed;                    
                     moveMixer = movementSet.Crouch;
+                    characterController.height = 1.2f;
+                    characterController.radius = 0.6f;
+                    characterController.center = crouchingCenter;
                 } else if (shouldSprint && stamina.HasStamina && (movement != Vector3.zero)) {
                     moveType = MoveType.RUN;
                     baseSpeed = attributes.runSpeed;                  
                     moveMixer = movementSet.Run;
+                    characterController.height = 1.8f;
+                    characterController.radius = 0.5f;
+                    characterController.center = standingCenter;
                 } else {
                     moveType = MoveType.NORMAL;
                     baseSpeed = attributes.walkSpeed;                  
                     moveMixer = movementSet.Walk;
+                    characterController.height = 1.8f;
+                    characterController.radius = 0.325f;
+                    characterController.center = standingCenter;
                 }
         }
 

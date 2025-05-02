@@ -10,6 +10,7 @@ namespace kfutils.rpg {
 
         [Tooltip("The location of the scene file.")]
         [SerializeField] string scenePath;
+        [SerializeField] bool multiChunk;
         [Tooltip("The Y coordinate below which is considered underwater; used for visual effect and switching movement to swim mode.")]
         [SerializeField] float seaLevel;
         [SerializeField] TransformData defaultStartLocation;
@@ -20,6 +21,7 @@ namespace kfutils.rpg {
 
 
         public string ScenePath => scenePath;
+        public bool MultiChunk => multiChunk;
         public float SeaLevel => seaLevel;
         public TransformData DefaultStart => defaultStartLocation;
         public int ChunkSize => chunkSize;
