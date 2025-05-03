@@ -28,7 +28,8 @@ namespace kfutils.rpg {
 
 
         public void Init() {
-            loadRange = renderDistance / chunkSize;
+            chunkSize = worldspace.ChunkSize;
+            loadRange = (renderDistance / chunkSize) + 1;
             Terrain[] terrains = chunkHolder.GetComponentsInChildren<Terrain>();
             int minx, maxx, minz, maxz;
             maxx = maxz = int.MinValue;
@@ -83,6 +84,14 @@ namespace kfutils.rpg {
                     Instantiate(chunkManagerPrefab, chunktrs[i]).transform.localPosition = Vector3.zero;
                 }
             }
+        }
+
+
+        public ChunkManager GetChunk(int x, int z) {
+            if((x > -1) && (x < chunks.GetLength(0)) && (z > -1) && (z < chunks.GetLength(1))) {
+                return chunks[x,z];
+            }
+            return null;
         }
 
 

@@ -24,11 +24,19 @@ namespace kfutils.rpg {
         public void EnablePhysics() {
             physics.isKinematic = false;
             StartCoroutine(PhysicsTimer());
+            SendToCorrectChunk();
+        }
+
+
+        private void SendToCorrectChunk() {
+            ChunkManager chunk = WorldManagement.GetChunkFromTransform(transform);
+            if(chunk != null) transform.SetParent(chunk.LooseItems);
         }
 
 
         public void DisablePhysics() {
             physics.isKinematic = true;
+            SendToCorrectChunk();
         }
 
 

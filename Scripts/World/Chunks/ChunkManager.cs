@@ -16,6 +16,9 @@ namespace kfutils.rpg {
         public Vector2Int location;
 
 
+        public Transform LooseItems => looseItems;
+
+
 
     }
 

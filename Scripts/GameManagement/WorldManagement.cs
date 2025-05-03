@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using kfutils.rpg;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -81,6 +80,18 @@ namespace kfutils.rpg {
 
 
         public static GameManager.SpecialMethod TransferCountdown = CountdownTransfer;
+
+
+        public static ChunkManager GetChunkFromCoords(float x, float z) {
+            int ix = Mathf.FloorToInt((x - worldspace.ChunkOffsetX) / worldspace.ChunkSize); 
+            int iz = Mathf.FloorToInt((z - worldspace.ChunkOffsetZ ) / worldspace.ChunkSize); 
+            return worldspaceLogic.GetChunk(ix, iz);             
+        }
+
+
+        public static ChunkManager GetChunkFromTransform(Transform trans) {
+            return GetChunkFromCoords(trans.position.x, trans.position.z);
+        }
 
     }
 
