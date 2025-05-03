@@ -15,8 +15,10 @@ namespace kfutils.rpg {
         // Chunks
         [SerializeField] GameObject chunkHolder;
         [SerializeField] string chunkNameDelims = "_ -";   
-        [SerializeField] int xNamePos;
-        [SerializeField] int zNamePos;
+        [SerializeField] int xNamePos = 1;
+        [SerializeField] int zNamePos = 2;
+
+        [SerializeField] GameObject chunkManagerPrefab;     
 
         private int loadRange;
         private int xmax = 0, zmax = 0;     
@@ -27,15 +29,20 @@ namespace kfutils.rpg {
 
         public void Init() {
             loadRange = renderDistance / chunkSize;
-            ChunkManager[] chunkManagers = gameObject.GetComponentsInChildren<ChunkManager>();
+            Terrain[] terrains = chunkHolder.GetComponentsInChildren<Terrain>();
             int minx, maxx, minz, maxz;
             maxx = maxz = int.MinValue;
             minx = minz = int.MaxValue;
             int x, z;
-            ChunkManager chunk;
-            for(int i = 0; i < chunkManagers.Length; i++) {
-                chunk = chunkManagers[i];
-                string tname = chunk.gameObject.name;
+            if(!worldspace.MultiChunk) {
+                chunks = new ChunkManager[1,1];
+                chunks[0,0] = chunkHolder.GetComponentInChildren<ChunkManager>();
+                return;
+            }
+            ChunkManager[] chunkar = new ChunkManager[terrains.Length];
+            for(int i = 0; i < terrains.Length; i++) {
+                chunkar[i] = terrains[i].GetComponentInChildren<ChunkManager>();
+                string tname = terrains[i].gameObject.name;
                 string[] parts = tname.Split(chunkNameDelims.ToCharArray());
                 try {
                     x = int.Parse(parts[xNamePos]);
@@ -44,7 +51,7 @@ namespace kfutils.rpg {
                     if(x < minx) minx = x;
                     if(z > maxz) maxz = z;
                     if(z < minz) minz = z;
-                    chunk.location.Set(x, z);
+                    chunkar[i].location.Set(x, z);
                 } catch (System.Exception e) {
                     throw e;
                 }
@@ -54,20 +61,28 @@ namespace kfutils.rpg {
             chunks = new ChunkManager[maxx - minx + 1, maxz - minz + 1];
             xmax = chunks.GetLength(0) - 1;
             zmax = chunks.GetLength(1) - 1;
-            for(int i = 0; i < chunkManagers.Length; i++) {
-                Vector2Int loc = chunkManagers[i].location;
+            for(int i = 0; i < terrains.Length; i++) {
+                Vector2Int loc = chunkar[i].location;
                 loc.x -= minx;
                 loc.y -= minz;
-                if(chunks[loc.x, loc.y] == null) chunks[loc.x, loc.y] = chunkManagers[i];
-                else Debug.LogWarning("Chunk duplication: " + chunkManagers[i].gameObject.name + " is shares coords with a previously initialize chunk");
+                if(chunks[loc.x, loc.y] == null) chunks[loc.x, loc.y] = chunkar[i];
+                else Debug.LogWarning("Chunk duplication: " + terrains[i].gameObject.name + " is shares coords with a previously initialize chunk");
             }
             for(int i = 0; i < chunks.GetLength(0); i++)
                 for(int j = 0; j < chunks.GetLength(1); j++) {
                     if(chunks[i,j] == null) Debug.LogWarning("World space has missing chunk; hole at [" + i + ", " + j + "]. " );
                 }
-                
-            //TODO???
-            
+        }
+
+
+        [ContextMenu("Add Chunk Managers")]
+        public void AddChunkManagers() {
+            Transform[] chunktrs = chunkHolder.GetComponentsInChildren<Transform>();
+            for(int i = 0; i < chunktrs.Length; i++) {
+                if(chunktrs[i].GetComponentInChildren<ChunkManager>() == null) {
+                    Instantiate(chunkManagerPrefab, chunktrs[i]).transform.localPosition = Vector3.zero;
+                }
+            }
         }
 
 

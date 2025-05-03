@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 namespace kfutils.rpg {
 
-    public static class WorldManagement {
+    public static class WorldManagement {   
 
         private static Worldspace worldspace;
-
+        private static WorldspaceLogic worldspaceLogic;
 
         public static Worldspace CurWorldspace => worldspace;
+        public static WorldspaceLogic WorldLogic => worldspaceLogic;
         public static float SeaLevel => worldspace == null ? float.MinValue : worldspace.SeaLevel;
 
         public static readonly Dictionary<string, TeleportMarker> teleportMarkers = new();
@@ -45,7 +46,8 @@ namespace kfutils.rpg {
         private static TransferData transferData = null;
 
 
-        private static bool FinishTransferPC() {             
+        private static bool FinishTransferPC() { 
+            SetupWorldspace();
             transferData.pc.Teleport(teleportMarkers[transferData.destinationID].transform);
             Time.timeScale = 1.0f;
             transferData = null;
@@ -60,6 +62,21 @@ namespace kfutils.rpg {
                 return false;
             } 
             return true;
+        }
+
+
+        public static void SetupWorldspace() { 
+            Scene scene = SceneManager.GetSceneByPath(worldspace.ScenePath);
+            GameObject[] gos = scene.GetRootGameObjects();
+            WorldspaceLogic logic = null;
+            for(int i = 0; i < gos.Length; i++) {
+                logic = gos[i].GetComponent<WorldspaceLogic>();
+                if(logic != null) break;
+            }
+            worldspaceLogic = logic;
+            if(logic != null) {
+                logic.Init();
+            }
         }
 
 

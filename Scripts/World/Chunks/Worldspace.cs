@@ -1,3 +1,4 @@
+using System.Collections;
 using Animancer.Examples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -56,6 +57,13 @@ namespace kfutils.rpg {
             if(old != null) SceneManager.UnloadSceneAsync(old.scenePath);
             SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
             WorldManagement.SetWorldspace(this);
+            GameManager.Instance.StartCoroutine(SpawnPlayerOnLoad());
+        }
+
+
+        private IEnumerator SpawnPlayerOnLoad() {
+            yield return new WaitForSecondsRealtime(0.05f);
+            WorldManagement.SetupWorldspace();
             EntityManagement.playerCharacter.Teleport(defaultStartLocation);
             Time.timeScale = 1.0f;
         }
