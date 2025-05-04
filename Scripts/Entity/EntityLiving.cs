@@ -1,6 +1,5 @@
 using UnityEngine;
 using Animancer;
-using Unity.VisualScripting;
 
 
 namespace kfutils.rpg {
@@ -10,7 +9,7 @@ namespace kfutils.rpg {
 
         [SerializeField] private string id; // Should this be a string? A number? A UUID?  String for now.  Also, this must never change!
         [SerializeField] protected string entityName; // A name probably shared by all entities of a type (some my also have personal names separately.)
-
+ 
         [SerializeField] public EntityHealth health;
         [SerializeField] public EntityStamina stamina;
         [SerializeField] public EntityMana mana;
