@@ -37,6 +37,15 @@ namespace kfutils {
         }
 
 
+        public EntityStamina Copy() {
+            EntityStamina copy = new(baseStamina);
+            copy.currentStamina = currentStamina;
+            copy.timeToHeal = timeToHeal;
+            copy.owner = null;
+            return copy;
+        }
+
+
         public void MakeSane() {
             baseStamina = Mathf.Min(baseStamina, baseStamina + buff);
             currentStamina = Mathf.Min(currentStamina, baseStamina + buff);

@@ -17,8 +17,8 @@ namespace kfutils.rpg {
         [SerializeField] public float jumpForce = 1.0f; //TODO / FIXME: Implement jumping, then determine what this should be:
         [SerializeField] public int naturalArmor = 0; // Natural, not derived from worn armor
         [SerializeField] public int meleeDamageBonus = 0; // Bonus damage for melee attacks
-        [SerializeField] public float maxEncumbrance = 400f;
-        [SerializeField] public float halfEncumbrance = 200f;
+        [SerializeField] public float maxEncumbrance = 120f;
+        [SerializeField] public float halfEncumbrance = 60f;
         [SerializeField] public float runningCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, not all stamina use
         [SerializeField] public float manaCostFactor = 1.0f; // Modifies the cost of casting spells
 
@@ -40,7 +40,7 @@ namespace kfutils.rpg {
             jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f), 0.25f, 2.0f);
             naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5);
             meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);
-            maxEncumbrance = (float)(50 + (10 * baseStats.Strength));
+            maxEncumbrance = (float)(20 + (10 * baseStats.Strength));
             halfEncumbrance = maxEncumbrance / 2f;
             runningCostFactor = 2.0f - ((float)baseStats.Endurance / (float)EntityBaseStats.MAX_SCORE);
             manaCostFactor = 1.5f - ((float)baseStats.Intelligence / (float)EntityBaseStats.MAX_SCORE);
@@ -48,6 +48,28 @@ namespace kfutils.rpg {
             stamina.ChangeBaseStamina((20 + (baseStats.Endurance * 5)) * (0.9f + ((float)level * 0.1f)));
             mana.ChangeBaseMana((20 + (baseStats.Spirit * 5)) * (0.9f + ((float)level * 0.1f)));
         }
+
+
+        public EntityAttributes Copy() {
+            EntityAttributes copy = new();
+            copy.level = level; // The level of the entity; only used for player character and NPCs of playable races
+            copy.crouchSpeed = crouchSpeed; // Movement speed
+            copy.walkSpeed = walkSpeed; // Movement speed
+            copy.runSpeed = runSpeed; // Movement speed
+            copy.jumpForce = jumpForce; //TODO / FIXME: Implement jumping, then determine what this should be:
+            copy.naturalArmor = naturalArmor; // Natural, not derived from worn armor
+            copy.meleeDamageBonus = meleeDamageBonus; // Bonus damage for melee attacks
+            copy.maxEncumbrance = maxEncumbrance;
+            copy.halfEncumbrance = halfEncumbrance;
+            copy.runningCostFactor = runningCostFactor; // Mostly used for running, and perhaps other movement, not all stamina use
+            copy.manaCostFactor = manaCostFactor; // Modifies the cost of casting spells
+            copy.damageAdjuster = damageAdjuster; // The type of natural damage adjuster this entity has
+            copy.damageModifiers = damageModifiers.Copy();
+            return copy;
+        }
+
+
+        
 
 
     }

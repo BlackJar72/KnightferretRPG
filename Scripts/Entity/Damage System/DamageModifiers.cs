@@ -16,6 +16,16 @@ namespace kfutils {
 
         [SerializeField] List<DamageModInstance> modifiers = new List<DamageModInstance>();
 
+
+        public DamageModifiers Copy() {
+            DamageModifiers copy = new();
+            Array.Copy(resists, 0, copy.resists, 0, copy.resists.Length);
+            Array.Copy(weaknesses, 0, copy.weaknesses, 0, copy.weaknesses.Length);
+            for(int i = 0; i < modifiers.Count; i++) copy.modifiers.Add(modifiers[i]);
+            return copy;
+        }
+
+
         public Damages Apply(kfutils.Damages damage) {
             float resist = 0f;
             float weakness = 0f;

@@ -1407,7 +1407,7 @@ Transform:
   m_GameObject: {fileID: 398520414}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000000037252899, y: -0, z: -0.0000000074505797, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: -1484.4952}
+  m_LocalPosition: {x: 0, y: 1.6188895, z: 0.15905628}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2547,7 +2547,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1484.4952, y: 1484.4952, z: 1484.4952}
+  m_LocalScale: {x: 0.512, y: 0.512, z: 0.512}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1082807916}
@@ -2668,6 +2668,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a2484929df6fe149a592a6912ffae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &838050617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 838050618}
+  m_Layer: 0
+  m_Name: EyeY
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &838050618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838050617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000027175935, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.12799954, z: 0.071999945}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5273963674285019174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &925694905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4116490792906126997, guid: 8941adc9bb1f557c7948ab994d0f6d75, type: 3}
@@ -23976,6 +24007,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6652363068478069402}
   - {fileID: 5273963673562536209}
   - {fileID: 1773901098}
   m_Father: {fileID: 0}
@@ -24457,7 +24489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963672962506437}
   - component: {fileID: 5273963672962506442}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_HEAD_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24487,7 +24519,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963672962506436}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -24610,7 +24642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963672997106957}
   - component: {fileID: 5273963672997107442}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_TORSO_03_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24640,7 +24672,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963672997106956}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -25094,7 +25126,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963673366723763}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -25217,7 +25249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963673366723760}
   - component: {fileID: 5273963673366723761}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_HAIR_03_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25264,7 +25296,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963673417079676}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -25387,7 +25419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963673417079677}
   - component: {fileID: 5273963673417079650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_HAND_01_RIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25517,7 +25549,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963673559890572}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -25640,7 +25672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963673559890573}
   - component: {fileID: 5273963673559890546}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_HAND_01_LEFT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25673,7 +25705,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e7358b55214bc4b4db1155160305bc30, type: 3}
   m_Controller: {fileID: 0}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -25750,7 +25782,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963673562713271}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -25873,7 +25905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963673562713268}
   - component: {fileID: 5273963673562713269}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_PANTS_06_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26095,7 +26127,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963673721698663}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -26218,7 +26250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963673721698660}
   - component: {fileID: 5273963673721698661}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_SHOES_07_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26585,7 +26617,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963674020304074}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -26708,7 +26740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963674020304075}
   - component: {fileID: 5273963674020304072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_BEARD_01_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27142,7 +27174,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5273963674727242955}
-  - {fileID: 6652363068478069402}
+  - {fileID: 838050618}
   m_Father: {fileID: 5273963673772423809}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5273963674301102592
@@ -27507,7 +27539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5273963674530012773}
   - component: {fileID: 5273963674530012778}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M_C3FCV2_EYEBROWS_06_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27537,7 +27569,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273963674530012772}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -28494,6 +28526,7 @@ MonoBehaviour:
   animancer: {fileID: 670633552}
   gameManager: {fileID: 1283501818}
   movementSet: {fileID: 11400000, guid: 3529408eaf5387157b63634d8808ba0d, type: 2}
+  eyeY: {fileID: 838050618}
   camPivot: {fileID: 7951221418768577535}
   playerCam: {fileID: 453921927}
   inventory: {fileID: 5684016193926978409}
@@ -28613,14 +28646,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7951221418768577535}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000027175935, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.128, z: 0.072}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6188895, z: 0.059056282}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 453921932}
   - {fileID: 2014642857}
-  m_Father: {fileID: 5273963674285019174}
+  m_Father: {fileID: 3338462748006844507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7926678511483351012
 MonoBehaviour:

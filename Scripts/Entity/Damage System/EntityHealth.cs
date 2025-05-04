@@ -52,6 +52,17 @@ namespace kfutils {
         }
 
 
+        public EntityHealth Copy() {
+            EntityHealth copy = new(baseHealth);
+            copy.wound = wound;
+            copy.shock = shock;
+            copy.buff = buff;
+            copy.timeToHeal = timeToHeal;
+            copy.owner = null;
+            return copy;
+        }
+
+
         public void MakeSane() {
             wound = Mathf.Min(wound, baseHealth + buff);
             shock = Mathf.Min(shock, baseHealth + buff);
@@ -92,8 +103,13 @@ namespace kfutils {
         }
 
 
-        public void HealShock(float amount) {;
+        public void HealShock(float amount) {
             shock = Mathf.Clamp(shock + amount, 0, baseHealth + buff);
+        }
+
+
+        public void HealShockFully() {
+            shock = baseHealth;
         }
 
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Animancer;
+using Unity.VisualScripting;
 
 
 namespace kfutils.rpg {
@@ -17,6 +18,7 @@ namespace kfutils.rpg {
 
         [SerializeField] protected AnimancerComponent animancer;
 
+        protected EntityData data;
 
         public AnimancerComponent anim { get => animancer; }
 
@@ -34,6 +36,38 @@ namespace kfutils.rpg {
             health.SetOnwer(this);
             stamina.SetOnwer(this);
             mana.SetOnwer(this);
+        }
+
+
+        protected virtual void OnEnable() {
+            data = EntityManagement.GetFromRegistry(id);
+            if(data == null) {
+                data = new(id);
+                data.livingData = new();
+                data.livingData.entityName = entityName;
+                data.livingData.attributes = attributes.Copy();
+                data.livingData.health = health.Copy();
+                data.livingData.stamina = stamina.Copy();
+                data.livingData.mana = mana.Copy();
+                EntityManagement.AddToRegistry(data);
+            } else {
+                entityName = data.livingData.entityName;
+                attributes = data.livingData.attributes;
+                health = data.livingData.health;
+                stamina = data.livingData.stamina;
+                mana = data.livingData.mana;
+            }
+            health.HealShockFully();
+            stamina.HealFully();
+        }
+
+
+        protected virtual void OnDisable() {
+            data.livingData.entityName = entityName;
+            data.livingData.attributes = attributes.Copy();
+            data.livingData.health = health.Copy();
+            data.livingData.stamina = stamina.Copy();
+            data.livingData.mana = mana.Copy();
         }
 
 

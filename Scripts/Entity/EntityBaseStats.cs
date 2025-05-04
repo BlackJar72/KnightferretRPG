@@ -42,6 +42,19 @@ namespace kfutils.rpg {
             //return 20;
         }
 
+
+        public EntityBaseStats Copy() {
+            EntityBaseStats copy = new();
+            copy.strength = strength;
+            copy.agility = agility;
+            copy.vitality = vitality;
+            copy.endurance = endurance;
+            copy.intelligence = intelligence;
+            copy.charisma = charisma;
+            copy.spirit = spirit;
+            return copy;
+        }
+
     }
 
 }

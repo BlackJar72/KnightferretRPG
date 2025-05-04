@@ -9,7 +9,7 @@ namespace kfutils.rpg {
     public static class EntityManagement {
 
             // A central registry for entities, which should work and not be too hard to do if using EasySave as it handles inheritance for us.
-            static private Dictionary<string, EntityLiving> entityRegistry;
+            static private Dictionary<string, EntityData> entityRegistry;
             static public PCTalking playerCharacter; 
 
             // Core entity lists
@@ -35,7 +35,7 @@ namespace kfutils.rpg {
             //          In the age of multi-gigabyte ram, probably not a lot relatively speaking.)  
 
             public static void Initialize() {
-                entityRegistry = new Dictionary<string, EntityLiving>();
+                entityRegistry = new Dictionary<string, EntityData>();
 
                 allEntities = new List<EntityLiving>();
                 persistentEntities = new List<EntityLiving>();
@@ -55,7 +55,7 @@ namespace kfutils.rpg {
             /// ensure the that the keys is always the ID held by the entity (they must match).
             /// </summary>
             /// <param name="entity"></param>
-            public static void AddToRegistry(EntityLiving entity) {
+            public static void AddToRegistry(EntityData entity) {
                 entityRegistry.Add(entity.ID, entity);
             }
 
@@ -66,7 +66,10 @@ namespace kfutils.rpg {
             /// </summary>
             /// <param name="id"></param>
             /// <returns></returns>
-            public static EntityLiving GetFromRegistry(string id) => entityRegistry[id];
+            public static EntityData GetFromRegistry(string id) {
+                if(entityRegistry.ContainsKey(id)) return entityRegistry[id];
+                else return null;
+            }
 
 
             public static void Update() {
@@ -143,7 +146,7 @@ namespace kfutils.rpg {
 
 
 #region Serialization Helpers
-
+/*
         /// <summary>
         /// Get an list of ID that can be serialized.
         /// </summary>
@@ -183,7 +186,7 @@ namespace kfutils.rpg {
             return output;
         }
 
-
+*/
 #endregion
 
 

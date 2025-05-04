@@ -34,6 +34,14 @@ namespace kfutils {
         }
 
 
+        public EntityMana Copy() {
+            EntityMana copy = new(baseMana);
+            copy.currentMana = currentMana;
+            owner = null;
+            return copy;
+        }
+
+
         public void MakeSane() {
             baseMana = Mathf.Min(baseMana, baseMana + buff);
             currentMana = Mathf.Min(currentMana, baseMana + buff);
