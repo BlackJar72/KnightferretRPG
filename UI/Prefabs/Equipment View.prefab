@@ -412,7 +412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -597,6 +597,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &832400251319705638
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +698,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &1370088821072189131
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,8 +869,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.745, y: 1.531}
-  m_SizeDelta: {x: 276.739, y: 284.978}
+  m_AnchoredPosition: {x: -2.3459, y: 4.7241}
+  m_SizeDelta: {x: 259.9749, y: 270.609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2926123296939502440
 CanvasRenderer:
@@ -898,7 +900,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -51934134, guid: a20991b66e2246542a82c06204ebe1e8, type: 3}
+  m_Sprite: {fileID: -1966043099, guid: bfcd47b98ffc8b86c962735910020886, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -973,7 +975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1193,6 +1195,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &2277076078572417021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1372,7 +1375,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1530012694, guid: 4e1020b19159432d6a484d5fda7b83f3, type: 3}
+  m_Sprite: {fileID: 74565297, guid: 4e1020b19159432d6a484d5fda7b83f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1394,7 +1397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42c8eeefb519183faddcc25444a4c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
+  mainInventory: {fileID: 0}
   slots:
   - {fileID: 1871441151362964105}
   - {fileID: 5497677173809939156}
@@ -1407,13 +1410,8 @@ MonoBehaviour:
   - {fileID: 6764567055274492796}
   - {fileID: 4011244023541593501}
   - {fileID: 3341999720108277171}
-  rings:
-  - {fileID: 8672202113785965111}
-  - {fileID: 3248476680456586585}
-  hands:
-  - {fileID: 8267948478985892631}
-  - {fileID: 2828448742819231640}
   spell: {fileID: 6727603331011692648}
+  mainInventoryPanel: {fileID: 0}
 --- !u!1 &2614779245099312488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1629,7 +1627,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1739,6 +1737,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &3157298158174559989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,6 +1974,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &3509612648493406879
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,7 +2040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2220,6 +2220,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &4292927568023781239
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,7 +2708,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2782,7 +2783,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3103,6 +3104,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &6035242091199812372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3194,6 +3196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 3493803039264539057}
+  belongsToPC: 0
   currentSpell: {fileID: 0}
 --- !u!1 &6397832634634374340
 GameObject:
@@ -3692,7 +3695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3877,6 +3880,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &6964117490265929634
 GameObject:
   m_ObjectHideFlags: 0
@@ -4017,7 +4021,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -51934134, guid: a20991b66e2246542a82c06204ebe1e8, type: 3}
+  m_Sprite: {fileID: -1279744195, guid: a20991b66e2246542a82c06204ebe1e8, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4092,7 +4096,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4413,6 +4417,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &7811842421258522080
 GameObject:
   m_ObjectHideFlags: 0
@@ -4513,6 +4518,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &8098875379920367753
 GameObject:
   m_ObjectHideFlags: 0
@@ -4653,7 +4659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4763,6 +4769,7 @@ MonoBehaviour:
     stackSize: 0
     slot: 0
   inventoryPanel: {fileID: 0}
+  equiptPanel: {fileID: 0}
 --- !u!1 &8772020578576424683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4964,7 +4971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

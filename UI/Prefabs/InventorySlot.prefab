@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152215349, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
+  m_Sprite: {fileID: 2006167072, guid: 0bb8a195cc23d48daa6b3fbcf4deac1c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1530012694, guid: 4e1020b19159432d6a484d5fda7b83f3, type: 3}
+  m_Sprite: {fileID: 74565297, guid: 4e1020b19159432d6a484d5fda7b83f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -302,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc198d5b2a6dd6c2830c4c7feee4a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
   numberText: {fileID: 4822879966649052683}
   slotType: -1
   icon: {fileID: 5915932826756690754}
@@ -311,6 +310,7 @@ MonoBehaviour:
     item: {fileID: 0}
     stackSize: 0
     slot: 0
+  inventoryPanel: {fileID: 0}
 --- !u!1 &7377874144447481473
 GameObject:
   m_ObjectHideFlags: 0
