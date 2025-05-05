@@ -26,6 +26,12 @@ namespace kfutils.rpg {
         }
 
 
+        [ContextMenu("Set TransformData From Transform")]
+        public void SetTransformDataFromTransform() {
+            itemTransform = new TransformData(gameObject.transform);
+        }
+
+
     
     }
 
