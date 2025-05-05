@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4d76f733087744991913c9d19d5274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LensFlareData: {fileID: 11400000, guid: bd7eaf3bd49c39f4cb77bd809459aa72, type: 2}
+  m_LensFlareData: {fileID: 11400000, guid: e3db97a2c8764cf4d9b4e3a9a81e38a7, type: 2}
   version: 0
   intensity: 0
   maxAttenuationDistance: 100
@@ -1407,7 +1407,7 @@ Transform:
   m_GameObject: {fileID: 398520414}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000000037252899, y: -0, z: -0.0000000074505797, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6188895, z: 0.15905628}
+  m_LocalPosition: {x: -10.534597, y: 7.7428045, z: -20.864096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1574,7 +1574,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0, z: 0.09999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2014642857}
   m_Father: {fileID: 6652363068478069402}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &458039102
@@ -1626,7 +1627,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a2484929df6fe149a592a6912ffae3, type: 3}
+  m_Script: {fileID: 11500000, guid: 56708526aa8b5179899a1563182a5c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &662091619
@@ -2555,7 +2556,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.512, y: 0.512, z: 0.512}
+  m_LocalScale: {x: 24.277613, y: 24.277613, z: 24.277613}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1082807916}
@@ -2596,13 +2597,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 762895582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb1d51f2a2233162ba71168d1ac5586, type: 3}
+  m_Script: {fileID: 11500000, guid: 85cb19867ef380c19b2514ef1ac04544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 762895584}
   colors:
   - {r: 1, g: 1, b: 1, a: 0}
-  - {r: 0.09411765, g: 0.2627451, b: 0.74509805, a: 0.8784314}
+  - {r: 0.18640976, g: 0.2946902, b: 0.6698113, a: 0.8784314}
 --- !u!114 &762895584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2665,15 +2666,15 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7862704972135986493, guid: 8941adc9bb1f557c7948ab994d0f6d75, type: 3}
   m_PrefabInstance: {fileID: 1974985544}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &799912749 stripped
+--- !u!114 &799912750 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5932526870225740715, guid: 8941adc9bb1f557c7948ab994d0f6d75, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3392799633707906697, guid: 8941adc9bb1f557c7948ab994d0f6d75, type: 3}
   m_PrefabInstance: {fileID: 1974985544}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a2484929df6fe149a592a6912ffae3, type: 3}
+  m_Script: {fileID: 11500000, guid: 56708526aa8b5179899a1563182a5c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &838050617
@@ -2716,17 +2717,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &946774946 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5678705984551336046, guid: 8941adc9bb1f557c7948ab994d0f6d75, type: 3}
-  m_PrefabInstance: {fileID: 1974985544}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a59c623262c6e938fa68613745bf5b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1082807915
@@ -7851,10 +7841,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1283501814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 231b7a4311a1b8381928ef440c77e17a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1975c80f5dacca4bbb4eacf950a64baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPanelToggler: {fileID: 799912749}
+  characterPanelToggler: {fileID: 799912750}
   mainCanvas: {fileID: 712677966}
   crossHairs: {fileID: 5427515477763156603}
   toast: {fileID: 1907616485}
@@ -7872,7 +7862,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1283501814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cee57a1531ea3a9796ae2bef19d38ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 7907ad563ef83f471bbf0178c230d4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1283501817}
@@ -7930,7 +7920,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1323473340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f83a12d88027b1e097ba0830da67f50, type: 3}
+  m_Script: {fileID: 11500000, guid: 57c79df39948f87dc8943bd519b09692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bone: {fileID: 1323473341}
@@ -7977,6 +7967,87 @@ Transform:
   - {fileID: 2108414721}
   m_Father: {fileID: 747542971}
   m_LocalEulerAnglesHint: {x: 0, y: 68.8, z: 30.55}
+--- !u!1 &1380353445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1380353449}
+  - component: {fileID: 1380353448}
+  - component: {fileID: 1380353447}
+  - component: {fileID: 1380353446}
+  m_Layer: 0
+  m_Name: GameManager (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1380353446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380353445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539460745d86ba3b59a17a7b31f0d037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1380353447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380353445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1975c80f5dacca4bbb4eacf950a64baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPanelToggler: {fileID: 799912750}
+  mainCanvas: {fileID: 712677966}
+  crossHairs: {fileID: 5427515477763156603}
+  toast: {fileID: 1907616485}
+  containerUI: {fileID: 660791541}
+  containerLogic: {fileID: 389858698}
+  itemToolTipUI: {fileID: 1559425997}
+  itemStackManipulator: {fileID: 310336583}
+  pcEquiptPanel: {fileID: 2012769257}
+--- !u!114 &1380353448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380353445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7907ad563ef83f471bbf0178c230d4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 1380353447}
+  startingWorldspace: {fileID: 11400000, guid: 758148ce33b340b1a896ba33580f7b27, type: 2}
+--- !u!4 &1380353449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380353445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.008008535, y: 0.7707257, z: -0.078138635}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1417201037
 GameObject:
   m_ObjectHideFlags: 0
@@ -12848,10 +12919,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1432206176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f83a12d88027b1e097ba0830da67f50, type: 3}
+  m_Script: {fileID: 11500000, guid: 57c79df39948f87dc8943bd519b09692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bone: {fileID: 0}
+  bone: {fileID: 1432206178}
 --- !u!4 &1432206178
 Transform:
   m_ObjectHideFlags: 0
@@ -18132,7 +18203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84317184cfd6d3cddb3f71fd74bdf8f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 31ae40481d2ceeebdb7ae450fbcd49e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1917154253
@@ -18176,10 +18247,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1917154253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f83a12d88027b1e097ba0830da67f50, type: 3}
+  m_Script: {fileID: 11500000, guid: 57c79df39948f87dc8943bd519b09692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bone: {fileID: 1917154254}
+  bone: {fileID: 0}
 --- !u!1 &1931507638
 GameObject:
   m_ObjectHideFlags: 0
@@ -18221,7 +18292,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1931507638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f83a12d88027b1e097ba0830da67f50, type: 3}
+  m_Script: {fileID: 11500000, guid: 57c79df39948f87dc8943bd519b09692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bone: {fileID: 1931507639}
@@ -23417,12 +23488,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014642856}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.05000002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6652363068478069402}
+  m_Father: {fileID: 453921932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2014642858
 MonoBehaviour:
@@ -23582,7 +23653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4d76f733087744991913c9d19d5274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LensFlareData: {fileID: 11400000, guid: bd7eaf3bd49c39f4cb77bd809459aa72, type: 2}
+  m_LensFlareData: {fileID: 11400000, guid: b7bd2fcbf47c015488d42ef693c6db7d, type: 2}
   version: 0
   intensity: 1.3338252
   maxAttenuationDistance: 100
@@ -28432,7 +28503,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2713952174676587220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a2484929df6fe149a592a6912ffae3, type: 3}
+  m_Script: {fileID: 11500000, guid: 56708526aa8b5179899a1563182a5c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   showAtStart: 1
@@ -28470,11 +28541,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4960821640192583523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 170a2733f23e672318a51b963b8fac8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 75434ab7b21d6f58289431a709326e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  entityName: 
+  entityName: Mr. Player
   health:
     baseHealth: 0
     wound: 0
@@ -28506,8 +28577,8 @@ MonoBehaviour:
     jumpForce: 1
     naturalArmor: 0
     meleeDamageBonus: 0
-    maxEncumbrance: 400
-    halfEncumbrance: 200
+    maxEncumbrance: 120
+    halfEncumbrance: 60
     runningCostFactor: 1
     manaCostFactor: 1
     damageAdjuster: 0
@@ -28539,7 +28610,7 @@ MonoBehaviour:
   playerCam: {fileID: 453921927}
   inventory: {fileID: 5684016193926978409}
   spellbook: {fileID: 5684016193926978410}
-  equiptSpell: {fileID: 946774946}
+  equiptSpell: {fileID: 0}
   itemLocations:
     HEAD: {fileID: 0}
     BODY: {fileID: 0}
@@ -28548,12 +28619,12 @@ MonoBehaviour:
     FEET: {fileID: 0}
     RHAND: {fileID: 1917154255}
     LHAND: {fileID: 1323473342}
-    HANDS: {fileID: 1931507640}
+    HANDS: {fileID: 1917154255}
     RRING: {fileID: 1931507640}
     LRING: {fileID: 1432206177}
     NECK: {fileID: 0}
     BELT: {fileID: 0}
-  characterName: Mr. Player
+  characterName: Mr. Pkayer
 --- !u!114 &5684016193926978409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28563,29 +28634,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4960821640192583523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7889b3e10a1620690bc9e056e1eb86eb, type: 3}
+  m_Script: {fileID: 11500000, guid: da82bc644b21ebdc387ba2afcfb7313f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: []
-  startingItems:
-  - item: {fileID: 11400000, guid: af3f788f572d826ceb8d7f511ef245e5, type: 2}
-    stackSize: 1
-  - item: {fileID: 11400000, guid: af3f788f572d826ceb8d7f511ef245e5, type: 2}
-    stackSize: 2
-  - item: {fileID: 11400000, guid: af3f788f572d826ceb8d7f511ef245e5, type: 2}
-    stackSize: 3
-  - item: {fileID: 11400000, guid: faa0d52a91abdcfdf863dceb617936f0, type: 2}
-    stackSize: 1
-  - item: {fileID: 11400000, guid: 27c439a84c464b1569330b241b95bee2, type: 2}
-    stackSize: 1
-  - item: {fileID: 11400000, guid: cb8bddf4ff13caf0ba129d4998a583f2, type: 2}
-    stackSize: 1
-  - item: {fileID: 11400000, guid: 8cf26b085a6a13ca689c40a62c3cad59, type: 2}
-    stackSize: 1
-  - item: {fileID: 11400000, guid: ed12d8eb83e35641b8b16f68287d24f5, type: 2}
-    stackSize: 1
+  startingItems: []
   equipt:
-    belongsToPC: 0
+    belongsToPC: 1
     slots:
     - item: {fileID: 0}
       stackSize: 0
@@ -28623,9 +28678,9 @@ MonoBehaviour:
     - item: {fileID: 0}
       stackSize: 0
       slot: 0
-    mainInventory: {fileID: 0}
+    mainInventory: {fileID: 5684016193926978409}
   money:
-    copper: 1234
+    copper: 0
   moneyText: {fileID: 925694905}
   weightText: {fileID: 1343972696}
   hotbarUI: {fileID: 5325887610161487070}
@@ -28638,14 +28693,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4960821640192583523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e26d5df374f413a9e8b582b0e67955, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a16f36f58c997a59af1644a81c22e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spells: []
   unlocked: 0
   belongsToPC: 1
-  startingItems:
-  - {fileID: 11400000, guid: 22f881463ca4704f5a335ba7d75fc874, type: 2}
+  startingItems: []
 --- !u!4 &6652363068478069402
 Transform:
   m_ObjectHideFlags: 0
@@ -28660,7 +28714,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 453921932}
-  - {fileID: 2014642857}
   m_Father: {fileID: 3338462748006844507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7926678511483351012
@@ -28824,6 +28877,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1283501816}
+  - {fileID: 1380353449}
   - {fileID: 3338462748006844507}
   - {fileID: 712677967}
   - {fileID: 1613664318}

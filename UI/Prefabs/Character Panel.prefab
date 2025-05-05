@@ -61,10 +61,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5217288529697818373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a2484929df6fe149a592a6912ffae3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b261734f41b2d50686d72cf0fd7d297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showAtStart: 0
+  inventoryPanel: {fileID: 8101815756119296414}
+  spellbookPanel: {fileID: 3292725581085679682}
 --- !u!114 &3392799633707906697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,11 +75,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5217288529697818373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdefda2e79d86f45aac4ab284d80db89, type: 3}
+  m_Script: {fileID: 11500000, guid: 56708526aa8b5179899a1563182a5c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 8101815756119296414}
-  spellbookPanel: {fileID: 3292725581085679682}
+  showAtStart: 0
 --- !u!1 &8896204809250640988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2784,7 +2784,7 @@ PrefabInstance:
     - target: {fileID: 991911769986797053, guid: 688ef67ce4902590baedcc30e7ef1c81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3392799633707906697}
+      objectReference: {fileID: 5932526870225740715}
     - target: {fileID: 991911769986797053, guid: 688ef67ce4902590baedcc30e7ef1c81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2812,7 +2812,7 @@ PrefabInstance:
     - target: {fileID: 1779959155396647575, guid: 688ef67ce4902590baedcc30e7ef1c81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3392799633707906697}
+      objectReference: {fileID: 5932526870225740715}
     - target: {fileID: 1779959155396647575, guid: 688ef67ce4902590baedcc30e7ef1c81, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
