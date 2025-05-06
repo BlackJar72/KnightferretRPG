@@ -93,6 +93,10 @@ namespace kfutils.rpg {
             return GetChunkFromCoords(trans.position.x, trans.position.z);
         }
 
+
+        
+
+
     }
 
 

@@ -17,8 +17,10 @@ namespace kfutils.rpg {
         public int xp = 0;
 
         // Boolean flags        
-        bool isQuestItem = false;
-        bool isStollen = false;
+        public bool isQuestItem = false;
+        public bool isStollen = false;
+
+        public string ownerID = null;
 
     }
 

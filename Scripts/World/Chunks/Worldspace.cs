@@ -9,6 +9,8 @@ namespace kfutils.rpg {
     [CreateAssetMenu(menuName = "KF-RPG/World/World Space", fileName = "WorldSpace", order = 10)]
     public class Worldspace : ScriptableObject {
 
+        [Tooltip("A string to uniquely identify this worldspace")]
+        [SerializeField] string id;
         [Tooltip("The location of the scene file.")]
         [SerializeField] string scenePath;
         [SerializeField] bool multiChunk;
@@ -21,6 +23,7 @@ namespace kfutils.rpg {
         [SerializeField] Vector2 chunkOffset;
 
 
+        public string ID => id;
         public string ScenePath => scenePath;
         public bool MultiChunk => multiChunk;
         public float SeaLevel => seaLevel;
