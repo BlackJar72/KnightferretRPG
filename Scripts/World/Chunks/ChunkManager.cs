@@ -11,12 +11,33 @@ namespace kfutils.rpg {
     /// </summary>
     public class ChunkManager : MonoBehaviour {
 
+        string id = null;
+
         [SerializeField] Transform looseItems;
         
         public Vector2Int location;
 
+        private ChunkData data;
+
 
         public Transform LooseItems => looseItems;
+
+
+        public void SetID(string id) {
+            this.id = id;
+        }
+
+
+        public void Init() {
+            data = WorldManagement.GetChunkData(id);
+            if(data == null) {
+                data = new ChunkData(id);
+                // TODO?
+                WorldManagement.StoreChunkData(data);
+            }
+        }
+
+
 
 
 

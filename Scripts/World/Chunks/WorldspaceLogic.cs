@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -66,7 +67,11 @@ namespace kfutils.rpg {
                 Vector2Int loc = chunkar[i].location;
                 loc.x -= minx;
                 loc.y -= minz;
-                if(chunks[loc.x, loc.y] == null) chunks[loc.x, loc.y] = chunkar[i];
+                if(chunks[loc.x, loc.y] == null) {
+                    chunks[loc.x, loc.y] = chunkar[i];
+                    chunks[loc.x, loc.y].SetID(worldspace.ID + "Cx" + loc.x + "z" + loc.y);
+                    chunks[loc.x, loc.y].Init();
+                }
                 else Debug.LogWarning("Chunk duplication: " + terrains[i].gameObject.name + " is shares coords with a previously initialize chunk");
             }
             for(int i = 0; i < chunks.GetLength(0); i++)
