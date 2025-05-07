@@ -44,10 +44,10 @@ namespace kfutils.rpg {
                 data = new(id);
                 data.livingData = new();
                 data.livingData.entityName = entityName;
-                data.livingData.attributes = attributes.Copy();
-                data.livingData.health = health.Copy();
-                data.livingData.stamina = stamina.Copy();
-                data.livingData.mana = mana.Copy();
+                data.livingData.attributes = attributes;
+                data.livingData.health = health;
+                data.livingData.stamina = stamina;
+                data.livingData.mana = mana;
                 EntityManagement.AddToRegistry(data);
             } else {
                 entityName = data.livingData.entityName;
@@ -56,17 +56,15 @@ namespace kfutils.rpg {
                 stamina = data.livingData.stamina;
                 mana = data.livingData.mana;
             }
-            health.HealShockFully();
-            stamina.HealFully();
         }
 
 
         protected virtual void OnDisable() {
             data.livingData.entityName = entityName;
-            data.livingData.attributes = attributes.Copy();
-            data.livingData.health = health.Copy();
-            data.livingData.stamina = stamina.Copy();
-            data.livingData.mana = mana.Copy();
+            data.livingData.attributes = attributes;
+            data.livingData.health = health;
+            data.livingData.stamina = stamina;
+            data.livingData.mana = mana;
         }
 
 
