@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public abstract class AInventory : MonoBehaviour, IInventory<ItemStack>
-    {
+    public abstract class AInventory : MonoBehaviour, IInventory<ItemStack> {
+
+        public abstract string ID { get; }
         public abstract int Count { get; }
         public abstract float Weight { get; }
         public abstract bool AddItemToSlot(int slot, ItemStack item);
