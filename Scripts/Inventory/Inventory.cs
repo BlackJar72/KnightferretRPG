@@ -5,8 +5,24 @@ using kfutils.rpg.ui;
 
 
 namespace kfutils.rpg {
+
+
+    public class InventoryData {
+        private readonly string id;
+        public List<ItemStack> inventory;
+        public float weight;
+        public string ID => id;
+        public InventoryData(Inventory inv) {
+            id = inv.ID;
+            inventory = inv.inventory;
+            weight = inv.Weight;
+        }
+    }
+
     
     public class Inventory : AInventory {
+
+        [SerializeField] string id;
 
         public List<ItemStack> inventory = new();
 
@@ -15,6 +31,9 @@ namespace kfutils.rpg {
 
         public override int Count => inventory.Count;
 
+        public override string ID => id;
+
+        public void SetID(string ID) => id ??= ID; 
 
         public delegate void InventoryUpdate(IInventory<ItemStack> inv);
         public event InventoryUpdate inventoryUpdated;
@@ -28,9 +47,17 @@ namespace kfutils.rpg {
         [SerializeField] ItemStack.ProtoStack[] startingItems;
 
 
-        void Start() // FIXME: This will need to be moved to an method run only at the start of a new game!!
-        {
-            foreach(ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
+        void OnEnable() {
+            InventoryData data = InventoryManagement.GetInventoryData(id);
+            if(data == null) {
+                data = new(this);
+                InventoryManagement.StoreInventoryData(data);
+                // TODO / FIXME: Remove this, or maybe not if tables read will be loaded before this.
+                foreach(ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
+            } else {
+                inventory = data.inventory;
+                weight = data.weight;
+            }
         }
 
 

@@ -8,6 +8,10 @@ namespace kfutils.rpg {
 
     public static class InventoryManagement {
 
+        public static readonly Dictionary<string, InventoryData> inventoryData = new();
+        public static InventoryData GetInventoryData(string id) => inventoryData.ContainsKey(id) ? inventoryData[id] : null;
+        public static void StoreInventoryData(InventoryData data) => inventoryData.Add(data.ID, data);
+
         public static AInventory currentContainerInventory;
 
 
