@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using RootMotion.FinalIK;
+using UnityEditor;
 using UnityEngine;
 
 namespace kfutils.rpg {
@@ -11,15 +14,58 @@ namespace kfutils.rpg {
     public class ChunkData {
 
         private string id;
+        private bool clean = true; // First time loaded, and should be treated as such
 
 
         public string ID => id;
+        public bool Clean => clean;
+
+        public readonly List<ItemPersistence> itemsInChunk = new();
+
+        /*
+        No matter how I try to fanagle it, no form of real item persistence is going to 
+        work without items having a way to maintain there own identity, through something 
+        like and id -- though I'm not sure how to work that when items can be added, removed, 
+        and stacked, and items stacks can be split and combined -- not mention that massive 
+        refactoring of my inventory system to to accomodate items with unique identies (instaed 
+        of simply being examples of prototype and nothing more).
+        */
 
 
         public ChunkData(string id) {
             this.id = id;
         }
 
+
+        /// <summary>
+        /// Unlike the typical use of a dirty flag, here we are more concerned about the reverse, 
+        /// doing things specific for first load.  Therefore, making this "dirty" is premenant;
+        /// </summary>
+        public void MakeDirty() {
+            clean = false;
+        }
+
+
+        public void ReadInitialItems(Transform parent, Transform container) {
+            itemsInChunk.Clear(); // Should be empty already, but just in case
+            ItemInWorld[] initialItems = parent.GetComponentsInChildren<ItemInWorld>(true);
+            for(int i = 0; i < initialItems.Length; i++) {
+                initialItems[i].transform.SetParent(container);
+                itemsInChunk.Add(new ItemPersistence(initialItems[i]));
+            }
+        }
+
+
+        public void ReloadItems(ChunkManager chunk) {
+            ItemInWorld[] initialItems = chunk.gameObject.transform.parent.GetComponentsInChildren<ItemInWorld>(true);
+            for(int i = 0; i < initialItems.Length; i++) {
+                Object.Destroy(initialItems[i]);
+            }
+            for(int i = 0; i < itemsInChunk.Count; i++) {
+                itemsInChunk[i].SpawnItem(chunk);
+            }
+
+        }
         
 
     }

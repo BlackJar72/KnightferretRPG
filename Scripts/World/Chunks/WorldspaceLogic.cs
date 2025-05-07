@@ -70,7 +70,7 @@ namespace kfutils.rpg {
                 if(chunks[loc.x, loc.y] == null) {
                     chunks[loc.x, loc.y] = chunkar[i];
                     chunks[loc.x, loc.y].SetID(worldspace.ID + "Cx" + loc.x + "z" + loc.y);
-                    chunks[loc.x, loc.y].Init();
+                    //chunks[loc.x, loc.y].Init();
                 }
                 else Debug.LogWarning("Chunk duplication: " + terrains[i].gameObject.name + " is shares coords with a previously initialize chunk");
             }

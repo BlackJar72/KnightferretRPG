@@ -12,11 +12,11 @@ namespace kfutils.rpg {
         public static Worldspace CurWorldspace => worldspace;
         public static WorldspaceLogic WorldLogic => worldspaceLogic;
         public static float SeaLevel => worldspace == null ? float.MinValue : worldspace.SeaLevel;
+        
 
         public static readonly Dictionary<string, TeleportMarker> teleportMarkers = new();
 
         private static readonly Dictionary<string, ChunkData> chunkData = new();
-
         public static ChunkData GetChunkData(string id) => chunkData.ContainsKey(id) ? chunkData[id] : null;
         public static void StoreChunkData(ChunkData data) => chunkData.Add(data.ID, data);
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace kfutils.rpg {
@@ -32,9 +33,23 @@ namespace kfutils.rpg {
             data = WorldManagement.GetChunkData(id);
             if(data == null) {
                 data = new ChunkData(id);
-                // TODO?
+                if(data.Clean) FirstInit(); 
+                else LaterInit(); // Could be "dirty" if loaded from a save (TODO)
                 WorldManagement.StoreChunkData(data);
+            } else {
+                LaterInit();
             }
+        }
+
+
+        private void FirstInit() {
+            data.MakeDirty(); // Only treat as new once
+            data.ReadInitialItems(gameObject.transform.parent, looseItems);
+        }
+
+
+        private void LaterInit() {
+
         }
 
 

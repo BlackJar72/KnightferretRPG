@@ -1,23 +1,46 @@
+using System;
 using System.Collections;
+using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 namespace kfutils.rpg {
     
-    public class ItemInWorld : MonoBehaviour, IInteractable {
+    public class ItemInWorld : MonoBehaviour, IInteractable, ISerializationCallbackReceiver {
+        
+        [SerializeField] string id;
+        public string ID => id;
         
         [SerializeField] ItemPrototype prototype;
 
         [SerializeField] Rigidbody physics;
 
+        public ItemPrototype Prototype => prototype;
+
 
         public void Use(GameObject from) {
             Inventory toInv = from.GetComponent<Inventory>();
             if(toInv != null) {
-                toInv.AddToFirstEmptySlot(new ItemStack(prototype, 1, -1));
+                if(prototype.IsStackable) toInv.AddToFirstEmptySlot(new ItemStack(prototype, 1, -1));
+                else toInv.AddToFirstEmptySlot(new ItemStack(prototype, 1, -1, id));
                 InventoryManagement.SignalInventoryUpdate(toInv);
-                GameObject.Destroy(gameObject);
+                Destroy(gameObject);
             }
+        }
+
+
+        public ItemInWorld Spawn() {
+            ItemInWorld spawned = Instantiate(this);
+            spawned.id = prototype.ID + Guid.NewGuid();
+            return spawned;
+        }
+
+
+        public ItemInWorld SpawnWithID(string id) {
+            ItemInWorld spawned = Instantiate(this);
+            spawned.id = id;
+            return spawned;
         }
 
 
@@ -53,6 +76,12 @@ namespace kfutils.rpg {
             if(physics.isKinematic) return;
             physics.AddForce(force, ForceMode.Impulse);            
         }
+
+
+        public void OnBeforeSerialize() {
+            if((prototype != null) && string.IsNullOrEmpty(id)) id = prototype.ID + Guid.NewGuid();
+        }
+        public void OnAfterDeserialize() {/*Do Nothing*/}
 
 
 

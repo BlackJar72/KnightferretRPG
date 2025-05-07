@@ -71,7 +71,7 @@ namespace kfutils.rpg {
 
 
         public ItemInWorld DropItemInWorld(Transform where, float distance, float force = 0.0f) {
-            ItemInWorld dropped = Instantiate(worldItem);
+            ItemInWorld dropped = worldItem.Spawn();
             dropped.transform.position = where.position + (where.forward * distance);
             dropped.EnablePhysics();
             if(force == 0.0f) return dropped;
