@@ -14,7 +14,7 @@ namespace kfutils.rpg {
     
 
         public ItemPrototype item;
-        [SerializeField][HideInInspector] string id;
+        [SerializeField] string id;
         public string ID => id;
         public int stackSize;
         public int slot; 
@@ -55,9 +55,8 @@ namespace kfutils.rpg {
 
         public ItemInWorld DropItemInWorld(Transform where, float distance, float force = 0.0f) {
             ItemInWorld dropped;
-            if(item.IsStackable) dropped = item.InWorld.Spawn();
-            else dropped = item.InWorld.SpawnWithID(id);
-            dropped.transform.position = where.position + (where.forward * distance);
+            if(item.IsStackable) dropped = item.InWorld.Spawn(where.position + (where.forward * distance));
+            else dropped = item.InWorld.SpawnWithID(id, where.position + (where.forward * distance));
             dropped.EnablePhysics();
             if(force == 0.0f) return dropped;
             dropped.ApplyImpulseForce(where.forward * force * Random.Range(0.95f, 1.05f));

@@ -100,6 +100,16 @@ namespace kfutils.rpg {
         }
 
 
+        public ChunkManager GetChunk(Vector3 pos) {
+            int x = Mathf.FloorToInt((pos.x / worldspace.ChunkSize) - worldspace.ChunkOffsetX);
+            int z = Mathf.FloorToInt((pos.z / worldspace.ChunkSize) - worldspace.ChunkOffsetZ);
+            if((x > -1) && (x < chunks.GetLength(0)) && (z > -1) && (z < chunks.GetLength(1))) {
+                return chunks[x,z];
+            }
+            return null;
+        }
+
+
     }
 
 }

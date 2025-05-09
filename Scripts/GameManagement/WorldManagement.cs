@@ -53,6 +53,7 @@ namespace kfutils.rpg {
         private static bool FinishTransferPC() { 
             SetupWorldspace();
             transferData.pc.Teleport(teleportMarkers[transferData.destinationID].transform);
+            System.GC.Collect();
             Time.timeScale = 1.0f;
             transferData = null;
             return true;

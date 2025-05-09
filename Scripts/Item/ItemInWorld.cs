@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Net.Sockets;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -18,6 +16,8 @@ namespace kfutils.rpg {
 
         public ItemPrototype Prototype => prototype;
 
+        private ChunkManager chunk;
+
 
         public void Use(GameObject from) {
             Inventory toInv = from.GetComponent<Inventory>();
@@ -30,15 +30,19 @@ namespace kfutils.rpg {
         }
 
 
-        public ItemInWorld Spawn() {
+        public ItemInWorld Spawn(Vector3 where) {
             ItemInWorld spawned = Instantiate(this);
             spawned.id = prototype.ID + Guid.NewGuid();
+            spawned.gameObject.transform.position = where;
+            chunk = WorldManagement.WorldLogic.GetChunk(where);
             return spawned;
         }
 
 
-        public ItemInWorld SpawnWithID(string id) {
+        public ItemInWorld SpawnWithID(string id, Vector3 where) {
             ItemInWorld spawned = Instantiate(this);
+            spawned.gameObject.transform.position = where;
+            chunk = WorldManagement.WorldLogic.GetChunk(where);
             spawned.id = id;
             return spawned;
         }

@@ -20,7 +20,7 @@ namespace kfutils.rpg {
         public string ID => id;
         public bool Clean => clean;
 
-        public readonly List<ItemPersistence> itemsInChunk = new();
+        public readonly List<ItemData> itemsInChunk = new();
 
         /*
         No matter how I try to fanagle it, no form of real item persistence is going to 
@@ -49,14 +49,14 @@ namespace kfutils.rpg {
         public void ReadInitialItems(Transform parent, Transform container) {
             itemsInChunk.Clear(); // Should be empty already, but just in case
             ItemInWorld[] initialItems = parent.GetComponentsInChildren<ItemInWorld>(true);
-            for(int i = 0; i < initialItems.Length; i++) {
+            for(int i = 0; i < initialItems.Length; i++) {/*
                 initialItems[i].transform.SetParent(container);
-                itemsInChunk.Add(new ItemPersistence(initialItems[i]));
-            }
+                itemsInChunk.Add(new ItemData(initialItems[i]));
+            */}
         }
 
 
-        public void ReloadItems(ChunkManager chunk) {
+        public void ReloadItems(ChunkManager chunk) {/*
             ItemInWorld[] initialItems = chunk.gameObject.transform.parent.GetComponentsInChildren<ItemInWorld>(true);
             for(int i = 0; i < initialItems.Length; i++) {
                 Object.Destroy(initialItems[i]);
@@ -65,7 +65,7 @@ namespace kfutils.rpg {
                 itemsInChunk[i].SpawnItem(chunk);
             }
 
-        }
+        */}
         
 
     }

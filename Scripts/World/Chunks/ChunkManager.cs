@@ -21,6 +21,7 @@ namespace kfutils.rpg {
         private ChunkData data;
 
 
+        public ChunkData Data => data;
         public Transform LooseItems => looseItems;
 
 
