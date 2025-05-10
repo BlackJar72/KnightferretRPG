@@ -7,21 +7,9 @@ namespace kfutils.rpg {
 
     public static class ItemManagement {
         
-        private static Dictionary<string, ItemPrototype> prototypeRegistry;
-
-
-        /// <summary>
-        /// Initializes the data for items.
-        /// 
-        /// THIS SHOULD ONLY BE CALLED WHEN STARTING OVER (i.e., at the beginning 
-        /// of a game or when loading a save file).  All items must then be re-registered.
-        /// 
-        /// However, this must be called at least once before the item registries (or anything 
-        /// relating the this class) can be used.
-        /// </summary>
-        public static void Initialize() {
-            prototypeRegistry = new Dictionary<string, ItemPrototype>();
-        }
+        private static readonly Dictionary<string, ItemPrototype> prototypeRegistry = new();
+        
+        public static readonly Dictionary<string, ItemData> itemRegistry = new();
 
 
         public static void AddItemPrototype(ItemPrototype prototype) {
@@ -29,7 +17,14 @@ namespace kfutils.rpg {
         }
 
 
-        // TODO??? Should I include a way to just add all ItemPrototypes in a directory?  In assets as a whole?
+        public static bool AddItem(ItemData item) {
+            if(itemRegistry.ContainsKey(item.ID)) return false;
+            itemRegistry.Add(item.ID, item);
+            return true;
+        }
+
+
+        public static ItemData GetItem(string id) => itemRegistry.ContainsKey(id) ? itemRegistry[id] : null;
 
 
 

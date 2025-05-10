@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace kfutils.rpg {
     
+    [System.Serializable]
     public class ItemData {
 
+        [SerializeField] ItemPrototype prototype;
         [SerializeField] readonly string id;
-        [SerializeField] readonly ItemPrototype prototype;
-        [SerializeField] TransformData transformData;
+        [SerializeField] public TransformData transformData;
         [SerializeField] ItemMetadata metadata;
 
 
@@ -15,6 +16,12 @@ namespace kfutils.rpg {
         public ItemPrototype Prototype => prototype;
         public TransformData TransformData => transformData;
         public ItemMetadata Metadata => metadata;
+        public bool physics = false;
+
+
+        public ItemData() {
+            id = System.Guid.NewGuid().ToString();
+        }
 
 
         public ItemData(string id, ItemPrototype prototype, TransformData transformData, ItemMetadata metadata) {
@@ -39,6 +46,24 @@ namespace kfutils.rpg {
             transformData = placeholder.transform.GetGlobalData();
             metadata = placeholder.Metadata;
         }
+
+
+        public ItemData(ItemInWorld item) {
+            id = item.ID;
+            prototype = item.Prototype;
+            transformData = item.transform.GetGlobalData();
+            metadata = new();
+        }
+
+
+        public ItemData(ItemStack item) {
+            id = item.ID;
+            prototype = item.item;
+            transformData = new();
+            metadata = new();
+        }
+
+
 
     }
 

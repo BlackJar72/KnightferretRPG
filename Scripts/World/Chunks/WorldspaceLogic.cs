@@ -39,6 +39,8 @@ namespace kfutils.rpg {
             if(!worldspace.MultiChunk) {
                 chunks = new ChunkManager[1,1];
                 chunks[0,0] = chunkHolder.GetComponentInChildren<ChunkManager>();
+                    chunks[0,0].SetID(worldspace.ID);
+                    chunks[0,0].Init();
                 return;
             }
             ChunkManager[] chunkar = new ChunkManager[terrains.Length];
@@ -70,6 +72,7 @@ namespace kfutils.rpg {
                 if(chunks[loc.x, loc.y] == null) {
                     chunks[loc.x, loc.y] = chunkar[i];
                     chunks[loc.x, loc.y].SetID(worldspace.ID + "Cx" + loc.x + "z" + loc.y);
+                    chunks[loc.x, loc.y].Init();
                     //chunks[loc.x, loc.y].Init();
                 }
                 else Debug.LogWarning("Chunk duplication: " + terrains[i].gameObject.name + " is shares coords with a previously initialize chunk");

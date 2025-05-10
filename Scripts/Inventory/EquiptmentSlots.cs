@@ -134,7 +134,9 @@ namespace kfutils.rpg {
             number = Mathf.Min(number, slots[slot].stackSize);
             slots[slot].stackSize -= number;
             if(slots[slot].stackSize < 1) {
-                // TODO: Add unequipting of item
+                if(slots[slot].item.IsStackable) {
+                    ItemManagement.itemRegistry.Remove(slots[slot].ID);
+                }
                 mainInventory.Owner.UnequiptItem(slots[slot]);
                 RemoveAllFromSlot(slot);
             } else {

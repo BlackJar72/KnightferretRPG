@@ -20,7 +20,13 @@ namespace kfutils.rpg {
         public string ID => id;
         public bool Clean => clean;
 
-        public readonly List<ItemData> itemsInChunk = new();
+        private readonly List<string> itemsInChunk = new();
+        public List<string> ItemsInChunkList => itemsInChunk;
+
+
+        public void AddItem(string id) {
+            if(!itemsInChunk.Contains(id)) itemsInChunk.Add(id);
+        }
 
         /*
         No matter how I try to fanagle it, no form of real item persistence is going to 
@@ -37,6 +43,16 @@ namespace kfutils.rpg {
         }
 
 
+        public string ListItemsInChunk() {
+            System.Text.StringBuilder sb = new(" [");
+            for(int i = 0; i < itemsInChunk.Count; i++) {
+                sb.Append(itemsInChunk[i]).Append(", ");
+            }
+            sb.Append("] ");
+            return sb.ToString();
+        }
+
+
         /// <summary>
         /// Unlike the typical use of a dirty flag, here we are more concerned about the reverse, 
         /// doing things specific for first load.  Therefore, making this "dirty" is premenant;
@@ -44,28 +60,6 @@ namespace kfutils.rpg {
         public void MakeDirty() {
             clean = false;
         }
-
-
-        public void ReadInitialItems(Transform parent, Transform container) {
-            itemsInChunk.Clear(); // Should be empty already, but just in case
-            ItemInWorld[] initialItems = parent.GetComponentsInChildren<ItemInWorld>(true);
-            for(int i = 0; i < initialItems.Length; i++) {/*
-                initialItems[i].transform.SetParent(container);
-                itemsInChunk.Add(new ItemData(initialItems[i]));
-            */}
-        }
-
-
-        public void ReloadItems(ChunkManager chunk) {/*
-            ItemInWorld[] initialItems = chunk.gameObject.transform.parent.GetComponentsInChildren<ItemInWorld>(true);
-            for(int i = 0; i < initialItems.Length; i++) {
-                Object.Destroy(initialItems[i]);
-            }
-            for(int i = 0; i < itemsInChunk.Count; i++) {
-                itemsInChunk[i].SpawnItem(chunk);
-            }
-
-        */}
         
 
     }

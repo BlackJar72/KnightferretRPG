@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace kfutils.rpg {
@@ -30,6 +31,11 @@ namespace kfutils.rpg {
         }
 
 
+        /*void OnEnable() {
+            Init();
+        }*/
+
+
         public void Init() {
             data = WorldManagement.GetChunkData(id);
             if(data == null) {
@@ -45,12 +51,38 @@ namespace kfutils.rpg {
 
         private void FirstInit() {
             data.MakeDirty(); // Only treat as new once
-            data.ReadInitialItems(gameObject.transform.parent, looseItems);
+            ItemPlaceholder[] items = transform.parent.GetComponentsInChildren<ItemPlaceholder>();
+            for(int i = 0; i < items.Length; i++) {
+                ItemManagement.AddItem(items[i].GetData());
+                data.AddItem(items[i].ID);
+                Destroy(items[i].gameObject);                
+            }
+            for(int i = 0; i < data.ItemsInChunkList.Count; i++) {
+                ItemData itemData = ItemManagement.GetItem(data.ItemsInChunkList[i]);
+                ItemInWorld spawned = Instantiate(itemData.Prototype.InWorld, looseItems);
+                spawned.transform.SetDataGlobal(itemData.TransformData);
+                spawned.SetID(itemData.ID);
+                spawned.chunk = this;
+            }
         }
 
 
         private void LaterInit() {
-
+            ItemPlaceholder[] items = transform.parent.GetComponentsInChildren<ItemPlaceholder>();
+            for(int i = 0; i < items.Length; i++) {
+                Destroy(items[i].gameObject);                
+            }
+            for(int i = 0; i < data.ItemsInChunkList.Count; i++) {
+                //Debug.Log(data.ItemsInChunkList[i]);
+                ItemData itemData = ItemManagement.GetItem(data.ItemsInChunkList[i]);
+                //Debug.Log(itemData);
+                //Debug.Log(itemData.Prototype);
+                ItemInWorld spawned = Instantiate(itemData.Prototype.InWorld, looseItems);
+                spawned.transform.SetDataGlobal(itemData.TransformData);
+                spawned.SetID(itemData.ID);
+                spawned.chunk = this;
+                if(itemData.physics) spawned.EnablePhysics(); 
+            }
         }
 
 

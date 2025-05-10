@@ -132,6 +132,9 @@ namespace kfutils.rpg {
                     number = Mathf.Min(number, inventory[i].stackSize);
                     inventory[i].stackSize -= number;
                     if(inventory[i].stackSize < 1) {
+                        if(inventory[i].item.IsStackable) {
+                            ItemManagement.itemRegistry.Remove(inventory[i].ID);
+                        }
                         inventory.RemoveAt(i);
                         SignalUpdate();
                         SignalSlotEmptied(slot);
@@ -188,6 +191,7 @@ namespace kfutils.rpg {
                         return inventory[i].slot;
                     }
                 }
+                
             }
             item.slot = FindFirstEmptySlot();
             inventory.Add(item);
