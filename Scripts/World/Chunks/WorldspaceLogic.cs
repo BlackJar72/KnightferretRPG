@@ -88,7 +88,7 @@ namespace kfutils.rpg {
         public void AddChunkManagers() {
             Transform[] chunktrs = chunkHolder.GetComponentsInChildren<Transform>();
             for(int i = 0; i < chunktrs.Length; i++) {
-                if(chunktrs[i].GetComponentInChildren<ChunkManager>() == null) {
+                if((chunktrs[i].parent == chunkHolder.transform) && (chunktrs[i].GetComponentInChildren<ChunkManager>() == null)) {
                     Instantiate(chunkManagerPrefab, chunktrs[i]).transform.localPosition = Vector3.zero;
                 }
             }
