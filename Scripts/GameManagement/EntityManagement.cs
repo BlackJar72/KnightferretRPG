@@ -25,6 +25,10 @@ namespace kfutils.rpg {
             static public List<EntityStamina> waitingToRecover; // Entities whose stamina recovery has not yet started (paused by recnently using stamina)
             static public List<EntityMana> recoveringMana; // Entities that are currently recovering mana
 
+            // Accessor Properties
+            static public Dictionary<string, EntityData> EntityRegistry => entityRegistry;
+
+
             // TODO:  I *NEED* to create a proper entity registry, where copies or all entities can be kept and serialized, allowing all (other?) lists to be
             //        serialized and deserialized in terms of entity IDs through which references to the actual entity can be retrieved for the registry.
             //        Perhaps as a list, or perhaps as dictionary, or perhaps and combination of both.  (For this, entities need unique IDs, of course.)
