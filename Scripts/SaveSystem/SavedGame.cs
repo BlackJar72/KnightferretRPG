@@ -11,13 +11,14 @@ namespace kfutils.rpg {
         [SerializeField] PCTalking playerCharacter;
         [SerializeField] Dictionary<string, ItemData> itemRegistry;
         [SerializeField] Dictionary<string, InventoryData> inventoryData;
-
+        [SerializeField] Dictionary<string, EntityData> entityRegistry;
 
 
         public SavedGame() {
             playerCharacter = EntityManagement.playerCharacter;
             itemRegistry = ItemManagement.itemRegistry;
             inventoryData = InventoryManagement.inventoryData;
+            entityRegistry = EntityManagement.EntityRegistry;
         }
 
 
