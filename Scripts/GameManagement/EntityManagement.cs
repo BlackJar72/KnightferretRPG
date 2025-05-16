@@ -150,47 +150,90 @@ namespace kfutils.rpg {
 
 
 #region Serialization Helpers
-/*
-        /// <summary>
-        /// Get an list of ID that can be serialized.
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
-        public static List<string> GetIDList(this List<IHaveStringID> list) {
-            List<string> output = new List<string>(list.Count); 
-            foreach(IHaveStringID element in list) output.Add(element.ID); 
-            return output;
+
+    public static List<string> GetIDList<T>(List<IHaveStringID> entities) {
+        List<string> result = new();
+        for(int i = 0; i < entities.Count; i++) {
+            result.Add(entities[i].ID);
         }
+        return result;
+    }
 
 
-        public static List<EntityHealth> RebuildHealthList(List<string> serialized) {
-            List<EntityHealth> output = new List<EntityHealth>();
-            foreach(string id in serialized) output.Add(entityRegistry[id].health);
-            return output;
+    public static List<EntityData> RestoreListFromIDs(List<string> IDs) {
+        List<EntityData> result = new();
+        for(int i = 0; i < IDs.Count; i++) {
+            result.Add(entityRegistry[IDs[i]]);
         }
+        return result;
+    }
 
 
-        public static List<EntityStamina> RebuildStaminahList(List<string> serialized) {
-            List<EntityStamina> output = new List<EntityStamina>();
-            foreach(string id in serialized) output.Add(entityRegistry[id].stamina);
-            return output;
+    public static void RestoreListFromIDs(List<string> IDs, List<EntityData> entites) {
+        entites.Clear();
+        for(int i = 0; i < IDs.Count; i++) {
+            // TODO: Recreate entities from data in registry!
+            // TODo / FIXME: Replace entity lists with EntityData lists!!!
+            entites.Add(entityRegistry[IDs[i]]);
         }
+    }
 
 
-        public static List<EntityMana> RebuildHelthList(List<string> serialized) {
-            List<EntityMana> output = new List<EntityMana>();
-            foreach(string id in serialized) output.Add(entityRegistry[id].mana);
-            return output;
+    #region Health, stamina, mana
+    public static List<EntityHealth> RestoreHealthFromIDs(List<string> IDs) {
+        List<EntityHealth> result = new();
+        for(int i = 0; i < IDs.Count; i++) {
+            result.Add(entityRegistry[IDs[i]].livingData.health);
         }
+        return result;
+    }
 
 
-        public static List<EntityLiving> RebuildEntityList(List<string> serialized) {
-            List<EntityLiving> output = new List<EntityLiving>();
-            foreach(string id in serialized) output.Add(entityRegistry[id]);
-            return output;
+    public static void RestoreHealthFromIDs(List<string> IDs, List<EntityHealth> entites) {
+        entites.Clear();
+        for(int i = 0; i < IDs.Count; i++) {
+            entites.Add(entityRegistry[IDs[i]].livingData.health);
         }
+    }
 
-*/
+
+    public static List<EntityStamina> RestoreStaminaFromIDs(List<string> IDs) {
+        List<EntityStamina> result = new();
+        for(int i = 0; i < IDs.Count; i++) {
+            result.Add(entityRegistry[IDs[i]].livingData.stamina);
+        }
+        return result;
+    }
+
+
+    public static void RestoreHealthStaminaDs(List<string> IDs, List<EntityStamina> entites) {
+        entites.Clear();
+        for(int i = 0; i < IDs.Count; i++) {
+            entites.Add(entityRegistry[IDs[i]].livingData.stamina);
+        }
+    }
+
+
+    public static List<EntityMana> RestoreManaFromIDs(List<string> IDs) {
+        List<EntityMana> result = new();
+        for(int i = 0; i < IDs.Count; i++) {
+            result.Add(entityRegistry[IDs[i]].livingData.mana);
+        }
+        return result;
+    }
+
+
+    public static void RestoreHealthManaIDs(List<string> IDs, List<EntityMana> entites) {
+        entites.Clear();
+        for(int i = 0; i < IDs.Count; i++) {
+            entites.Add(entityRegistry[IDs[i]].livingData.mana);
+        }
+    }
+    #endregion
+
+
+
+
 #endregion
 
 

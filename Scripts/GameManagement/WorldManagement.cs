@@ -19,6 +19,7 @@ namespace kfutils.rpg {
         private static readonly Dictionary<string, ChunkData> chunkData = new();
         public static ChunkData GetChunkData(string id) => chunkData.ContainsKey(id) ? chunkData[id] : null;
         public static void StoreChunkData(ChunkData data) => chunkData.Add(data.ID, data);
+        public static Dictionary<string, ChunkData> ChunkDataRegistry => chunkData;
 
 
         public static void SetWorldspace(Worldspace world) {
