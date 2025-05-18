@@ -157,7 +157,7 @@ namespace kfutils.rpg {
 #region Serialization Helpers
 
 
-        public static List<string> GetIDList<T>(List<IHaveStringID> entities)
+        public static List<string> GetIDList(List<IHaveStringID> entities)
         {
             List<string> result = new();
             for (int i = 0; i < entities.Count; i++)
@@ -183,18 +183,80 @@ namespace kfutils.rpg {
             // TODO: Recreate entities from data in registry!
             // TODo / FIXME: Replace entity lists with EntityData lists!!!
             entites.Add(entityRegistry[IDs[i]]);
-        }
+        }    
     }
+
+
+    public static List<EntityHealth> RestoreHealing(List<string> IDs)
+    {
+        healingEntities.Clear();
+        for (int i = 0; i < IDs.Count; i++)
+        {
+                if (entityRegistry.ContainsKey(IDs[i]))
+                {
+                    healingEntities.Add(entityRegistry[IDs[i]].livingData.health);
+                }
+        }
+        return healingEntities;
+    }
+
+
+    public static List<EntityHealth> RestoreWaitingToHeal(List<string> IDs)
+    {
+        waitingToHeal.Clear();
+        for (int i = 0; i < IDs.Count; i++)
+        {
+            if(entityRegistry.ContainsKey(IDs[i])) waitingToHeal.Add(entityRegistry[IDs[i]].livingData.health);
+        }
+        return waitingToHeal;
+    }
+
+
+    public static List<EntityStamina> RestoreRecoving(List<string> IDs)
+    {
+        recoveringEntities.Clear();
+        for (int i = 0; i < IDs.Count; i++)
+        {
+            if(entityRegistry.ContainsKey(IDs[i])) recoveringEntities.Add(entityRegistry[IDs[i]].livingData.stamina);
+        }
+        return recoveringEntities;
+    }
+
+
+    public static List<EntityStamina> RestoreWaitingToRecover(List<string> IDs)
+    {
+        waitingToRecover.Clear();
+        for (int i = 0; i < IDs.Count; i++)
+        {
+            if(entityRegistry.ContainsKey(IDs[i])) waitingToRecover.Add(entityRegistry[IDs[i]].livingData.stamina);
+        }
+        return waitingToRecover;
+    }
+
+
+    public static List<EntityMana> RestoreRecovingMana(List<string> IDs)
+    {
+        recoveringMana.Clear();
+        for (int i = 0; i < IDs.Count; i++)
+        {
+            if(entityRegistry.ContainsKey(IDs[i])) recoveringMana.Add(entityRegistry[IDs[i]].livingData.mana);
+        }
+        return recoveringMana;
+    }
+    
+
 
 
     #region Health, stamina, mana
-    public static List<EntityHealth> RestoreHealthFromIDs(List<string> IDs) {
-        List<EntityHealth> result = new();
-        for(int i = 0; i < IDs.Count; i++) {
-            result.Add(entityRegistry[IDs[i]].livingData.health);
+        public static List<EntityHealth> RestoreHealthFromIDs(List<string> IDs)
+        {
+            List<EntityHealth> result = new();
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                result.Add(entityRegistry[IDs[i]].livingData.health);
+            }
+            return result;
         }
-        return result;
-    }
 
 
     public static void RestoreHealthFromIDs(List<string> IDs, List<EntityHealth> entites) {

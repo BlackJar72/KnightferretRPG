@@ -31,7 +31,25 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void Awake() {
+        public virtual void CopyInto(object other) {
+            EntityLiving living = other as EntityLiving;
+            if(living != null)
+            {
+
+            }            
+        }
+
+
+        protected virtual void Awake()
+        {
+            health.SetOnwer(this);
+            stamina.SetOnwer(this);
+            mana.SetOnwer(this);
+        }
+
+
+        protected virtual void Start()
+        {
             health.SetOnwer(this);
             stamina.SetOnwer(this);
             mana.SetOnwer(this);
@@ -65,13 +83,6 @@ namespace kfutils.rpg {
             data.livingData.health = health;
             data.livingData.stamina = stamina;
             data.livingData.mana = mana;
-        }
-
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        protected virtual void Start()
-        {
-
         }
 
 

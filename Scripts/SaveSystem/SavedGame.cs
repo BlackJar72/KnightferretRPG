@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -6,7 +7,8 @@ namespace kfutils.rpg {
 
 
     [System.Serializable]
-    public class SavedGame {
+    public class SavedGame
+    {
 
         // Player save data
         [SerializeField] PCTalking playerCharacter;
@@ -16,7 +18,7 @@ namespace kfutils.rpg {
         [SerializeField] Dictionary<string, EntityData> entityRegistry;
         [SerializeField] Dictionary<string, ChunkData> chunkData;
 
-        
+
         // Active Lists
 
         // Gameplay effect lists
@@ -27,7 +29,8 @@ namespace kfutils.rpg {
         [SerializeField] List<EntityMana> recoveringMana; // Entities that are currently recovering mana
 
 
-        public SavedGame() {
+        public SavedGame()
+        {
             playerCharacter = EntityManagement.playerCharacter;
             itemRegistry = ItemManagement.itemRegistry;
             inventoryData = InventoryManagement.inventoryData;
@@ -38,11 +41,11 @@ namespace kfutils.rpg {
             // Active Lists
 
             // Gameplay effect lists
-            healingEntities = EntityManagement.healingEntities; 
-            waitingToHeal = EntityManagement.waitingToHeal; 
-            recoveringEntities = EntityManagement.recoveringEntities; 
-            waitingToRecover = EntityManagement.waitingToRecover; 
-            recoveringMana = EntityManagement.recoveringMana; 
+            healingEntities = EntityManagement.healingEntities;
+            waitingToHeal = EntityManagement.waitingToHeal;
+            recoveringEntities = EntityManagement.recoveringEntities;
+            waitingToRecover = EntityManagement.waitingToRecover;
+            recoveringMana = EntityManagement.recoveringMana;
         }
 
 
@@ -55,6 +58,11 @@ namespace kfutils.rpg {
             ES3.Save("EntityRegistry", entityRegistry, "TestSave.es3");
             ES3.Save("ChunkData", chunkData, "TestSave.es3");
             // TODO: More, much, much more...
+            ES3.Save("HealingEntities", EntityManagement.GetIDList(healingEntities.Cast<IHaveStringID>().ToList()), "TestSave.es3");
+            ES3.Save("WaitingToHeal", EntityManagement.GetIDList(waitingToHeal.Cast<IHaveStringID>().ToList()), "TestSave.es3");
+            ES3.Save("ReoveringEntities", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), "TestSave.es3");
+            ES3.Save("WaitingToRecover", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), "TestSave.es3");
+            ES3.Save("RecoveringMana", EntityManagement.GetIDList(recoveringMana.Cast<IHaveStringID>().ToList()), "TestSave.es3");
         }
 
 
@@ -71,7 +79,24 @@ namespace kfutils.rpg {
             InventoryManagement.SetInventoryData(inventoryData);
             EntityManagement.SetEntityRegistry(entityRegistry);
             WorldManagement.SetChunkData(chunkData);
+
+            // FIXME: Entities and there data are partially separated in this
+            healingEntities = EntityManagement.RestoreHealing(LoadStringIDList("HealingEntities", "TestSave.es3"));
+            waitingToHeal = EntityManagement.RestoreWaitingToHeal(LoadStringIDList("WaitingToHeal", "TestSave.es3"));
+            recoveringEntities = EntityManagement.RestoreRecoving(LoadStringIDList("ReoveringEntities", "TestSave.es3"));
+            waitingToRecover = EntityManagement.RestoreWaitingToRecover(LoadStringIDList("WaitingToRecover", "TestSave.es3"));
+            recoveringMana = EntityManagement.RestoreRecovingMana(LoadStringIDList("RecoveringMana", "TestSave.es3"));
         }
+
+
+        public List<string> LoadStringIDList(string saveKey, string filePath)
+        {
+            object tmp = ES3.Load(saveKey, filePath);
+            List<string> tmplist = tmp as List<string>;
+            return tmplist;
+        }
+        
+
 
     }
 
