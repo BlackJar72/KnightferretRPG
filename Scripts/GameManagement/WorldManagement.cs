@@ -16,7 +16,7 @@ namespace kfutils.rpg {
 
         public static readonly Dictionary<string, TeleportMarker> teleportMarkers = new();
 
-        private static readonly Dictionary<string, ChunkData> chunkData = new();
+        private static Dictionary<string, ChunkData> chunkData = new();
         public static ChunkData GetChunkData(string id) => chunkData.ContainsKey(id) ? chunkData[id] : null;
         public static void StoreChunkData(ChunkData data) => chunkData.Add(data.ID, data);
         public static Dictionary<string, ChunkData> ChunkDataRegistry => chunkData;
@@ -83,6 +83,11 @@ namespace kfutils.rpg {
             if(logic != null) {
                 logic.Init();
             }
+        }
+
+
+        public static void SetChunkData(Dictionary<string, ChunkData> loaded) {
+            chunkData = loaded;
         }
 
 

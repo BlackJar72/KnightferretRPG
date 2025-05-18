@@ -10,8 +10,15 @@ namespace kfutils.rpg {
     [RequireComponent(typeof(UIManager))]
     public class GameManager : MonoBehaviour {
 
+
+        public bool loadTestSave; // Temporary field for early save testing
+
+
         [SerializeField] UIManager ui;
         public UIManager UIManager { get => ui; }
+
+        [SerializeField] GameItemSet itemsInGame;
+        public GameItemSet ItemsInGame => itemsInGame;
 
         private static GameManager instacnce;
         public static GameManager Instance { get => instacnce; }
@@ -25,13 +32,22 @@ namespace kfutils.rpg {
         void Awake() {
             // Makeing this a true singleton, and warning with an error message if extra copies were made
             if(instacnce == null) instacnce = this;
-            else if(instacnce != this) {
-                Debug.LogError("WARNING! GameManager was placed in scenes more than once, at " 
+            else if (instacnce != this) {
+                Debug.LogError("WARNING! GameManager was placed in scenes more than once, at "
                             + instacnce.gameObject.name + " and then at " + gameObject.name + "!");
                 Destroy(instacnce);
                 instacnce = this;
             }
+            // FIXME: This should ultimately be run at start-up, not entry into gameplay, once a start screen is added
+            ItemPrototype[] itemPrototypes = itemsInGame.Items;
+            for (int i = 0; i < itemPrototypes.Length; i++) {
+                ItemManagement.AddItemPrototype(itemPrototypes[i]);
+            }
             EntityManagement.Initialize();
+            if (loadTestSave) {
+                SavedGame savedGame = new();
+                savedGame.Load();
+            }
         }
 
 

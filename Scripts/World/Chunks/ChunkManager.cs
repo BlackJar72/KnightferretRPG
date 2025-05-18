@@ -73,10 +73,7 @@ namespace kfutils.rpg {
                 Destroy(items[i].gameObject);                
             }
             for(int i = 0; i < data.ItemsInChunkList.Count; i++) {
-                //Debug.Log(data.ItemsInChunkList[i]);
                 ItemData itemData = ItemManagement.GetItem(data.ItemsInChunkList[i]);
-                //Debug.Log(itemData);
-                //Debug.Log(itemData.Prototype);
                 ItemInWorld spawned = Instantiate(itemData.Prototype.InWorld, looseItems);
                 spawned.transform.SetDataGlobal(itemData.TransformData);
                 spawned.SetID(itemData.ID);

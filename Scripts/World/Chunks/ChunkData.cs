@@ -13,14 +13,14 @@ namespace kfutils.rpg {
     /// </summary>
     public class ChunkData {
 
-        private string id;
-        private bool clean = true; // First time loaded, and should be treated as such
+        [SerializeField] string id;
+        [SerializeField] bool clean = true; // First time loaded, and should be treated as such
 
 
         public string ID => id;
         public bool Clean => clean;
 
-        private readonly List<string> itemsInChunk = new();
+        [SerializeField] List<string> itemsInChunk = new();
         public List<string> ItemsInChunkList => itemsInChunk;
 
 

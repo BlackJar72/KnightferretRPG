@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
- 
+
 
 namespace kfutils.rpg {
 
@@ -51,6 +51,11 @@ namespace kfutils.rpg {
                 recoveringEntities = new List<EntityStamina>();
                 waitingToRecover = new List<EntityStamina>();
                 recoveringMana = new List<EntityMana>();
+            }
+
+
+            public static void SetEntityRegistry(Dictionary<string, EntityData> loaded) {
+                entityRegistry = loaded;
             }
 
 
@@ -146,18 +151,21 @@ namespace kfutils.rpg {
                     }
                 }
             }
-#endregion
+        #endregion
 
 
 #region Serialization Helpers
 
-    public static List<string> GetIDList<T>(List<IHaveStringID> entities) {
-        List<string> result = new();
-        for(int i = 0; i < entities.Count; i++) {
-            result.Add(entities[i].ID);
+
+        public static List<string> GetIDList<T>(List<IHaveStringID> entities)
+        {
+            List<string> result = new();
+            for (int i = 0; i < entities.Count; i++)
+            {
+                result.Add(entities[i].ID);
+            }
+            return result;
         }
-        return result;
-    }
 
 
     public static List<EntityData> RestoreListFromIDs(List<string> IDs) {

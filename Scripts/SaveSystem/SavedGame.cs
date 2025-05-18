@@ -15,6 +15,8 @@ namespace kfutils.rpg {
         [SerializeField] Dictionary<string, InventoryData> inventoryData;
         [SerializeField] Dictionary<string, EntityData> entityRegistry;
         [SerializeField] Dictionary<string, ChunkData> chunkData;
+
+        
         // Active Lists
 
         // Gameplay effect lists
@@ -44,13 +46,31 @@ namespace kfutils.rpg {
         }
 
 
-        public void Save(/*TODO: Identifier for save file*/) {
+        public void Save(/*TODO: Identifier for save file*/)
+        {
             // TODO: Save tha game data as a file
+            ES3.Save("PlaterData", playerCharacter, "TestSave.es3");
+            ES3.Save("ItemRegistry", itemRegistry, "TestSave.es3");
+            ES3.Save("InventoryData", inventoryData, "TestSave.es3");
+            ES3.Save("EntityRegistry", entityRegistry, "TestSave.es3");
+            ES3.Save("ChunkData", chunkData, "TestSave.es3");
+            // TODO: More, much, much more...
         }
 
 
-        public void Load(/*TODO: Identifier for save file*/) {
+        public void Load(/*TODO: Identifier for save file*/)
+        {
             // TODO: Load the game data
+            itemRegistry = ES3.Load("ItemRegistry", "TestSave.es3", itemRegistry);
+            inventoryData = ES3.Load("InventoryData", "TestSave.es3", inventoryData);
+            entityRegistry = ES3.Load("EntityRegistry", "TestSave.es3", entityRegistry);
+            chunkData = ES3.Load("ChunkData", "TestSave.es3", chunkData);
+
+            // Set runtime data
+            ItemManagement.SetItemData(itemRegistry);
+            InventoryManagement.SetInventoryData(inventoryData);
+            EntityManagement.SetEntityRegistry(entityRegistry);
+            WorldManagement.SetChunkData(chunkData);
         }
 
     }
