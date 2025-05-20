@@ -25,6 +25,9 @@ namespace kfutils.rpg {
         [SerializeField] protected Transform eyeY;
 
 
+        [SerializeField] protected PCData data;
+        public PCData Data => data;
+
         // Camera
         public GameObject camPivot;
         public Camera playerCam;

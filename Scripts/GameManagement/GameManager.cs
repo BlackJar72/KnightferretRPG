@@ -46,7 +46,7 @@ namespace kfutils.rpg {
             EntityManagement.Initialize();
             if (loadTestSave) {
                 SavedGame savedGame = new();
-                savedGame.Load();
+                savedGame.LoadWorld("TestSave");
             }
         }
 

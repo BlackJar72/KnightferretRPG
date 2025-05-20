@@ -10,8 +10,10 @@ namespace kfutils.rpg {
     public class SavedGame
     {
 
+        const string saveFileExtension = ".es3";
+
         // Player save data
-        [SerializeField] PCTalking playerCharacter;
+        [SerializeField] PCData pcData = new();
         // Main Registries
         [SerializeField] Dictionary<string, ItemData> itemRegistry;
         [SerializeField] Dictionary<string, InventoryData> inventoryData;
@@ -31,7 +33,7 @@ namespace kfutils.rpg {
 
         public SavedGame()
         {
-            playerCharacter = EntityManagement.playerCharacter;
+            pcData = EntityManagement.playerCharacter == null ? null : EntityManagement.playerCharacter.Data;
             itemRegistry = ItemManagement.itemRegistry;
             inventoryData = InventoryManagement.inventoryData;
             entityRegistry = EntityManagement.EntityRegistry;
@@ -49,30 +51,36 @@ namespace kfutils.rpg {
         }
 
 
-        public void Save(/*TODO: Identifier for save file*/)
+        public void Save(string saveName)
         {
+            string fileName = saveName + saveFileExtension;
             // TODO: Save tha game data as a file
-            ES3.Save("PlaterData", playerCharacter, "TestSave.es3");
-            ES3.Save("ItemRegistry", itemRegistry, "TestSave.es3");
-            ES3.Save("InventoryData", inventoryData, "TestSave.es3");
-            ES3.Save("EntityRegistry", entityRegistry, "TestSave.es3");
-            ES3.Save("ChunkData", chunkData, "TestSave.es3");
+            ES3.Save("PCData", pcData, fileName);
+            ES3.Save("ItemRegistry", itemRegistry, fileName);
+            ES3.Save("InventoryData", inventoryData, fileName);
+            ES3.Save("EntityRegistry", entityRegistry, fileName);
+            ES3.Save("ChunkData", chunkData, fileName);
             // TODO: More, much, much more...
-            ES3.Save("HealingEntities", EntityManagement.GetIDList(healingEntities.Cast<IHaveStringID>().ToList()), "TestSave.es3");
-            ES3.Save("WaitingToHeal", EntityManagement.GetIDList(waitingToHeal.Cast<IHaveStringID>().ToList()), "TestSave.es3");
-            ES3.Save("ReoveringEntities", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), "TestSave.es3");
-            ES3.Save("WaitingToRecover", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), "TestSave.es3");
-            ES3.Save("RecoveringMana", EntityManagement.GetIDList(recoveringMana.Cast<IHaveStringID>().ToList()), "TestSave.es3");
+            ES3.Save("HealingEntities", EntityManagement.GetIDList(healingEntities.Cast<IHaveStringID>().ToList()), fileName);
+            ES3.Save("WaitingToHeal", EntityManagement.GetIDList(waitingToHeal.Cast<IHaveStringID>().ToList()), fileName);
+            ES3.Save("ReoveringEntities", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), fileName);
+            ES3.Save("WaitingToRecover", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), fileName);
+            ES3.Save("RecoveringMana", EntityManagement.GetIDList(recoveringMana.Cast<IHaveStringID>().ToList()), fileName);
         }
 
 
-        public void Load(/*TODO: Identifier for save file*/)
+        /// <summary>
+        /// Call this before the world scene is loaded, to setup shared (static) data.
+        /// </summary>
+        /// <param name="saveName"></param>
+        public void LoadWorld(string saveName)
         {
+            string fileName = saveName + saveFileExtension;
             // TODO: Load the game data
-            itemRegistry = ES3.Load("ItemRegistry", "TestSave.es3", itemRegistry);
-            inventoryData = ES3.Load("InventoryData", "TestSave.es3", inventoryData);
-            entityRegistry = ES3.Load("EntityRegistry", "TestSave.es3", entityRegistry);
-            chunkData = ES3.Load("ChunkData", "TestSave.es3", chunkData);
+            itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
+            inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
+            entityRegistry = ES3.Load("EntityRegistry", fileName, entityRegistry);
+            chunkData = ES3.Load("ChunkData", fileName, chunkData);
 
             // Set runtime data
             ItemManagement.SetItemData(itemRegistry);
@@ -81,11 +89,28 @@ namespace kfutils.rpg {
             WorldManagement.SetChunkData(chunkData);
 
             // FIXME: Entities and there data are partially separated in this
-            healingEntities = EntityManagement.RestoreHealing(LoadStringIDList("HealingEntities", "TestSave.es3"));
-            waitingToHeal = EntityManagement.RestoreWaitingToHeal(LoadStringIDList("WaitingToHeal", "TestSave.es3"));
-            recoveringEntities = EntityManagement.RestoreRecoving(LoadStringIDList("ReoveringEntities", "TestSave.es3"));
-            waitingToRecover = EntityManagement.RestoreWaitingToRecover(LoadStringIDList("WaitingToRecover", "TestSave.es3"));
-            recoveringMana = EntityManagement.RestoreRecovingMana(LoadStringIDList("RecoveringMana", "TestSave.es3"));
+            healingEntities = EntityManagement.RestoreHealing(LoadStringIDList("HealingEntities", fileName));
+            waitingToHeal = EntityManagement.RestoreWaitingToHeal(LoadStringIDList("WaitingToHeal", fileName));
+            recoveringEntities = EntityManagement.RestoreRecoving(LoadStringIDList("ReoveringEntities", fileName));
+            waitingToRecover = EntityManagement.RestoreWaitingToRecover(LoadStringIDList("WaitingToRecover", fileName));
+            recoveringMana = EntityManagement.RestoreRecovingMana(LoadStringIDList("RecoveringMana", fileName));
+        }
+
+
+        /// <summary>
+        /// Call this from player character class (PCTaling and its ancestors) after the game object has been properly 
+        /// loaded (during Start() at least for now) to load data that needs to be set.  This needed because loading to 
+        /// early creates an error as the objects do not exist, while trying to cache the data into a static context crashes 
+        /// the engine for some reason.
+        /// </summary>
+        /// <param name="saveName"></param>
+        /// <param name="oldData"></param>
+        /// <returns></returns>
+        public PCData LoadPlayer(string saveName, PCData oldData)
+        {
+            string fileName = saveName + saveFileExtension;
+            pcData = ES3.Load("PCData", fileName, oldData);
+            return pcData;
         }
 
 
