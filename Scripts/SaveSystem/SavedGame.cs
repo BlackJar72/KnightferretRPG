@@ -10,7 +10,8 @@ namespace kfutils.rpg {
     public class SavedGame
     {
 
-        const string saveFileExtension = ".es3";
+        public const string saveSubdir = "saves/";
+        public const string saveFileExtension = ".es3";
 
         // Player save data
         [SerializeField] PCData pcData = new();
@@ -53,7 +54,7 @@ namespace kfutils.rpg {
 
         public void Save(string saveName)
         {
-            string fileName = saveName + saveFileExtension;
+            string fileName = saveSubdir + saveName + saveFileExtension;
             // TODO: Save tha game data as a file
             ES3.Save("PCData", pcData, fileName);
             ES3.Save("ItemRegistry", itemRegistry, fileName);
@@ -75,7 +76,7 @@ namespace kfutils.rpg {
         /// <param name="saveName"></param>
         public void LoadWorld(string saveName)
         {
-            string fileName = saveName + saveFileExtension;
+            string fileName = saveSubdir + saveName + saveFileExtension;
             // TODO: Load the game data
             itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
             inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
@@ -108,7 +109,7 @@ namespace kfutils.rpg {
         /// <returns></returns>
         public PCData LoadPlayer(string saveName, PCData oldData)
         {
-            string fileName = saveName + saveFileExtension;
+            string fileName = saveSubdir + saveName + saveFileExtension;
             pcData = ES3.Load("PCData", fileName, oldData);
             return pcData;
         }
