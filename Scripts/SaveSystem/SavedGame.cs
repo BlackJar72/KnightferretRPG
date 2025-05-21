@@ -33,7 +33,7 @@ namespace kfutils.rpg {
 
         public SavedGame()
         {
-            pcData = EntityManagement.playerCharacter == null ? null : EntityManagement.playerCharacter.Data;
+            pcData = EntityManagement.playerCharacter == null ? null : EntityManagement.playerCharacter.GetPCData();
             itemRegistry = ItemManagement.itemRegistry;
             inventoryData = InventoryManagement.inventoryData;
             entityRegistry = EntityManagement.EntityRegistry;

@@ -192,13 +192,35 @@ namespace kfutils.rpg {
         public void QuickSlot7(InputAction.CallbackContext context) => inventory.UseHotbar(6);
         public void QuickSlot8(InputAction.CallbackContext context) => inventory.UseHotbar(7);
         public void QuickSlot9(InputAction.CallbackContext context) => inventory.UseHotbar(8);
+
+
+        #endregion
+
+
+#region Saving / Loading
+
+
+        protected PCData GetActionData(PCData data)
+        {
+
+            return data;
+        }
+
+
+        protected void SetFromActinData(PCData data)
+        {
+            
+        }
+
+
         
+
 
 #endregion
 
 
-
-        public void GetAimParams(out AimParams aim) {
+        public void GetAimParams(out AimParams aim)
+        {
             aim.from = playerCam.transform.position;
             aim.toward = playerCam.transform.forward;
         }

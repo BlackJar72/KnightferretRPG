@@ -53,7 +53,8 @@ namespace kfutils.rpg {
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start() {
-            startingWorldspace.LoadAsSpawn();
+            if (loadTestSave) startingWorldspace.Load();
+            else startingWorldspace.LoadAsSpawn();
             if(ui == null) ui = GetComponent<UIManager>(); 
             if(ui == null) Debug.LogError("No UI Manager provided for game manager!"); 
         }
@@ -65,8 +66,9 @@ namespace kfutils.rpg {
             EntityManagement.Update();
             // Other game management stuff will go here
             InventoryManagement.DoRedraws();
-            for(int i = specialUpdates.Count - 1; i > -1; i--) {
-                if(specialUpdates[i]()) specialUpdates.RemoveAt(i);            
+            for (int i = specialUpdates.Count - 1; i > -1; i--)
+            {
+                if (specialUpdates[i]()) specialUpdates.RemoveAt(i);
             }
 
         }

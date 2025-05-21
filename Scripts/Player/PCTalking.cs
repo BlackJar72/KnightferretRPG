@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 namespace kfutils.rpg {
 
-    public class PCTalking : PCActing {
+    public class PCTalking : PCActing
+    {
 
         [SerializeField] string characterName;
 
@@ -12,47 +13,59 @@ namespace kfutils.rpg {
         // Input System1
         protected InputAction questJournalAction;
 
-        
 
 
-        protected override void Awake() {
-            EntityManagement.playerCharacter = this; 
+
+        protected override void Awake()
+        {
+            EntityManagement.playerCharacter = this;
             base.Awake();
-            InitInput(); 
+            InitInput();
         }
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        protected override void Start() {
+        protected override void Start()
+        {
             base.Start();
+            if (GameManager.Instance.loadTestSave)
+            {
+                data = GetPCData();
+                SavedGame save = new();
+                data = save.LoadPlayer("TestSave", data);
+                SetPCData(data);
+            }
         }
 
 
         // Update is called once per frame
-        protected override void Update() {
+        protected override void Update()
+        {
             base.Update();
-            
+
         }
 
 
-#region Input
+        #region Input
 
         private void InitInput()
-        {   
+        {
             activateObjectAction = input.actions["Interact"];
             questJournalAction = input.actions["OpenCloseInventory"];
-            
+
         }
 
 
-        protected override void EnableAction() {
+        protected override void EnableAction()
+        {
             base.EnableAction();
             rightAttackAction.started += Dummy;
-            activateObjectAction.started += Interact;        
+            activateObjectAction.started += Interact;
         }
 
 
-        protected override void DisableAction() {
+        protected override void DisableAction()
+        {
             base.DisableAction();
             rightAttackAction.started -= Dummy;
             activateObjectAction.started -= Interact;
@@ -60,10 +73,10 @@ namespace kfutils.rpg {
 
 
         protected override void OnEnable()
-        {   
+        {
             base.OnEnable();
             EnableAction();
-            
+
         }
 
 
@@ -71,11 +84,11 @@ namespace kfutils.rpg {
         {
             base.OnDisable();
             DisableAction();
-            
+
         }
 
 
-#endregion
+        #endregion
 
 
         public override string GetPersonalName()
@@ -90,6 +103,29 @@ namespace kfutils.rpg {
             // TODO: Check for characters to interact with first!
             base.Interact(context);
         }
+
+
+#region Save Handling
+
+
+        public PCData GetPCData()
+        {
+            PCData result = new();
+            result = GetMovingData(result);
+
+            return result;
+        }
+
+
+        public void SetPCData(PCData loaded)
+        {
+            SetFromMovingData(loaded);
+        } 
+
+
+
+
+#endregion
 
 
 
