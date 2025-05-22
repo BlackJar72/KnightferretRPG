@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9052233238589612611}
   - component: {fileID: 7060585134677752368}
   - component: {fileID: 1514384810171521796}
+  - component: {fileID: 5999957349329214391}
   m_Layer: 5
   m_Name: SaveLoadPanel
   m_TagString: Untagged
@@ -92,12 +93,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3b70fdb01ce7b85a443f1f60cc82a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shower: {fileID: 5999957349329214391}
   saveMenuItemPrefab: {fileID: 3417533226640787574, guid: a77e7b97e2bcd5c488bb133543517cf0, type: 3}
   loadMenuItemPrefab: {fileID: 3417533226640787574, guid: 4ce06dfe8987133128dd0a7753b39dc8, type: 3}
   savePanel: {fileID: 8661053093514646681}
   saveContentArea: {fileID: 7542387744878751282}
   loadPanel: {fileID: 8802682144085748963}
   loadContentArea: {fileID: 4049409364034707041}
+  loadingScreen: {fileID: 0}
+--- !u!114 &5999957349329214391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426820037746257286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56708526aa8b5179899a1563182a5c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showAtStart: 0
 --- !u!1 &641110479587287415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1331,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8450702336928745590}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1514384810171521796}
+        m_TargetAssemblyTypeName: kfutils.rpg.SaveLoadUI, Assembly-CSharp
+        m_MethodName: SetHidden
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4049409364034707041
 GameObject:
   m_ObjectHideFlags: 0

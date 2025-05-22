@@ -41,6 +41,7 @@ namespace kfutils.rpg {
         protected InputAction quickSlot8Action;
         protected InputAction quickSlot9Action;
         protected InputAction screenshot;
+        protected InputAction togglePauseMenu;
 
 
         // Accessor Properties
@@ -87,6 +88,7 @@ namespace kfutils.rpg {
             rightAttackAction = input.actions["RightUseAttack"];
             activateObjectAction = input.actions["Interact"];
             castSpellAction = input.actions["CastSpell"];
+            togglePauseMenu = input.actions["TogglePauseMenu"];
             // Hotbar Quickslots
             quickSlot1Action = input.actions["Hotbar1"];
             quickSlot2Action = input.actions["Hotbar2"];
@@ -117,15 +119,18 @@ namespace kfutils.rpg {
         }
 
 
-        protected void EnableUIActions() {
+        protected void EnableUIActions()
+        {
             toggleInventoryAction.started += ToggleCharacterSheet;
             InventoryManagement.toggleCharacterSheet += ToggleCharacterSheet;
+            togglePauseMenu.started += TogglePauseMenu;
         }
 
 
         protected void DisableUIActions() {
             toggleInventoryAction.started -= ToggleCharacterSheet;   
-            InventoryManagement.toggleCharacterSheet -= ToggleCharacterSheet;         
+            InventoryManagement.toggleCharacterSheet -= ToggleCharacterSheet;  
+            togglePauseMenu.started -= TogglePauseMenu;       
         }
 
 
@@ -202,15 +207,14 @@ namespace kfutils.rpg {
 
         protected PCData GetActionData(PCData data)
         {
-
             return data;
         }
 
 
-        protected void SetFromActinData(PCData data)
+        protected void TogglePauseMenu(InputAction.CallbackContext context)
         {
-            
-        }
+            gameManager.UIManager.ToggleSaveMenu();
+        } 
 
 
         

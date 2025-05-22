@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using kfutils.rpg.ui;
 using UnityEngine;
 
 
@@ -11,6 +12,7 @@ namespace kfutils.rpg
     public class SaveLoadUI : MonoBehaviour
     {
 
+        [SerializeField] ShowOrHide shower;
         [SerializeField] GameObject saveMenuItemPrefab;
         [SerializeField] GameObject loadMenuItemPrefab;
 
@@ -29,6 +31,8 @@ namespace kfutils.rpg
 
         private List<SaveButtonUI> saveButtons = new();
         private List<LoadButtonUI> loadButtons = new();
+
+        public bool IsVisible => shower.IsVisible;
 
 
         void OnEnable()
@@ -140,8 +144,57 @@ namespace kfutils.rpg
                 PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
                 EntityManagement.playerCharacter.SetPCData(pcData);
             yield return new WaitForEndOfFrame();
-                Time.timeScale = 1.0f;
                 loadingScreen.SetActive(false);
+                Time.timeScale = 1.0f;
+                InventoryManagement.SignalCloseUIs();
+                GameManager.Instance.UIManager.CloseCharacterSheet();
+                GameManager.Instance.UIManager.HideSaveMenu();
+                EntityManagement.playerCharacter.AllowActions(true);
+        }
+
+
+        public void SetVisible()
+        {
+            Time.timeScale = 0.0f;
+            EntityManagement.playerCharacter.AllowActions(false);
+            Cursor.lockState = CursorLockMode.None;
+            shower.SetVisible();
+        }
+
+
+        public void SetVisible(bool show)
+        {
+            if (show) Time.timeScale = 1.0f;
+            else Time.timeScale = 0.0f;
+            Time.timeScale = 0.0f;
+            bool canMove = !(show || GameManager.Instance.UIManager.CharacterSheetVisible);
+            EntityManagement.playerCharacter.AllowActions(canMove);
+            if(canMove) Cursor.lockState = CursorLockMode.Locked;
+            else Cursor.lockState = CursorLockMode.None;
+            shower.SetVisible(show);
+        }
+
+
+        public void SetHidden()
+        {
+            Time.timeScale = 1.0f;
+            bool canMove = !GameManager.Instance.UIManager.CharacterSheetVisible;
+            EntityManagement.playerCharacter.AllowActions(canMove);
+            if(canMove) Cursor.lockState = CursorLockMode.Locked;
+            else Cursor.lockState = CursorLockMode.None;
+            shower.SetHidden();
+        }
+
+
+        public void Toggle()
+        {
+            shower.Toggle();
+            bool canMove = !(shower.IsVisible || GameManager.Instance.UIManager.CharacterSheetVisible);
+            EntityManagement.playerCharacter.AllowActions(canMove);
+            if(canMove) Cursor.lockState = CursorLockMode.Locked;
+            else Cursor.lockState = CursorLockMode.None;
+            if (shower.IsVisible) Time.timeScale = 0.0f;
+            else Time.timeScale = 1.0f;
         }
 
 

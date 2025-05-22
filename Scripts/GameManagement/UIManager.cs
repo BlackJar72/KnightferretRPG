@@ -18,6 +18,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemToolTipUI itemToolTipUI;
         [SerializeField] ItemStackManipulator itemStackManipulator;
         [SerializeField] EquiptmentPanel pcEquiptPanel;
+        [SerializeField] SaveLoadUI saveLoadPanel;
 
 
         public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
@@ -88,6 +89,22 @@ namespace kfutils.rpg {
         public bool IsContainerUIVisible => containerUI.IsVisible;
 
 
+        public bool ToggleSaveMenu(bool saveing = true) {
+            saveLoadPanel.Toggle();
+            if (saveing) saveLoadPanel.SetToSavePanel();
+            else saveLoadPanel.SetToLoadPanel();
+            if (saveLoadPanel.IsVisible) Cursor.lockState = CursorLockMode.None;
+            else Cursor.lockState = CursorLockMode.Locked;
+            return saveLoadPanel.IsVisible;
+        }
+
+
+        public bool HideSaveMenu() {
+            saveLoadPanel.SetHidden();
+            return characterPanelToggler.IsVisible;
+        }
+
+
         public bool ToggleCharacterSheet() {
             characterPanelToggler.Toggle();
             if(characterPanelToggler.IsVisible) {
@@ -111,16 +128,33 @@ namespace kfutils.rpg {
         public void CloseContainerUI() {
             containerUI.SetHidden();
         }
+
+
+        public void CloseCharacterSheet()
+        {
+            characterPanelToggler.SetHidden();
+            CloseGUI();
+            CloseContainerUI();
+            HideItemToolTip();
+            HideItemStackManipulator();
+        }
+
+
+        public bool CharacterSheetVisible => characterPanelToggler.IsVisible;
  
 
-        public void ToggleContainerUI(Inventory inventory, Container container, GameObject from) {
-            if(containerUI.IsVisible) {
+        public void ToggleContainerUI(Inventory inventory, Container container, GameObject from)
+        {
+            if (containerUI.IsVisible)
+            {
                 CloseGUI();
                 CloseContainerUI();
                 characterPanelToggler.SetHidden();
                 Cursor.lockState = CursorLockMode.Locked;
                 EntityManagement.playerCharacter.AllowActions(true);
-            } else {
+            }
+            else
+            {
                 OpenGUI();
                 OpenContainerUI(inventory, container);
                 characterPanelToggler.SetVisible();

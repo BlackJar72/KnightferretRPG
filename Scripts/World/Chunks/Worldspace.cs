@@ -73,12 +73,14 @@ namespace kfutils.rpg {
             EntityManagement.playerCharacter.Teleport(defaultStartLocation);
             Time.timeScale = 1.0f;
         }
-        
 
-        public void LoadForSave(Worldspace old = null) {
-            if(old != null) SceneManager.UnloadSceneAsync(old.scenePath);
+
+        public void LoadForSave(Worldspace old = null)
+        {
+            if (old != null) SceneManager.UnloadSceneAsync(old.scenePath);
             SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
             WorldManagement.SetWorldspace(this);
+            //Time.timeScale = 1.0f;
         }
 
 
