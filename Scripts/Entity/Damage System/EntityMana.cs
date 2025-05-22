@@ -1,5 +1,6 @@
 using System;
 using kfutils.rpg;
+using Unity.Entities;
 using UnityEngine;
 
 
@@ -39,6 +40,13 @@ namespace kfutils {
             copy.currentMana = currentMana;
             owner = null;
             return copy;
+        }
+
+
+        public void CopyInto(EntityMana other) {
+            baseMana = other.baseMana;
+            currentMana = other.currentMana;
+            // TODO: Add copying of time to heal once that is based on global time.
         }
 
 

@@ -55,6 +55,17 @@ namespace kfutils.rpg {
             return copy;
         }
 
+
+        public void CopyInto(EntityBaseStats other) {
+            strength = other.strength;
+            agility = other.agility;
+            vitality = other.vitality;
+            endurance = other.endurance;
+            intelligence = other.intelligence;
+            charisma = other.charisma;
+            spirit = other.spirit;
+        }
+
     }
 
 }

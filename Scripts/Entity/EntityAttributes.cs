@@ -52,6 +52,7 @@ namespace kfutils.rpg {
 
         public EntityAttributes Copy() {
             EntityAttributes copy = new();
+            copy.baseStats.CopyInto(baseStats);
             copy.level = level; // The level of the entity; only used for player character and NPCs of playable races
             copy.crouchSpeed = crouchSpeed; // Movement speed
             copy.walkSpeed = walkSpeed; // Movement speed
@@ -66,6 +67,24 @@ namespace kfutils.rpg {
             copy.damageAdjuster = damageAdjuster; // The type of natural damage adjuster this entity has
             copy.damageModifiers = damageModifiers.Copy();
             return copy;
+        }
+
+
+        public void CopyInto(EntityAttributes other) {
+            baseStats.CopyInto(other.baseStats);
+            level = other.level; // The level of the entity; only used for player character and NPCs of playable races
+            crouchSpeed = other.crouchSpeed; // Movement speed
+            walkSpeed = other.walkSpeed; // Movement speed
+            runSpeed = other.runSpeed; // Movement speed
+            jumpForce = other.jumpForce; //TODO / FIXME: Implement jumping, then determine what this should be:
+            naturalArmor = other.naturalArmor; // Natural, not derived from worn armor
+            meleeDamageBonus = other.meleeDamageBonus; // Bonus damage for melee attacks
+            maxEncumbrance = other.maxEncumbrance;
+            halfEncumbrance = other.halfEncumbrance;
+            runningCostFactor = other.runningCostFactor; // Mostly used for running, and perhaps other movement, not all stamina use
+            manaCostFactor = other.manaCostFactor; // Modifies the cost of casting spells
+            damageAdjuster = other.damageAdjuster; // The type of natural damage adjuster this entity has
+            damageModifiers = other.damageModifiers.Copy();
         }
 
 

@@ -7,6 +7,8 @@ namespace kfutils.rpg
     [System.Serializable]
     public class PCData
     {
+        // Basic Entity Data
+        public EntityData entityData;
 
         // Movement Data   
         public TransformData location;

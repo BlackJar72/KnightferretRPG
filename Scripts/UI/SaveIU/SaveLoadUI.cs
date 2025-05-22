@@ -108,6 +108,28 @@ namespace kfutils.rpg
         }
 
 
+        public void Save()
+        {
+            if (!string.IsNullOrWhiteSpace(fileToSave))
+            {
+                SavedGame savedGame = new();
+                savedGame.Save(fileToSave);
+            }
+        }
+
+
+        public void Load()
+        {
+            if (!string.IsNullOrWhiteSpace(fileToLoad))
+            {
+                SavedGame savedGame = new();
+                savedGame.LoadWorld(fileToLoad);
+                PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
+                EntityManagement.playerCharacter.SetPCData(pcData);
+            }
+        }
+
+
     }
 
 

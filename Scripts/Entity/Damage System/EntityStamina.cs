@@ -46,6 +46,13 @@ namespace kfutils {
         }
 
 
+        public void CopyInto(EntityStamina other) {
+            baseStamina = other.baseStamina;
+            currentStamina = other.currentStamina;
+            // TODO: Add copying of time to heal once that is based on global time.
+        }
+
+
         public void MakeSane() {
             baseStamina = Mathf.Min(baseStamina, baseStamina + buff);
             currentStamina = Mathf.Min(currentStamina, baseStamina + buff);

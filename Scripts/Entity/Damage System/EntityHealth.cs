@@ -63,6 +63,15 @@ namespace kfutils {
         }
 
 
+        public void CopyInto(EntityHealth other) {
+            baseHealth = other.baseHealth;
+            wound = other.wound;
+            shock = other.shock;
+            buff = other.buff;
+            // TODO: Add copying of time to heal once that is based on global time.
+        }
+
+
         public void MakeSane() {
             wound = Mathf.Min(wound, baseHealth + buff);
             shock = Mathf.Min(shock, baseHealth + buff);

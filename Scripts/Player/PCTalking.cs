@@ -30,10 +30,10 @@ namespace kfutils.rpg {
             base.Start();
             if (GameManager.Instance.loadTestSave)
             {
-                data = GetPCData();
+                PCData pcData = GetPCData();
                 SavedGame save = new();
-                data = save.LoadPlayer("TestSave", data);
-                SetPCData(data);
+                pcData = save.LoadPlayer("TestSave", pcData);
+                SetPCData(pcData);
             }
         }
 

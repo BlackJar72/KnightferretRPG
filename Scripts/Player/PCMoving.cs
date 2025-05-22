@@ -32,10 +32,6 @@ namespace kfutils.rpg {
 
         [SerializeField] protected Transform eyeY;
 
-
-        [SerializeField] protected PCData data;
-        public PCData Data => data;
-
         // Camera
         public GameObject camPivot;
         public Camera playerCam;
@@ -221,12 +217,14 @@ namespace kfutils.rpg {
 
         protected virtual void OnEnable()
         {
+            base.OnEnable();
             EnableMovement();
         }
 
 
         protected virtual void OnDisable()
         {
+            base.OnDisable();
             DisableMovement();
         }
 
@@ -342,6 +340,7 @@ namespace kfutils.rpg {
 
         protected PCData GetMovingData(PCData data)
         {
+            data.entityData = this.data;
             data.location = gameObject.transform.GetGlobalData();
             data.moveMethod = GetMoveMethod();
             data.movement = movement;
@@ -391,7 +390,12 @@ namespace kfutils.rpg {
         protected void SetFromMovingData(PCData data)
         {
             characterController.enabled = false;
-            this.data = data;
+            entityName = data.entityData.livingData.entityName;
+            attributes.CopyInto(data.entityData.livingData.attributes);
+            health.CopyInto(data.entityData.livingData.health);
+            stamina.CopyInto(data.entityData.livingData.stamina);
+            mana.CopyInto(data.entityData.livingData.mana);
+            EntityManagement.AddToRegistryForce(this.data);
             gameObject.transform.SetPositionAndRotation(data.location.position, data.location.rotation);
             gameObject.transform.localScale = data.location.scale;
             SetMoveMethod(data.moveMethod);
@@ -414,13 +418,13 @@ namespace kfutils.rpg {
         }
 
 
-        
+
 
 
 #endregion
 
 
-        #region Core Movement
+#region Core Movement
 
 
         public void SetSwimming(bool swimming)
