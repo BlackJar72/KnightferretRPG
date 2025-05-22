@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 namespace kfutils.rpg {
 
-    public static class WorldManagement {   
+    public static class WorldManagement
+    {
 
         private static Worldspace worldspace;
         private static WorldspaceLogic worldspaceLogic;
@@ -12,7 +13,9 @@ namespace kfutils.rpg {
         public static Worldspace CurWorldspace => worldspace;
         public static WorldspaceLogic WorldLogic => worldspaceLogic;
         public static float SeaLevel => worldspace == null ? float.MinValue : worldspace.SeaLevel;
-        
+
+        private static Dictionary<string, Worldspace> worldspaceRegistry = new();
+
 
         public static readonly Dictionary<string, TeleportMarker> teleportMarkers = new();
 
@@ -22,26 +25,30 @@ namespace kfutils.rpg {
         public static Dictionary<string, ChunkData> ChunkDataRegistry => chunkData;
 
 
-        public static void SetWorldspace(Worldspace world) {
+        public static void SetWorldspace(Worldspace world)
+        {
             worldspace = world;
         }
 
 
-        public static void TransferPC(PCMoving pc, Worldspace next, AbstractTransition transfer) {
+        public static void TransferPC(PCMoving pc, Worldspace next, AbstractTransition transfer)
+        {
             Time.timeScale = 0.0f;
-            if(CurWorldspace != null) SceneManager.UnloadSceneAsync(CurWorldspace.ScenePath);
+            if (CurWorldspace != null) SceneManager.UnloadSceneAsync(CurWorldspace.ScenePath);
             SceneManager.LoadScene(next.ScenePath, LoadSceneMode.Additive);
-            SetWorldspace(next);  
+            SetWorldspace(next);
             transferData = new TransferData(pc, transfer.DestinationID);
             GameManager.Instance.specialUpdates.Add(TransferCountdown);
         }
 
 
-        private class TransferData {
+        private class TransferData
+        {
             public PCMoving pc;
             public string destinationID;
             public int coundDown = 3;
-            public TransferData(PCMoving pc, string destination) {
+            public TransferData(PCMoving pc, string destination)
+            {
                 this.pc = pc;
                 destinationID = destination;
             }
@@ -51,7 +58,8 @@ namespace kfutils.rpg {
         private static TransferData transferData = null;
 
 
-        private static bool FinishTransferPC() { 
+        private static bool FinishTransferPC()
+        {
             SetupWorldspace();
             transferData.pc.Teleport(teleportMarkers[transferData.destinationID].transform);
             System.GC.Collect();
@@ -61,32 +69,38 @@ namespace kfutils.rpg {
         }
 
 
-        public static bool CountdownTransfer() {
-            if(transferData != null) {
+        public static bool CountdownTransfer()
+        {
+            if (transferData != null)
+            {
                 transferData.coundDown--;
-                if(transferData.coundDown < 1) return FinishTransferPC();
+                if (transferData.coundDown < 1) return FinishTransferPC();
                 return false;
-            } 
+            }
             return true;
         }
 
 
-        public static void SetupWorldspace() { 
+        public static void SetupWorldspace()
+        {
             Scene scene = SceneManager.GetSceneByPath(worldspace.ScenePath);
             GameObject[] gos = scene.GetRootGameObjects();
             WorldspaceLogic logic = null;
-            for(int i = 0; i < gos.Length; i++) {
+            for (int i = 0; i < gos.Length; i++)
+            {
                 logic = gos[i].GetComponent<WorldspaceLogic>();
-                if(logic != null) break;
+                if (logic != null) break;
             }
             worldspaceLogic = logic;
-            if(logic != null) {
+            if (logic != null)
+            {
                 logic.Init();
             }
         }
 
 
-        public static void SetChunkData(Dictionary<string, ChunkData> loaded) {
+        public static void SetChunkData(Dictionary<string, ChunkData> loaded)
+        {
             chunkData = loaded;
         }
 
@@ -94,19 +108,48 @@ namespace kfutils.rpg {
         public static GameManager.SpecialMethod TransferCountdown = CountdownTransfer;
 
 
-        public static ChunkManager GetChunkFromCoords(float x, float z) {
-            int ix = Mathf.FloorToInt((x - worldspace.ChunkOffsetX) / worldspace.ChunkSize); 
-            int iz = Mathf.FloorToInt((z - worldspace.ChunkOffsetZ ) / worldspace.ChunkSize); 
-            return worldspaceLogic.GetChunk(ix, iz);             
+        public static ChunkManager GetChunkFromCoords(float x, float z)
+        {
+            int ix = Mathf.FloorToInt((x - worldspace.ChunkOffsetX) / worldspace.ChunkSize);
+            int iz = Mathf.FloorToInt((z - worldspace.ChunkOffsetZ) / worldspace.ChunkSize);
+            return worldspaceLogic.GetChunk(ix, iz);
         }
 
 
-        public static ChunkManager GetChunkFromTransform(Transform trans) {
+        public static ChunkManager GetChunkFromTransform(Transform trans)
+        {
             return GetChunkFromCoords(trans.position.x, trans.position.z);
         }
 
 
-        
+        public static void SetupWorldspaceRegistry(Worldspace[] worldspaceArr)
+        {
+            worldspaceRegistry.Clear();
+            for (int i = 0; i < worldspaceArr.Length; i++)
+            {
+                if (!worldspaceRegistry.ContainsKey(worldspaceArr[i].ID)) worldspaceRegistry.Add(worldspaceArr[i].ID, worldspaceArr[i]);
+            }
+        }
+
+
+        public static string GetCurrentWorldspaceID()
+        {
+            return worldspace.ID;
+        }
+
+
+        public static void LoadeWSFromSave(string wsid)
+        {
+            if (worldspaceRegistry.ContainsKey(wsid))
+            {
+                Worldspace loaded = worldspaceRegistry[wsid];
+                loaded.LoadForSave(worldspace);
+            }
+            else
+            {
+                Debug.LogError("Could not find worldspace " + wsid + " from save file.");
+            }
+        }
 
 
     }

@@ -1,5 +1,4 @@
 using System.Collections;
-using Animancer.Examples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +6,8 @@ namespace kfutils.rpg {
 
 
     [CreateAssetMenu(menuName = "KF-RPG/World/World Space", fileName = "WorldSpace", order = 10)]
-    public class Worldspace : ScriptableObject {
+    public class Worldspace : ScriptableObject
+    {
 
         [Tooltip("A string to uniquely identify this worldspace")]
         [SerializeField] string id;
@@ -40,9 +40,10 @@ namespace kfutils.rpg {
         /// can definitely be fully loaded before resuming gameplay.
         /// </summary>
         /// <param name="old">A previously loaded worldspace (whose scene must be unloaded)</param>
-        public void Load(Worldspace old = null) {
+        public void Load(Worldspace old = null)
+        {
             Time.timeScale = 0.0f;
-            if(old != null) SceneManager.UnloadSceneAsync(old.scenePath);
+            if (old != null) SceneManager.UnloadSceneAsync(old.scenePath);
             SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
             WorldManagement.SetWorldspace(this);
             Time.timeScale = 1.0f;
@@ -55,20 +56,29 @@ namespace kfutils.rpg {
         /// can definitely be fully loaded before resuming gameplay.
         /// </summary>
         /// <param name="old">A previously loaded worldspace (whose scene must be unloaded)</param>
-        public void LoadAsSpawn(Worldspace old = null) {
+        public void LoadAsSpawn(Worldspace old = null)
+        {
             Time.timeScale = 0.0f;
-            if(old != null) SceneManager.UnloadSceneAsync(old.scenePath);
+            if (old != null) SceneManager.UnloadSceneAsync(old.scenePath);
             SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
             WorldManagement.SetWorldspace(this);
             GameManager.Instance.StartCoroutine(SpawnPlayerOnLoad());
         }
 
 
-        private IEnumerator SpawnPlayerOnLoad() {
+        private IEnumerator SpawnPlayerOnLoad()
+        {
             yield return new WaitForSecondsRealtime(0.05f);
             WorldManagement.SetupWorldspace();
             EntityManagement.playerCharacter.Teleport(defaultStartLocation);
             Time.timeScale = 1.0f;
+        }
+        
+
+        public void LoadForSave(Worldspace old = null) {
+            if(old != null) SceneManager.UnloadSceneAsync(old.scenePath);
+            SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
+            WorldManagement.SetWorldspace(this);
         }
 
 

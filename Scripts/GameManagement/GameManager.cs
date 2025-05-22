@@ -1,7 +1,4 @@
 using UnityEngine;
-using kfutils.rpg.ui;
-using UnityEngine.InputSystem;
-using System;
 using System.Collections.Generic;
 
 
@@ -24,15 +21,20 @@ namespace kfutils.rpg {
         public static GameManager Instance { get => instacnce; }
 
         [SerializeField] Worldspace startingWorldspace;
+        // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
+        [SerializeField] Worldspace[] worldspaces;
 
         public delegate bool SpecialMethod();
         public List<SpecialMethod> specialUpdates = new();
 
 
         void Awake() {
+            // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
+            WorldManagement.SetupWorldspaceRegistry(worldspaces);
             // Makeing this a true singleton, and warning with an error message if extra copies were made
-            if(instacnce == null) instacnce = this;
-            else if (instacnce != this) {
+            if (instacnce == null) instacnce = this;
+            else if (instacnce != this)
+            {
                 Debug.LogError("WARNING! GameManager was placed in scenes more than once, at "
                             + instacnce.gameObject.name + " and then at " + gameObject.name + "!");
                 Destroy(instacnce);

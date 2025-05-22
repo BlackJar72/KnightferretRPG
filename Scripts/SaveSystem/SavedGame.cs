@@ -22,6 +22,8 @@ namespace kfutils.rpg {
         [SerializeField] Dictionary<string, EntityData> entityRegistry;
         [SerializeField] Dictionary<string, ChunkData> chunkData;
 
+        [SerializeField] string currentWorldspace;
+
 
         // Active Lists
 
@@ -41,6 +43,7 @@ namespace kfutils.rpg {
             entityRegistry = EntityManagement.EntityRegistry;
             // TODO: Get world space to save
             chunkData = WorldManagement.ChunkDataRegistry;
+            currentWorldspace = WorldManagement.GetCurrentWorldspaceID();
 
             // Active Lists
 
@@ -62,6 +65,7 @@ namespace kfutils.rpg {
             ES3.Save("InventoryData", inventoryData, fileName);
             ES3.Save("EntityRegistry", entityRegistry, fileName);
             ES3.Save("ChunkData", chunkData, fileName);
+            ES3.Save("CurrentWorldspace", currentWorldspace, fileName);
             // TODO: More, much, much more...
             ES3.Save("HealingEntities", EntityManagement.GetIDList(healingEntities.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("WaitingToHeal", EntityManagement.GetIDList(waitingToHeal.Cast<IHaveStringID>().ToList()), fileName);
@@ -83,12 +87,14 @@ namespace kfutils.rpg {
             inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
             entityRegistry = ES3.Load("EntityRegistry", fileName, entityRegistry);
             chunkData = ES3.Load("ChunkData", fileName, chunkData);
+            currentWorldspace = ES3.Load("CurrentWorldspace", fileName, currentWorldspace);
 
             // Set runtime data
             ItemManagement.SetItemData(itemRegistry);
             InventoryManagement.SetInventoryData(inventoryData);
             EntityManagement.SetEntityRegistry(entityRegistry);
             WorldManagement.SetChunkData(chunkData);
+            WorldManagement.LoadeWSFromSave(currentWorldspace);
 
             // FIXME: Entities and there data are partially separated in this
             healingEntities = EntityManagement.RestoreHealing(LoadStringIDList("HealingEntities", fileName));

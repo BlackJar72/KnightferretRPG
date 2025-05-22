@@ -122,10 +122,12 @@ namespace kfutils.rpg
         {
             if (!string.IsNullOrWhiteSpace(fileToLoad))
             {
+                Time.timeScale = 0.0f; // FIXME: The pause should happen when the GUI is activated
                 SavedGame savedGame = new();
                 savedGame.LoadWorld(fileToLoad);
                 PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
                 EntityManagement.playerCharacter.SetPCData(pcData);
+                Time.timeScale = 1.0f;
             }
         }
 
