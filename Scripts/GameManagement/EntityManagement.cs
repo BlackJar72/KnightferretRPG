@@ -107,6 +107,17 @@ namespace kfutils.rpg {
             if(entityRegistry.ContainsKey(id)) return entityRegistry[id];
             else return null;
         }
+        
+
+        /*/// <summary>
+        /// Removes and entity from the registry -- THIS SHOULD ONLY BE 
+        /// DONE WITH TEMPORARY ENTITIES THAT ARE SPAWNED DURING GAMEPLAY!
+        /// </summary>
+        /// <param name="entity"></param>
+        public static void RemoveFromRegistry(EntityData entity)
+        {
+            entityRegistry.Add(entity.ID, entity);
+        }*/
 
 
         public static void Update() {

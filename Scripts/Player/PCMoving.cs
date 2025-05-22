@@ -215,14 +215,14 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void OnEnable()
+        protected override void OnEnable()
         {
             base.OnEnable();
             EnableMovement();
         }
 
 
-        protected virtual void OnDisable()
+        protected override void OnDisable()
         {
             base.OnDisable();
             DisableMovement();
