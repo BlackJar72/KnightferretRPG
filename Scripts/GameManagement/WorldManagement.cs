@@ -34,10 +34,8 @@ namespace kfutils.rpg {
         public static void TransferPC(PCMoving pc, Worldspace next, AbstractTransition transfer)
         {
             Time.timeScale = 0.0f;
-            if (CurWorldspace != null) SceneManager.UnloadSceneAsync(CurWorldspace.ScenePath);
-            SceneManager.LoadScene(next.ScenePath, LoadSceneMode.Additive);
-            SetWorldspace(next);
-            transferData = new TransferData(pc, transfer.DestinationID);
+            GameManager.Instance.LoadingScreen.SetActive(true);
+            transferData = new TransferData(pc, transfer.DestinationID, next, transfer);
             GameManager.Instance.specialUpdates.Add(TransferCountdown);
         }
 
@@ -47,10 +45,14 @@ namespace kfutils.rpg {
             public PCMoving pc;
             public string destinationID;
             public int coundDown = 3;
-            public TransferData(PCMoving pc, string destination)
+            public Worldspace next;
+            public AbstractTransition transfer;
+            public TransferData(PCMoving pc, string destination, Worldspace next, AbstractTransition transfer)
             {
                 this.pc = pc;
                 destinationID = destination;
+                this.next = next;
+                this.transfer = transfer;
             }
         }
 
@@ -63,6 +65,7 @@ namespace kfutils.rpg {
             SetupWorldspace();
             transferData.pc.Teleport(teleportMarkers[transferData.destinationID].transform);
             System.GC.Collect();
+            GameManager.Instance.LoadingScreen.SetActive(false);
             Time.timeScale = 1.0f;
             transferData = null;
             return true;
@@ -74,6 +77,11 @@ namespace kfutils.rpg {
             if (transferData != null)
             {
                 transferData.coundDown--;
+                if(transferData.coundDown == 2) {                    
+                    if (CurWorldspace != null) SceneManager.UnloadSceneAsync(CurWorldspace.ScenePath);
+                    SceneManager.LoadScene(transferData.next.ScenePath, LoadSceneMode.Additive);
+                    SetWorldspace(transferData.next);
+                }
                 if (transferData.coundDown < 1) return FinishTransferPC();
                 return false;
             }
@@ -138,7 +146,7 @@ namespace kfutils.rpg {
         }
 
 
-        public static void LoadeWSFromSave(string wsid)
+        public static void LoadWSFromSave(string wsid)
         {
             if (worldspaceRegistry.ContainsKey(wsid))
             {

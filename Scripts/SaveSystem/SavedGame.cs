@@ -94,7 +94,7 @@ namespace kfutils.rpg {
             InventoryManagement.SetInventoryData(inventoryData);
             EntityManagement.SetEntityRegistry(entityRegistry);
             WorldManagement.SetChunkData(chunkData);
-            WorldManagement.LoadeWSFromSave(currentWorldspace);
+            WorldManagement.LoadWSFromSave(currentWorldspace);
 
             // FIXME: Entities and there data are partially separated in this
             healingEntities = EntityManagement.RestoreHealing(LoadStringIDList("HealingEntities", fileName));

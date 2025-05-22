@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace kfutils.rpg
         [SerializeField] GameObject saveContentArea;
         [SerializeField] GameObject loadPanel;
         [SerializeField] GameObject loadContentArea;
+
+        [SerializeField] GameObject loadingScreen;
 
 
         private string[] files;
@@ -122,13 +125,23 @@ namespace kfutils.rpg
         {
             if (!string.IsNullOrWhiteSpace(fileToLoad))
             {
+                loadingScreen.SetActive(true);
                 Time.timeScale = 0.0f; // FIXME: The pause should happen when the GUI is activated
+                StartCoroutine(LoadHelper());
+            }
+        }
+
+
+        private IEnumerator LoadHelper()
+        {
+            yield return new WaitForEndOfFrame();
                 SavedGame savedGame = new();
                 savedGame.LoadWorld(fileToLoad);
                 PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
                 EntityManagement.playerCharacter.SetPCData(pcData);
+            yield return new WaitForEndOfFrame();
                 Time.timeScale = 1.0f;
-            }
+                loadingScreen.SetActive(false);
         }
 
 

@@ -27,6 +27,9 @@ namespace kfutils.rpg {
         public delegate bool SpecialMethod();
         public List<SpecialMethod> specialUpdates = new();
 
+        [SerializeField] GameObject loadingScreen;
+        public GameObject LoadingScreen => loadingScreen;
+
 
         void Awake() {
             // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
