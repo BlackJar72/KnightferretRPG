@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using kfutils.rpg.ui;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace kfutils.rpg
@@ -20,6 +21,12 @@ namespace kfutils.rpg
         [SerializeField] GameObject saveContentArea;
         [SerializeField] GameObject loadPanel;
         [SerializeField] GameObject loadContentArea;
+
+        [SerializeField] Image saveButtonImg;
+        [SerializeField] Image loadButtonImg;
+
+        [SerializeField] Sprite buttonOn;
+        [SerializeField] Sprite buttonOff;
 
         [SerializeField] GameObject loadingScreen;
 
@@ -85,6 +92,8 @@ namespace kfutils.rpg
         {
             savePanel.SetActive(true);
             loadPanel.SetActive(false);
+            saveButtonImg.sprite = buttonOn;
+            loadButtonImg.sprite = buttonOff;
         }
 
 
@@ -92,6 +101,8 @@ namespace kfutils.rpg
         {
             savePanel.SetActive(false);
             loadPanel.SetActive(true);
+            saveButtonImg.sprite = buttonOff;
+            loadButtonImg.sprite = buttonOn;
         }
 
 

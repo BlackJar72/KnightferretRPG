@@ -69,6 +69,7 @@ namespace kfutils.rpg {
         private IEnumerator SpawnPlayerOnLoad()
         {
             yield return new WaitForSecondsRealtime(0.05f);
+            yield return new WaitForEndOfFrame();
             WorldManagement.SetupWorldspace();
             EntityManagement.playerCharacter.Teleport(defaultStartLocation);
             Time.timeScale = 1.0f;
@@ -80,7 +81,16 @@ namespace kfutils.rpg {
             if (old != null) SceneManager.UnloadSceneAsync(old.scenePath);
             SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
             WorldManagement.SetWorldspace(this);
-            //Time.timeScale = 1.0f;
+            GameManager.Instance.StartCoroutine(HelpSetupWorldspace());
+        }
+
+
+        private IEnumerator HelpSetupWorldspace()
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+            yield return new WaitForEndOfFrame();
+            WorldManagement.SetupWorldspace();
+            Time.timeScale = 1.0f;
         }
 
 
