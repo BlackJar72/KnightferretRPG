@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace kfutils.rpg {
     public class SavedGame
     {
 
-        public const string saveSubdir = "saves/";
+        public const string saveSubdir = "saves";
         public const string saveFileExtension = ".es3";
 
         // Player save data
@@ -54,7 +55,7 @@ namespace kfutils.rpg {
 
         public void Save(string saveName)
         {
-            string fileName = saveSubdir + saveName + saveFileExtension;
+            string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             // TODO: Save tha game data as a file
             ES3.Save("PCData", pcData, fileName);
             ES3.Save("ItemRegistry", itemRegistry, fileName);
@@ -76,7 +77,7 @@ namespace kfutils.rpg {
         /// <param name="saveName"></param>
         public void LoadWorld(string saveName)
         {
-            string fileName = saveSubdir + saveName + saveFileExtension;
+            string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             // TODO: Load the game data
             itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
             inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
@@ -109,7 +110,7 @@ namespace kfutils.rpg {
         /// <returns></returns>
         public PCData LoadPlayer(string saveName, PCData oldData)
         {
-            string fileName = saveSubdir + saveName + saveFileExtension;
+            string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             pcData = ES3.Load("PCData", fileName, oldData);
             return pcData;
         }
