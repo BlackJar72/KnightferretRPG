@@ -28,13 +28,6 @@ namespace kfutils.rpg {
         protected override void Start()
         {
             base.Start();
-            if (GameManager.Instance.loadTestSave)
-            {
-                PCData pcData = GetPCData();
-                SavedGame save = new();
-                pcData = save.LoadPlayer("TestSave", pcData);
-                SetPCData(pcData);
-            }
         }
 
 

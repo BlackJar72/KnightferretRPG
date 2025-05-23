@@ -6,7 +6,7 @@ using kfutils.rpg.ui;
 
 namespace kfutils.rpg {
 
-
+    
     public class InventoryData {
         private readonly string id;
         public List<ItemStack> inventory;

@@ -8,9 +8,6 @@ namespace kfutils.rpg {
     public class GameManager : MonoBehaviour {
 
 
-        public bool loadTestSave; // Temporary field for early save testing
-
-
         [SerializeField] UIManager ui;
         public UIManager UIManager { get => ui; }
 
@@ -49,17 +46,12 @@ namespace kfutils.rpg {
                 ItemManagement.AddItemPrototype(itemPrototypes[i]);
             }
             EntityManagement.Initialize();
-            if (loadTestSave) {
-                SavedGame savedGame = new();
-                savedGame.LoadWorld("TestSave");
-            }
         }
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start() {
-            if (loadTestSave) startingWorldspace.Load();
-            else startingWorldspace.LoadAsSpawn();
+            startingWorldspace.LoadAsSpawn();
             if(ui == null) ui = GetComponent<UIManager>(); 
             if(ui == null) Debug.LogError("No UI Manager provided for game manager!"); 
         }
