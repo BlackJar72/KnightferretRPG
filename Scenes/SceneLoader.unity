@@ -57743,7 +57743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 747219667688822099, guid: 8941adc9bb1f557c7948ab994d0f6d75, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 762536167683358787, guid: 8941adc9bb1f557c7948ab994d0f6d75, type: 3}
       propertyPath: m_AnchorMax.y
@@ -68539,7 +68539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75434ab7b21d6f58289431a709326e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  id: PLAYER_CHARACTER
   entityName: Mr. Player
   health:
     baseHealth: 0
@@ -68632,7 +68632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da82bc644b21ebdc387ba2afcfb7313f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  id: PLAYER_CHARACTER
   inventory: []
   startingItems: []
   equipt:

@@ -142,6 +142,7 @@ namespace kfutils.rpg
             {
                 loadingScreen.SetActive(true);
                 Time.timeScale = 0.0f; // FIXME: The pause should happen when the GUI is activated
+                EntityManagement.playerCharacter.Inventory.Clear();
                 StartCoroutine(LoadHelper());
             }
         }
@@ -155,6 +156,7 @@ namespace kfutils.rpg
                 PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
                 EntityManagement.playerCharacter.SetPCData(pcData);
             yield return new WaitForEndOfFrame();
+                EntityManagement.playerCharacter.Inventory.OnEnable();
                 loadingScreen.SetActive(false);
                 Time.timeScale = 1.0f;
                 InventoryManagement.SignalCloseUIs();

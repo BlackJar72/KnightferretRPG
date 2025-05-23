@@ -1,9 +1,12 @@
 using Animancer;
-using UnityEngine;
 
-namespace kfutils.rpg {
 
-    public interface IActor {
+
+namespace kfutils.rpg
+{
+
+    public interface IActor : IHaveStringID
+    {
 
         public void EquiptItem(ItemStack item);
         public void UnequiptItem(ItemStack item);

@@ -7,12 +7,15 @@ using kfutils.rpg.ui;
 namespace kfutils.rpg {
 
     
-    public class InventoryData {
-        private readonly string id;
+    [Serializable]
+    public class InventoryData
+    {
+        protected readonly string id;
         public List<ItemStack> inventory;
         public float weight;
         public string ID => id;
-        public InventoryData(Inventory inv) {
+        public InventoryData(Inventory inv)
+        {
             id = inv.ID;
             inventory = inv.inventory;
             weight = inv.Weight;
@@ -47,7 +50,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemStack.ProtoStack[] startingItems;
 
 
-        void OnEnable() {
+        public virtual void OnEnable() {
             InventoryData data = InventoryManagement.GetInventoryData(id);
             if(data == null) {
                 data = new(this);
@@ -61,7 +64,14 @@ namespace kfutils.rpg {
         }
 
 
-        public override void RemoveItem(ItemStack item) {
+        public void Clear()
+        {
+            inventory.Clear();
+        }
+
+
+        public override void RemoveItem(ItemStack item)
+        {
             inventory.Remove(item);
             SignalUpdate();
         }

@@ -14,11 +14,15 @@ namespace kfutils.rpg {
 
         public EquiptmentSlots Equipt => equipt;
         public IActor Owner => owner;
+        
+        [SerializeField] protected Money money;
+        public Money MoneyHeld => money;
 
 
-        public void SetOwner(IActor actor) {
+        public void SetOwner(IActor actor)
+        {
             // Do not allow this to be changed once set
-            if(owner == null) owner = actor;
+            if (owner == null) owner = actor;
         }
 
 

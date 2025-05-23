@@ -6,15 +6,14 @@ using UnityEngine;
 namespace kfutils.rpg {
     
     public class PlayerInventory : CharacterInventory {
-        
-        [SerializeField] Money money;
 
         [SerializeField] TMP_Text moneyText;
         [SerializeField] TMP_Text weightText;
         [SerializeField] HotbarUI hotbarUI;
 
 
-        private void OnEnable() {
+        public override void OnEnable() {
+            base.OnEnable();
             equipt.belongsToPC = true;
             InventoryManagement.inventoryUpdated += UpdateBottomBar;
             InventoryManagement.inventorySlotUpdated += UpdateBottomBar;
