@@ -1,6 +1,7 @@
 using UnityEngine;
 using kfutils.rpg.ui;
 using System.Collections.Generic;
+using System.Buffers;
 
 
 
@@ -12,12 +13,27 @@ namespace kfutils.rpg {
         public static InventoryData GetInventoryData(string id) => inventoryData.ContainsKey(id) ? inventoryData[id] : null;
         public static void StoreInventoryData(InventoryData data) => inventoryData.Add(data.ID, data);
 
+        public static Dictionary<string, EquiptmentSlots> equiptData = new();
+        public static EquiptmentSlots GetEquiptData(string id) => equiptData.ContainsKey(id) ? equiptData[id] : null;
+        public static void StoreEquiptData(EquiptmentSlots data) => equiptData.Add(data.mainInventory.Owner.ID, data);
+        public static void ReplaceEquiptData(EquiptmentSlots data)
+        {
+            equiptData.Remove(data.mainInventory.Owner.ID);
+            equiptData.Add(data.mainInventory.Owner.ID, data);
+        }
+
+        public static Dictionary<string, Money> moneyData = new();
+        public static Money GetMoneyData(string id) => moneyData.ContainsKey(id) ? moneyData[id] : -1;
+        public static void StoreMoneyData(Money data, string id) => moneyData.Add(id, data);
+
         public static AInventory currentContainerInventory;
+
+        public static HotBar hotBar;
 
 
 #region Redraw Control
 
-        private static List<IRedrawing> waitingToRedraw = new ();
+        private static List<IRedrawing> waitingToRedraw = new();
 
         public delegate void InventoryUpdate(IInventory<ItemStack> inv);
         public static event InventoryUpdate inventoryUpdated;
@@ -45,6 +61,16 @@ namespace kfutils.rpg {
 
         public static void SetInventoryData(Dictionary<string, InventoryData> loaded) {
             inventoryData = loaded;
+        }
+
+
+        public static void SetEquiptData(Dictionary<string, EquiptmentSlots> loaded) {
+            equiptData = loaded;
+        }
+
+
+        public static void SetMoneyData(Dictionary<string, Money> loaded) {
+            moneyData = loaded;
         }
 
 

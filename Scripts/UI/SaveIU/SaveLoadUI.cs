@@ -157,6 +157,7 @@ namespace kfutils.rpg
                 EntityManagement.playerCharacter.SetPCData(pcData);
             yield return new WaitForEndOfFrame();
                 EntityManagement.playerCharacter.Inventory.OnEnable();
+                WorldManagement.SignalGameReloaded();
                 loadingScreen.SetActive(false);
                 Time.timeScale = 1.0f;
                 InventoryManagement.SignalCloseUIs();

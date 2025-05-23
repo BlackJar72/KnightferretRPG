@@ -36,6 +36,11 @@ namespace kfutils.rpg {
             throw new System.NotImplementedException();
         }
 
+        public void PreSaveEquipt()
+        {
+            // TODO: This
+            Debug.Log(ID + " => PreSaveEquipt()");
+        }
 
         public void RemoveEquiptAnimation() {
             throw new System.NotImplementedException();

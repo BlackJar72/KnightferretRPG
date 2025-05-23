@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,10 +25,18 @@ namespace kfutils.rpg {
         public static void StoreChunkData(ChunkData data) => chunkData.Add(data.ID, data);
         public static Dictionary<string, ChunkData> ChunkDataRegistry => chunkData;
 
+        public delegate void GameReload();
+        public static event GameReload GameReloaded;
+
 
         public static void SetWorldspace(Worldspace world)
         {
             worldspace = world;
+        }
+
+
+        public static void SignalGameReloaded() {
+            GameReloaded?.Invoke();
         }
 
 

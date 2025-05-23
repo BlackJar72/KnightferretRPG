@@ -57,12 +57,14 @@ namespace kfutils.rpg {
                 data.AddItem(items[i].ID);
                 Destroy(items[i].gameObject);                
             }
-            for(int i = 0; i < data.ItemsInChunkList.Count; i++) {
+            for (int i = 0; i < data.ItemsInChunkList.Count; i++)
+            {
                 ItemData itemData = ItemManagement.GetItem(data.ItemsInChunkList[i]);
                 ItemInWorld spawned = Instantiate(itemData.Prototype.InWorld, looseItems);
                 spawned.transform.SetDataGlobal(itemData.TransformData);
                 spawned.SetID(itemData.ID);
                 spawned.chunk = this;
+                if (items[i].StartWithPhysics) spawned.EnablePhysics();
             }
         }
 

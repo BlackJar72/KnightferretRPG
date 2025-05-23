@@ -19,10 +19,13 @@ namespace kfutils.rpg {
         // Main Registries
         [SerializeField] Dictionary<string, ItemData> itemRegistry;
         [SerializeField] Dictionary<string, InventoryData> inventoryData;
+        [SerializeField] Dictionary<string, EquiptmentSlots> equiptData;
+        [SerializeField] Dictionary<string, Money> moneyData;
         [SerializeField] Dictionary<string, EntityData> entityRegistry;
         [SerializeField] Dictionary<string, ChunkData> chunkData;
 
         [SerializeField] string currentWorldspace;
+        [SerializeField] HotBar hotbar;
 
 
         // Active Lists
@@ -40,6 +43,9 @@ namespace kfutils.rpg {
             pcData = EntityManagement.playerCharacter == null ? null : EntityManagement.playerCharacter.GetPCData();
             itemRegistry = ItemManagement.itemRegistry;
             inventoryData = InventoryManagement.inventoryData;
+            equiptData = InventoryManagement.equiptData;
+            moneyData = InventoryManagement.moneyData;
+            hotbar = InventoryManagement.hotBar;
             entityRegistry = EntityManagement.EntityRegistry;
             // TODO: Get world space to save
             chunkData = WorldManagement.ChunkDataRegistry;
@@ -59,10 +65,19 @@ namespace kfutils.rpg {
         public void Save(string saveName)
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+            EntityManagement.playerCharacter.PreSaveEquipt();
+            foreach (string id in entityRegistry.Keys)
+            {
+                IActor actor = entityRegistry[id] as IActor;
+                if (actor != null) actor.PreSaveEquipt();    
+            }
             // TODO: Save tha game data as a file
             ES3.Save("PCData", pcData, fileName);
             ES3.Save("ItemRegistry", itemRegistry, fileName);
             ES3.Save("InventoryData", inventoryData, fileName);
+            ES3.Save("EquiptData", equiptData, fileName);
+            ES3.Save("MoneyData", moneyData, fileName);
+            ES3.Save("HotBar", hotbar, fileName);
             ES3.Save("EntityRegistry", entityRegistry, fileName);
             ES3.Save("ChunkData", chunkData, fileName);
             ES3.Save("CurrentWorldspace", currentWorldspace, fileName);
@@ -85,6 +100,9 @@ namespace kfutils.rpg {
             // TODO: Load the game data
             itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
             inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
+            equiptData = ES3.Load("EquiptData", fileName, equiptData);
+            moneyData = ES3.Load("MoneyData", fileName, moneyData);
+            hotbar = ES3.Load("HotBar", fileName, hotbar);
             entityRegistry = ES3.Load("EntityRegistry", fileName, entityRegistry);
             chunkData = ES3.Load("ChunkData", fileName, chunkData);
             currentWorldspace = ES3.Load("CurrentWorldspace", fileName, currentWorldspace);
@@ -92,6 +110,9 @@ namespace kfutils.rpg {
             // Set runtime data
             ItemManagement.SetItemData(itemRegistry);
             InventoryManagement.SetInventoryData(inventoryData);
+            InventoryManagement.SetEquiptData(equiptData);
+            InventoryManagement.SetMoneyData(moneyData);;
+            InventoryManagement.hotBar.CopyInto(hotbar);
             EntityManagement.SetEntityRegistry(entityRegistry);
             WorldManagement.SetChunkData(chunkData);
             WorldManagement.LoadWSFromSave(currentWorldspace);

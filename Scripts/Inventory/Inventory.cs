@@ -64,6 +64,15 @@ namespace kfutils.rpg {
         }
 
 
+        public virtual EquiptmentSlots GetEquiptmentSlots()
+        {
+            return null;
+        }
+
+
+        public virtual void PreSaveEquipt() {}
+
+
         public void Clear()
         {
             inventory.Clear();

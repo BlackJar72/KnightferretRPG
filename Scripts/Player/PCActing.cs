@@ -79,6 +79,11 @@ namespace kfutils.rpg {
             
         }
 
+        public void PreSaveEquipt()
+        {
+            inventory.Equipt.PreSave();
+        }
+
 
 #region Input
 

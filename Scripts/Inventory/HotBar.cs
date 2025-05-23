@@ -1,4 +1,3 @@
-using System.Diagnostics.Tracing;
 using UnityEngine;
 
 
@@ -13,6 +12,11 @@ namespace kfutils.rpg {
 
         public SlotData GetSlot(int index) => slots[index];
 
+        public void CopyInto(HotBar other)
+        {
+            for (int i = 0; i < slots.Length; i++) slots[i] = other.slots[i];
+        }
+
 
         /// <summary>
         /// This if either (or both) slots have been moved, this should 
@@ -20,17 +24,19 @@ namespace kfutils.rpg {
         /// </summary>
         /// <param name="slot1"></param>
         /// <param name="slot2"></param>
-        public void OnSlotsSwapped(SlotData slot1, SlotData slot2) {
+        public void OnSlotsSwapped(SlotData slot1, SlotData slot2)
+        {
             bool tmp = slot1.filled;
             slot1.filled = slot2.filled;
             slot2.filled = tmp;
             int cur1 = -1, cur2 = -1;
-            for(int i = 0; i < slots.Length; i++) {
-                if(slots[i] == slot1) cur1 = i;
-                if(slots[i] == slot2) cur2 = i;
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i] == slot1) cur1 = i;
+                if (slots[i] == slot2) cur2 = i;
             }
-            if(cur1 > -1) slots[cur1] = slot2;
-            if(cur2 > -1) slots[cur2] = slot1;
+            if (cur1 > -1) slots[cur1] = slot2;
+            if (cur2 > -1) slots[cur2] = slot1;
         }
 
 

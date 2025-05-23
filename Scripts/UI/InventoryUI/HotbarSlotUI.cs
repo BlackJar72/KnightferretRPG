@@ -23,6 +23,32 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void RedrawForLoad(HotbarUI parent)
+        {
+            hotBar = parent;
+            if (hotBar.GetSlot(slotNumber).filled)
+            {
+                SlotData sd = hotBar.GetSlot(slotNumber);
+                icon.gameObject.SetActive(hotBar.GetSlot(slotNumber).filled);
+                switch (sd.inventory)
+                {
+                    case InvType.MAIN:
+                        icon.sprite = EntityManagement.playerCharacter.Inventory.GetItemInSlot(sd.invSlot).item.Icon;
+                        break;
+                    case InvType.EQUIPT:
+                        icon.sprite = EntityManagement.playerCharacter.Inventory.Equipt.GetItemInSlot(sd.invSlot).item.Icon;
+                        break;
+                    case InvType.SPELLS:
+                        icon.sprite = EntityManagement.playerCharacter.Spells.GetItemInSlot(sd.invSlot).Icon;
+                        break;
+                    default:
+                        icon.gameObject.SetActive(false);
+                        break;
+                }
+            }            
+        }
+
+
         public void OnPointerClick(PointerEventData eventData) {
             if((eventData.button == PointerEventData.InputButton.Left) && (eventData.clickCount == 2)) {                
                 SlotData slot = hotBar.GetSlot(slotNumber);

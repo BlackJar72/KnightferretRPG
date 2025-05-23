@@ -20,6 +20,8 @@ namespace kfutils.rpg
 
         public void GetAimParams(out AimParams aim);
 
+        public void PreSaveEquipt();
+
     }
 
 

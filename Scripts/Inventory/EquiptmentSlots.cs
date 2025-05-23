@@ -29,8 +29,27 @@ namespace kfutils.rpg {
         public const int lring = 5;
 
 
-        public bool AddItemToSlot(int slot, ItemStack item) {
-            if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
+        public void CopyInto(EquiptmentSlots other)
+        {
+            belongsToPC = other.belongsToPC;
+            weight = other.weight;
+            for (int i = 0; i < slots.Length; i++)
+            {
+                RemoveAllFromSlot(i);
+                AddItemToSlot(i, other.slots[i]);
+            }
+        }
+
+
+        public void PreSave()
+        {
+            InventoryManagement.ReplaceEquiptData(this);
+        }
+
+
+        public bool AddItemToSlot(int slot, ItemStack item)
+        {
+            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
             mainInventory.Owner.EquiptItem(item);
             SignalUpdate();
