@@ -9,6 +9,7 @@ namespace kfutils.rpg {
     public class UIManager : MonoBehaviour {
 
         // UI Control
+        [SerializeField] AudioSource buttonClick;
         [SerializeField] ShowOrHide characterPanelToggler;
         [SerializeField] Canvas mainCanvas;
         [SerializeField] ShowOrHide crossHairs;
@@ -58,8 +59,15 @@ namespace kfutils.rpg {
         }
 
 
-        public void ShowItemToolTip(ItemPrototype item) {
-            if(!itemStackManipulator.IsVisible) itemToolTipUI.ShowToolTip(item);            
+        public void PlayButtonClick()
+        {
+            buttonClick.Play();
+        }
+
+
+        public void ShowItemToolTip(ItemPrototype item)
+        {
+            if (!itemStackManipulator.IsVisible) itemToolTipUI.ShowToolTip(item);
         }
 
 

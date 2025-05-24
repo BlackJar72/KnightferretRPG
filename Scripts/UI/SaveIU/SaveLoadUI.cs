@@ -106,6 +106,12 @@ namespace kfutils.rpg
         }
 
 
+        public void PlayButtonSound()
+        {
+            GameManager.Instance.UIManager.PlayButtonClick();            
+        }
+
+
         public void SelectAsSave(SaveButtonUI saveButton)
         {
             for (int i = 0; i < saveButtons.Count; i++)
@@ -191,6 +197,7 @@ namespace kfutils.rpg
 
         public void SetHidden()
         {
+            //if(shower.IsVisible) GameManager.Instance.UIManager.PlayButtonClick();
             Time.timeScale = 1.0f;
             bool canMove = !GameManager.Instance.UIManager.CharacterSheetVisible;
             EntityManagement.playerCharacter.AllowActions(canMove);
