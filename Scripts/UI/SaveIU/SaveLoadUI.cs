@@ -33,8 +33,12 @@ namespace kfutils.rpg
 
         private string[] files;
         private List<string> saveNames = new();
+        private List<string> loadNames = new();
         private string fileToSave = null;
         private string fileToLoad = null;
+
+        private readonly char[] ForbidenChars = new char[] {'"', '\'', '\t', '\r', '\n',
+            Path.PathSeparator, Path.VolumeSeparatorChar, Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar }; 
 
         private List<SaveButtonUI> saveButtons = new();
         private List<LoadButtonUI> loadButtons = new();
@@ -46,6 +50,7 @@ namespace kfutils.rpg
         {
             fileToLoad = fileToSave = null; // FIXME/TODO: This should default to the last save used (or a new save if first in a new game)
             saveNames.Clear();
+            loadNames.Clear();
             string folder = Application.persistentDataPath + Path.DirectorySeparatorChar + SavedGame.saveSubdir;
             files = Directory.GetFiles(folder);
             foreach (string filename in files)
@@ -55,6 +60,7 @@ namespace kfutils.rpg
                     string[] parts = Path.GetFileNameWithoutExtension(filename).Split(Path.DirectorySeparatorChar);
                     string saveName = parts[parts.Length - 1];
                     saveNames.Add(saveName);
+                    loadNames.Add(saveName);
                 }
             }
             Redraw();
@@ -80,6 +86,9 @@ namespace kfutils.rpg
                 saveButton.SetText(saveNames[i]);
                 saveButton.SetOwner(this);
                 saveButtons.Add(saveButton);
+            }
+            for (int i = 0; i < loadNames.Count; i++)
+            {
                 LoadButtonUI loadButton = Instantiate(loadMenuItemPrefab, loadContentArea.transform).GetComponent<LoadButtonUI>();
                 loadButton.SetText(saveNames[i]);
                 loadButton.SetOwner(this);
@@ -108,7 +117,7 @@ namespace kfutils.rpg
 
         public void PlayButtonSound()
         {
-            GameManager.Instance.UIManager.PlayButtonClick();            
+            GameManager.Instance.UIManager.PlayButtonClick();
         }
 
 
@@ -142,6 +151,16 @@ namespace kfutils.rpg
         }
 
 
+        public void DeleteSave()
+        {
+            if (!string.IsNullOrWhiteSpace(fileToSave))
+            {
+                SavedGame.DeleteSave(fileToSave);
+                OnEnable();
+            }
+        }
+
+
         public void Load()
         {
             if (!string.IsNullOrWhiteSpace(fileToLoad))
@@ -157,19 +176,19 @@ namespace kfutils.rpg
         private IEnumerator LoadHelper()
         {
             yield return new WaitForEndOfFrame();
-                SavedGame savedGame = new();
-                savedGame.LoadWorld(fileToLoad);
-                PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
-                EntityManagement.playerCharacter.SetPCData(pcData);
+            SavedGame savedGame = new();
+            savedGame.LoadWorld(fileToLoad);
+            PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
+            EntityManagement.playerCharacter.SetPCData(pcData);
             yield return new WaitForEndOfFrame();
-                EntityManagement.playerCharacter.Inventory.OnEnable();
-                WorldManagement.SignalGameReloaded();
-                loadingScreen.SetActive(false);
-                Time.timeScale = 1.0f;
-                InventoryManagement.SignalCloseUIs();
-                GameManager.Instance.UIManager.CloseCharacterSheet();
-                GameManager.Instance.UIManager.HideSaveMenu();
-                EntityManagement.playerCharacter.AllowActions(true);
+            EntityManagement.playerCharacter.Inventory.OnEnable();
+            WorldManagement.SignalGameReloaded();
+            loadingScreen.SetActive(false);
+            Time.timeScale = 1.0f;
+            InventoryManagement.SignalCloseUIs();
+            GameManager.Instance.UIManager.CloseCharacterSheet();
+            GameManager.Instance.UIManager.HideSaveMenu();
+            EntityManagement.playerCharacter.AllowActions(true);
         }
 
 
@@ -189,7 +208,7 @@ namespace kfutils.rpg
             Time.timeScale = 0.0f;
             bool canMove = !(show || GameManager.Instance.UIManager.CharacterSheetVisible);
             EntityManagement.playerCharacter.AllowActions(canMove);
-            if(canMove) Cursor.lockState = CursorLockMode.Locked;
+            if (canMove) Cursor.lockState = CursorLockMode.Locked;
             else Cursor.lockState = CursorLockMode.None;
             shower.SetVisible(show);
         }
@@ -197,11 +216,10 @@ namespace kfutils.rpg
 
         public void SetHidden()
         {
-            //if(shower.IsVisible) GameManager.Instance.UIManager.PlayButtonClick();
             Time.timeScale = 1.0f;
             bool canMove = !GameManager.Instance.UIManager.CharacterSheetVisible;
             EntityManagement.playerCharacter.AllowActions(canMove);
-            if(canMove) Cursor.lockState = CursorLockMode.Locked;
+            if (canMove) Cursor.lockState = CursorLockMode.Locked;
             else Cursor.lockState = CursorLockMode.None;
             shower.SetHidden();
         }
@@ -212,10 +230,29 @@ namespace kfutils.rpg
             shower.Toggle();
             bool canMove = !(shower.IsVisible || GameManager.Instance.UIManager.CharacterSheetVisible);
             EntityManagement.playerCharacter.AllowActions(canMove);
-            if(canMove) Cursor.lockState = CursorLockMode.Locked;
+            if (canMove) Cursor.lockState = CursorLockMode.Locked;
             else Cursor.lockState = CursorLockMode.None;
             if (shower.IsVisible) Time.timeScale = 0.0f;
             else Time.timeScale = 1.0f;
+        }
+
+
+        public void AddNewSave()
+        {
+            SaveButtonUI saveButton = Instantiate(saveMenuItemPrefab, saveContentArea.transform).GetComponent<SaveButtonUI>();
+            saveButton.SetOwner(this);
+            saveButton.SetAsNewSave();
+        }
+
+
+        public void SolidifyNewSaveButton(SaveButtonUI newButton)
+        {
+            string goodName = string.Concat(newButton.GetText().Split(Path.GetInvalidFileNameChars()));
+            goodName = string.Concat(goodName.Split(ForbidenChars));
+            saveNames.Add(goodName);
+            fileToSave = goodName;
+            Save();
+            OnEnable();
         }
 
 

@@ -424,7 +424,19 @@ MonoBehaviour:
   m_CharacterLimit: 48
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8551602199230547357}
+        m_TargetAssemblyTypeName: kfutils.rpg.SaveButtonUI, Assembly-CSharp
+        m_MethodName: SolidfyNewSave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -448,7 +460,7 @@ MonoBehaviour:
       m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0.6839622, g: 0.8220017, b: 1, a: 1}
+  m_SelectionColor: {r: 0.095007114, g: 0.19953226, b: 0.3301887, a: 1}
   m_Text: TestSave
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -477,9 +489,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 2668253364810399476}
+  textAreaButton: {fileID: 7579121095949697672}
   background: {fileID: 7579121095949697672}
   unselected: {r: 0.28235295, g: 0.43137255, b: 0.5176471, a: 0}
   selected: {r: 0.28235295, g: 0.43137255, b: 0.5176471, a: 0.5019608}
+  normalTextColor: {r: 0.6745098, g: 0.7882353, b: 0.9607843, a: 0}
+  editTextColor: {r: 0.9882353, g: 0.972549, b: 0.7529412, a: 1}
 --- !u!1 &5559969817451917582
 GameObject:
   m_ObjectHideFlags: 0

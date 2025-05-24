@@ -63,11 +63,13 @@ namespace kfutils.rpg.ui {
 
         public void OnGameReloaded()
         {
-            Debug.Log("Event Recieved: OnGameReloaded()");
-            hotBar.CopyInto(InventoryManagement.hotBar);
-            InventoryManagement.hotBar = hotBar;
-            RedrawForLoad();
-            StartCoroutine(DelayedRedraw());
+            if (InventoryManagement.hotBar != null)
+            {
+                hotBar.CopyInto(InventoryManagement.hotBar);
+                InventoryManagement.hotBar = hotBar;
+                RedrawForLoad();
+                StartCoroutine(DelayedRedraw());
+            }
         }
 
 

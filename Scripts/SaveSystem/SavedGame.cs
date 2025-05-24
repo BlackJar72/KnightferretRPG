@@ -60,6 +60,16 @@ namespace kfutils.rpg {
             waitingToRecover = EntityManagement.waitingToRecover;
             recoveringMana = EntityManagement.recoveringMana;
         }
+        
+
+        public static string GetFullPathOfSave(string saveName) => saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+
+
+        public static void DeleteSave(string saveName)
+        {
+            string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+            ES3.DeleteFile(fileName);
+        }
 
 
         public void Save(string saveName)
@@ -69,7 +79,7 @@ namespace kfutils.rpg {
             foreach (string id in entityRegistry.Keys)
             {
                 IActor actor = entityRegistry[id] as IActor;
-                if (actor != null) actor.PreSaveEquipt();    
+                if (actor != null) actor.PreSaveEquipt();
             }
             // TODO: Save tha game data as a file
             ES3.Save("PCData", pcData, fileName);
