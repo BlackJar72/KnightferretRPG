@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-namespace kfutils.rpg
+namespace kfutils.rpg.ui
 {
 
 

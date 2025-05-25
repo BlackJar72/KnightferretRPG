@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using kfutils.rpg.ui;
+using kfutils.rpg;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace kfutils.rpg
+namespace kfutils.rpg.ui
 {
 
 

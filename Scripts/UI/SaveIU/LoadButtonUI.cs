@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 
-namespace kfutils.rpg
+namespace kfutils.rpg.ui
 {
 
 
