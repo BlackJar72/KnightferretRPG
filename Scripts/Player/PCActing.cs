@@ -93,6 +93,7 @@ namespace kfutils.rpg {
             rightAttackAction = input.actions["RightUseAttack"];
             activateObjectAction = input.actions["Interact"];
             castSpellAction = input.actions["CastSpell"];
+            pauseAction = input.actions["Pause"];
             togglePauseMenu = input.actions["TogglePauseMenu"];
             // Hotbar Quickslots
             quickSlot1Action = input.actions["Hotbar1"];
@@ -129,13 +130,15 @@ namespace kfutils.rpg {
             toggleInventoryAction.started += ToggleCharacterSheet;
             InventoryManagement.toggleCharacterSheet += ToggleCharacterSheet;
             togglePauseMenu.started += TogglePauseMenu;
+            pauseAction.started += ApplyPauseButton;
         }
 
 
         protected void DisableUIActions() {
             toggleInventoryAction.started -= ToggleCharacterSheet;   
             InventoryManagement.toggleCharacterSheet -= ToggleCharacterSheet;  
-            togglePauseMenu.started -= TogglePauseMenu;       
+            togglePauseMenu.started -= TogglePauseMenu;  
+            pauseAction.started -= ApplyPauseButton;     
         }
 
 
@@ -218,7 +221,13 @@ namespace kfutils.rpg {
 
         protected void TogglePauseMenu(InputAction.CallbackContext context)
         {
-            gameManager.UIManager.ToggleSaveMenu();
+            gameManager.UIManager.TooglePauseMenu();
+        } 
+
+
+        protected void ApplyPauseButton(InputAction.CallbackContext context)
+        {
+            gameManager.UIManager.PauseButtonHit();
         } 
 
 
@@ -279,7 +288,7 @@ namespace kfutils.rpg {
 
         // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
         public virtual void ToggleCharacterSheet() {
-            if(gameManager.UIManager.ToggleCharacterSheet()) {
+            if(gameManager.UIManager.ToggleCharacterSheet() || GameManager.Instance.UIManager.PauseMenuVisible) {
                 DisableMovement();
                 DisableAction();
                 moveLayer.Speed = 0;

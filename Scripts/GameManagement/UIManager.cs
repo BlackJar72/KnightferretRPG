@@ -1,6 +1,5 @@
 using UnityEngine;
 using kfutils.rpg.ui;
-using UnityEngine.InputSystem;
 
 
 
@@ -20,6 +19,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemStackManipulator itemStackManipulator;
         [SerializeField] EquiptmentPanel pcEquiptPanel;
         [SerializeField] SaveLoadUI saveLoadPanel;
+        [SerializeField] PauseMenuUI pauseMenuUI;
 
 
         public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
@@ -28,23 +28,17 @@ namespace kfutils.rpg {
         public Canvas MainCanvas { get => mainCanvas; }
 
 
-        // Input System
-        // HELP!  Do I really need any of this?!
-        protected PlayerInput input;
-        protected PlayerInput submit;
-        protected InputAction cancel;
-        protected InputAction leftClick;
-        protected InputAction middleClick;
-        protected InputAction rightClick;
-        protected InputAction sprintToggle;
-        protected InputAction crouchAction;
-        protected InputAction crouchToggle;
+        private bool pauseMenuVisible = false;
+
+
+        public bool PauseMenuVisible => pauseMenuVisible;
 
 
         /// <summary>
         /// Handles things that should be done when opening any GUI.
         /// </summary>
-        public void OpenGUI() {
+        public void OpenGUI()
+        {
             Cursor.lockState = CursorLockMode.None;
             crossHairs.SetHidden();
         }
@@ -53,9 +47,12 @@ namespace kfutils.rpg {
         /// <summary>
         /// Handles things that should be done when opening any GUI.
         /// </summary>
-        public void CloseGUI() {                          
-            Cursor.lockState = CursorLockMode.Locked;
-            crossHairs.SetVisible();
+        public void CloseGUI() {
+            if (!pauseMenuVisible)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                crossHairs.SetVisible();
+            }
         }
 
 
@@ -101,7 +98,7 @@ namespace kfutils.rpg {
             saveLoadPanel.Toggle();
             if (saveing) saveLoadPanel.SetToSavePanel();
             else saveLoadPanel.SetToLoadPanel();
-            if (saveLoadPanel.IsVisible) Cursor.lockState = CursorLockMode.None;
+            if (saveLoadPanel.IsVisible || pauseMenuVisible) Cursor.lockState = CursorLockMode.None;
             else Cursor.lockState = CursorLockMode.Locked;
             return saveLoadPanel.IsVisible;
         }
@@ -113,11 +110,52 @@ namespace kfutils.rpg {
         }
 
 
-        public bool ToggleCharacterSheet() {
+        public void PauseButtonHit()
+        {
+            if (pauseMenuVisible || characterPanelToggler.IsVisible)
+            {
+                CloseCharacterSheet();
+                HidePauseMenu();
+            }
+            else ShowPauseMenu();
+        }
+
+
+        public void TooglePauseMenu()
+        {
+            if (pauseMenuVisible) HidePauseMenu();
+            else ShowPauseMenu();
+        }
+        
+
+        public void ShowPauseMenu()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            EntityManagement.playerCharacter.AllowActions(false);
+            pauseMenuUI.ShowMenu();
+            pauseMenuVisible = true;
+        }
+
+
+        public void HidePauseMenu()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            EntityManagement.playerCharacter.AllowActions(true);
+            pauseMenuVisible = false;
+            HideSaveMenu();
+            pauseMenuUI.SetHidden();
+        }
+
+
+        public bool ToggleCharacterSheet()
+        {
             characterPanelToggler.Toggle();
-            if(characterPanelToggler.IsVisible) {
+            if (characterPanelToggler.IsVisible)
+            {
                 OpenGUI();
-            } else {
+            }
+            else
+            {
                 CloseGUI();
                 CloseContainerUI();
                 HideItemToolTip();
@@ -166,8 +204,11 @@ namespace kfutils.rpg {
                 OpenGUI();
                 OpenContainerUI(inventory, container);
                 characterPanelToggler.SetVisible();
-                Cursor.lockState = CursorLockMode.None;
-                EntityManagement.playerCharacter.AllowActions(false);
+                if (!pauseMenuVisible)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    EntityManagement.playerCharacter.AllowActions(false);
+                }
             }
         }
 

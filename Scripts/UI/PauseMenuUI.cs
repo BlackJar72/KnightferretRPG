@@ -1,3 +1,4 @@
+using Animancer.Examples;
 using UnityEngine;
 
 
@@ -11,9 +12,15 @@ namespace kfutils.rpg.ui
         [SerializeField] SaveLoadUI saveLoadUI;
 
 
-        public void SaveButtonClicked()
+        public void ShowMenu()
         {
             Time.timeScale = 0.0f;
+            SetVisible();
+        }
+
+
+        public void SaveButtonClicked()
+        {
             saveLoadUI.SetVisible();
             saveLoadUI.SetToSavePanel();
         }
@@ -21,7 +28,6 @@ namespace kfutils.rpg.ui
 
         public void LoadButtonClicked()
         {
-            Time.timeScale = 0.0f;
             saveLoadUI.SetVisible();
             saveLoadUI.SetToLoadPanel();
         }
@@ -32,8 +38,7 @@ namespace kfutils.rpg.ui
 
         public void CancelButtonClicked()
         {
-            SetHidden();
-            Time.timeScale = 1.0f;
+            GameManager.Instance.UIManager.HidePauseMenu();
         }
 
 

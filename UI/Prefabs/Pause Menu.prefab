@@ -489,7 +489,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 861633933609102541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1637944704474053414}
+        m_TargetAssemblyTypeName: kfutils.rpg.ui.PauseMenuUI, Assembly-CSharp
+        m_MethodName: LoadButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2932757703821605754
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,7 +898,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4504323849795240918}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1637944704474053414}
+        m_TargetAssemblyTypeName: kfutils.rpg.ui.PauseMenuUI, Assembly-CSharp
+        m_MethodName: QuitButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4787610726704138672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,7 +1031,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3755278053312832789}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1637944704474053414}
+        m_TargetAssemblyTypeName: kfutils.rpg.ui.PauseMenuUI, Assembly-CSharp
+        m_MethodName: SaveButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5514181202040676826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,7 +1240,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4408420794343917999}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1637944704474053414}
+        m_TargetAssemblyTypeName: kfutils.rpg.ui.PauseMenuUI, Assembly-CSharp
+        m_MethodName: MainMenuButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5908135281191341595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,7 +1509,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 367714691238667694}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1637944704474053414}
+        m_TargetAssemblyTypeName: kfutils.rpg.ui.PauseMenuUI, Assembly-CSharp
+        m_MethodName: CancelButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6529518192257226749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,7 +1938,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9083046166813022968}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1637944704474053414}
+        m_TargetAssemblyTypeName: kfutils.rpg.ui.PauseMenuUI, Assembly-CSharp
+        m_MethodName: OptionsButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8241112569242372789
 GameObject:
   m_ObjectHideFlags: 0

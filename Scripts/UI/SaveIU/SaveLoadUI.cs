@@ -187,7 +187,7 @@ namespace kfutils.rpg.ui
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
             GameManager.Instance.UIManager.CloseCharacterSheet();
-            GameManager.Instance.UIManager.HideSaveMenu();
+            GameManager.Instance.UIManager.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);
         }
 
@@ -216,11 +216,14 @@ namespace kfutils.rpg.ui
 
         public void SetHidden()
         {
-            Time.timeScale = 1.0f;
-            bool canMove = !GameManager.Instance.UIManager.CharacterSheetVisible;
-            EntityManagement.playerCharacter.AllowActions(canMove);
-            if (canMove) Cursor.lockState = CursorLockMode.Locked;
-            else Cursor.lockState = CursorLockMode.None;
+            if (!GameManager.Instance.UIManager.PauseMenuVisible)
+            {
+                Time.timeScale = 1.0f;
+                bool canMove = !GameManager.Instance.UIManager.CharacterSheetVisible;
+                EntityManagement.playerCharacter.AllowActions(canMove);
+                if (canMove) Cursor.lockState = CursorLockMode.Locked;
+                else Cursor.lockState = CursorLockMode.None;
+            }
             shower.SetHidden();
         }
 
