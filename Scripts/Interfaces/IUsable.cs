@@ -21,13 +21,13 @@ namespace kfutils.rpg {
         /// </summary>
         public void OnUse(IActor actor);
 
-        public void OnEquipt(IActor actor);
+        public void OnEquipt(IActor actor); 
 
         public void OnUnequipt();
 
-        public void PlayUseAnimation(AnimancerLayer animancer, AnimancerState animState);
+        public void PlayUseAnimation(IActor actor);
 
-        public void PlayEquipAnimation(AnimancerLayer animancer, AnimancerState animState);
+        public void PlayEquipAnimation(IActor actor);
 
         [Tooltip("Stamina cost to use item; usually 0 except for weapons which cost stamina to attack")]
         int StaminaCost { get; } // Stamina cost to use item; usually 0 for non-weapons

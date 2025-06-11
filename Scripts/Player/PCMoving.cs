@@ -29,6 +29,7 @@ namespace kfutils.rpg {
         [SerializeField] protected GameManager gameManager;
 
         [SerializeField] protected MovementSet movementSet;
+        [SerializeField] protected AnimancerComponent arms; // TODO: Animate arms, once there are arms to animate
 
         [SerializeField] protected Transform eyeY;
 
@@ -47,7 +48,9 @@ namespace kfutils.rpg {
         protected bool onGround;
         protected CharacterController characterController;
         protected AnimancerState moveState;
+        protected AnimancerState armsMoveState;
         protected AnimancerLayer moveLayer;
+        protected AnimancerLayer armsMoveLayer;
         protected MixerTransition2D moveMixer;
         protected MixerParameterTweenVector2 moveTween;
 
@@ -112,7 +115,9 @@ namespace kfutils.rpg {
 
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
+            armsMoveLayer = arms.Layers[0];
             moveState = moveLayer.Play(moveMixer);
+            armsMoveState = armsMoveLayer.Play(moveMixer);
             moveTween = new MixerParameterTweenVector2(moveMixer.State);
         }
 

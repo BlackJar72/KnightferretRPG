@@ -1,3 +1,4 @@
+using System;
 using Animancer;
 using UnityEngine;
 
@@ -34,6 +35,16 @@ namespace kfutils.rpg {
         public virtual void GetAimParams(out AimParams aim)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void PlayAction(AvatarMask mask, ITransition animation, float time = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PlayAction(AvatarMask mask, ITransition animation, Action onEnd, float time = 0, float delay = 1.0f)
+        {
+            throw new NotImplementedException();
         }
 
         public void PreSaveEquipt()

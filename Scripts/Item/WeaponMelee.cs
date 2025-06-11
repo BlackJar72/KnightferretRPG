@@ -20,6 +20,8 @@ namespace kfutils.rpg {
         private bool queued = false;
         private int attack = 0;
 
+        public delegate void EventAction();
+
 
         public AbstractAction UseAnimation => useAnimation;
 
@@ -68,27 +70,25 @@ namespace kfutils.rpg {
         public void OnUse(IActor actor) {
             IAttacker attacker = actor as IAttacker;
             if(attacker != null) {
-                if(busy) queued = true;
-                else {
+                if (busy) queued = true;
+                else
+                {
                     AttackMelee(attacker);
-                    PlayUseAnimation(attacker.ActionLayer, attacker.ActionState);
+                    PlayUseAnimation(actor);
                 }
             }
         }
 
 
-        public void PlayUseAnimation(AnimancerLayer animancer, AnimancerState animState) {
-            if((animState == null) || (!busy)) {
-                animancer.SetMask(useAnimation.mask);
-                animState = animancer.Play(useAnimation.GetSequential(ref attack));
-                animState.Time = 0; 
+        public void PlayUseAnimation(IActor attacker) {
+            if(!busy) {
+                attacker.PlayAction(useAnimation.mask, useAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, 0.75f);
                 busy = true;
-                animState.Events.OnEnd = OnUseAnimationEnd;
             }
         }
 
 
-        private void OnUseAnimationEnd() {
+        public void OnUseAnimationEnd() {
             busy = false;
             attacking = false;
             if(queued) {
@@ -105,7 +105,7 @@ namespace kfutils.rpg {
 
         public void OnEquipt(IActor actor) {
             holder = actor as IAttacker;
-            PlayEquipAnimation(actor.ActionLayer, actor.ActionState);
+            PlayEquipAnimation(actor);
         }
 
 
@@ -115,14 +115,12 @@ namespace kfutils.rpg {
         }
 
 
-        public void PlayEquipAnimation(AnimancerLayer animancer, AnimancerState animState) {
-            if((animState == null) || (animState.NormalizedTime >= 1)) {
-                animancer.SetMask(useAnimation.mask);
-                animState = animancer.Play(equiptAnim);
-                animState.NormalizedTime = 0; 
-                animState.Events.OnEnd = OnEqipAnimationEnd;
+        public void PlayEquipAnimation(IActor user) {
+            if(user.ActionState.NormalizedTime >= 1) {
+                user.PlayAction(useAnimation.mask, equiptAnim, OnEqipAnimationEnd, 0);
                 busy = true;
                 attacking = false;
+                user.ActionState.Events.OnEnd = OnEqipAnimationEnd;
             }
         }
 
@@ -140,7 +138,7 @@ namespace kfutils.rpg {
         }
 
 
-        private void OnEqipAnimationEnd() {
+        public void OnEqipAnimationEnd() {
             busy = false;
         }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using Animancer;
 using kfutils.rpg.ui;
 using UnityEngine;
@@ -16,7 +17,9 @@ namespace kfutils.rpg {
 
 
         protected AnimancerLayer actionLayer;
+        protected AnimancerLayer armsActionLayer;
         protected AnimancerState actionState;
+        protected AnimancerState armsActionState;
 
  
         // Input System
@@ -54,14 +57,16 @@ namespace kfutils.rpg {
 
         public AnimancerState ActionState => actionState;
 
+        public AnimancerState ArmsActionState => armsActionState;
+        
 
-
-        protected override void Awake() {
-            if(inventory == null) inventory = GetComponent<PlayerInventory>();
-            if(spellbook == null) spellbook = GetComponent<Spellbook>();
+        protected override void Awake()
+        {
+            if (inventory == null) inventory = GetComponent<PlayerInventory>();
+            if (spellbook == null) spellbook = GetComponent<Spellbook>();
             inventory.SetOwner(this); // Just in case it wasn't set correctly
             base.Awake();
-            InitInput(); 
+            InitInput();
         }
 
 
@@ -69,7 +74,9 @@ namespace kfutils.rpg {
         protected override void Start() {
             base.Start();
             actionLayer = animancer.Layers[1];
+            armsActionLayer = arms.Layers[1];
             actionState = moveState;
+            armsActionState = armsMoveState;
         }
 
 
@@ -244,25 +251,59 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void Interact(InputAction.CallbackContext context) {
+        public void PlayAction(AvatarMask mask, ITransition animation, float time = 0)
+        {            
+            actionLayer.SetMask(mask);
+            actionState = animancer.Play(animation);
+            actionState.Time = time;
+            armsActionLayer.SetMask(mask);
+            armsActionState = animancer.Play(animation);
+            armsActionState.Time = time; 
+        }
+
+
+        public void PlayAction(AvatarMask mask, ITransition animation, System.Action onEnd, float time = 0.0f, float delay = 1.0f)
+        {
+            actionLayer.SetMask(mask);
+            actionState = actionLayer.Play(animation);
+            actionState.Time = time;
+            armsActionLayer.SetMask(mask);
+            armsActionState = armsActionLayer.Play(animation);
+            armsActionState.Time = time; 
+            StartCoroutine(DoPostActionCode(onEnd, delay));
+        }
+
+
+        public IEnumerator DoPostActionCode(System.Action onEnd, float delay = 1.0f)
+        {
+            yield return new WaitForSeconds(delay);
+            onEnd();
+        }
+
+
+        protected virtual void Interact(InputAction.CallbackContext context)
+        {
             AimParams aim;
             GetAimParams(out aim);
-            RaycastHit hit;  
+            RaycastHit hit;
             IInteractable interactable = null;
             // First we use a raycast to prioritize objects directly aimed at, and avoid the problem
             // from Thief 3 where objects to side are grabbed because they were closer.
             if (Physics.Raycast(aim.from, aim.toward, out hit, 2f, GameConstants.interactable))
-            {  
+            {
                 interactable = hit.collider.GetComponent<IInteractable>();
-                if(interactable != null) {
+                if (interactable != null)
+                {
                     interactable.Use(gameObject);
                 }
             }
             // If this fails, try a fairly narrow sphere cast to decrease the required percision so it doesn't feel like 
             // the interaction has to be "pixel perfect."
-            if((interactable == null) && Physics.SphereCast(aim.from, 0.1f, aim.toward, out hit, 2f, GameConstants.interactable)) {                 
+            if ((interactable == null) && Physics.SphereCast(aim.from, 0.1f, aim.toward, out hit, 2f, GameConstants.interactable))
+            {
                 interactable = hit.collider.GetComponent<IInteractable>();
-                if(interactable != null) {
+                if (interactable != null)
+                {
                     interactable.Use(gameObject);
                 }
             }
