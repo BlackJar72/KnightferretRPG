@@ -26,6 +26,8 @@ provide replacements.  Also, this does require Animancer and EasySave3 to work a
 tried; a core feature is that items store the animations to use them, so that animation graphs do not need to be edited for every new items with its own animation. 
 EasySave3 is used purely for serialization and other serialization solutions could probably be used without too many changes.
 
+The shaders folder contains shader graphs and materials for the water shader, as well as several unused shaders that didn't belong anywhere else, including outline and lineart screen space shaders and a recreation of the spectre effect from classic doom (perhaps would have work for some kind of shadow people/creatures).
+
 Many parts were based on ideas cherry picked from "Data Orient Design" as well as idea (not code) seen in other projects (such as having a "scene-loader" scene).  Also, 
 static contexts are required to share data or move objects between scenes in Unity, for anyone wondering about the static "management" classes. 
 
