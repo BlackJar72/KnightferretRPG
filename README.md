@@ -11,6 +11,12 @@ https://www.mediafire.com/file/lun1luek7pw1xoh/RPG-WinTest.2025-05-10.zip/file
 
 It uses standard WASD+mouse, with E to interact and space bar to jump. 
 
+
+Dev-Logs can be found here:
+
+https://www.youtube.com/watch?v=agfg9jmwOBs&list=PLFJXfKtUiVHBLkaMTCRwtzBYd_ciG1XgP
+
+
 I did consider packaging some parts, notable the Larian-esque inventory system, as an asset for the asset store, but it requires progamming skill to integrate into 
 any other project and so does not fit the "no coding required" nature of successful code assets.  But, rather than let it go to waste in case I don't use it myself, I'm 
 releasing it as open source under a permissive license so other can use it or learn from it.
