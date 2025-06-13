@@ -124,76 +124,87 @@ namespace kfutils.rpg {
             // First, handle all the healing and recovery
             HealEntities();
             RecoverEntityStamina();
-            RecoverEntityMana();
-            
+            RecoverEntityMana();            
         }
 
 
 #region Healing and Recovery
-            // Healing and Recovery
+        // Healing and Recovery
 
-            static public void AddWounded(EntityHealth entity) {
-                if(!waitingToHeal.Contains(entity)) {
-                    waitingToHeal.Add(entity);
-                    healingEntities.Remove(entity);
+        static public void AddWounded(EntityHealth entity) {
+            if(!waitingToHeal.Contains(entity)) {
+                waitingToHeal.Add(entity);
+                healingEntities.Remove(entity);
+            }
+        }
+
+
+        static public void AddExhausted(EntityStamina entity) {
+            if(!waitingToRecover.Contains(entity)) {
+                waitingToRecover.Add(entity);
+                recoveringEntities.Remove(entity);
+            }
+        }
+
+
+        static public void AddManaExhausted(EntityMana entity) {
+            if(!recoveringMana.Contains(entity)) recoveringMana.Add(entity);
+        }
+
+
+        static public void HealEntities() {
+            for(int i = waitingToHeal.Count - 1; i > -1; i--) {
+                if(waitingToHeal[i].CanHeal) {
+                    healingEntities.Add(waitingToHeal[i]);
+                    waitingToHeal.RemoveAt(i);
                 }
             }
-
-
-            static public void AddExhausted(EntityStamina entity) {
-                if(!waitingToRecover.Contains(entity)) {
-                    waitingToRecover.Add(entity);
-                    recoveringEntities.Remove(entity);
+            for(int i = healingEntities.Count - 1; i > -1; i--) {
+                if(!healingEntities[i].NaturalRegen()) {
+                    healingEntities.RemoveAt(i);
                 }
             }
+        }
 
 
-            static public void AddManaExhausted(EntityMana entity) {
-                if(!recoveringMana.Contains(entity)) recoveringMana.Add(entity);
-            }
-
-
-            static public void HealEntities() {
-                for(int i = waitingToHeal.Count - 1; i > -1; i--) {
-                    if(waitingToHeal[i].CanHeal) {
-                        healingEntities.Add(waitingToHeal[i]);
-                        waitingToHeal.RemoveAt(i);
-                    }
-                }
-                for(int i = healingEntities.Count - 1; i > -1; i--) {
-                    if(!healingEntities[i].NaturalRegen()) {
-                        healingEntities.RemoveAt(i);
-                    }
+        static public void RecoverEntityStamina() {
+            for(int i = waitingToRecover.Count - 1; i > -1; i--) {
+                if(waitingToRecover[i].CanHeal) {
+                    recoveringEntities.Add(waitingToRecover[i]);
+                    waitingToRecover.RemoveAt(i);
                 }
             }
-
-
-            static public void RecoverEntityStamina() {
-                for(int i = waitingToRecover.Count - 1; i > -1; i--) {
-                    if(waitingToRecover[i].CanHeal) {
-                        recoveringEntities.Add(waitingToRecover[i]);
-                        waitingToRecover.RemoveAt(i);
-                    }
-                }
-                for(int i = recoveringEntities.Count - 1; i > -1; i--) {
-                    if(!recoveringEntities[i].NaturalRegen()) {
-                        recoveringEntities.RemoveAt(i);
-                    }
+            for(int i = recoveringEntities.Count - 1; i > -1; i--) {
+                if(!recoveringEntities[i].NaturalRegen()) {
+                    recoveringEntities.RemoveAt(i);
                 }
             }
+        }
 
 
-            static public void RecoverEntityMana() {
-                for(int i = recoveringMana.Count - 1; i > -1; i--) {
-                    if(!recoveringMana[i].NaturalRegen()) {
-                        recoveringMana.RemoveAt(i);
-                    }
+        static public void RecoverEntityMana() {
+            for(int i = recoveringMana.Count - 1; i > -1; i--) {
+                if(!recoveringMana[i].NaturalRegen()) {
+                    recoveringMana.RemoveAt(i);
                 }
             }
+        }
+
+
+        static public void RemoveDead(EntityLiving entity)
+        {
+            healingEntities.Remove(entity.health);
+            waitingToHeal.Remove(entity.health);
+            recoveringEntities.Remove(entity.stamina);
+            waitingToRecover.Remove(entity.stamina);
+            recoveringMana.Remove(entity.mana);
+        }
+
+
         #endregion
 
 
-#region Serialization Helpers
+        #region Serialization Helpers
 
 
         public static List<string> GetIDList(List<IHaveStringID> entities)

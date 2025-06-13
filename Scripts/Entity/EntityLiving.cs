@@ -14,6 +14,9 @@ namespace kfutils.rpg {
         [SerializeField] public EntityStamina stamina;
         [SerializeField] public EntityMana mana;
         [SerializeField] public EntityAttributes attributes;
+        [SerializeField] protected bool alive = true;
+
+        [SerializeField] protected EntityHitbox hitbox;
 
         [SerializeField] protected AnimancerComponent animancer;
 
@@ -75,6 +78,7 @@ namespace kfutils.rpg {
                 data.livingData.health = health;
                 data.livingData.stamina = stamina;
                 data.livingData.mana = mana;
+                data.livingData.alive = alive;
                 EntityManagement.AddToRegistry(data);
             }
             else
@@ -84,7 +88,9 @@ namespace kfutils.rpg {
                 health = data.livingData.health;
                 stamina = data.livingData.stamina;
                 mana = data.livingData.mana;
+                alive = data.livingData.alive;
             }
+            if (!alive && this is not EntityMoving) Die(); 
         }
 
 
@@ -95,6 +101,7 @@ namespace kfutils.rpg {
             data.livingData.health = health;
             data.livingData.stamina = stamina;
             data.livingData.mana = mana;
+            data.livingData.alive = alive;
         }
 
 
@@ -130,7 +137,13 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void Die() {} 
+        protected virtual void Die()
+        {
+            alive = false;
+            if (hitbox != null) hitbox.gameObject.SetActive(false);
+            EntityManagement.RemoveDead(this);
+            OnDisable();
+        } 
     
     
     

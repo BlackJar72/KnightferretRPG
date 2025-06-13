@@ -6,10 +6,10 @@ using UnityEngine.AI;
 namespace kfutils.rpg {
 
 
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(NavMeshAgent))][RequireComponent(typeof(CharacterController))]
     public class EntityMoving : EntityLiving
     {
-
+        [SerializeField] protected CharacterController controller;
         [SerializeField] protected MovementSet movementSet;
         [SerializeField] protected Transform eyes;
 
@@ -33,16 +33,26 @@ namespace kfutils.rpg {
             navAgent = GetComponent<NavMeshAgent>();
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
-            moveState = moveLayer.Play(moveMixer);
-            moveTween = new MixerParameterTweenVector2(moveMixer.State);
+            if (alive)
+            {
+                moveState = moveLayer.Play(moveMixer);
+                moveTween = new MixerParameterTweenVector2(moveMixer.State);
+            }
+            else
+            {
+                Die(); // FIXME: Save and restore death animation state
+            }
         }
 
 
         protected override void Die()
-        {
-            base.Die();
-            
+        {  
+#if UNITY_EDITOR          
             Debug.Log(GetPersonalName() + " (" + ID + ") " + "Died!");
+#endif
+            base.Die();
+            controller.enabled = false;
+            moveLayer = animancer.Layers[0]; // This may not be defined when reloading a scene
             moveLayer.SetMask(deathAnimation.mask);
             moveState = moveLayer.Play(deathAnimation.anim);
             moveState.Time = 0;
