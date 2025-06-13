@@ -9,14 +9,14 @@ namespace kfutils.rpg {
     [RequireComponent(typeof(NavMeshAgent))]
     public class EntityMoving : EntityLiving
     {
-        
+
         [SerializeField] protected MovementSet movementSet;
         [SerializeField] protected Transform eyes;
 
         protected AnimancerState moveState;
-        
+
         protected AnimancerLayer moveLayer;
-        
+
         protected MixerTransition2D moveMixer;
         protected MixerParameterTweenVector2 moveTween;
 
@@ -38,6 +38,17 @@ namespace kfutils.rpg {
         }
 
 
+        protected override void Die()
+        {
+            base.Die();
+            
+            Debug.Log(GetPersonalName() + " (" + ID + ") " + "Died!");
+            moveLayer.SetMask(deathAnimation.mask);
+            moveState = moveLayer.Play(deathAnimation.anim);
+            moveState.Time = 0;
+        } 
+
+
         // Update is called once per frame
         /*protected override void Update()
         {
@@ -45,7 +56,7 @@ namespace kfutils.rpg {
         }*/
 
 
-        
+
 
 
 
