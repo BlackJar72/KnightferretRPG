@@ -24,7 +24,10 @@ namespace kfutils.rpg {
 
         protected EntityData data;
 
+        [ES3Serializable] protected float enviroCooldown;
+
         public AnimancerComponent anim { get => animancer; }
+        public bool Alive => alive;
 
 
         public string ID
@@ -79,6 +82,7 @@ namespace kfutils.rpg {
                 data.livingData.stamina = stamina;
                 data.livingData.mana = mana;
                 data.livingData.alive = alive;
+                data.livingData.enviroCooldown = enviroCooldown;
                 EntityManagement.AddToRegistry(data);
             }
             else
@@ -89,6 +93,7 @@ namespace kfutils.rpg {
                 stamina = data.livingData.stamina;
                 mana = data.livingData.mana;
                 alive = data.livingData.alive;
+                enviroCooldown = data.livingData.enviroCooldown;
             }
             if (!alive && this is not EntityMoving) Die(); 
         }
@@ -102,6 +107,7 @@ namespace kfutils.rpg {
             data.livingData.stamina = stamina;
             data.livingData.mana = mana;
             data.livingData.alive = alive;
+            data.livingData.enviroCooldown = enviroCooldown;
         }
 
 

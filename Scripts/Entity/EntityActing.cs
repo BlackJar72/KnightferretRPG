@@ -7,9 +7,16 @@ namespace kfutils.rpg {
 
     public class EntityActing : EntityMoving, IActor
     {
-        public AnimancerLayer ActionLayer => throw new System.NotImplementedException();
 
-        public AnimancerState ActionState => throw new System.NotImplementedException();
+        [SerializeField] CharacterInventory inventory;
+        [SerializeField] Spellbook spellbook;
+        [SerializeField] CharacterEquipt itemLocations;
+
+        protected AnimancerLayer actionLayer;
+        protected AnimancerState actionState;
+
+        public AnimancerLayer ActionLayer => actionLayer;
+        public AnimancerState ActionState => actionState;
 
 
 

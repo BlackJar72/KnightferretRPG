@@ -12,7 +12,7 @@ namespace kfutils.rpg {
         public EntityMana mana;
         public EntityAttributes attributes;
         public bool alive;
-
+        public float enviroCooldown;
         
 
 
