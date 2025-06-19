@@ -83,6 +83,7 @@ namespace kfutils.rpg {
                 data.livingData.mana = mana;
                 data.livingData.alive = alive;
                 data.livingData.enviroCooldown = enviroCooldown;
+                data.livingData.transform = transform.GetGlobalData();
                 EntityManagement.AddToRegistry(data);
             }
             else
@@ -94,6 +95,7 @@ namespace kfutils.rpg {
                 mana = data.livingData.mana;
                 alive = data.livingData.alive;
                 enviroCooldown = data.livingData.enviroCooldown;
+                transform.SetDataGlobal(data.livingData.transform);
             }
             if (!alive && this is not EntityMoving) Die(); 
         }
@@ -108,6 +110,7 @@ namespace kfutils.rpg {
             data.livingData.mana = mana;
             data.livingData.alive = alive;
             data.livingData.enviroCooldown = enviroCooldown;
+            data.livingData.transform = transform.GetGlobalData();
         }
 
 

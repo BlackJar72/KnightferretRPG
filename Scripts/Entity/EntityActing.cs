@@ -33,6 +33,12 @@ namespace kfutils.rpg {
         }*/
 
 
+        protected override void Start()
+        {
+            base.Start();
+            SetDestination(EntityManagement.playerCharacter.transform.position);
+        }
+
 
         public void EquiptItem(ItemStack item) {
             throw new System.NotImplementedException();

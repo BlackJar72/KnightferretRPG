@@ -13,8 +13,8 @@ namespace kfutils.rpg {
         public EntityAttributes attributes;
         public bool alive;
         public float enviroCooldown;
+        public TransformData transform;
         
-
 
     }
 

@@ -20,7 +20,8 @@ namespace kfutils.rpg
         protected float meleeStopDistance;
 
 
-        #region  Overridden Unity Methods
+
+#region  Overridden Unity Methods
 
         protected override void Awake()
         {
@@ -54,6 +55,8 @@ namespace kfutils.rpg
 
 #endregion
 
+
+        
 
 
 
