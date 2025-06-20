@@ -36,7 +36,12 @@ namespace kfutils.rpg {
         protected override void Start()
         {
             base.Start();
-            SetDestination(EntityManagement.playerCharacter.transform.position);
+            // Line only to 
+            if (alive)
+            {
+                SetDestination(EntityManagement.playerCharacter.transform.position); // REMOVE ME
+                SetMoveType(MoveType.walk); // REMOVE ME
+            }
         }
 
 

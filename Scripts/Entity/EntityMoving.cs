@@ -1,3 +1,4 @@
+using System;
 using Animancer;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,9 +22,11 @@ namespace kfutils.rpg {
     public class EntityMoving : EntityLiving
     {
         [SerializeField] protected CharacterController controller;
-        [SerializeField] protected MovementSet movementSet;
+        [SerializeField] protected MovementSet movementSetPrototype;
         [SerializeField] protected Transform eyes;
         [SerializeField] protected NavMeshAgent navAgent;
+
+        protected MovementSet movementSet;
 
         protected AnimancerState moveState;
         protected AnimancerLayer moveLayer;
@@ -31,12 +34,23 @@ namespace kfutils.rpg {
         protected MixerTransition2D moveMixer;
         protected MixerParameterTweenVector2 moveTween;
 
-        protected Vector3 destination;
-        protected MoveType moveType;
+        [SerializeField] protected Vector3 destination;
+        [SerializeField] protected MoveType moveType;
 
 
         // This is to make sure this is never overriden into something harmful.
         protected sealed override void MakePC(string id) { base.MakePC(ID); }
+
+
+        protected override void Awake()
+        {
+            base.Awake();
+            // This is required for the animations to work on multiple characters,
+            // and no CreateInstance is not appropriate as I need to clone the give 
+            // object, not create a totally new one.
+            movementSet = Instantiate(movementSetPrototype);
+        }
+
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Start()
@@ -45,6 +59,7 @@ namespace kfutils.rpg {
             navAgent = GetComponent<NavMeshAgent>();
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
+            moveState = moveLayer.Play(moveMixer);
             if (alive)
             {
                 moveState = moveLayer.Play(moveMixer);
@@ -54,6 +69,33 @@ namespace kfutils.rpg {
             {
                 Die(); // FIXME: Save and restore death animation state
             }
+        }
+
+
+        protected override void Update()
+        {
+            if (alive) Move();
+        }
+
+
+        protected virtual void Move()
+        {
+            base.Update();
+            if (ShouldStop())
+            {
+                SetDirectionalParameters(Vector2.zero);
+            }
+            else
+            {
+                SetDirectionalParameters(Vector2.up);
+            }
+        }
+
+
+        protected bool ShouldStop()
+        {
+            return (moveType == MoveType.idle) || !navAgent.isActiveAndEnabled || navAgent.isStopped
+                    || (navAgent.remainingDistance <= navAgent.stoppingDistance) || (navAgent.velocity.sqrMagnitude == 0);
         }
 
 
