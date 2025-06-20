@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class ActingData {
-        
+    public class ActingData
+    {
+
+        AIStates basicStates;
         
 
     }
