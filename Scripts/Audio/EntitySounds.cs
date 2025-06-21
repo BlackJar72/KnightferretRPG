@@ -13,7 +13,7 @@ namespace kfutils.rpg
     }
 
 
-    [CreateAssetMenu(menuName = "RPG/Audio/Entity Sounds", fileName = "EntitySounds", order = 103)]
+    [CreateAssetMenu(menuName = "KF-RPG/Audio/Entity Sounds", fileName = "EntitySounds", order = 103)]
     public class EntitySounds : ScriptableObject
     {
         [SerializeField] Sound[] idleSounds;

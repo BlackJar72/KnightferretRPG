@@ -8,16 +8,13 @@ namespace kfutils.rpg
     [System.Serializable]
     public enum AIStateID
     {
-        idle,
-        wander,
-        work,
-        aggro,
-        chase,
-        melee,
-        ranged,
-        flee,
-        death,
-        special
+        idle = 0,
+        wander = 1,
+        work = 2,
+        aggro = 3,
+        flee = 4,
+        death = 5,
+        special = 6
     }
 
 
@@ -27,7 +24,7 @@ namespace kfutils.rpg
         (1) I could keep these are pure C# objects, contructing them when the character is created (probable in Awake) 
         as was the original plan.  This allows maximum control and avoids any overhead or possible gotchas associated 
         with scriptable objects.  The one drawback is each entity type (possibly including unique individuals) would 
-        need to be coded as a separate subclass of EntityActor or EntityTalking.
+        need to be coded as a separate subclass of EntityActor or EntityTalking. 
 
         (2) I could make this SystemSerializable and make AIState a scriptable object (which would act as a prototype). 
         As I now realize scriptable objects can be cloned with Instantiate into separate run-time versions I could 
@@ -36,23 +33,70 @@ namespace kfutils.rpg
         and creating specific entities in the inspector, at least to a point.  One drawback is that the owner of the 
         AI could not be a readonly field set in the constructor.
 
-    I'll have to think about it.
     */
 
 
+    [System.Serializable]
     public class AIStates
     {
-        AIState idle;
-        AIState wander;
-        AIState work;
-        AIState aggro;
-        AIState chase;
-        AIState melee;
-        AIState ranged;
-        AIState flee;
-        AIState death;
+        [SerializeField] AIState idle;
+        [SerializeField] AIState wander;
+        [SerializeField] AIState work;
+        [SerializeField] AIState aggro;
+        [SerializeField] AIState flee;
+        [SerializeField] AIState death;
 
-        Dictionary<string, AIState> special;
+        [SerializeField] AIState[] special;
+
+
+        AIState current;
+        AIState previous;
+
+
+        public void Init(EntityActing owner)
+        {
+            idle = Object.Instantiate(idle);
+            idle.Init(owner);
+
+
+            SetState(owner.DefaultState);
+        }
+
+
+        public void Act()
+        {
+            current.Act();
+        }
+
+
+        public void SetState(AIStateID state)
+        {
+            previous = current == null ? idle : current;
+            switch (state)
+            {
+                case AIStateID.idle:
+                    current = idle;
+                    break;
+                case AIStateID.wander:
+                    current = wander;
+                    break;
+                case AIStateID.work:
+                    current = work;
+                    break;
+                case AIStateID.aggro:
+                    current = aggro;
+                    break;
+                case AIStateID.flee:
+                    current = flee;
+                    break;
+                case AIStateID.death:
+                    current = idle;
+                    break;
+                default:
+                    break;
+
+            }
+        }
     }
 
 }

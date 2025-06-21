@@ -10,18 +10,28 @@ namespace kfutils.rpg
     /// specific utility AIs or behavior trees -- or a hybrid of both, with simple 
     /// code for simpler or transient states.
     /// </summary>
-    public abstract class AIState
+    public abstract class AIState : ScriptableObject
     {
-        protected readonly EntityActing owner;
+        protected EntityActing owner = null;
 
 
         public EntityActing Owner => owner;
 
 
-        public AIState(EntityActing actor)
+        //public AIState(EntityActing actor)
+        //{
+        //    owner = actor;
+        //}
+
+
+        public void Init(EntityActing character)
         {
-            owner = actor;
+            if (owner == null) owner = character;
         }
+
+
+        public abstract void Act();
+
 
     }
 

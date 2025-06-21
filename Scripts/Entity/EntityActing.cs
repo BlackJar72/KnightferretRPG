@@ -12,25 +12,32 @@ namespace kfutils.rpg {
         [SerializeField] Spellbook spellbook;
         [SerializeField] CharacterEquipt itemLocations;
 
+        [SerializeField] AIStates basicStates;
+        [SerializeField] AIStateID defaultState;
+
         protected AnimancerLayer actionLayer;
         protected AnimancerState actionState;
 
         public AnimancerLayer ActionLayer => actionLayer;
         public AnimancerState ActionState => actionState;
 
+        public AIStates BasicStates => basicStates;
+        public AIStateID DefaultState => defaultState;
 
 
-        /*// Start is called once before the first execution of Update after the MonoBehaviour is created
-        protected override void Start()
+
+        protected override void Awake()
         {
-            
-        }*/
+            base.Awake();
+            basicStates.Init(this);
+        }
 
-        // Update is called once per frame
-        /*protected override void Update()
+        //Update is called once per frame
+        protected override void Update()
         {
-            
-        }*/
+            basicStates.Act();
+            base.Update(); 
+        }
 
 
         protected override void Start()
