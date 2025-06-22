@@ -7,6 +7,7 @@ namespace kfutils.rpg {
 
     public class EntityActing : EntityMoving, IActor
     {
+        public const float VRANGESQR = 64 * 64;
 
         [SerializeField] CharacterInventory inventory;
         [SerializeField] Spellbook spellbook;
@@ -90,7 +91,31 @@ namespace kfutils.rpg {
 
         public void UnequiptItem(EEquiptSlot slot) {
             throw new System.NotImplementedException();
+        } 
+
+
+        public bool CanSeeCollider(Collider other)
+        {
+            Vector3 otherLoc = other.bounds.center;
+            Vector3 toOther = otherLoc - eyes.position;
+            float dist = toOther.sqrMagnitude;
+            return ((dist < VRANGESQR)
+            && (Vector3.Dot(eyes.forward, toOther) > 0)
+            && !Physics.Linecast(eyes.position, otherLoc, GameConstants.LevelMask));
+        } 
+
+
+        public bool CanSeePosition(Vector3 other)
+        {
+            Vector3 toOther = other - eyes.position;
+            float dist = toOther.sqrMagnitude;
+            return ((dist < VRANGESQR)
+            && (Vector3.Dot(eyes.forward, toOther) > 0)
+            && !Physics.Linecast(eyes.position, other, GameConstants.LevelMask));
         }
+
+
+        public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
 
         
     }
