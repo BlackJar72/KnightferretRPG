@@ -94,17 +94,27 @@ namespace kfutils.rpg {
         } 
 
 
-        public bool CanSeeCollider(Collider other)
-        {
-            Vector3 otherLoc = other.bounds.center;
-            Vector3 toOther = otherLoc - eyes.position;
-            float dist = toOther.sqrMagnitude;
-            return ((dist < VRANGESQR)
-            && (Vector3.Dot(eyes.forward, toOther) > 0)
-            && !Physics.Linecast(eyes.position, otherLoc, GameConstants.LevelMask));
-        } 
-
-
+        /// <summary>
+        /// Determines if a point could be seen.  This creates a hemisphere rather than 
+        /// a cone of vision, with good periferal vision assumed.
+        /// 
+        /// To do this first it is tested to be in range (this can be thought of as the, 
+        /// aggro range, though called a visual range).  Next is is determined if the 
+        /// point is in front of the viewer based on the relationship between the dot 
+        /// product and cosine (law of cosines) by which anything on the front side 
+        /// will have positive cosine and thus positive dot product (as distance are 
+        /// always positive).  Finally, live of site is tested to make sure the view 
+        /// is not blocked.  The order of thes operations is based on least computationally 
+        /// expensive to most, so as not to waste cpu cycles, implemented through the 
+        /// languages own short-circuiting of compond logic statements.
+        /// 
+        /// It would be possible to get the actual cosine be dividing the dot product by 
+        /// the distance (as the over vector in the dot product is a unit vector), but 
+        /// this is not desired as periferal vision seems surprisingly limited even with a  
+        /// hemisphere.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool CanSeePosition(Vector3 other)
         {
             Vector3 toOther = other - eyes.position;
@@ -113,9 +123,8 @@ namespace kfutils.rpg {
             && (Vector3.Dot(eyes.forward, toOther) > 0)
             && !Physics.Linecast(eyes.position, other, GameConstants.LevelMask));
         }
-
-
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
+        public bool CanSeeTCollider(Collider other) => CanSeePosition(other.bounds.center);
 
         
     }
