@@ -28,6 +28,7 @@ namespace kfutils.rpg {
 
         public AnimancerComponent anim { get => animancer; }
         public bool Alive => alive;
+        public EntityHitbox Hitbox => hitbox;
 
 
         public string ID
@@ -35,6 +36,8 @@ namespace kfutils.rpg {
             get => id;
             protected set { if (string.IsNullOrEmpty(id)) id = value; }
         }
+
+
         // Seems sligihtly convoluted, but this should allow id to remain private while allowing for the PC to always have its ID
         protected virtual void MakePC(string id)
         {
@@ -97,7 +100,7 @@ namespace kfutils.rpg {
                 enviroCooldown = data.livingData.enviroCooldown;
                 transform.SetDataGlobal(data.livingData.transform);
             }
-            if (!alive && this is not EntityMoving) Die(); 
+            if (!alive && this is not EntityMoving) Die();
         }
 
 
@@ -152,6 +155,17 @@ namespace kfutils.rpg {
             if (hitbox != null) hitbox.gameObject.SetActive(false);
             EntityManagement.RemoveDead(this);
             OnDisable();
+        }
+
+
+        public virtual bool CanBeSeenFrom(Transform from, float rangeSqr)
+        {
+            if (hitbox == null) return false;
+            Vector3 toOther = hitbox.GetCenter() - from.position;
+            float dist = toOther.sqrMagnitude;
+            return ((dist < rangeSqr)
+            && (Vector3.Dot(from.forward, toOther) > 0)
+            && !Physics.Linecast(from.position, hitbox.GetCenter(), GameConstants.LevelMask));
         } 
     
     

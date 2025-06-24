@@ -203,6 +203,16 @@ namespace kfutils.rpg {
         }
 
 
+        public override bool CanBeSeenFrom(Transform from, float rangeSqr)
+        {
+            Vector3 toOther = characterController.bounds.center - from.position;
+            float dist = toOther.sqrMagnitude;
+            return ((dist < rangeSqr)
+            && (Vector3.Dot(from.forward, toOther) > 0)
+            && !Physics.Linecast(from.position, characterController.bounds.center, GameConstants.LevelMask));
+        }
+
+
 #region Input
 
 

@@ -48,7 +48,7 @@ namespace kfutils.rpg
         private void HostileAction()
         {
             //Debug.Log("HostileAction() by " + owner.GetName());
-            owner.SetDestination(EntityManagement.playerCharacter.transform.position, 0.5f);
+            if (owner.CanSeeEntity(EntityManagement.playerCharacter)) owner.BasicStates.SetState(AIStateID.aggro);
         }
 
 

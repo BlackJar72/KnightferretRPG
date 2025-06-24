@@ -13,6 +13,8 @@ namespace kfutils.rpg
         public int GetArmor() => owner.GetArmor();
         public void TakeDamage(Damages damage) => owner.TakeDamage(damage);
         public void TakeDamage(DamageData damage) => owner.TakeDamage(damage);
+        public Collider GetCollider() => GetComponent<Collider>();
+        public Vector3 GetCenter() => GetComponent<Collider>().bounds.center; 
 
         
 

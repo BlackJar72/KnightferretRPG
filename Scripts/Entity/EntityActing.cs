@@ -41,7 +41,7 @@ namespace kfutils.rpg {
         protected override void Update()
         {
             basicStates.Act();
-            base.Update();            
+            base.Update();
         }
 
 
@@ -56,7 +56,8 @@ namespace kfutils.rpg {
         }
 
 
-        public void EquiptItem(ItemStack item) {
+        public void EquiptItem(ItemStack item)
+        {
             throw new System.NotImplementedException();
         }
 
@@ -82,17 +83,20 @@ namespace kfutils.rpg {
             Debug.Log(ID + " => PreSaveEquipt()");
         }
 
-        public void RemoveEquiptAnimation() {
+        public void RemoveEquiptAnimation()
+        {
             throw new System.NotImplementedException();
         }
 
 
-        public void UnequiptItem(ItemStack item) {
+        public void UnequiptItem(ItemStack item)
+        {
             throw new System.NotImplementedException();
         }
 
 
-        public void UnequiptItem(EEquiptSlot slot) {
+        public void UnequiptItem(EEquiptSlot slot)
+        {
             throw new System.NotImplementedException();
         }
 
@@ -134,7 +138,8 @@ namespace kfutils.rpg {
             && !Physics.Linecast(eyes.position, other, GameConstants.LevelMask));
         }
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
-        public bool CanSeeTCollider(Collider other) => CanSeePosition(other.bounds.center);
+        public bool CanSeeCollider(Collider other) => CanSeePosition(other.bounds.center);
+        public bool CanSeeEntity(EntityLiving other) => other.CanBeSeenFrom(eyes, VRANGESQR);
 
         
     }
