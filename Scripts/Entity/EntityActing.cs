@@ -15,6 +15,7 @@ namespace kfutils.rpg {
 
         [SerializeField] AIStates basicStates;
         [SerializeField] AIStateID defaultState;
+        [SerializeField] Alignment alignment = Alignment.neutral;
 
         protected AnimancerLayer actionLayer;
         protected AnimancerState actionState;
@@ -25,6 +26,8 @@ namespace kfutils.rpg {
         public AIStates BasicStates => basicStates;
         public AIStateID DefaultState => defaultState;
 
+        public Alignment AL => alignment;
+
 
 
         protected override void Awake()
@@ -33,11 +36,12 @@ namespace kfutils.rpg {
             basicStates.Init(this);
         }
 
+
         //Update is called once per frame
         protected override void Update()
         {
             basicStates.Act();
-            base.Update(); 
+            base.Update();            
         }
 
 
@@ -47,8 +51,7 @@ namespace kfutils.rpg {
             // Line only to 
             if (alive)
             {
-                SetDestination(EntityManagement.playerCharacter.transform.position); // REMOVE ME
-                SetMoveType(MoveType.walk); // REMOVE ME
+                SetMoveType(MoveType.walk); // REMOVE ME?
             }
         }
 
@@ -91,7 +94,14 @@ namespace kfutils.rpg {
 
         public void UnequiptItem(EEquiptSlot slot) {
             throw new System.NotImplementedException();
-        } 
+        }
+
+
+        protected override void Die()
+        {
+            base.Die();
+            basicStates.SetState(AIStateID.death);
+        }
 
 
         /// <summary>

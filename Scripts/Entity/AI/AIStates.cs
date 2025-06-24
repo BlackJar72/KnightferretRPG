@@ -90,11 +90,10 @@ namespace kfutils.rpg
                     current = flee;
                     break;
                 case AIStateID.death:
-                    current = idle;
+                    current = death;
                     break;
                 default:
                     break;
-
             }
         }
     }

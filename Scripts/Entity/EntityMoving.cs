@@ -121,10 +121,11 @@ namespace kfutils.rpg {
         }*/
 
 
-        protected void SetDestination(Vector3 to)
+        public void SetDestination(Vector3 to, float stopDist = 0.0f)
         {
             destination = to;
             navAgent.SetDestination(destination);
+            navAgent.stoppingDistance = stopDist;
         }
 
 

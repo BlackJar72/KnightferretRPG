@@ -24,7 +24,7 @@ namespace kfutils.rpg
         //}
 
 
-        public void Init(EntityActing character)
+        public virtual void Init(EntityActing character)
         {
             if (owner == null) owner = character;
         }
