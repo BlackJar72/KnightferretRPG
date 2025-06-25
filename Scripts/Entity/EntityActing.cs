@@ -15,7 +15,7 @@ namespace kfutils.rpg {
 
         [SerializeField] AIStates basicStates;
         [SerializeField] AIStateID defaultState;
-        [SerializeField] Alignment alignment = Alignment.neutral;
+        [SerializeField] Disposition alignment = Disposition.neutral;
 
         protected AnimancerLayer actionLayer;
         protected AnimancerState actionState;
@@ -26,7 +26,7 @@ namespace kfutils.rpg {
         public AIStates BasicStates => basicStates;
         public AIStateID DefaultState => defaultState;
 
-        public Alignment AL => alignment;
+        public Disposition AL => alignment;
 
 
 

@@ -17,19 +17,16 @@ namespace kfutils.rpg
             base.Init(character);
             switch (character.AL)
             {
-                case Alignment.player:
+                case Disposition.friendly:
                     alignedAction = FriendlyAction;
                     break;
-                case Alignment.villages:
-                    alignedAction = FriendlyAction;
-                    break;
-                case Alignment.neutral:
+                case Disposition.neutral:
                     alignedAction = NeutralAction;
                     break;
-                case Alignment.avoidant:
+                case Disposition.avoidant:
                     alignedAction = AvoidantAction;
                     break;
-                case Alignment.evil:
+                case Disposition.hostile:
                     alignedAction = HostileAction;
                     break;
                 default:
