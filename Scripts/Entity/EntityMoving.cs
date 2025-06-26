@@ -37,6 +37,7 @@ namespace kfutils.rpg {
         protected Vector3 movement;
         protected Vector3 heading;
         protected Quaternion rotation;
+        protected Vector3 lastPos;
         protected float speed;
         protected Vector3 hVelocity;
         protected float vSpeed;
@@ -70,6 +71,7 @@ namespace kfutils.rpg {
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
             moveState = moveLayer.Play(moveMixer);
+            lastPos = transform.position;
             if (alive)
             {
                 moveState = moveLayer.Play(moveMixer);
@@ -94,10 +96,6 @@ namespace kfutils.rpg {
             if (ShouldStop())
             {
                 SetDirectionalParameters(Vector2.zero);
-            }
-            else
-            {
-                SetDirectionalParameters(Vector2.up);
             }
             LandMove();
         }
@@ -183,6 +181,7 @@ namespace kfutils.rpg {
 
         protected void LandMove()
         {
+            if (Time.deltaTime == 0) return;
             movement = navSeeker.transform.position - transform.position;
             heading.Set(movement.x, 0, movement.z);
             Vector3 newVelocity = Vector3.zero;
@@ -198,6 +197,25 @@ namespace kfutils.rpg {
                 {
                     stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor);
                     if (!stamina.HasStamina) SetMoveType(MoveType.walk);
+                }
+
+                DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+                if (dms != null)
+                {
+                    Vector3 motion = transform.position - lastPos;
+                    motion.y = 0;
+                    float moveSpeed = (motion.magnitude / Time.deltaTime) / speed;
+                    dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, moveSpeed), 10 * Time.deltaTime);
+                    lastPos = transform.position;
+                }
+            }
+            else
+            {
+                DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+                if (dms != null)
+                {
+                    dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, 0), 10 * Time.deltaTime);
+                    lastPos = transform.position;
                 }
             }
 
