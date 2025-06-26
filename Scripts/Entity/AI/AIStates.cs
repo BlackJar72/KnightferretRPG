@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -14,7 +15,8 @@ namespace kfutils.rpg
         aggro = 3,
         flee = 4,
         death = 5,
-        special = 6
+        special = 6,
+        talk = 7 
     }
 
 
@@ -42,6 +44,7 @@ namespace kfutils.rpg
         [SerializeField] AIState idle;
         [SerializeField] AIState wander;
         [SerializeField] AIState work;
+        [SerializeField] AIState talk;
         [SerializeField] AIState aggro;
         [SerializeField] AIState flee;
         [SerializeField] AIState death;
@@ -82,6 +85,9 @@ namespace kfutils.rpg
                     break;
                 case AIStateID.work:
                     current = work;
+                    break;
+                case AIStateID.talk:
+                    current = talk;
                     break;
                 case AIStateID.aggro:
                     current = aggro;

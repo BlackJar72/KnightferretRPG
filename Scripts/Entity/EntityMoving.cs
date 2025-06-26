@@ -24,7 +24,7 @@ namespace kfutils.rpg {
         [SerializeField] protected CharacterController controller;
         [SerializeField] protected MovementSet movementSetPrototype;
         [SerializeField] protected Transform eyes;
-        [SerializeField] protected NavMeshAgent navAgent;
+        [SerializeField] protected NavSeeker navSeeker;
 
         protected MovementSet movementSet;
 
@@ -33,6 +33,16 @@ namespace kfutils.rpg {
 
         protected MixerTransition2D moveMixer;
         protected MixerParameterTweenVector2 moveTween;
+
+        protected Vector3 movement;
+        protected Vector3 heading;
+        protected Quaternion rotation;
+        protected float speed;
+        protected Vector3 hVelocity;
+        protected float vSpeed;
+        protected Vector3 velocity;
+        protected bool falling;
+        protected bool onGround;
 
         [SerializeField] protected Vector3 destination;
         [SerializeField] protected MoveType moveType;
@@ -49,6 +59,7 @@ namespace kfutils.rpg {
             // and no CreateInstance is not appropriate as I need to clone the give 
             // object, not create a totally new one.
             movementSet = Instantiate(movementSetPrototype);
+            rotation = new Quaternion();
         }
 
 
@@ -56,7 +67,6 @@ namespace kfutils.rpg {
         protected override void Start()
         {
             base.Start();
-            navAgent = GetComponent<NavMeshAgent>();
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
             moveState = moveLayer.Play(moveMixer);
@@ -89,13 +99,15 @@ namespace kfutils.rpg {
             {
                 SetDirectionalParameters(Vector2.up);
             }
+            LandMove();
         }
 
 
         protected bool ShouldStop()
         {
-            return (moveType == MoveType.idle) || !navAgent.isActiveAndEnabled || navAgent.isStopped
-                    || (navAgent.remainingDistance <= navAgent.stoppingDistance) || (navAgent.velocity.sqrMagnitude == 0);
+            return (moveType == MoveType.idle) || !navSeeker.Agent.isActiveAndEnabled
+                || (navSeeker.Agent.remainingDistance <= navSeeker.Agent.stoppingDistance)
+                || (navSeeker.Agent.velocity.sqrMagnitude == 0);;
         }
 
 
@@ -105,7 +117,8 @@ namespace kfutils.rpg {
             Debug.Log(GetPersonalName() + " (" + ID + ") " + "Died!");
 #endif
             base.Die();
-            navAgent.enabled = false;
+            navSeeker.Agent.enabled = false;
+            navSeeker.gameObject.SetActive(false);
             controller.enabled = false;
             moveLayer = animancer.Layers[0]; // This may not be defined when reloading a scene
             moveLayer.SetMask(deathAnimation.mask);
@@ -114,18 +127,11 @@ namespace kfutils.rpg {
         }
 
 
-        // Update is called once per frame
-        /*protected override void Update()
-        {
-            
-        }*/
-
-
         public void SetDestination(Vector3 to, float stopDist = 0.0f)
         {
             destination = to;
-            navAgent.SetDestination(destination);
-            navAgent.stoppingDistance = stopDist;
+            navSeeker.Agent.SetDestination(destination);
+            navSeeker.Agent.stoppingDistance = stopDist;
         }
 
 
@@ -135,27 +141,27 @@ namespace kfutils.rpg {
             switch (moveType)
             {
                 case MoveType.idle:
-                    navAgent.speed = 0;
+                    navSeeker.Agent.speed = speed = 0;
                     moveMixer = movementSet.Walk;
                     SetDirectionalParameters(Vector2.zero);
                     break;
                 case MoveType.crouch:
-                    navAgent.speed = attributes.crouchSpeed;
+                    navSeeker.Agent.speed = speed = attributes.crouchSpeed;
                     moveMixer = movementSet.Crouch;
                     // TODO: Set DirectionalMixerState parameters
                     break;
                 case MoveType.walk:
-                    navAgent.speed = attributes.walkSpeed;
+                    navSeeker.Agent.speed = speed = attributes.walkSpeed;
                     moveMixer = movementSet.Walk;
                     // TODO: Set DirectionalMixerState parameters
                     break;
                 case MoveType.run:
-                    navAgent.speed = attributes.crouchSpeed;
+                    navSeeker.Agent.speed = speed = attributes.crouchSpeed;
                     moveMixer = movementSet.Run;
                     // TODO: Set DirectionalMixerState parameters
                     break;
                 default:
-                    navAgent.speed = 0;
+                    navSeeker.Agent.speed = speed = 0;
                     moveMixer = movementSet.Walk;
                     // TODO: Set DirectionalMixerState parameters
                     break;
@@ -169,6 +175,67 @@ namespace kfutils.rpg {
             {
                 dms.Parameter = Vector2.MoveTowards(dms.Parameter, movement, 10 * Time.deltaTime);
             }
+        }
+
+
+
+
+
+        protected void LandMove()
+        {
+            movement = navSeeker.transform.position - transform.position;
+            heading.Set(movement.x, 0, movement.z);
+            Vector3 newVelocity = Vector3.zero;
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.125f);
+
+            if (heading.magnitude > 0.1)
+            {
+                rotation.SetLookRotation(heading, Vector3.up);
+                heading.Normalize();
+                newVelocity += heading * speed;
+                if (moveType == MoveType.run)
+                {
+                    stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor);
+                    if (!stamina.HasStamina) SetMoveType(MoveType.walk);
+                }
+            }
+
+            hVelocity = newVelocity;
+
+            onGround = controller.isGrounded;
+
+            if (falling && onGround) health.TakeDamage(Functions.CalcFallDamage(vSpeed, attributes.naturalArmor));
+
+            falling = falling && !onGround;
+
+            if (onGround)
+            {
+                if ((movement.y > 0.5f) && stamina.CanDoAction(10f))
+                {
+                    vSpeed = Mathf.Sqrt(attributes.jumpForce * GameConstants.GRAVITY);
+                    stamina.UseStamina(10f);
+                    moveState = moveLayer.Play(movementSet.Jump);
+                }
+                else
+                {
+                    vSpeed = -GameConstants.GRAVITY3;
+                    moveState = moveLayer.Play(moveMixer);
+                }
+            }
+            else
+            {
+                vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
+                if (!falling && (velocity.y < -10))
+                {
+                    falling = true;
+                    moveState = moveLayer.Play(movementSet.Fall);
+                }
+            }
+
+            velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
+            controller.Move(velocity * Time.deltaTime);
+            //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
         }
 
 
