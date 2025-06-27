@@ -8,6 +8,7 @@ namespace kfutils.rpg {
         [Tooltip("This is the bone in the chracter rig the item should be parented to; the script should probably also be on this bone. " 
                     + " This could also be an empty attached to the bone.")]
         [SerializeField] Transform bone; // The bone in the animation rig the item should be parented too
+        [SerializeField] Layers layer = Layers.unityDefault;
 
         ItemEquipt  equiptItem;
 
@@ -23,6 +24,7 @@ namespace kfutils.rpg {
             UnequiptCurrentItem();
             equiptItem = Instantiate(prefab, bone);
             equiptItem.SetEquiptTransform();
+            equiptItem.SetRenderLayer(layer);
             return equiptItem;
         }
 

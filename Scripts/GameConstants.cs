@@ -4,6 +4,22 @@ using UnityEngine;
 namespace kfutils.rpg {
 
 
+    [System.Serializable]
+    public enum Layers
+    {
+        unityDefault = 0,
+        post = 3,
+        water = 4,
+        interactable = 6,
+        pcBody = 7,
+        pcArms = 8,
+        npc = 9,
+        damageable = 11,
+        attack = 12,
+        sky = 20
+    }
+
+
     /// <summary>
     /// Constants used throught the game, for example, the game layers.
     /// </summary>
@@ -19,19 +35,19 @@ namespace kfutils.rpg {
 
         #region Layers
         public const int defaultLayer = 0x1;
-        public const int postLayer = 0x1 << 3;
-        public const int waterLayer = 0x1 << 4;
-        public const int interactableLayer = 0x1 << 6;
-        public const int pcBodyleLayer = 0x1 << 7;
-        public const int pcArmsLayer = 0x1 << 8;
-        public const int npcLayer = 0x1 << 9;
-        public const int damageableLayer = 0x1 << 11;
-        public const int attackLayer = 0x1 << 12;
-        public const int skyLayer = 0x1 << 20;
+        public const int postLayer = 0x1 << (int)Layers.post;
+        public const int waterLayer = 0x1 << (int)Layers.water;
+        public const int interactableLayer = 0x1 << (int)Layers.interactable;
+        public const int pcBodyleLayer = 0x1 << (int)Layers.pcBody;
+        public const int pcArmsLayer = 0x1 << (int)Layers.pcArms;
+        public const int npcLayer = 0x1 << (int)Layers.npc;
+        public const int damageableLayer = 0x1 << (int)Layers.damageable;
+        public const int attackLayer = 0x1 << (int)Layers.attack;
+        public const int skyLayer = 0x1 << (int)Layers.sky;
 
         public const int interactable = interactableLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
         public const int LevelMask = defaultLayer | interactableLayer;
-#endregion
+        #endregion
 
 
 

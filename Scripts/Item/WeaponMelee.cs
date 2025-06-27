@@ -14,6 +14,7 @@ namespace kfutils.rpg {
         [SerializeField] int attackCost;
 
         private IAttacker holder;
+        private Collider collider;
 
         private bool busy = false;
         private bool attacking = false;
@@ -51,14 +52,13 @@ namespace kfutils.rpg {
 
 
         void OnTriggerEnter(Collider other) {
+            Debug.Log("Hit " + other.gameObject.name);
             GameObject hit = other.gameObject;
             IDamageable damageable = hit.GetComponent<IDamageable>();
             if(attacking && (damageable != null) && (damageable != holder)) {
                 damage.DoDamage(holder, damageable);
                 attacking = false; 
             }
-            // TODO: Get health, calculate damage, apply modifiers, and apply damage to health (if not null)
-            // Hit one enemy, and don't hit over and over if it moves
         }
 
 
@@ -73,6 +73,7 @@ namespace kfutils.rpg {
                 if (busy) queued = true;
                 else
                 {
+                    collider.enabled = true;
                     AttackMelee(attacker);
                     PlayUseAnimation(actor);
                 }
@@ -91,20 +92,25 @@ namespace kfutils.rpg {
         public void OnUseAnimationEnd() {
             busy = false;
             attacking = false;
-            if(queued) {
+            if (queued)
+            {
                 queued = false;
                 attack++;
                 OnUse(holder);
             }
-            else {
+            else
+            {
                 attack = 0;
                 ReplayEquipAnimation();
+                collider.enabled = false;
             }
         }
 
 
         public void OnEquipt(IActor actor) {
             holder = actor as IAttacker;
+            collider = GetComponent<Collider>();
+            collider.enabled = false;
             PlayEquipAnimation(actor);
         }
 

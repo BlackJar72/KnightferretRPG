@@ -17,7 +17,6 @@ namespace kfutils.rpg {
     }
 
 
-    [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(CharacterController))]
     public class EntityMoving : EntityLiving
     {
