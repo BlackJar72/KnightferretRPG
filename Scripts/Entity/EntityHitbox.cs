@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace kfutils.rpg
 {
+
+    [RequireComponent(typeof(Rigidbody))]
     public class EntityHitbox : MonoBehaviour, IDamageable, IHittable
     {
 

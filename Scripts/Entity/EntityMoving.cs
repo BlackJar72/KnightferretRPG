@@ -187,10 +187,11 @@ namespace kfutils.rpg {
 
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.125f);
 
+            heading.Normalize();
+
             if (heading.magnitude > 0.1)
             {
                 rotation.SetLookRotation(heading, Vector3.up);
-                heading.Normalize();
                 newVelocity += heading * speed;
                 if (moveType == MoveType.run)
                 {

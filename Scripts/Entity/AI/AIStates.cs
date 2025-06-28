@@ -60,8 +60,12 @@ namespace kfutils.rpg
         {
             idle = Object.Instantiate(idle);
             idle.Init(owner);
-
-
+            wander.Init(owner);
+            work.Init(owner);
+            talk.Init(owner);
+            aggro.Init(owner);
+            flee.Init(owner);
+            death.Init(owner);
             SetState(owner.DefaultState);
         }
 

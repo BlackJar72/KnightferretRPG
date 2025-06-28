@@ -52,7 +52,9 @@ namespace kfutils.rpg {
 
 
         void OnTriggerEnter(Collider other) {
-            Debug.Log("Hit " + other.gameObject.name);
+            #if UNITY_EDITOR
+            //Debug.Log("Hit " + other.gameObject.name);
+            #endif
             GameObject hit = other.gameObject;
             IDamageable damageable = hit.GetComponent<IDamageable>();
             if(attacking && (damageable != null) && (damageable != holder)) {
