@@ -30,6 +30,12 @@ namespace kfutils.rpg
         }
 
 
+        public abstract void StateEnter();
+
+
+        public abstract void StateExit();
+
+
         public abstract void Act();
 
 

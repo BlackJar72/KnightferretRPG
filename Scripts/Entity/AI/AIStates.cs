@@ -16,7 +16,7 @@ namespace kfutils.rpg
         flee = 4,
         death = 5,
         special = 6,
-        talk = 7 
+        talk = 7
     }
 
 
@@ -88,30 +88,42 @@ namespace kfutils.rpg
             switch (state)
             {
                 case AIStateID.idle:
-                    current = idle;
+                    ReallySetState(idle);
                     break;
                 case AIStateID.wander:
-                    current = wander;
+                    ReallySetState(wander);
                     break;
                 case AIStateID.work:
-                    current = work;
+                    ReallySetState(work);
                     break;
                 case AIStateID.talk:
-                    current = talk;
+                    ReallySetState(talk);
                     break;
                 case AIStateID.aggro:
-                    current = aggro;
+                    ReallySetState(aggro);
                     break;
                 case AIStateID.flee:
-                    current = flee;
+                    ReallySetState(flee);
                     break;
                 case AIStateID.death:
-                    current = death;
+                    ReallySetState(death);
                     break;
                 default:
                     break;
             }
         }
+
+
+        private void ReallySetState(AIState next)
+        {
+            if(current != null) current.StateExit();
+            current = next;
+            current.StateEnter();
+        }
+
+
+
     }
+    
 
 }

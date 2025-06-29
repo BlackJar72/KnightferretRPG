@@ -8,8 +8,13 @@ namespace kfutils.rpg
     public class PlaceholderState : AIState
     {
 
-        public override void Act() { }
-        
+        public override void Act() { {/*Do Nothing*/}}
+
+
+        public override void StateEnter() {/*Do Nothing*/}
+        public override void StateExit() {/*Do Nothing*/}
+
+
     }
 
 }

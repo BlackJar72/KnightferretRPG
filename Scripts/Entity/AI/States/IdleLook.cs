@@ -46,7 +46,7 @@ namespace kfutils.rpg
         {
             //Debug.Log("HostileAction() by " + owner.GetName());
             if (owner.CanSeeEntity(EntityManagement.playerCharacter)) owner.BasicStates.SetState(AIStateID.aggro);
-            
+
         }
 
 
@@ -64,14 +64,13 @@ namespace kfutils.rpg
 
         private void AvoidantAction()
         {
-            
+
         }
 
 
-
-
-
-
+        public override void StateEnter() {/*Do Nothing*/}
+        public override void StateExit() {/*Do Nothing*/}
+        
     }
 
 }
