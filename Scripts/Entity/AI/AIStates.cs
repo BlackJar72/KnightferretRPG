@@ -116,7 +116,15 @@ namespace kfutils.rpg
 
         private void ReallySetState(AIState next)
         {
-            if(current != null) current.StateExit();
+            if (current == null)
+            {
+                previous = next;
+            }
+            else
+            {
+                current.StateExit();
+                previous = current;
+            }
             current = next;
             current.StateEnter();
         }

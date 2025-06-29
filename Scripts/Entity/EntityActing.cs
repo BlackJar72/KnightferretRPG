@@ -16,6 +16,9 @@ namespace kfutils.rpg {
         [SerializeField] AIStates basicStates;
         [SerializeField] AIStateID defaultState;
         [SerializeField] Disposition alignment = Disposition.neutral;
+        [SerializeField] MeleeTrigger meleeCollider;
+
+        [HideInInspector] public EntityLiving targetEnemy;
 
         protected AnimancerLayer actionLayer;
         protected AnimancerState actionState;
@@ -28,11 +31,14 @@ namespace kfutils.rpg {
 
         public Disposition AL => alignment;
 
+        public MeleeTrigger meleeTrigger => meleeCollider;
+
 
 
         protected override void Awake()
         {
             base.Awake();
+            meleeCollider.Init(this);
             basicStates.Init(this);
         }
 
