@@ -4,7 +4,7 @@ using UnityEngine;
 namespace kfutils.rpg
 {
 
-    [CreateAssetMenu(menuName = "KF-RPG/AI/States/SimpleAggro", fileName = "Simple Aggro", order = 20)]
+    [CreateAssetMenu(menuName = "KF-RPG/AI/States/Simple Aggro", fileName = "SimpleAggro", order = 20)]
     public class SimpleAggro : AIState, INotifiableT<MeleeTrigger>
     {
         [SerializeField] float attackTime = 1.0f;

@@ -26,7 +26,12 @@ namespace kfutils.rpg
 
         public virtual void Init(EntityActing character)
         {
-            if (owner == null) owner = character;
+            if (owner == null) { owner = character; }
+            else
+            {
+                Debug.LogError("Trying to call init more that once ona same AIState!");
+                throw new System.Exception("Trying to call init more that once ona same AIState!");
+            }
         }
 
 
