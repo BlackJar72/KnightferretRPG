@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using Animancer;
 using UnityEngine;
 
@@ -17,6 +17,8 @@ namespace kfutils.rpg {
         [SerializeField] AIStateID defaultState;
         [SerializeField] Disposition alignment = Disposition.neutral;
         [SerializeField] MeleeTrigger meleeCollider;
+        [SerializeField] Transform aimFrom;
+        [SerializeField][Range(0.0f, 1.0f)] float aimAccuracy = 0.9f;
 
         [HideInInspector] public EntityLiving targetEnemy;
 
@@ -40,6 +42,7 @@ namespace kfutils.rpg {
             base.Awake();
             meleeCollider.Init(this);
             basicStates.Init(this);
+            inventory.SetOwner(this);
         }
 
 
@@ -64,46 +67,84 @@ namespace kfutils.rpg {
 
         public void EquiptItem(ItemStack item)
         {
-            throw new System.NotImplementedException();
+            if(item != null) {
+                ItemEquipt equipt = itemLocations.EquipItem(item);
+                IUsable usable = equipt as IUsable;
+                if(usable != null) {                     
+                    usable.OnEquipt(this); 
+                }            
+            } 
         }
+
+
+        public void SetAimFrom(Transform t) => aimFrom = t;
+        public void UnsetAimFrom() => aimFrom = eyes;
 
 
         public virtual void GetAimParams(out AimParams aim)
         {
-            throw new System.NotImplementedException();
+            aim.from = aimFrom.position;
+            aim.toward = (targetEnemy.GetComponent<Collider>().bounds.center - aimFrom.position).normalized;
+
+            float magnitude, rotation, x, y;
+            Quaternion scatter;
+            magnitude = (Random.Range(0, 1 - aimAccuracy) - Random.Range(0, 1 - aimAccuracy)) * 90;
+            rotation = Random.Range(0, 360);
+            x = Mathf.Sin(rotation) * magnitude;
+            y = Mathf.Cos(rotation) * magnitude;
+            scatter = Quaternion.AngleAxis(x, aimFrom.right)
+                    * Quaternion.AngleAxis(y, aimFrom.up);
+            aim.toward = scatter * aim.toward;
         }
+
 
         public void PlayAction(AvatarMask mask, ITransition animation, float time = 0)
-        {
-            throw new NotImplementedException();
+        {            
+            actionLayer.SetMask(mask);
+            actionState = animancer.Play(animation);
+            actionState.Time = time;
         }
 
-        public void PlayAction(AvatarMask mask, ITransition animation, Action onEnd, float time = 0, float delay = 1.0f)
+
+        public void PlayAction(AvatarMask mask, ITransition animation, System.Action onEnd, float time = 0, float delay = 1.0f)
         {
-            throw new NotImplementedException();
+            actionLayer.SetMask(mask);
+            actionState = actionLayer.Play(animation);
+            actionState.Time = time;
+            StartCoroutine(DoPostActionCode(onEnd, delay));
         }
+
+
+        public IEnumerator DoPostActionCode(System.Action onEnd, float delay = 1.0f)
+        {
+            yield return new WaitForSeconds(delay);
+            onEnd();
+        }
+
 
         public void PreSaveEquipt()
         {
-            // TODO: This
-            Debug.Log(ID + " => PreSaveEquipt()");
+            inventory.Equipt.PreSave();
         }
+
 
         public void RemoveEquiptAnimation()
         {
-            throw new System.NotImplementedException();
+            actionLayer.StartFade(0);
         }
 
 
         public void UnequiptItem(ItemStack item)
         {
-            throw new System.NotImplementedException();
+            if(item != null) {
+                itemLocations.UnequipItem(item);
+            } 
         }
 
 
         public void UnequiptItem(EEquiptSlot slot)
         {
-            throw new System.NotImplementedException();
+            itemLocations.UnequipItem(slot);
         }
 
 
@@ -146,8 +187,8 @@ namespace kfutils.rpg {
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
         public bool CanSeeCollider(Collider other) => CanSeePosition(other.bounds.center);
         public bool CanSeeEntity(EntityLiving other) => other.CanBeSeenFrom(eyes, VRANGESQR);
-
         
+
     }
 
 
