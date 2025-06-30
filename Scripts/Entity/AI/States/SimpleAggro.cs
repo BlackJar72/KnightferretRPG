@@ -20,6 +20,7 @@ namespace kfutils.rpg
             owner.meleeTrigger.enabled = true;
             owner.meleeTrigger.gameObject.SetActive(true);
             destUpdateTime = Time.time + Random.value;
+            owner.StartMoving();
         }
 
 
@@ -34,10 +35,11 @@ namespace kfutils.rpg
         {
             if (shouldMelee)
             {
+                owner.StopMoving();
                 if (Time.time > nextAttackTime) MeleeAttack();
             }
             else if (Time.time > destUpdateTime)
-            {
+            {                
                 owner.SetDestination(EntityManagement.playerCharacter.transform.position);
                 destUpdateTime += 0.1f;
             }

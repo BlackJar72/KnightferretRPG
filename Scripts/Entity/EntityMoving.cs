@@ -129,6 +129,19 @@ namespace kfutils.rpg {
             destination = to;
             navSeeker.Agent.SetDestination(destination);
             navSeeker.Agent.stoppingDistance = stopDist;
+            navSeeker.stopped = false;
+        }
+
+
+        public void StartMoving()
+        {
+            navSeeker.stopped = false;
+        }
+
+
+        public void StopMoving()
+        {
+            navSeeker.stopped = true;
         }
 
 
@@ -183,15 +196,13 @@ namespace kfutils.rpg {
             if (Time.deltaTime == 0) return;
             movement = navSeeker.transform.position - transform.position;
             heading.Set(movement.x, 0, movement.z);
-            Vector3 newVelocity = Vector3.zero;
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.125f);
-
-            heading.Normalize();
+            Vector3 newVelocity = Vector3.zero;            
 
             if (heading.magnitude > 0.1)
             {
+                heading.Normalize();
                 rotation.SetLookRotation(heading, Vector3.up);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.125f);
                 newVelocity += heading * speed;
                 if (moveType == MoveType.run)
                 {

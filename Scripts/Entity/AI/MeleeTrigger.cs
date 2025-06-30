@@ -29,6 +29,7 @@ namespace kfutils.rpg
             }
         }
 
+
         void OnTriggerExit(Collider other)
         {
             EntityLiving living = other.GetComponent<EntityLiving>();

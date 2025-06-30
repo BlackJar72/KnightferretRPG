@@ -10,6 +10,7 @@ namespace kfutils.rpg
     {
         [SerializeField] EntityMoving parent;
         private NavMeshAgent agent;
+        public bool stopped = true;
 
 
         public NavMeshAgent Agent => agent;
@@ -26,8 +27,7 @@ namespace kfutils.rpg
         void Update()
         {
             Vector3 separation = transform.position - parent.transform.position;
-            agent.isStopped = separation.sqrMagnitude > 1.0f;
-            //Debug.Log(transform.position + " => "  + agent.destination);
+            agent.isStopped = stopped || (separation.sqrMagnitude > 1.0f);
         }
         
     }
