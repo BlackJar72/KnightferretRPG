@@ -48,6 +48,8 @@ namespace kfutils.rpg {
     /// </summary>
     public enum EEquiptSlot {
 
+        NONE = -1,
+        
         // Basic armor slots
         HEAD = 0,
         BODY = 1,

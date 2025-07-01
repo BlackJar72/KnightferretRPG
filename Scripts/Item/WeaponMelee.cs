@@ -113,7 +113,7 @@ namespace kfutils.rpg {
             holder = actor as IAttacker;
             collider = GetComponent<Collider>();
             collider.enabled = false;
-            PlayEquipAnimation(actor);
+            if(actor.ActionState != null) PlayEquipAnimation(actor);
         }
 
 

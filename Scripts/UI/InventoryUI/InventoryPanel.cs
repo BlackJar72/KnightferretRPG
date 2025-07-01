@@ -32,6 +32,7 @@ namespace kfutils.rpg.ui {
         protected virtual void OnEnable() {
             InventoryManagement.inventoryUpdated += UpdateInventory;
             InventoryManagement.inventorySlotUpdated += UpdateSlot;
+            InventoryManagement.inventoryUpdatedAll += UpdateInventoryAll;
             scrollRect.verticalNormalizedPosition = 1.0f;
             Redraw();
         }
@@ -44,6 +45,7 @@ namespace kfutils.rpg.ui {
             InventoryManagement.inventoryUpdated -= UpdateInventory;
             InventoryManagement.inventorySlotUpdated -= UpdateSlot;         
             InventoryManagement.HotbarActivatedEvent -= RespondToHotbar;
+            InventoryManagement.inventoryUpdatedAll -= UpdateInventoryAll;
         }
 
 
@@ -110,6 +112,11 @@ namespace kfutils.rpg.ui {
 
         protected void UpdateInventory(IInventory<ItemStack> inv) {
             if(inv == inventory) Redraw();
+        }
+
+
+        protected void UpdateInventoryAll() {
+            Redraw();
         }
 
 

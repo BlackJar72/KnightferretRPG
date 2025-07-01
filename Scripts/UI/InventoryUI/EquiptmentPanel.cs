@@ -37,6 +37,7 @@ namespace kfutils.rpg.ui {
         private void OnEnable() {
             InventoryManagement.inventoryUpdated += UpdateInventory;
             InventoryManagement.inventorySlotUpdated += UpdateSlot;
+            InventoryManagement.inventoryUpdatedAll += UpdateInventoryAll;
             Redraw();
         }
 
@@ -44,6 +45,7 @@ namespace kfutils.rpg.ui {
         private void OnDestroy() {
             InventoryManagement.inventoryUpdated -= UpdateInventory;
             InventoryManagement.inventorySlotUpdated -= UpdateSlot;
+            InventoryManagement.inventoryUpdatedAll -= UpdateInventoryAll;
         }
 
 
@@ -79,6 +81,11 @@ namespace kfutils.rpg.ui {
 
         private void UpdateInventory(IInventory<ItemStack> inv) {
             if(inv == inventory) Redraw();
+        }
+
+
+        private void UpdateInventoryAll() {
+            Redraw();
         }
 
 

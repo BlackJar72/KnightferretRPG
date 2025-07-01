@@ -33,7 +33,24 @@ namespace kfutils.rpg {
 
         public override void OnEnable()
         {
-            base.OnEnable();
+            
+            InventoryData data = InventoryManagement.GetInventoryData(ID);
+            if(data == null) {
+                data = new(this);
+                InventoryManagement.StoreInventoryData(data);
+                foreach (ItemStack.ProtoStack stack in startingItems)
+                {
+                    ItemStack item = stack.MakeStack();
+                    if (stack.equipt)
+                    {
+                        if (!equipt.AddItemNoSlot(item)) AddToFirstEmptySlot(stack.MakeStack());
+                    }
+                    else AddToFirstEmptySlot(stack.MakeStack()); 
+                }
+            } else {
+                inventory = data.inventory;
+                weight = data.weight;
+            }
             Register();
         }
 

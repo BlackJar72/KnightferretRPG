@@ -6,10 +6,12 @@ namespace kfutils.rpg {
     public class ItemStack {
 
         [System.Serializable]
-        public struct ProtoStack {
+        public class ProtoStack {
             public ItemData item;
             public int stackSize;
-            public ItemStack MakeStack(int slot = 0) {
+            public bool equipt = false;
+            public ItemStack MakeStack(int slot = 0)
+            {
                 ItemManagement.AddItem(item);
                 return new ItemStack(item.Prototype, stackSize, slot, item.ID);
             }

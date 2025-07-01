@@ -12,12 +12,14 @@ namespace kfutils.rpg {
         [SerializeField] HotbarUI hotbarUI;
 
 
-        public override void OnEnable() {
+        public override void OnEnable()
+        {
             base.OnEnable();
             equipt.belongsToPC = true;
             InventoryManagement.inventoryUpdated += UpdateBottomBar;
             InventoryManagement.inventorySlotUpdated += UpdateBottomBar;
             UpdateBottomBar(this);
+            
         }
 
 

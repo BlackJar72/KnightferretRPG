@@ -5,6 +5,7 @@ using System;
 
 namespace kfutils.rpg {
 
+
     [Serializable]
     public class EquiptmentSlots : IInventory<ItemStack> {
 
@@ -44,6 +45,15 @@ namespace kfutils.rpg {
         public void PreSave()
         {
             InventoryManagement.ReplaceEquiptData(this);
+        }
+
+
+        public bool AddItemNoSlot(ItemStack item)
+        {
+            int slot = ItemUtils.GetEquiptSlotForType(item.item.EquiptType);
+            if ((slot == 6) && slots[6].stackSize > 0) slot = 5;
+            if ((slot > -1) && (slot < 12)) return AddItemToSlot(slot, item);
+            return false;
         }
 
 
@@ -212,7 +222,7 @@ namespace kfutils.rpg {
         }
 
 
-        public ItemStack GetItemForForSlotType(EEquiptSlot slot) { 
+        public ItemStack GetItemForSlotType(EEquiptSlot slot) { 
             if(slot == EEquiptSlot.HANDS) {
                 return slots[rhand];
             }

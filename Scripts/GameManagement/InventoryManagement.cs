@@ -38,6 +38,10 @@ namespace kfutils.rpg {
         public delegate void InventoryUpdate(IInventory<ItemStack> inv);
         public static event InventoryUpdate inventoryUpdated;
 
+        public delegate void InventoryUpdateAll();
+        public static event InventoryUpdateAll inventoryUpdatedAll;
+
+
         public delegate void InventorySlotUpdate(IInventory<ItemStack> inv, int slot);
         public static event InventorySlotUpdate inventorySlotUpdated;
 
@@ -96,6 +100,11 @@ namespace kfutils.rpg {
 
         public static void SignalSlotUpdate(IInventory<ItemStack> inv, int slot) {
             inventorySlotUpdated?.Invoke(inv, slot);
+        }
+
+
+        public static void SignalInventoryUpdateAll() {
+            inventoryUpdatedAll?.Invoke();
         }
 
 

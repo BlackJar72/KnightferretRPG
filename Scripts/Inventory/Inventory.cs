@@ -29,7 +29,7 @@ namespace kfutils.rpg {
 
         public List<ItemStack> inventory = new();
 
-        private float weight;
+        private protected float weight;
         public override float Weight { get => weight; }
 
         public override int Count => inventory.Count;
@@ -47,7 +47,7 @@ namespace kfutils.rpg {
 
 
         // For Testing; TODO??: Get rid of this, but add some other way to add starting gear ... or, do I need to...?
-        [SerializeField] ItemStack.ProtoStack[] startingItems;
+        [SerializeField] protected ItemStack.ProtoStack[] startingItems;
 
 
         public virtual void OnEnable() {
@@ -55,7 +55,6 @@ namespace kfutils.rpg {
             if(data == null) {
                 data = new(this);
                 InventoryManagement.StoreInventoryData(data);
-                // TODO / FIXME: Remove this, or maybe not if tables read will be loaded before this.
                 foreach(ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
             } else {
                 inventory = data.inventory;
