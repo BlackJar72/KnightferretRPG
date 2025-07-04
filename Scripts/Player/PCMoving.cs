@@ -148,6 +148,13 @@ namespace kfutils.rpg {
         }
 
 
+        protected override void Die()
+        {
+            //base.Die();
+            //TODO!
+        }
+
+
         protected void UpdateMoveType()
         {
             if (shouldCrouch)

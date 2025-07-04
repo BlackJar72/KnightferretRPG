@@ -50,9 +50,7 @@ namespace kfutils.rpg
         {
             nextAttackTime = Time.time + attackTime;
             // TODO: Attack 
-            #if UNITY_EDITOR
-            Debug.Log(owner.name + " is attacking! ");
-            #endif
+            owner.MeleeAttack(); 
         }
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class EntityActing : EntityMoving, IActor
+    public class EntityActing : EntityMoving, IActor, IAttacker
     {
         public const float VRANGESQR = 64 * 64;
 
@@ -15,7 +15,7 @@ namespace kfutils.rpg {
 
         [SerializeField] AIStates basicStates;
         [SerializeField] AIStateID defaultState;
-        [SerializeField] Disposition alignment = Disposition.neutral;
+        [SerializeField] Disposition disposition = Disposition.neutral;
         [SerializeField] MeleeTrigger meleeCollider;
         [SerializeField] Transform aimFrom;
         [SerializeField][Range(0.0f, 1.0f)] float aimAccuracy = 0.9f;
@@ -31,7 +31,7 @@ namespace kfutils.rpg {
         public AIStates BasicStates => basicStates;
         public AIStateID DefaultState => defaultState;
 
-        public Disposition AL => alignment;
+        public Disposition AL => disposition;
 
         public MeleeTrigger meleeTrigger => meleeCollider;
 
@@ -58,6 +58,8 @@ namespace kfutils.rpg {
         {
             base.Start();
             // Line only to 
+            actionLayer = animancer.Layers[1];
+            actionState = moveState;
             if (alive)
             {
                 SetMoveType(MoveType.walk); // REMOVE ME?
@@ -155,6 +157,58 @@ namespace kfutils.rpg {
         }
 
 
+        public virtual void MeleeAttack()
+        {
+            ItemEquipt requipt = itemLocations.GetRHandItem();
+            if (requipt is IWeapon weapon) MeleeAttack(weapon);
+        }
+
+
+        public virtual void MeleeAttack(IWeapon weapon)
+        {
+            if (stamina.UseStamina(weapon.StaminaCost))
+            {
+                weapon.OnUse(this);
+            }
+        }
+
+
+        public void RangedAttack(IWeapon weapon, Vector3 direction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void Block()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void DrawWeapon(IWeapon weapon)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void SheatheWeapon(IWeapon weapon)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void AttackBlocked()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
         /// <summary>
         /// Determines if a point could be seen.  This creates a hemisphere rather than 
         /// a cone of vision, with good periferal vision assumed.
@@ -187,8 +241,6 @@ namespace kfutils.rpg {
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
         public bool CanSeeCollider(Collider other) => CanSeePosition(other.bounds.center);
         public bool CanSeeEntity(EntityLiving other) => other.CanBeSeenFrom(eyes, VRANGESQR);
-        
-
     }
 
 

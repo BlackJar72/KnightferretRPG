@@ -84,8 +84,8 @@ namespace kfutils.rpg {
 
 
         public void PlayUseAnimation(IActor attacker) {
-            if(!busy) {
-                attacker.PlayAction(useAnimation.mask, useAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, 0.75f);
+              if(!busy) {
+                attacker.PlayAction(useAnimation.mask, useAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, 1.0f);
                 busy = true;
             }
         }
