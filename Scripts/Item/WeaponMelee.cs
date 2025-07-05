@@ -11,10 +11,12 @@ namespace kfutils.rpg {
         [SerializeField] DamageSource damage;
 
         [SerializeField] AbstractAction useAnimation;
+
+        [SerializeField] AbstractAction npcAnimation;
         [SerializeField] int attackCost;
 
         private IAttacker holder;
-        private Collider collider;
+        private Collider hitCollider;
 
         private bool busy = false;
         private bool attacking = false;
@@ -75,7 +77,7 @@ namespace kfutils.rpg {
                 if (busy) queued = true;
                 else
                 {
-                    collider.enabled = true;
+                    hitCollider.enabled = true;
                     AttackMelee(attacker);
                     PlayUseAnimation(actor);
                 }
@@ -85,7 +87,14 @@ namespace kfutils.rpg {
 
         public void PlayUseAnimation(IActor attacker) {
               if(!busy) {
-                attacker.PlayAction(useAnimation.mask, useAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, 1.0f);
+                if (attacker is PCActing)
+                {
+                    attacker.PlayAction(useAnimation.mask, useAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, attackTime);
+                }
+                else
+                {
+                    attacker.PlayAction(useAnimation.mask, npcAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, attackTime);
+                }
                 busy = true;
             }
         }
@@ -104,15 +113,15 @@ namespace kfutils.rpg {
             {
                 attack = 0;
                 ReplayEquipAnimation();
-                collider.enabled = false;
+                hitCollider.enabled = false;
             }
         }
 
 
         public void OnEquipt(IActor actor) {
             holder = actor as IAttacker;
-            collider = GetComponent<Collider>();
-            collider.enabled = false;
+            hitCollider = GetComponent<Collider>();
+            hitCollider.enabled = false;
             if(actor.ActionState != null) PlayEquipAnimation(actor);
         }
 
