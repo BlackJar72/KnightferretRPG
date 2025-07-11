@@ -218,81 +218,81 @@ namespace kfutils.rpg {
         }
 
 
-    public static List<EntityData> RestoreListFromIDs(List<string> IDs) {
-        List<EntityData> result = new();
-        for(int i = 0; i < IDs.Count; i++) {
-            result.Add(entityRegistry[IDs[i]]);
+        public static List<EntityData> RestoreListFromIDs(List<string> IDs) {
+            List<EntityData> result = new();
+            for(int i = 0; i < IDs.Count; i++) {
+                result.Add(entityRegistry[IDs[i]]);
+            }
+            return result;
         }
-        return result;
-    }
 
 
-    public static void RestoreListFromIDs(List<string> IDs, List<EntityData> entites) {
-        entites.Clear();
-        for(int i = 0; i < IDs.Count; i++) {
-            // TODO: Recreate entities from data in registry!
-            // TODo / FIXME: Replace entity lists with EntityData lists!!!
-            entites.Add(entityRegistry[IDs[i]]);
-        }    
-    }
+        public static void RestoreListFromIDs(List<string> IDs, List<EntityData> entites) {
+            entites.Clear();
+            for(int i = 0; i < IDs.Count; i++) {
+                // TODO: Recreate entities from data in registry!
+                // TODo / FIXME: Replace entity lists with EntityData lists!!!
+                entites.Add(entityRegistry[IDs[i]]);
+            }    
+        }
 
 
-    public static List<EntityHealth> RestoreHealing(List<string> IDs)
-    {
-        healingEntities.Clear();
-        for (int i = 0; i < IDs.Count; i++)
+        public static List<EntityHealth> RestoreHealing(List<string> IDs)
         {
-                if (entityRegistry.ContainsKey(IDs[i]))
-                {
-                    healingEntities.Add(entityRegistry[IDs[i]].livingData.health);
-                }
+            healingEntities.Clear();
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                    if (entityRegistry.ContainsKey(IDs[i]))
+                    {
+                        healingEntities.Add(entityRegistry[IDs[i]].livingData.health);
+                    }
+            }
+            return healingEntities;
         }
-        return healingEntities;
-    }
 
 
-    public static List<EntityHealth> RestoreWaitingToHeal(List<string> IDs)
-    {
-        waitingToHeal.Clear();
-        for (int i = 0; i < IDs.Count; i++)
+        public static List<EntityHealth> RestoreWaitingToHeal(List<string> IDs)
         {
-            if(entityRegistry.ContainsKey(IDs[i])) waitingToHeal.Add(entityRegistry[IDs[i]].livingData.health);
+            waitingToHeal.Clear();
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                if(entityRegistry.ContainsKey(IDs[i])) waitingToHeal.Add(entityRegistry[IDs[i]].livingData.health);
+            }
+            return waitingToHeal;
         }
-        return waitingToHeal;
-    }
 
 
-    public static List<EntityStamina> RestoreRecoving(List<string> IDs)
-    {
-        recoveringEntities.Clear();
-        for (int i = 0; i < IDs.Count; i++)
+        public static List<EntityStamina> RestoreRecoving(List<string> IDs)
         {
-            if(entityRegistry.ContainsKey(IDs[i])) recoveringEntities.Add(entityRegistry[IDs[i]].livingData.stamina);
+            recoveringEntities.Clear();
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                if(entityRegistry.ContainsKey(IDs[i])) recoveringEntities.Add(entityRegistry[IDs[i]].livingData.stamina);
+            }
+            return recoveringEntities;
         }
-        return recoveringEntities;
-    }
 
 
-    public static List<EntityStamina> RestoreWaitingToRecover(List<string> IDs)
-    {
-        waitingToRecover.Clear();
-        for (int i = 0; i < IDs.Count; i++)
+        public static List<EntityStamina> RestoreWaitingToRecover(List<string> IDs)
         {
-            if(entityRegistry.ContainsKey(IDs[i])) waitingToRecover.Add(entityRegistry[IDs[i]].livingData.stamina);
+            waitingToRecover.Clear();
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                if(entityRegistry.ContainsKey(IDs[i])) waitingToRecover.Add(entityRegistry[IDs[i]].livingData.stamina);
+            }
+            return waitingToRecover;
         }
-        return waitingToRecover;
-    }
 
 
-    public static List<EntityMana> RestoreRecovingMana(List<string> IDs)
-    {
-        recoveringMana.Clear();
-        for (int i = 0; i < IDs.Count; i++)
+        public static List<EntityMana> RestoreRecovingMana(List<string> IDs)
         {
-            if(entityRegistry.ContainsKey(IDs[i])) recoveringMana.Add(entityRegistry[IDs[i]].livingData.mana);
+            recoveringMana.Clear();
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                if(entityRegistry.ContainsKey(IDs[i])) recoveringMana.Add(entityRegistry[IDs[i]].livingData.mana);
+            }
+            return recoveringMana;
         }
-        return recoveringMana;
-    }
     
 
 

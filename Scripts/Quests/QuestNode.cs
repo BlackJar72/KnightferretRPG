@@ -1,6 +1,14 @@
 using UnityEngine;
 
-public class QuestNode
+
+namespace kfutils.rpg
 {
-    
+
+    [System.Serializable]
+    public class QuestNode
+    {
+
+    }
+
+
 }

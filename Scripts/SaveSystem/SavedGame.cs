@@ -81,9 +81,8 @@ namespace kfutils.rpg {
                 IActor actor = entityRegistry[id] as IActor;
                 if (actor != null) actor.PreSaveEquipt();
             }
-            // TODO: Save tha game data as a file
             ES3.Save("PCData", pcData, fileName);
-            ES3.Save("ItemRegistry", itemRegistry, fileName);
+            ES3.Save("ItemRegistry", itemRegistry, fileName); 
             ES3.Save("InventoryData", inventoryData, fileName);
             ES3.Save("EquiptData", equiptData, fileName);
             ES3.Save("MoneyData", moneyData, fileName);
@@ -94,7 +93,7 @@ namespace kfutils.rpg {
             // TODO: More, much, much more...
             ES3.Save("HealingEntities", EntityManagement.GetIDList(healingEntities.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("WaitingToHeal", EntityManagement.GetIDList(waitingToHeal.Cast<IHaveStringID>().ToList()), fileName);
-            ES3.Save("ReoveringEntities", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), fileName);
+            ES3.Save("ReoveringEntities", EntityManagement.GetIDList(recoveringEntities.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("WaitingToRecover", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("RecoveringMana", EntityManagement.GetIDList(recoveringMana.Cast<IHaveStringID>().ToList()), fileName);
         }

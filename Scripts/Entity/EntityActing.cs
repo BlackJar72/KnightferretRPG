@@ -1,6 +1,7 @@
 using System.Collections;
 using Animancer;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 
 namespace kfutils.rpg {
@@ -43,6 +44,24 @@ namespace kfutils.rpg {
             meleeCollider.Init(this);
             basicStates.Init(this);
             inventory.SetOwner(this);
+        }
+
+
+        protected override void StoreData()
+        {
+            base.StoreData();
+            data.actingData = new();
+            data.actingData.disposition = disposition;
+            if(targetEnemy == null) data.actingData.targetEnemy =  "";
+            else data.actingData.targetEnemy =  targetEnemy.ID;
+        }
+
+
+        protected override void LoadData()
+        {
+            base.LoadData();
+            disposition = data.actingData.disposition;
+            // TODO: Find entity, if any, that has aggro
         }
 
 

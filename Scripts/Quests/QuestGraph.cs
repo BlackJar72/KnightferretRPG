@@ -1,6 +1,14 @@
 using UnityEngine;
 
-public class QuestGraph
+
+namespace kfutils.rpg
 {
-    
+
+    [System.Serializable]
+    public class QuestGraph
+    {
+
+    }
+
+
 }

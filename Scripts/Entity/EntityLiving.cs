@@ -78,27 +78,12 @@ namespace kfutils.rpg {
             if (data == null)
             {
                 data = new(id);
-                data.livingData = new();
-                data.livingData.entityName = entityName;
-                data.livingData.attributes = attributes;
-                data.livingData.health = health;
-                data.livingData.stamina = stamina;
-                data.livingData.mana = mana;
-                data.livingData.alive = alive;
-                data.livingData.enviroCooldown = enviroCooldown;
-                data.livingData.transform = transform.GetGlobalData();
+                StoreData();
                 EntityManagement.AddToRegistry(data);
             }
             else
             {
-                entityName = data.livingData.entityName;
-                attributes = data.livingData.attributes;
-                health = data.livingData.health;
-                stamina = data.livingData.stamina;
-                mana = data.livingData.mana;
-                alive = data.livingData.alive;
-                enviroCooldown = data.livingData.enviroCooldown;
-                transform.SetDataGlobal(data.livingData.transform);
+                LoadData();
             }
             if (!alive && this is not EntityMoving) Die();
         }
@@ -106,6 +91,13 @@ namespace kfutils.rpg {
 
         protected virtual void OnDisable()
         {
+            StoreData();
+        }
+
+
+        protected virtual void StoreData()
+        {
+            data.livingData = new();
             data.livingData.entityName = entityName;
             data.livingData.attributes = attributes;
             data.livingData.health = health;
@@ -114,6 +106,18 @@ namespace kfutils.rpg {
             data.livingData.alive = alive;
             data.livingData.enviroCooldown = enviroCooldown;
             data.livingData.transform = transform.GetGlobalData();
+        }
+
+
+        protected virtual void LoadData() {
+            entityName = data.livingData.entityName;
+            attributes = data.livingData.attributes;
+            health = data.livingData.health;
+            stamina = data.livingData.stamina;
+            mana = data.livingData.mana;
+            alive = data.livingData.alive;
+            enviroCooldown = data.livingData.enviroCooldown;
+            transform.SetDataGlobal(data.livingData.transform);
         }
 
 
