@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using kfutils.rpg;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -182,6 +184,7 @@ namespace kfutils.rpg.ui
             EntityManagement.playerCharacter.SetPCData(pcData);
             yield return new WaitForEndOfFrame();
             EntityManagement.playerCharacter.Inventory.OnEnable();
+            InventoryManagement.SignalLoadNPCInventoryData();
             WorldManagement.SignalGameReloaded();
             loadingScreen.SetActive(false);
             Time.timeScale = 1.0f;

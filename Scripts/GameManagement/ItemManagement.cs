@@ -36,7 +36,7 @@ namespace kfutils.rpg {
             itemRegistry = loaded;
         }
 
-
+ 
 
     }
 

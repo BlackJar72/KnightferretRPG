@@ -33,7 +33,8 @@ namespace kfutils.rpg {
 
         public override void OnEnable()
         {
-            
+            if (equipt == null) FixEquipt();
+            equipt.mainInventory = this;
             InventoryData data = InventoryManagement.GetInventoryData(ID);
             if(data == null) {
                 data = new(this);
@@ -41,6 +42,7 @@ namespace kfutils.rpg {
                 foreach (ItemStack.ProtoStack stack in startingItems)
                 {
                     ItemStack item = stack.MakeStack();
+                    ItemManagement.AddItem(new ItemData(item));
                     if (stack.equipt)
                     {
                         if (!equipt.AddItemNoSlot(item)) AddToFirstEmptySlot(stack.MakeStack());
@@ -55,7 +57,16 @@ namespace kfutils.rpg {
         }
 
 
-        public virtual void Register() {
+        public void FixEquipt()
+        {
+            equipt = InventoryManagement.GetEquiptData(ID);
+            Debug.Log(equipt);
+            equipt.mainInventory = this;
+        }
+
+
+        public virtual void Register()
+        {
             EquiptmentSlots data = InventoryManagement.GetEquiptData(owner.ID);
             if (data == null)
             {
@@ -68,10 +79,13 @@ namespace kfutils.rpg {
                 equipt.SignalUpdate();
             }
             Money m = InventoryManagement.GetMoneyData(owner.ID);
-            if(m < 0) {
+            if (m < 0)
+            {
                 m = money;
                 InventoryManagement.StoreMoneyData(money, owner.ID);
-            } else {
+            }
+            else
+            {
                 money = m;
             }
         }

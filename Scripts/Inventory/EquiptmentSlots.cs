@@ -1,6 +1,8 @@
 using UnityEngine;
 using kfutils.rpg.ui;
 using System;
+using System.Text;
+using System.Buffers;
 
 
 namespace kfutils.rpg {
@@ -39,6 +41,26 @@ namespace kfutils.rpg {
                 RemoveAllFromSlot(i);
                 AddItemToSlot(i, other.slots[i]);
             }
+        }
+
+
+        public override string ToString()
+        {
+            StringBuilder sb = new(Environment.NewLine);
+            sb.Append("Equitped items, numbering " + slots.Length + Environment.NewLine);
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i] != null)
+                {
+                    sb.Append(i + "   " + slots[i].ToString() + Environment.NewLine);
+                }
+                else
+                {
+                    sb.Append(i + "   NULL" + Environment.NewLine);
+                }
+            }
+            sb.Append(Environment.NewLine);
+            return sb.ToString();
         }
 
 

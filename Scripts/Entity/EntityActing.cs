@@ -59,8 +59,18 @@ namespace kfutils.rpg {
         protected override void LoadData()
         {
             base.LoadData();
+            InventoryManagement.loadNPCInventoryData += LoadInventoryData;
+            inventory.OnEnable();
             disposition = data.actingData.disposition;
             // TODO: Find entity, if any, that has aggro
+        }
+
+
+        protected virtual void LoadInventoryData()
+        {
+            Debug.Log("protected virtual void LoadInventoryData() for " + ID);
+            inventory.FixEquipt();
+            inventory.OnEnable();            
         }
 
 
