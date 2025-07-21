@@ -40,17 +40,17 @@ in case.
 ## What has happened since, and post mortem.  (Update 20 July 2025.)
 
 After open sourcing this development was slowly continued, a little bit at a time on verious sub-systems, I hit my real road block. 
-I cannot get items equipped by NPCs to load correctly, and after several attempts to fix this I see no more ideas on what to do.  Thinking 
+I cannot get items equipped by NPCs to load correctly, and after several attempts to fix this I see no more ideas on what to do. Thinking 
 through what happened, and comparing this to Caverns of Evil, I succeeded and making most things more flexible, much less closely coupled, 
-and generally better.  With Caverns of Evil a lot of mistakes were made because I didn't have a good understanding of the engine and 
+and generally better. With Caverns of Evil a lot of mistakes were made because I didn't have a good understanding of the engine and 
 how it was supposed to be used, and on top of that I was creating types of systems I never had before and figuring things out as I went.  
-As a result, I could not plan well for how to integrate them into a coherent architecture.  Most of those problems were fixed here, and 
-most limiation were transcended.  However, several new systems were, new types of systems were added: A save/load system, an advanced 
+As a result, I could not plan well for how to integrate them into a coherent architecture. Most of those problems were fixed here, and 
+most limiation were transcended. However, several new systems were, new types of systems were added: A save/load system, an advanced 
 inventory system, and transitioning between persistent world space (some of which contain multiple scenes).
 
-Pre-planning all the data structures and how they were to be saved, loaded, and handled between scenes would have been a good idea.  
-Unfortunately this was not possible because of my own inexperience, as how the inventory system would works was also new and not 
-understood in advance.  Even though the inventory system was good in itself, this is where the save system broke down, specifically 
+Pre-planning all the data structures and how they were to be saved, loaded, and handled between scenes would have been a good idea.
+Unfortunately this was not possible because of my own inexperience, as how the inventory system would works was also new and not
+understood in advance.  Even though the inventory system was good in itself, this is where the save system broke down, specifically
 the system for handling equip slots which was tagged on along side the engine.
 
 I also never figured out how to stream scenes efficiently in order to divide the world into chunks or cells.  I know there is a way 
