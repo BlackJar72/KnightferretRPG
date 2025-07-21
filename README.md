@@ -39,13 +39,13 @@ in case.
 
 ## What has happened since, and post mortem.  (Update 20 July 2025.)
 
-After open sourcing this development was slowly continued, a little bit at a time on verious sub-systems, I hit my real road block. 
-I cannot get items equipped by NPCs to load correctly, and after several attempts to fix this I see no more ideas on what to do. Thinking 
-through what happened, and comparing this to Caverns of Evil, I succeeded and making most things more flexible, much less closely coupled, 
-and generally better. With Caverns of Evil a lot of mistakes were made because I didn't have a good understanding of the engine and 
-how it was supposed to be used, and on top of that I was creating types of systems I never had before and figuring things out as I went.  
-As a result, I could not plan well for how to integrate them into a coherent architecture. Most of those problems were fixed here, and 
-most limiation were transcended. However, several new systems were, new types of systems were added: A save/load system, an advanced 
+After open sourcing this development was slowly continued, a little bit at a time on verious sub-systems, I hit my real road block.
+I cannot get items equipped by NPCs to load correctly, and after several attempts to fix this I see no more ideas on what to do. Thinking
+through what happened, and comparing this to Caverns of Evil, I succeeded and making most things more flexible, much less closely coupled,
+and generally better. With Caverns of Evil a lot of mistakes were made because I didn't have a good understanding of the engine and
+how it was supposed to be used, and on top of that I was creating types of systems I never had before and figuring things out as I went.
+As a result, I could not plan well for how to integrate them into a coherent architecture. Most of those problems were fixed here, and
+most limiation were transcended. However, several new systems were, new types of systems were added: A save/load system, an advanced
 inventory system, and transitioning between persistent world space (some of which contain multiple scenes).
 
 Pre-planning all the data structures and how they were to be saved, loaded, and handled between scenes would have been a good idea.
@@ -53,15 +53,15 @@ Unfortunately this was not possible because of my own inexperience, as how the i
 understood in advance.  Even though the inventory system was good in itself, this is where the save system broke down, specifically
 the system for handling equip slots which was tagged on along side the engine.
 
-I also never figured out how to stream scenes efficiently in order to divide the world into chunks or cells.  I know there is a way 
-because several paid assets (World Streamer and RPG Creation Kit I know for sure) do this.  However, even with the scenes pre-loaded, 
-simply activating and de-activing chunks not only failed to produce any benefit but also produced a persistent slowing of the frame 
+I also never figured out how to stream scenes efficiently in order to divide the world into chunks or cells.  I know there is a way
+because several paid assets (World Streamer and RPG Creation Kit I know for sure) do this.  However, even with the scenes pre-loaded,
+simply activating and de-activing chunks not only failed to produce any benefit but also produced a persistent slowing of the frame
 rate.  
 
-The use of static registries, as well as lists for handling things like who is healing (and idea borrowed directly from Data Orient Design) 
+The use of static registries, as well as lists for handling things like who is healing (and idea borrowed directly from Data Orient Design)
 worked well, and though these would disturbed traditional OOP programmers, I find to have have worked very well and simplified many things.
 
-On another note: I have found I like C# and Blender, designing and experimenting with mechanics, and designing levels and worlds on paper, 
+On another note: I have found I like C# and Blender, designing and experimenting with mechanics, and designing levels and worlds on paper,
 but have to admit that I'm already finding building the levels to be tedious and anything but fun. 
 
 ---
