@@ -6,6 +6,7 @@ namespace kfutils.rpg {
     public interface IWeapon : IUsable 
     {
         int GetDamage();
+        
         float GetAttackSpeed();
 
         void AttackMelee(IAttacker attacker);
@@ -15,7 +16,6 @@ namespace kfutils.rpg {
         void Sheath();
         
         void Draw();
-
         
     }
 
