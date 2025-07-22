@@ -103,7 +103,7 @@ namespace kfutils.rpg {
         public void OnUseAnimationEnd() {
             busy = false;
             attacking = false;
-            if (queued)
+            if (queued && (hitCollider != null))
             {
                 queued = false;
                 attack++;

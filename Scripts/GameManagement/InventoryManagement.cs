@@ -74,11 +74,11 @@ namespace kfutils.rpg {
         public static void SetEquiptData(Dictionary<string, EquiptmentSlots> loaded)
         {
             equiptData = loaded;
-            foreach (KeyValuePair<string, EquiptmentSlots> pair in equiptData)
+            /*foreach (KeyValuePair<string, EquiptmentSlots> pair in equiptData)
             {
                 Debug.Log(pair.Key);
                 Debug.Log(pair.Value);
-            }
+            }*/
         }
 
 

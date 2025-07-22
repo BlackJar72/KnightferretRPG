@@ -67,11 +67,11 @@ namespace kfutils.rpg {
 
 
         protected virtual void LoadInventoryData()
-        {
+        {/*
             Debug.Log("protected virtual void LoadInventoryData() for " + ID);
             inventory.FixEquipt();
             inventory.OnEnable();            
-        }
+        */}
 
 
         //Update is called once per frame
@@ -160,7 +160,7 @@ namespace kfutils.rpg {
 
         public void RemoveEquiptAnimation()
         {
-            actionLayer.StartFade(0);
+            actionLayer?.StartFade(0);
         }
 
 
