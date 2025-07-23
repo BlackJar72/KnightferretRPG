@@ -9,9 +9,9 @@ namespace kfutils.rpg {
         
         float GetAttackSpeed();
 
-        void AttackMelee(IAttacker attacker);
+        void AttackMelee(ICombatant attacker);
         
-        void AttackRanged(IAttacker attacker, Vector3 direction);
+        void AttackRanged(ICombatant attacker, Vector3 direction);
 
         void Sheath();
         

@@ -8,7 +8,7 @@ namespace kfutils.rpg {
 
         [SerializeField] GameObject projectilePrefab;
 
-        public override void Cast(IAttacker caster) {
+        public override void Cast(ICombatant caster) {
             AimParams aimParams;
             caster.GetAimParams(out aimParams);
             GameObject projectileObj = Instantiate(projectilePrefab);

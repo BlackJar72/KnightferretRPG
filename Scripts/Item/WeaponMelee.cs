@@ -15,7 +15,7 @@ namespace kfutils.rpg {
         [SerializeField] AbstractAction npcAnimation;
         [SerializeField] int attackCost;
 
-        private IAttacker holder;
+        private ICombatant holder;
         private Collider hitCollider;
 
         private bool busy = false;
@@ -31,13 +31,13 @@ namespace kfutils.rpg {
         public int StaminaCost => attackCost;
 
 
-        public void AttackMelee(IAttacker attacker) {
+        public void AttackMelee(ICombatant attacker) {
             attacking = true;
             // TODO: Initiate attack animation            
         }
 
 
-        public void AttackRanged(IAttacker attacker, Vector3 direction) {
+        public void AttackRanged(ICombatant attacker, Vector3 direction) {
             Debug.Log("Trying to perform raged attack with melee weapon " + prototype.Name);
             throw new System.NotImplementedException();
         }
@@ -72,7 +72,7 @@ namespace kfutils.rpg {
 
 
         public void OnUse(IActor actor) {
-            IAttacker attacker = actor as IAttacker;
+            ICombatant attacker = actor as ICombatant;
             if(attacker != null) {
                 if (busy) queued = true;
                 else
@@ -119,7 +119,7 @@ namespace kfutils.rpg {
 
 
         public void OnEquipt(IActor actor) {
-            holder = actor as IAttacker;
+            holder = actor as ICombatant;
             hitCollider = GetComponent<Collider>();
             hitCollider.enabled = false;
             if(actor.ActionState != null) PlayEquipAnimation(actor);

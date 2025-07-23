@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class EntityActing : EntityMoving, IActor, IAttacker
+    public class EntityActing : EntityMoving, IActor, ICombatant
     {
         public const float VRANGESQR = 64 * 64;
 
@@ -207,7 +207,13 @@ namespace kfutils.rpg {
         }
 
 
-        public void Block()
+        public void Block(ItemEquipt item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void EndBlock(ItemEquipt item)
         {
             throw new System.NotImplementedException();
         }

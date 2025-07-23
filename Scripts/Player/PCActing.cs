@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace kfutils.rpg {
 
-    public class PCActing : PCMoving, IAttacker {
+    public class PCActing : PCMoving, ICombatant {
 
         [SerializeField] PlayerInventory inventory;
         [SerializeField] Spellbook spellbook;
@@ -99,6 +99,7 @@ namespace kfutils.rpg {
         {
             toggleInventoryAction = input.actions["OpenCloseInventory"];
             rightAttackAction = input.actions["RightUseAttack"];
+            leftBlcokAction = input.actions["LeftUseBlock"];
             activateObjectAction = input.actions["Interact"];
             castSpellAction = input.actions["CastSpell"];
             pauseAction = input.actions["Pause"];
@@ -164,6 +165,8 @@ namespace kfutils.rpg {
 
         protected virtual void EnableAction() { 
             rightAttackAction.canceled += UseRightItem;
+            leftBlcokAction.started += BlockLeftItem;
+            leftBlcokAction.canceled += UseLeftItem;
             if(this is not PCTalking) activateObjectAction.started += Interact;  
             castSpellAction.canceled += CastSpell; // FIXME: Include start and stop events
             // Hotbar Quickslots
@@ -409,20 +412,62 @@ namespace kfutils.rpg {
         }
 
 
+        public void BlockLeftItem(InputAction.CallbackContext context)
+        {
+            ItemEquipt lequipt = itemLocations.GetLHandItem();
+            ItemEquipt requipt = itemLocations.GetRHandItem();
+            if (lequipt != null)
+            {
+                if (lequipt is IBlockItem) Block(lequipt);
+                else if ((requipt != null) && (requipt is IBlockItem)) Block(requipt);
+            }
+        }
+
+
+        public void UseLeftItem(InputAction.CallbackContext context)
+        {
+            ItemEquipt lequipt = itemLocations.GetLHandItem();
+            ItemEquipt requipt = itemLocations.GetRHandItem();
+            if (lequipt != null)
+            {
+                if (lequipt is IBlockItem) EndBlock(lequipt);
+                else if (lequipt is IUsable usable)
+                {
+                    if (stamina.UseStamina(usable.StaminaCost)) usable.OnUse(this);
+                }
+                else if ((requipt != null) && (requipt is IBlockItem)) Block(requipt);
+            }
+        }
+
+
 #region 
 
 
-        public void MeleeAttack(IWeapon weapon) {
+
+        public void Block(ItemEquipt item) {
+            if (item is IBlockItem blocker)
+            {
+                blocker.StartBlock();
+            }
+        }
+
+
+        public void EndBlock(ItemEquipt item)
+        {
+            if (item is IBlockItem blocker)
+            {
+                blocker.EndBlock();
+            }
+        }
+
+
+        public void MeleeAttack(IWeapon weapon)
+        {
             throw new System.NotImplementedException();
         }
 
 
         public void RangedAttack(IWeapon weapon, Vector3 direction) {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void Block() {
             throw new System.NotImplementedException();
         }
 

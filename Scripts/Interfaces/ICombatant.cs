@@ -4,7 +4,7 @@ using UnityEngine;
 namespace kfutils.rpg
 {
 
-    public interface IAttacker : IHaveName, IActor
+    public interface ICombatant : IHaveName, IActor
     {
         // TODO: Add relevant parameters to these methods, once we know what they are (i.e., have created entities)
         /// <summary>
@@ -24,7 +24,12 @@ namespace kfutils.rpg
         /// <summary>
         /// Called when blocking
         /// </summary>
-        public void Block();
+        public void Block(ItemEquipt item);
+
+        /// <summary>
+        /// Called when blocking
+        /// </summary>
+        public void EndBlock(ItemEquipt item);
 
         /// <summary>
         /// Ready the weapon for combat

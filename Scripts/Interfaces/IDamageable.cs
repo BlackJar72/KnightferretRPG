@@ -5,8 +5,8 @@ namespace kfutils.rpg
 
     public class DamageData {
         public Damages damage;
-        public IAttacker attacker;
-        public DamageData(Damages damage, IAttacker attacker) {
+        public ICombatant attacker;
+        public DamageData(Damages damage, ICombatant attacker) {
             this.damage = damage;
             this.attacker = attacker;
         }

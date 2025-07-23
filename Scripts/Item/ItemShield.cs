@@ -15,7 +15,7 @@ namespace kfutils.rpg
         [SerializeField] float stability;
         [SerializeField] float parryWindow;
 
-        private IAttacker holder;
+        private ICombatant holder;
         private Collider blockCollider;
 
         private bool blocking = false;
@@ -36,6 +36,7 @@ namespace kfutils.rpg
 
         public void StartBlock()
         {
+            Debug.Log("Blocking");
             blocking = true;
             blockStart = Time.time; // FIXME: Use session independent world time
             // TODO: Actually setup blocks, importantly set up the block collider
@@ -44,6 +45,7 @@ namespace kfutils.rpg
 
         public void EndBlock()
         {
+            Debug.Log("NOT Blocking");
             blocking = false;
             // TODO: Actually take down blocks, importantly deactivate the block collider
         }
@@ -68,13 +70,13 @@ namespace kfutils.rpg
 
 
         public void PlayEquipAnimation(IActor user)
-        {
+        {/*
             if (user.ActionState.NormalizedTime >= 1)
             {
                 user.PlayAction(useAnimation.mask, equiptAnim, OnEqipAnimationEnd, 0);
                 user.ActionState.Events.OnEnd = OnEqipAnimationEnd;
             }
-        }
+        */}
 
 
         public void PlayUseAnimation(IActor actor)

@@ -10,7 +10,7 @@ namespace kfutils.rpg {
         [SerializeField] protected float speed;
         [SerializeField] protected Rigidbody rb;
 
-        private IAttacker sender;
+        private ICombatant sender;
 
 
         protected virtual void Awake() {
@@ -18,7 +18,7 @@ namespace kfutils.rpg {
         }
 
 
-        public virtual void Launch(IAttacker sender, Vector3 direction) {
+        public virtual void Launch(ICombatant sender, Vector3 direction) {
             this.sender = sender;
             rb.linearVelocity = direction * speed;
         }

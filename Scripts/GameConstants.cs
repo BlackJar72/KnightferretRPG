@@ -16,6 +16,7 @@ namespace kfutils.rpg {
         npc = 9,
         damageable = 11,
         attack = 12,
+        block = 13,
         sky = 20
     }
 
@@ -42,6 +43,7 @@ namespace kfutils.rpg {
         public const int pcArmsLayer = 0x1 << (int)Layers.pcArms;
         public const int npcLayer = 0x1 << (int)Layers.npc;
         public const int damageableLayer = 0x1 << (int)Layers.damageable;
+        public const int attackableLayer = damageableLayer | (0x1 << (int)Layers.block);
         public const int attackLayer = 0x1 << (int)Layers.attack;
         public const int skyLayer = 0x1 << (int)Layers.sky;
 

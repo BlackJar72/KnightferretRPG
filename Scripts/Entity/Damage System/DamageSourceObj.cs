@@ -19,11 +19,11 @@ namespace kfutils.rpg {
             victim.TakeDamage(DamageUtils.CalcDamage(baseDamage, victim.GetArmor(), damageType, armorPenetration));
         }
 
-        public DamageData GetDamage(IAttacker attacker, int armor) {
+        public DamageData GetDamage(ICombatant attacker, int armor) {
             return new DamageData(DamageUtils.CalcDamage(baseDamage, armor, damageType, armorPenetration), attacker);
         }
 
-        public void DoDamage(IAttacker attacker, IDamageable victim) {
+        public void DoDamage(ICombatant attacker, IDamageable victim) {
             victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(baseDamage, victim.GetArmor(), damageType, armorPenetration), attacker));
         }
     }
@@ -41,11 +41,11 @@ namespace kfutils.rpg {
             damageSource.DoDamage(victim);
         }
 
-        public DamageData GetDamageI(IAttacker attacker, int armor) {
+        public DamageData GetDamageI(ICombatant attacker, int armor) {
             return damageSource.GetDamage(attacker, armor);
         }
 
-        public void DoDamage(IAttacker attacker, IDamageable victim) {
+        public void DoDamage(ICombatant attacker, IDamageable victim) {
             damageSource.DoDamage(attacker, victim);
         }
     }

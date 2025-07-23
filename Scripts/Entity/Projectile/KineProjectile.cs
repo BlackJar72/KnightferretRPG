@@ -9,7 +9,7 @@ namespace kfutils.rpg {
         [SerializeField] DamageSource damage;
         [SerializeField] float speed;
 
-        private IAttacker sender;
+        private ICombatant sender;
         private Vector3 velocity;
         private Rigidbody rb;
 
@@ -19,7 +19,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void Launch(IAttacker sender, Vector3 direction) {
+        public void Launch(ICombatant sender, Vector3 direction) {
             this.sender = sender;
             this.velocity = direction * speed;
         }
