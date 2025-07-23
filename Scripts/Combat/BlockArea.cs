@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 
@@ -11,12 +12,38 @@ namespace kfutils.rpg
         [SerializeField] BoxCollider bc;
         [SerializeField] Rigidbody rb;
 
+        ICombatant owner;
+
+        public IBlockItem blockItem;
+
+        float blockTime = float.NegativeInfinity;
+
 
 
 
         void Awake()
         {
             if (rb == null) rb = GetComponent<Rigidbody>();
+        }
+
+
+        public void SetOwner(ICombatant combatant)
+        {
+            owner = combatant;
+        }
+
+
+        public void RaiseBlock(IBlockItem item)
+        {
+            blockItem = item;
+            blockTime = Time.time;
+            gameObject.SetActive(true);
+        }
+
+
+        public void LowerBlock()
+        {
+            gameObject.SetActive(false);
         }
 
 
@@ -28,7 +55,12 @@ namespace kfutils.rpg
 
         void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Block Area Entered");          
+            IWeapon weapon = other.gameObject.GetComponent<IWeapon>();
+            if (weapon != null)
+            {
+                weapon.BeBlocked(owner, this);
+
+            }         
         }
 
 

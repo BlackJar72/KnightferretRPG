@@ -51,8 +51,8 @@ namespace kfutils.rpg {
             base.StoreData();
             data.actingData = new();
             data.actingData.disposition = disposition;
-            if(targetEnemy == null) data.actingData.targetEnemy =  "";
-            else data.actingData.targetEnemy =  targetEnemy.ID;
+            if (targetEnemy == null) data.actingData.targetEnemy = "";
+            else data.actingData.targetEnemy = targetEnemy.ID;
         }
 
 
@@ -71,7 +71,8 @@ namespace kfutils.rpg {
             Debug.Log("protected virtual void LoadInventoryData() for " + ID);
             inventory.FixEquipt();
             inventory.OnEnable();            
-        */}
+        */
+        }
 
 
         //Update is called once per frame
@@ -97,13 +98,15 @@ namespace kfutils.rpg {
 
         public void EquiptItem(ItemStack item)
         {
-            if(item != null) {
+            if (item != null)
+            {
                 ItemEquipt equipt = itemLocations.EquipItem(item);
                 IUsable usable = equipt as IUsable;
-                if(usable != null) {                     
-                    usable.OnEquipt(this); 
-                }            
-            } 
+                if (usable != null)
+                {
+                    usable.OnEquipt(this);
+                }
+            }
         }
 
 
@@ -129,7 +132,7 @@ namespace kfutils.rpg {
 
 
         public void PlayAction(AvatarMask mask, ITransition animation, float time = 0)
-        {            
+        {
             actionLayer.SetMask(mask);
             actionState = animancer.Play(animation);
             actionState.Time = time;
@@ -166,9 +169,10 @@ namespace kfutils.rpg {
 
         public void UnequiptItem(ItemStack item)
         {
-            if(item != null) {
+            if (item != null)
+            {
                 itemLocations.UnequipItem(item);
-            } 
+            }
         }
 
 
@@ -201,12 +205,6 @@ namespace kfutils.rpg {
         }
 
 
-        public void RangedAttack(IWeapon weapon, Vector3 direction)
-        {
-            throw new System.NotImplementedException();
-        }
-
-
         public void Block(ItemEquipt item)
         {
             throw new System.NotImplementedException();
@@ -214,6 +212,24 @@ namespace kfutils.rpg {
 
 
         public void EndBlock(ItemEquipt item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void BlockDamage(Damages damage, BlockArea blockArea)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void BlockDamage(DamageData damage, BlockArea blockArea)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void RangedAttack(IWeapon weapon, Vector3 direction)
         {
             throw new System.NotImplementedException();
         }
@@ -232,12 +248,6 @@ namespace kfutils.rpg {
 
 
         public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon)
-        {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void AttackBlocked()
         {
             throw new System.NotImplementedException();
         }
@@ -275,6 +285,9 @@ namespace kfutils.rpg {
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
         public bool CanSeeCollider(Collider other) => CanSeePosition(other.bounds.center);
         public bool CanSeeEntity(EntityLiving other) => other.CanBeSeenFrom(eyes, VRANGESQR);
+        
+
+
     }
 
 

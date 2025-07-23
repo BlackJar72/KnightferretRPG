@@ -1,10 +1,11 @@
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 
 namespace kfutils.rpg
 {
 
-    public interface ICombatant : IHaveName, IActor
+    public interface ICombatant : IHaveName, IActor, IDamageable
     {
         // TODO: Add relevant parameters to these methods, once we know what they are (i.e., have created entities)
         /// <summary>
@@ -32,6 +33,20 @@ namespace kfutils.rpg
         public void EndBlock(ItemEquipt item);
 
         /// <summary>
+        /// Called when shiled or other blocking items is hit.
+        /// Handles damage in place of TakeDamage, amoung other things.
+        /// </summary>
+        /// <param name="damage"></param>
+        public void BlockDamage(Damages damage, BlockArea blockArea);
+
+        /// <summary>
+        /// Called when shiled or other blocking items is hit.
+        /// Handles damage in place of TakeDamage, amoung other things.
+        /// </summary>
+        /// <param name="damage"></param>
+        public void BlockDamage(DamageData damage, BlockArea blockArea);
+
+        /// <summary>
         /// Ready the weapon for combat
         /// </summary>
         /// <param name="weapon"></param>
@@ -48,12 +63,6 @@ namespace kfutils.rpg
         /// </summary>
         /// <param name="weapon"></param>
         public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon);
-
-
-        /// <summary>
-        /// Called when this attacker's melee attack is blocked by a target.
-        /// </summary>
-       public void AttackBlocked(); 
 
     }
 

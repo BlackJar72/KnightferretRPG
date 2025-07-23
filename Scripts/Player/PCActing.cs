@@ -14,6 +14,7 @@ namespace kfutils.rpg {
         [SerializeField] SpellEquiptSlot equiptSpell;
 
         [SerializeField] CharacterEquipt itemLocations;
+        [SerializeField] BlockArea blockArea;
 
 
         protected AnimancerLayer actionLayer;
@@ -21,6 +22,7 @@ namespace kfutils.rpg {
         protected AnimancerState actionState;
         protected AnimancerState armsActionState;
 
+        protected bool blocking;
  
         // Input System
         protected InputAction rightAttackAction;
@@ -65,6 +67,7 @@ namespace kfutils.rpg {
             if (inventory == null) inventory = GetComponent<PlayerInventory>();
             if (spellbook == null) spellbook = GetComponent<Spellbook>();
             inventory.SetOwner(this); // Just in case it wasn't set correctly
+            blockArea.SetOwner(this);
             base.Awake();
             InitInput();
         }
@@ -403,7 +406,7 @@ namespace kfutils.rpg {
             ItemEquipt requipt = itemLocations.GetRHandItem();
             if(requipt != null) {
                 IUsable usable = requipt as IUsable;
-                if(usable != null) {
+                if((usable != null) && !blocking) {
                     if(stamina.UseStamina(usable.StaminaCost)) {
                         usable.OnUse(this);
                     }
@@ -448,6 +451,8 @@ namespace kfutils.rpg {
             if (item is IBlockItem blocker)
             {
                 blocker.StartBlock();
+                blockArea.RaiseBlock(blocker);
+                blocking = true;
             }
         }
 
@@ -457,7 +462,49 @@ namespace kfutils.rpg {
             if (item is IBlockItem blocker)
             {
                 blocker.EndBlock();
+                blockArea.LowerBlock();
+                blocking = false;
             }
+        }
+
+
+        public void BreakBlock(IBlockItem blocker)
+        {
+            blockArea.LowerBlock();
+            if (blocker != null)
+            {
+                blocker.EndBlock();
+            }
+            blocking = false;
+            // TODO?? Stagger when block is dropped due to stamina depletion.          
+        }
+
+
+        private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)
+        {
+            float shock = damage.shock;
+            float reduction = damage.shock * blockArea.blockItem.BlockAmount;
+            float cost = reduction * blockArea.blockItem.Stability;
+            float paid = Mathf.Min(cost, stamina.currentStamina);
+            reduction *= (paid / cost);
+            stamina.UseStamina(paid);
+            damage *= (shock - reduction) /  shock;
+            if (stamina.currentStamina < 1) BreakBlock(blockArea.blockItem); 
+            return damage;
+        }
+
+
+        public void BlockDamage(Damages damage, BlockArea blockArea)
+        {
+            damage = BlockDamageHelper(damage, blockArea);
+            TakeDamage(damage);
+        }
+
+
+        public void BlockDamage(DamageData damage, BlockArea blockArea)
+        {
+            damage.damage = BlockDamageHelper(damage.damage, blockArea);
+            TakeDamage(damage);
         }
 
 
@@ -483,11 +530,6 @@ namespace kfutils.rpg {
 
 
         public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon) {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void AttackBlocked() {
             throw new System.NotImplementedException();
         }
 

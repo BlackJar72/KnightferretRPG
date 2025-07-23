@@ -32,8 +32,7 @@ namespace kfutils.rpg {
 
 
         public void AttackMelee(ICombatant attacker) {
-            attacking = true;
-            // TODO: Initiate attack animation            
+            attacking = true;        
         }
 
 
@@ -160,6 +159,20 @@ namespace kfutils.rpg {
         }
 
 
+        public void BeBlocked(ICombatant blocker, BlockArea blockArea)
+        {
+            hitCollider.enabled = false;
+            if (attacking && (blocker != null) && (blocker.GetEntity != holder))
+            {
+                DamageData dmg = damage.GetDamage(holder, blocker);
+                blocker.BlockDamage(dmg, blockArea);
+                
+            }
+            attacking = false; 
+            PlayEquipAnimation(holder);
+        }
+
+
         public void Sheath() {
             // TODO:  Switch animation layer 1 to use moveState (or to have an empty mask?)
             //        Figure out the dynamic mixer so you can do this right.   
@@ -172,8 +185,6 @@ namespace kfutils.rpg {
             //       Question -- do I need separate drawn and hold animations? Or just idle (holding), and the transition is the draw?
             throw new System.NotImplementedException();
         }
-
-
     }
 
 

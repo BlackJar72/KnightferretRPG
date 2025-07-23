@@ -23,6 +23,10 @@ namespace kfutils.rpg {
             return new DamageData(DamageUtils.CalcDamage(baseDamage, armor, damageType, armorPenetration), attacker);
         }
 
+        public DamageData GetDamage(ICombatant attacker, IDamageable victim) {
+            return new DamageData(DamageUtils.CalcDamage(baseDamage, victim.GetArmor(), damageType, armorPenetration), attacker);
+        }
+
         public void DoDamage(ICombatant attacker, IDamageable victim) {
             victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(baseDamage, victim.GetArmor(), damageType, armorPenetration), attacker));
         }

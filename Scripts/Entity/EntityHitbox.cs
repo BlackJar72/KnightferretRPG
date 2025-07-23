@@ -8,7 +8,7 @@ namespace kfutils.rpg
     public class EntityHitbox : MonoBehaviour, IDamageable, IHittable
     {
 
-        [Tooltip("The entity to which damage should be forwareed")]
+        [Tooltip("The entity to which damage should be forwarded")]
         [SerializeField] EntityLiving owner;
 
 
