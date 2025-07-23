@@ -36,6 +36,11 @@ namespace kfutils.rpg {
         public MeleeTrigger meleeTrigger => meleeCollider;
 
 
+        protected delegate void ActionUpdate();
+        protected ActionUpdate actionUpdate;
+        protected float updateEnd = float.NegativeInfinity;
+
+
 
         protected override void Awake()
         {
@@ -43,6 +48,7 @@ namespace kfutils.rpg {
             meleeCollider.Init(this);
             basicStates.Init(this);
             inventory.SetOwner(this);
+            actionUpdate = NormalUpdate;
         }
 
 
@@ -78,8 +84,20 @@ namespace kfutils.rpg {
         //Update is called once per frame
         protected override void Update()
         {
+            actionUpdate();
+        }
+
+
+        protected void NormalUpdate()
+        {
             basicStates.Act();
             base.Update();
+        }
+
+
+        protected void DelayedUpdate()
+        {
+            if (Time.time > updateEnd) actionUpdate = NormalUpdate;
         }
 
 
@@ -145,6 +163,13 @@ namespace kfutils.rpg {
             actionState = actionLayer.Play(animation);
             actionState.Time = time;
             StartCoroutine(DoPostActionCode(onEnd, delay));
+        }
+
+
+        public void DelayFurtherAction(float delay)
+        {
+            updateEnd = Time.time + delay;
+            actionUpdate = DelayedUpdate;
         }
 
 

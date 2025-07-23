@@ -1,4 +1,5 @@
 using Animancer;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -166,7 +167,7 @@ namespace kfutils.rpg {
             {
                 DamageData dmg = damage.GetDamage(holder, blocker);
                 blocker.BlockDamage(dmg, blockArea);
-                
+                if (holder is EntityActing actor) actor.DelayFurtherAction(2.0f);
             }
             attacking = false; 
             PlayEquipAnimation(holder);
