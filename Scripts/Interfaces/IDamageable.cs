@@ -15,11 +15,13 @@ namespace kfutils.rpg
 
 
 
-    public interface IDamageable {
-        
+    public interface IDamageable
+    {
+
         public int GetArmor();
         public void TakeDamage(Damages damage);
         public void TakeDamage(DamageData damage);
+        public EntityLiving GetEntity { get; }
         
     }
 

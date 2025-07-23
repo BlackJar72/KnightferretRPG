@@ -16,7 +16,8 @@ namespace kfutils.rpg
         public void TakeDamage(Damages damage) => owner.TakeDamage(damage);
         public void TakeDamage(DamageData damage) => owner.TakeDamage(damage);
         public Collider GetCollider() => GetComponent<Collider>();
-        public Vector3 GetCenter() => GetComponent<Collider>().bounds.center; 
+        public Vector3 GetCenter() => GetComponent<Collider>().bounds.center;
+        public EntityLiving GetEntity => owner;
 
         
 

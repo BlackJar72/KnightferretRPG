@@ -10,7 +10,7 @@ namespace kfutils.rpg
 
         [SerializeField] BoxCollider bc;
         [SerializeField] Rigidbody rb;
-        
+
 
 
 
@@ -18,6 +18,19 @@ namespace kfutils.rpg
         {
             if (rb == null) rb = GetComponent<Rigidbody>();
         }
+
+
+        void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("Block Area Hit!");
+        }
+
+
+        void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Block Area Entered");          
+        }
+
 
 
     }

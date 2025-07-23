@@ -29,6 +29,7 @@ namespace kfutils.rpg {
         public AnimancerComponent anim { get => animancer; }
         public bool Alive => alive;
         public EntityHitbox Hitbox => hitbox;
+        public EntityLiving GetEntity => this;
 
 
         public string ID

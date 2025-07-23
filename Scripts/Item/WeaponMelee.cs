@@ -59,7 +59,7 @@ namespace kfutils.rpg {
             #endif
             GameObject hit = other.gameObject;
             IDamageable damageable = hit.GetComponent<IDamageable>();
-            if(attacking && (damageable != null) && (damageable != holder)) {
+            if(attacking && (damageable != null) && (damageable.GetEntity != holder)) {
                 damage.DoDamage(holder, damageable);
                 attacking = false; 
             }
