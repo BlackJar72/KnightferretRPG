@@ -162,15 +162,15 @@ namespace kfutils.rpg {
 
         public void BeBlocked(ICombatant blocker, BlockArea blockArea)
         {
-            hitCollider.enabled = false;
             if (attacking && (blocker != null) && (blocker.GetEntity != holder))
             {
+                hitCollider.enabled = false;
                 DamageData dmg = damage.GetDamage(holder, blocker);
                 blocker.BlockDamage(dmg, blockArea);
                 if (holder is EntityActing actor) actor.DelayFurtherAction(2.0f);
+                attacking = false; 
+                PlayEquipAnimation(holder);
             }
-            attacking = false; 
-            PlayEquipAnimation(holder);
         }
 
 

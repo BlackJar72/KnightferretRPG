@@ -36,7 +36,6 @@ namespace kfutils.rpg
 
         public void StartBlock()
         {
-            Debug.Log("Blocking");
             blocking = true;
             blockStart = Time.time; // FIXME: Use session independent world time
             // TODO: Actually setup blocks, importantly set up the block collider
@@ -45,7 +44,6 @@ namespace kfutils.rpg
 
         public void EndBlock()
         {
-            Debug.Log("NOT Blocking");
             blocking = false;
             // TODO: Actually take down blocks, importantly deactivate the block collider
         }

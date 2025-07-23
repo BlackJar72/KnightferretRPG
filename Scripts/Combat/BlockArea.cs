@@ -18,6 +18,8 @@ namespace kfutils.rpg
 
         float blockTime = float.NegativeInfinity;
 
+        public float BlockTime => blockTime;
+
 
 
 

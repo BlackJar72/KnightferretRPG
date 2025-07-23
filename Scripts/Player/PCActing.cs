@@ -483,8 +483,8 @@ namespace kfutils.rpg {
         private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)
         {
             float shock = damage.shock;
-            float reduction = damage.shock * blockArea.blockItem.BlockAmount;
-            float cost = reduction * blockArea.blockItem.Stability;
+            float reduction = damage.shock * (1.0f - blockArea.blockItem.BlockAmount);
+            float cost = reduction * (1.0f - blockArea.blockItem.Stability);
             float paid = Mathf.Min(cost, stamina.currentStamina);
             reduction *= (paid / cost);
             stamina.UseStamina(paid);
@@ -496,15 +496,26 @@ namespace kfutils.rpg {
 
         public void BlockDamage(Damages damage, BlockArea blockArea)
         {
-            damage = BlockDamageHelper(damage, blockArea);
-            TakeDamage(damage);
+            if (Time.time > (blockArea.BlockTime + blockArea.blockItem.ParryWindow))
+            {
+                damage = BlockDamageHelper(damage, blockArea);
+                TakeDamage(damage);
+            }
         }
 
 
         public void BlockDamage(DamageData damage, BlockArea blockArea)
         {
-            damage.damage = BlockDamageHelper(damage.damage, blockArea);
-            TakeDamage(damage);
+            if (Time.time > (blockArea.BlockTime + blockArea.blockItem.ParryWindow))
+            {
+                damage.damage = BlockDamageHelper(damage.damage, blockArea);
+                TakeDamage(damage);
+            }
+            else
+            {
+                Debug.Log("Parry!");
+                if (damage.attacker is EntityActing enemyActor) enemyActor.DelayFurtherAction(4.0f);
+            }
         }
 
 
