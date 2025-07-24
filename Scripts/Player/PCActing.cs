@@ -483,7 +483,7 @@ namespace kfutils.rpg {
         private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)
         {
             float shock = damage.shock;
-            float reduction = damage.shock * (1.0f - blockArea.blockItem.BlockAmount);
+            float reduction = damage.shock * blockArea.blockItem.BlockAmount;
             float cost = reduction * (1.0f - blockArea.blockItem.Stability);
             float paid = Mathf.Min(cost, stamina.currentStamina);
             reduction *= (paid / cost);
