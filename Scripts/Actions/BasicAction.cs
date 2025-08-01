@@ -17,16 +17,16 @@ namespace kfutils.rpg {
         public override AvatarMask mask => avatarMask;
         public override int number => 1;
 
-        public override ClipTransition GetSequential(ref int index)
+        public override ClipTransition GetSequential(int index)
         {
             index = 0;
             return animation;
         }
 
 
-        public override ClipTransition GetRandom(ref int index)
+        public override ClipTransition GetRandom(int index)
         {
-            return GetSequential(ref index);
+            return GetSequential(index);
         }
         
     }

@@ -37,6 +37,7 @@ namespace kfutils.rpg
         {
             blocking = true;
             blockStart = Time.time; // FIXME: Use session independent world time
+            PlayUseAnimation(holder);
             // TODO: Actually setup blocks, importantly set up the block collider
         }
 
@@ -52,19 +53,22 @@ namespace kfutils.rpg
         {
             holder = actor as ICombatant;
             blockArea = holder.GetBlockArea();
-            blockArea.blockItem = this;
+            if (blockArea != null)
+            {
+                blockArea.blockItem = this;
+            }
         }
 
 
         public void OnUnequipt()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
 
         public void OnUse(IActor actor)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
 
@@ -79,10 +83,13 @@ namespace kfutils.rpg
         }
 
 
-        public void PlayUseAnimation(IActor actor)
+        public void PlayUseAnimation(IActor user)
         {
-            throw new System.NotImplementedException();
-            // HELP!  I need to have the animation play, pause on block, and reverse when the block is ended.
+            // HELP!!! Why doesn't this work!
+            if (user.ActionState.NormalizedTime >= 1)
+            {
+                user.PlayAction(useAnimation.Secondary.mask, useAnimation.Secondary.GetSequential(0));
+            }
         }
 
 

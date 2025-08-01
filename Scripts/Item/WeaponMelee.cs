@@ -87,11 +87,11 @@ namespace kfutils.rpg {
             {
                 if (attacker is PCActing)
                 {
-                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetSequential(ref attack), OnUseAnimationEnd, 0, attackTime);
+                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetSequential(attack), OnUseAnimationEnd, 0, attackTime);
                 }
                 else
                 {
-                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetRandom(ref attack), OnUseAnimationEnd, 0, attackTime);
+                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
                 }
                 attackState.Events.AddCallback(0, OnAttackStart);
                 attackState.Events.AddCallback(1, OnAttackEnd);
@@ -115,8 +115,8 @@ namespace kfutils.rpg {
                 ReplayEquipAnimation();
                 hitCollider.enabled = false;
             }
-                attackState.Events.RemoveCallback(0, OnAttackStart);
-                attackState.Events.RemoveCallback(1, OnAttackEnd);
+            attackState.Events.RemoveCallback(0, OnAttackStart);
+            attackState.Events.RemoveCallback(1, OnAttackEnd);
         }
 
 

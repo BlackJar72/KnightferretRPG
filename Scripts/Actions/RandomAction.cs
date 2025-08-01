@@ -18,12 +18,12 @@ namespace kfutils.rpg {
         public override int number => animations.Length;
 
         // Ignore index and give random since this for raandom animations; for seqence use ActionSequence.
-        public override ClipTransition GetSequential(ref int index) {
-            return GetRandom(ref index);
+        public override ClipTransition GetSequential(int index) {
+            return GetRandom(index);
         }
         
         
-        public override ClipTransition GetRandom(ref int index)
+        public override ClipTransition GetRandom(int index)
         {
             index = Random.Range(0, animations.Length);
             return animations[index];
