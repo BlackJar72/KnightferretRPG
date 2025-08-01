@@ -10,9 +10,11 @@ namespace kfutils.rpg
         public void StartBlock();
         public void EndBlock();
 
-        public float BlockAmount { get;  }
+        public float BlockAmount { get; }
         public float Stability { get; }
-        public float ParryWindow { get;  }        
+        public float ParryWindow { get; }
+
+        public void BeHit();   
 
 
     }

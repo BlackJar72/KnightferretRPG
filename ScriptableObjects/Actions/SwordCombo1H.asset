@@ -15,25 +15,40 @@ MonoBehaviour:
   animations:
   - _FadeDuration: 0.25
     _Events:
-      _NormalizedTimes: []
+      _NormalizedTimes:
+      - 0.1845637
+      - 0.537838
+      - 0.99999994
       _Callbacks: []
-      _Names: []
+      _Names:
+      - AttackStart
+      - AttackEnd
     _Clip: {fileID: 7400000, guid: f1613afb92638e743bace9a9392b5ee7, type: 3}
     _Speed: 1
     _NormalizedStartTime: NaN
   - _FadeDuration: 0.25
     _Events:
-      _NormalizedTimes: []
+      _NormalizedTimes:
+      - 0.2741313
+      - 0.4
+      - 1.0002857
       _Callbacks: []
-      _Names: []
+      _Names:
+      - AttackStart
+      - AttackEnd
     _Clip: {fileID: 7400000, guid: a55383ab4dbd734488b7abc4b819934f, type: 3}
     _Speed: 1
     _NormalizedStartTime: NaN
   - _FadeDuration: 0.25
     _Events:
-      _NormalizedTimes: []
+      _NormalizedTimes:
+      - 0.10782097
+      - 0.4503111
+      - 1.0002857
       _Callbacks: []
-      _Names: []
+      _Names:
+      - AttackStart
+      - AttackEnd
     _Clip: {fileID: 7400000, guid: 2353f29f22b4ca2438a5c32f3628a876, type: 3}
     _Speed: 1
     _NormalizedStartTime: NaN

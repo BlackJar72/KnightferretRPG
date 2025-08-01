@@ -7,16 +7,15 @@ namespace kfutils.rpg
     public class ItemShield : ItemEquipt, IBlockItem
     {
 
-        [SerializeField] AbstractAction useAnimation;
-
-        [SerializeField] AbstractAction npcAnimation;
+        [SerializeField] ItemActions useAnimation;
 
         [SerializeField] float blockAmount;
         [SerializeField] float stability;
         [SerializeField] float parryWindow;
+        [SerializeField] AudioSource audioSource;
 
         private ICombatant holder;
-        private Collider blockCollider;
+        private BlockArea blockArea;
 
         private bool blocking = false;
         private float blockStart = float.NegativeInfinity;
@@ -25,7 +24,7 @@ namespace kfutils.rpg
 
         public delegate void EventAction();
 
-        public AbstractAction UseAnimation => useAnimation;
+        public AbstractAction UseAnimation => useAnimation.Secondary;
 
         public float BlockAmount => blockAmount;
         public float Stability => stability;
@@ -51,7 +50,9 @@ namespace kfutils.rpg
 
         public void OnEquipt(IActor actor)
         {
-            throw new System.NotImplementedException();
+            holder = actor as ICombatant;
+            blockArea = holder.GetBlockArea();
+            blockArea.blockItem = this;
         }
 
 
@@ -74,7 +75,8 @@ namespace kfutils.rpg
                 user.PlayAction(useAnimation.mask, equiptAnim, OnEqipAnimationEnd, 0);
                 user.ActionState.Events.OnEnd = OnEqipAnimationEnd;
             }
-        */}
+        */
+        }
 
 
         public void PlayUseAnimation(IActor actor)
@@ -84,11 +86,17 @@ namespace kfutils.rpg
         }
 
 
-        public void OnEqipAnimationEnd() {
+        public void OnEqipAnimationEnd()
+        {
             EndBlock();
         }
-        
 
+
+        public void BeHit()
+        {
+            useAnimation.PrimarySound.Play(audioSource);
+        }
+        
 
     }
 

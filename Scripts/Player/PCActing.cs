@@ -258,7 +258,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void PlayAction(AvatarMask mask, ITransition animation, float time = 0)
+        public AnimancerState PlayAction(AvatarMask mask, ITransition animation, float time = 0)
         {            
             actionLayer.SetMask(mask);
             actionState = animancer.Play(animation);
@@ -266,18 +266,20 @@ namespace kfutils.rpg {
             armsActionLayer.SetMask(mask);
             armsActionState = animancer.Play(animation);
             armsActionState.Time = time; 
+            return actionState;
         }
 
 
-        public void PlayAction(AvatarMask mask, ITransition animation, System.Action onEnd, float time = 0.0f, float delay = 1.0f)
+        public AnimancerState PlayAction(AvatarMask mask, ITransition animation, System.Action onEnd, float time = 0.0f, float delay = 1.0f)
         {
             actionLayer.SetMask(mask);
             actionState = actionLayer.Play(animation);
             actionState.Time = time;
             armsActionLayer.SetMask(mask);
             armsActionState = armsActionLayer.Play(animation);
-            armsActionState.Time = time; 
+            armsActionState.Time = time;
             StartCoroutine(DoPostActionCode(onEnd, delay));
+            return actionState;
         }
 
 
@@ -468,6 +470,9 @@ namespace kfutils.rpg {
         }
 
 
+        public BlockArea GetBlockArea() => blockArea;
+
+
         public void BreakBlock(IBlockItem blocker)
         {
             blockArea.LowerBlock();
@@ -506,6 +511,7 @@ namespace kfutils.rpg {
 
         public void BlockDamage(DamageData damage, BlockArea blockArea)
         {
+            // FIXME: CHeck if attack is parryable
             if (Time.time > (blockArea.BlockTime + blockArea.blockItem.ParryWindow))
             {
                 damage.damage = BlockDamageHelper(damage.damage, blockArea);

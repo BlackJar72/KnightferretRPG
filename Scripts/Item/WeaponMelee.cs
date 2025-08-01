@@ -10,9 +10,7 @@ namespace kfutils.rpg {
         [SerializeField] float attackTime;
         [SerializeField] DamageSource damage;
 
-        [SerializeField] AbstractAction useAnimation;
-
-        [SerializeField] AbstractAction npcAnimation;
+        [SerializeField] ItemActions useAnimation;
         [SerializeField] int attackCost;
 
         private ICombatant holder;
@@ -22,11 +20,12 @@ namespace kfutils.rpg {
         private bool attacking = false;
         private bool queued = false;
         private int attack = 0;
+        AnimancerState attackState;
 
         public delegate void EventAction();
 
 
-        public AbstractAction UseAnimation => useAnimation;
+        public AbstractAction UseAnimation => useAnimation.Primary;
 
         public int StaminaCost => attackCost;
 
@@ -76,7 +75,6 @@ namespace kfutils.rpg {
                 if (busy) queued = true;
                 else
                 {
-                    hitCollider.enabled = true;
                     AttackMelee(attacker);
                     PlayUseAnimation(actor);
                 }
@@ -85,15 +83,18 @@ namespace kfutils.rpg {
 
 
         public void PlayUseAnimation(IActor attacker) {
-              if(!busy) {
+            if (!busy)
+            {
                 if (attacker is PCActing)
                 {
-                    attacker.PlayAction(useAnimation.mask, useAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, attackTime);
+                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetSequential(ref attack), OnUseAnimationEnd, 0, attackTime);
                 }
                 else
                 {
-                    attacker.PlayAction(useAnimation.mask, npcAnimation.GetSequential(ref attack), OnUseAnimationEnd, 0, attackTime);
+                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetRandom(ref attack), OnUseAnimationEnd, 0, attackTime);
                 }
+                attackState.Events.AddCallback(0, OnAttackStart);
+                attackState.Events.AddCallback(1, OnAttackEnd);
                 busy = true;
             }
         }
@@ -105,7 +106,7 @@ namespace kfutils.rpg {
             if (queued && (hitCollider != null))
             {
                 queued = false;
-                attack++;
+                attack = (++attack) % useAnimation.Primary.number;
                 OnUse(holder);
             }
             else
@@ -114,6 +115,8 @@ namespace kfutils.rpg {
                 ReplayEquipAnimation();
                 hitCollider.enabled = false;
             }
+                attackState.Events.RemoveCallback(0, OnAttackStart);
+                attackState.Events.RemoveCallback(1, OnAttackEnd);
         }
 
 
@@ -125,7 +128,20 @@ namespace kfutils.rpg {
         }
 
 
-        public void OnUnequipt() {
+        public void OnAttackStart()
+        {
+            hitCollider.enabled = true;  
+        }
+
+
+        public void OnAttackEnd()
+        {
+            hitCollider.enabled = false; 
+        }
+
+
+        public void OnUnequipt()
+        {
             holder.RemoveEquiptAnimation();
             // TODO: Reset the holder's animation to default and do general clean-up
         }
@@ -133,7 +149,7 @@ namespace kfutils.rpg {
 
         public void PlayEquipAnimation(IActor user) {
             if(user.ActionState.NormalizedTime >= 1) {
-                user.PlayAction(useAnimation.mask, equiptAnim, OnEqipAnimationEnd, 0);
+                user.PlayAction(useAnimation.Primary.mask, equiptAnim, OnEqipAnimationEnd, 0);
                 busy = true;
                 attacking = false;
                 user.ActionState.Events.OnEnd = OnEqipAnimationEnd;
@@ -146,7 +162,7 @@ namespace kfutils.rpg {
             AnimancerLayer animancer = holder.ActionLayer;
             AnimancerState animState = holder.ActionState;
             if((animState == null) || (animState.NormalizedTime >= 1)) {
-                animancer.SetMask(useAnimation.mask);
+                animancer.SetMask(useAnimation.Primary.mask);
                 animState = animancer.Play(equiptAnim);
                 animState.NormalizedTime = 0; 
                 busy = false;

@@ -149,20 +149,22 @@ namespace kfutils.rpg {
         }
 
 
-        public void PlayAction(AvatarMask mask, ITransition animation, float time = 0)
+        public AnimancerState PlayAction(AvatarMask mask, ITransition animation, float time = 0)
         {
             actionLayer.SetMask(mask);
             actionState = animancer.Play(animation);
             actionState.Time = time;
+            return actionState;
         }
 
 
-        public void PlayAction(AvatarMask mask, ITransition animation, System.Action onEnd, float time = 0, float delay = 1.0f)
+        public AnimancerState PlayAction(AvatarMask mask, ITransition animation, System.Action onEnd, float time = 0, float delay = 1.0f)
         {
             actionLayer.SetMask(mask);
             actionState = actionLayer.Play(animation);
             actionState.Time = time;
             StartCoroutine(DoPostActionCode(onEnd, delay));
+            return actionState;
         }
 
 
@@ -275,6 +277,12 @@ namespace kfutils.rpg {
         public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon)
         {
             throw new System.NotImplementedException();
+        }
+
+
+        public BlockArea GetBlockArea()
+        {
+            return null; // FIXME; Return an actual block are if there is one
         }
 
 

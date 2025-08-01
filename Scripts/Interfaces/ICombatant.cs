@@ -64,6 +64,11 @@ namespace kfutils.rpg
         /// <param name="weapon"></param>
         public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon);
 
+        /// <summary>
+        /// Returns the BlockArea of the Combatant
+        /// </summary>
+        public BlockArea GetBlockArea();
+
     }
 
 }

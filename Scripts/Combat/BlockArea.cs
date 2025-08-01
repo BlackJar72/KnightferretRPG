@@ -49,20 +49,14 @@ namespace kfutils.rpg
         }
 
 
-        void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log("Block Area Hit!");
-        }
-
-
         void OnTriggerEnter(Collider other)
         {
             IWeapon weapon = other.gameObject.GetComponent<IWeapon>();
             if (weapon != null)
             {
                 weapon.BeBlocked(owner, this);
-
-            }         
+                blockItem.BeHit();
+            }
         }
 
 
