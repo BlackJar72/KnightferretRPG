@@ -103,6 +103,12 @@ namespace kfutils.rpg
         {
             useAnimation.PrimarySound.Play(audioSource);
         }
+
+
+        public void BeParried()
+        {
+            useAnimation.SecondarySound.Play(audioSource);
+        }
         
 
     }

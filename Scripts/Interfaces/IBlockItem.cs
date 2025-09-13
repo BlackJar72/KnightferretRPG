@@ -14,7 +14,8 @@ namespace kfutils.rpg
         public float Stability { get; }
         public float ParryWindow { get; }
 
-        public void BeHit();   
+        public void BeHit();
+        public void BeParried(); 
 
 
     }

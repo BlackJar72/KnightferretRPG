@@ -535,11 +535,16 @@ namespace kfutils.rpg {
             {
                 damage.damage = BlockDamageHelper(damage.damage, blockArea);
                 TakeDamage(damage);
+                blockArea.blockItem.BeHit();
             }
             else
             {
                 Debug.Log("Parry!");
-                if (damage.attacker is EntityActing enemyActor) enemyActor.DelayFurtherAction(4.0f);
+                if (damage.attacker is EntityActing enemyActor)
+                {
+                    enemyActor.DelayFurtherAction(4.0f);
+                    blockArea.blockItem.BeParried();
+                }
             }
         }
 

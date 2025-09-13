@@ -55,7 +55,6 @@ namespace kfutils.rpg
             if (weapon != null)
             {
                 weapon.BeBlocked(owner, this);
-                blockItem.BeHit();
             }
         }
 
