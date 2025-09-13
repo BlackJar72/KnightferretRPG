@@ -58,6 +58,11 @@ namespace kfutils.rpg
             }
         }
 
+        void OnTriggerExit(Collider other)
+        {
+            OnTriggerEnter(other);
+        }
+
 
 
     }
