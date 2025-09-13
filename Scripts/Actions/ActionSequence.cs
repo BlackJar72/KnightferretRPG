@@ -12,6 +12,15 @@ namespace kfutils.rpg {
             return animations[index];
         }
 
+
+        public override AbstractAction Duplicate()
+        {
+            ActionSequence output = Instantiate(this);
+            output.animations = new ClipTransition[animations.Length];
+            for (int i = 0; i < animations.Length; i++) output.animations[i] = animations[i].Clone();
+            return output;
+        }
+
     }
 
 }

@@ -12,6 +12,8 @@ namespace kfutils.rpg {
         public abstract ClipTransition GetSequential(int index);
         public abstract ClipTransition GetRandom(int index);
 
+        public abstract AbstractAction Duplicate();
+
 
     }
 

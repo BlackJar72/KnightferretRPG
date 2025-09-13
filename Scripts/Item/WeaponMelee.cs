@@ -30,8 +30,15 @@ namespace kfutils.rpg {
         public int StaminaCost => attackCost;
 
 
-        public void AttackMelee(ICombatant attacker) {
-            attacking = true;        
+        protected void Awake()
+        {
+            useAnimation = Instantiate(useAnimation);
+        }
+
+
+        public void AttackMelee(ICombatant attacker)
+        {
+            attacking = true;
         }
 
 
@@ -57,9 +64,11 @@ namespace kfutils.rpg {
             #endif
             GameObject hit = other.gameObject;
             IDamageable damageable = hit.GetComponent<IDamageable>();
-            if(attacking && (damageable != null) && (damageable.GetEntity != holder)) {
+            if (attacking && (damageable != null) && (damageable.GetEntity != holder))
+            {
                 damage.DoDamage(holder, damageable);
-                attacking = false; 
+                attacking = false;
+                OnAttackEnd();
             }
         }
 
@@ -93,14 +102,19 @@ namespace kfutils.rpg {
                 {
                     attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
                 }
-                attackState.Events.AddCallback(0, OnAttackStart);
-                attackState.Events.AddCallback(1, OnAttackEnd);
+                // This code breaks at reload due IF attack have hit or been blocked, due to orphaned callbacks (apparently)
+                //attackState.Events.AddCallback(0, OnAttackStart);
+                //attackState.Events.AddCallback(1, OnAttackEnd);
+                attackState.Events.SetCallback(0, OnAttackStart);
+                attackState.Events.SetCallback(1, OnAttackEnd);
+                //OnAttackStart(); // FIXME:  Fixme bigtime, this need use the events attached to the animation!
                 busy = true;
             }
         }
 
 
-        public void OnUseAnimationEnd() {
+        public void OnUseAnimationEnd()
+        {
             busy = false;
             attacking = false;
             if (queued && (hitCollider != null))
@@ -115,8 +129,9 @@ namespace kfutils.rpg {
                 ReplayEquipAnimation();
                 hitCollider.enabled = false;
             }
-            attackState.Events.RemoveCallback(0, OnAttackStart);
-            attackState.Events.RemoveCallback(1, OnAttackEnd);
+            //attackState.Events.RemoveCallback(0, OnAttackStart);
+            //attackState.Events.RemoveCallback(1, OnAttackEnd);
+            OnAttackEnd(); // FIXME: Needs to be removing animation events (I think)
         }
 
 
@@ -184,7 +199,8 @@ namespace kfutils.rpg {
                 DamageData dmg = damage.GetDamage(holder, blocker);
                 blocker.BlockDamage(dmg, blockArea);
                 if (holder is EntityActing actor) actor.DelayFurtherAction(2.0f);
-                attacking = false; 
+                attacking = false;
+                OnAttackEnd();
                 PlayEquipAnimation(holder);
             }
         }

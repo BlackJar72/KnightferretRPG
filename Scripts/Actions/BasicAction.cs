@@ -17,6 +17,15 @@ namespace kfutils.rpg {
         public override AvatarMask mask => avatarMask;
         public override int number => 1;
 
+
+        public override AbstractAction Duplicate()
+        {
+            BasicAction output = Instantiate(this);
+            output.animation = animation.Clone();
+            return output;
+        }
+        
+
         public override ClipTransition GetSequential(int index)
         {
             index = 0;

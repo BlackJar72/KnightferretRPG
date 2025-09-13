@@ -24,6 +24,15 @@ namespace kfutils.rpg
         public Sound SecondarySound => secondarySound;
 
 
+        public ItemActions Duplicate()
+        {
+            ItemActions output = Instantiate(this);
+            output.primary = primary.Duplicate();
+            output.secondary = secondary.Duplicate();
+            return output;
+        }
+
+
 
 
     }
