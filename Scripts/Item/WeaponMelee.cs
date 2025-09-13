@@ -179,6 +179,7 @@ namespace kfutils.rpg {
         {
             if (attacking && (blocker != null) && (blocker.GetEntity != holder))
             {
+                Debug.Log("public void BeBlocked(ICombatant blocker, BlockArea blockArea)");
                 hitCollider.enabled = false;
                 DamageData dmg = damage.GetDamage(holder, blocker);
                 blocker.BlockDamage(dmg, blockArea);

@@ -22,6 +22,12 @@ namespace kfutils.rpg {
         protected AnimancerState actionState;
         protected AnimancerState armsActionState;
 
+
+        protected AnimancerLayer leftLayer;
+        protected AnimancerLayer armsLeftLayer;
+        protected AnimancerState leftState;
+        protected AnimancerState armsLeftState;
+
         protected bool blocking;
  
         // Input System
@@ -76,10 +82,16 @@ namespace kfutils.rpg {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Start() {
             base.Start();
+            // Right / General
             actionLayer = animancer.Layers[1];
             armsActionLayer = arms.Layers[1];
             actionState = moveState;
             armsActionState = armsMoveState;
+            // Left
+            leftLayer = animancer.Layers[2];
+            armsLeftLayer = arms.Layers[2];
+            leftState = moveState;
+            armsLeftState = armsMoveState;
         }
 
 
@@ -168,7 +180,7 @@ namespace kfutils.rpg {
 
         protected virtual void EnableAction() { 
             rightAttackAction.canceled += UseRightItem;
-            leftBlcokAction.started += BlockLeftItem;
+            leftBlcokAction.started  += BlockLeftItem;
             leftBlcokAction.canceled += UseLeftItem;
             if(this is not PCTalking) activateObjectAction.started += Interact;  
             castSpellAction.canceled += CastSpell; // FIXME: Include start and stop events
@@ -187,6 +199,8 @@ namespace kfutils.rpg {
 
         protected virtual void DisableAction() { 
             rightAttackAction.canceled -= UseRightItem;
+            leftBlcokAction.started  -= BlockLeftItem;
+            leftBlcokAction.canceled -= UseLeftItem;
             if(this is not PCTalking) activateObjectAction.started -= Interact; 
             castSpellAction.canceled -= CastSpell; 
             // Hotbar Quickslots
@@ -423,6 +437,7 @@ namespace kfutils.rpg {
             ItemEquipt requipt = itemLocations.GetRHandItem();
             if (lequipt != null)
             {
+                //Debug.Log("BlockLeftItem(InputAction.CallbackContext context)");
                 if (lequipt is IBlockItem) Block(lequipt);
                 else if ((requipt != null) && (requipt is IBlockItem)) Block(requipt);
             }
@@ -452,6 +467,7 @@ namespace kfutils.rpg {
         public void Block(ItemEquipt item) {
             if (item is IBlockItem blocker)
             {
+                //Debug.Log("BlockLeftItem(InputAction.CallbackContext context)");
                 blocker.StartBlock();
                 blockArea.RaiseBlock(blocker);
                 blocking = true;
@@ -487,6 +503,8 @@ namespace kfutils.rpg {
 
         private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)
         {
+            Debug.Log("private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)");
+            Debug.Log("Damege = " + damage);
             float shock = damage.shock;
             float reduction = damage.shock * blockArea.blockItem.BlockAmount;
             float cost = reduction * (1.0f - blockArea.blockItem.Stability);
@@ -494,6 +512,7 @@ namespace kfutils.rpg {
             reduction *= (paid / cost);
             stamina.UseStamina(paid);
             damage *= (shock - reduction) /  shock;
+            Debug.Log("Damege = " + damage);
             if (stamina.currentStamina < 1) BreakBlock(blockArea.blockItem); 
             return damage;
         }
