@@ -36,6 +36,7 @@ namespace kfutils.rpg {
         // Camera
         public GameObject camPivot;
         public Camera playerCam;
+        public Transform swimpoint;
 
         // Movement and Position Data
         protected Vector3 movement;
@@ -343,7 +344,6 @@ namespace kfutils.rpg {
 
         protected void StopCrouch(InputAction.CallbackContext context)
         {
-            //Debug.Log("Stop Crouch");
             shouldCrouch = false;
         }
 
@@ -451,7 +451,11 @@ namespace kfutils.rpg {
 
         public void SetSwimming(bool swimming)
         {
-            if (swimming) Move = WaterMove;
+            if (swimming)
+            {
+                Move = WaterMove;
+                shouldCrouch = false;
+            }
             else Move = LandMove;
         }
 
@@ -541,7 +545,7 @@ namespace kfutils.rpg {
             velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
             characterController.Move(velocity * Time.deltaTime);
             shouldJump = false;
-            SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
+            SetSwimming(swimpoint.position.y < (WorldManagement.SeaLevel + 0.5f));
         }
 
 
@@ -609,7 +613,7 @@ namespace kfutils.rpg {
             velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
             characterController.Move(velocity * Time.deltaTime);
             shouldJump = false;
-            SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
+            SetSwimming(swimpoint.position.y < (WorldManagement.SeaLevel + 0.5f));
         }
 
 
