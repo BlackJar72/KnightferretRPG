@@ -102,12 +102,8 @@ namespace kfutils.rpg {
                 {
                     attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
                 }
-                // This code breaks at reload due IF attack have hit or been blocked, due to orphaned callbacks (apparently)
-                //attackState.Events.AddCallback(0, OnAttackStart);
-                //attackState.Events.AddCallback(1, OnAttackEnd);
                 attackState.Events.SetCallback(0, OnAttackStart);
                 attackState.Events.SetCallback(1, OnAttackEnd);
-                //OnAttackStart(); // FIXME:  Fixme bigtime, this need use the events attached to the animation!
                 busy = true;
             }
         }
@@ -129,9 +125,7 @@ namespace kfutils.rpg {
                 ReplayEquipAnimation();
                 hitCollider.enabled = false;
             }
-            //attackState.Events.RemoveCallback(0, OnAttackStart);
-            //attackState.Events.RemoveCallback(1, OnAttackEnd);
-            OnAttackEnd(); // FIXME: Needs to be removing animation events (I think)
+            OnAttackEnd(); 
         }
 
 

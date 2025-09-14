@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 
@@ -16,6 +17,8 @@ namespace kfutils.rpg
 
         public void BeHit();
         public void BeParried(); 
+
+        public ClipTransition GetBlockAnimation();
 
 
     }

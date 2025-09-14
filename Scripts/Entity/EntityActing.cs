@@ -168,6 +168,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void StopAction(AnimancerState animancerState)
+        {
+            actionLayer.StartFade(0, 0.1f);
+        }
+
+
         public void DelayFurtherAction(float delay)
         {
             updateEnd = Time.time + delay;

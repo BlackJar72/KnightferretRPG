@@ -297,6 +297,13 @@ namespace kfutils.rpg {
         }
 
 
+        public void StopAction(AnimancerState animancerState)
+        {
+            actionLayer.StartFade(0, 0.1f);
+            armsActionLayer.StartFade(0, 0.1f);
+        }
+
+
         public IEnumerator DoPostActionCode(System.Action onEnd, float delay = 1.0f)
         {
             yield return new WaitForSeconds(delay);
@@ -469,6 +476,10 @@ namespace kfutils.rpg {
             {
                 //Debug.Log("BlockLeftItem(InputAction.CallbackContext context)");
                 blocker.StartBlock();
+
+                //ClipTransition blockAnim = blocker.GetBlockAnimation();
+                //actionState = actionLayer.Play(blockAnim);
+                
                 blockArea.RaiseBlock(blocker);
                 blocking = true;
             }

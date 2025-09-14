@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 
@@ -20,6 +21,8 @@ namespace kfutils.rpg
         private bool blocking = false;
         private float blockStart = float.NegativeInfinity;
 
+        private AnimancerState blockingAnim;
+
 
 
         public delegate void EventAction();
@@ -38,15 +41,17 @@ namespace kfutils.rpg
             blocking = true;
             blockStart = Time.time; // FIXME: Use session independent world time
             PlayUseAnimation(holder);
-            // TODO: Actually setup blocks, importantly set up the block collider
         }
 
 
         public void EndBlock()
         {
             blocking = false;
-            // TODO: Actually take down blocks, importantly deactivate the block collider
+            holder.StopAction(blockingAnim);
         }
+
+
+        public ClipTransition GetBlockAnimation() => useAnimation.Primary.anim;
 
 
         public void OnEquipt(IActor actor)
@@ -86,9 +91,9 @@ namespace kfutils.rpg
         public void PlayUseAnimation(IActor user)
         {
             // HELP!!! Why doesn't this work!
-            if (user.ActionState.NormalizedTime >= 1)
+            if (/*user.ActionState.NormalizedTime >= 1*/ true)
             {
-                user.PlayAction(useAnimation.Secondary.mask, useAnimation.Secondary.GetSequential(0));
+                blockingAnim = user.PlayAction(useAnimation.Secondary.mask, useAnimation.Secondary.GetSequential(0), DoNothing, 0, 0);
             }
         }
 
@@ -109,6 +114,9 @@ namespace kfutils.rpg
         {
             useAnimation.SecondarySound.Play(audioSource);
         }
+        
+
+        public void DoNothing() {/*Hacky, but should work...*/}
         
 
     }
