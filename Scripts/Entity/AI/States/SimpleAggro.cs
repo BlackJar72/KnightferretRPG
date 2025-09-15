@@ -48,8 +48,8 @@ namespace kfutils.rpg
 
         private void MeleeAttack()
         {
-            float delayFactor = 1 + (Random.value * 0.25f);
-            nextAttackTime = Time.time + (attackTime * delayFactor) + (Random.value * 0.25f);
+            float delayFactor = 0.75f + (Random.value * 0.25f);
+            nextAttackTime = Time.time + (attackTime * delayFactor) + (Random.value * 0.25f) - (Random.value * 0.25f);
             // TODO: Attack 
             owner.MeleeAttack(); 
         }
