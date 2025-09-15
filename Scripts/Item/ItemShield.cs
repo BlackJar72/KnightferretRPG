@@ -21,8 +21,6 @@ namespace kfutils.rpg
         private bool blocking = false;
         private float blockStart = float.NegativeInfinity;
 
-        private AnimancerState blockingAnim;
-
 
 
         public delegate void EventAction();
@@ -38,16 +36,20 @@ namespace kfutils.rpg
 
         public void StartBlock()
         {
-            blocking = true;
-            blockStart = Time.time; // FIXME: Use session independent world time
-            PlayUseAnimation(holder);
+            if (SetBlockArea() != null)
+            {
+                blocking = true;
+                blockArea = holder.GetBlockArea();
+                blockStart = Time.time; // FIXME: Use session independent world time
+                PlayUseAnimation(holder);
+            }
         }
 
 
         public void EndBlock()
         {
             blocking = false;
-            holder.StopAction(blockingAnim);
+            holder.StopAction();
         }
 
 
@@ -62,6 +64,13 @@ namespace kfutils.rpg
             {
                 blockArea.blockItem = this;
             }
+        }
+
+
+        public BlockArea SetBlockArea()
+        {
+            blockArea = holder.GetBlockArea();
+            return blockArea;
         }
 
 
@@ -90,11 +99,7 @@ namespace kfutils.rpg
 
         public void PlayUseAnimation(IActor user)
         {
-            // HELP!!! Why doesn't this work!
-            if (/*user.ActionState.NormalizedTime >= 1*/ true)
-            {
-                blockingAnim = user.PlayAction(useAnimation.Secondary.mask, useAnimation.Secondary.GetSequential(0), DoNothing, 0, 0);
-            }
+            user.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetSequential(0), DoNothing, 0, 0);
         }
 
 

@@ -297,7 +297,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void StopAction(AnimancerState animancerState)
+        public void StopAction()
         {
             actionLayer.StartFade(0, 0.1f);
             armsActionLayer.StartFade(0, 0.1f);
@@ -442,11 +442,18 @@ namespace kfutils.rpg {
         {
             ItemEquipt lequipt = itemLocations.GetLHandItem();
             ItemEquipt requipt = itemLocations.GetRHandItem();
-            if (lequipt != null)
+
+            //Debug.Log("BlockLeftItem(InputAction.CallbackContext context)");
+            blocking = false;
+            if ((lequipt != null) && (lequipt is IBlockItem))
             {
-                //Debug.Log("BlockLeftItem(InputAction.CallbackContext context)");
-                if (lequipt is IBlockItem) Block(lequipt);
-                else if ((requipt != null) && (requipt is IBlockItem)) Block(requipt);
+                blocking = true;
+                Block(lequipt);
+            }
+            else if ((requipt != null) && (requipt is IBlockItem))
+            {
+                blocking = true;
+                Block(requipt);
             }
         }
 
@@ -455,14 +462,16 @@ namespace kfutils.rpg {
         {
             ItemEquipt lequipt = itemLocations.GetLHandItem();
             ItemEquipt requipt = itemLocations.GetRHandItem();
-            if (lequipt != null)
+            if (blocking)
             {
-                if (lequipt is IBlockItem) EndBlock(lequipt);
-                else if (lequipt is IUsable usable)
-                {
-                    if (stamina.UseStamina(usable.StaminaCost)) usable.OnUse(this);
-                }
-                else if ((requipt != null) && (requipt is IBlockItem)) Block(requipt);
+                blocking = false;
+                if ((lequipt != null) && (lequipt is IBlockItem)) EndBlock(lequipt);
+                if ((requipt != null) && (requipt is IBlockItem)) EndBlock(requipt);
+                
+            }
+            else if ((lequipt != null) && (lequipt is IUsable usable)) 
+            {
+                if (stamina.UseStamina(usable.StaminaCost)) usable.OnUse(this);
             }
         }
 
@@ -474,12 +483,7 @@ namespace kfutils.rpg {
         public void Block(ItemEquipt item) {
             if (item is IBlockItem blocker)
             {
-                //Debug.Log("BlockLeftItem(InputAction.CallbackContext context)");
                 blocker.StartBlock();
-
-                //ClipTransition blockAnim = blocker.GetBlockAnimation();
-                //actionState = actionLayer.Play(blockAnim);
-                
                 blockArea.RaiseBlock(blocker);
                 blocking = true;
             }

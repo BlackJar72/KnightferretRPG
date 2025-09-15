@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class WeaponMelee : ItemEquipt, IWeapon
+    public class WeaponMelee : ItemEquipt, IWeapon, IBlockItem
     {
+
+        // Weapon Fields
 
         [SerializeField] float attackTime;
         [SerializeField] DamageSource damage;
 
         [SerializeField] ItemActions useAnimation;
+        [SerializeField] ItemActions blockAnimation;
         [SerializeField] int attackCost;
 
         private ICombatant holder;
@@ -22,12 +25,35 @@ namespace kfutils.rpg {
         private int attack = 0;
         AnimancerState attackState;
 
+        // Blocking Fields
+
+        [SerializeField] float blockAmount;
+        [SerializeField] float stability;
+        [SerializeField] float parryWindow;
+        [SerializeField] AudioSource audioSource;
+
+        private BlockArea blockArea;
+
+        private bool blocking = false;
+        private float blockStart = float.NegativeInfinity;
+
         public delegate void EventAction();
 
 
         public AbstractAction UseAnimation => useAnimation.Primary;
 
         public int StaminaCost => attackCost;
+
+        public float BlockAmount => blockAmount;
+
+        public float Stability => stability;
+
+        public float ParryWindow => parryWindow;
+
+
+        /*******************************************************************************************************************************/
+        /*                                     GENERAL / WEAPON / ATTACKING METHODS                                                    */
+        /*******************************************************************************************************************************/
 
 
         protected void Awake()
@@ -42,26 +68,30 @@ namespace kfutils.rpg {
         }
 
 
-        public void AttackRanged(ICombatant attacker, Vector3 direction) {
+        public void AttackRanged(ICombatant attacker, Vector3 direction)
+        {
             Debug.Log("Trying to perform raged attack with melee weapon " + prototype.Name);
             throw new System.NotImplementedException();
         }
 
 
-        public float GetAttackSpeed() {
+        public float GetAttackSpeed()
+        {
             return attackTime;
         }
 
 
-        public int GetDamage() {
+        public int GetDamage()
+        {
             return damage.BaseDamage;
         }
 
 
-        void OnTriggerEnter(Collider other) {
-            #if UNITY_EDITOR
+        void OnTriggerEnter(Collider other)
+        {
+#if UNITY_EDITOR
             //Debug.Log("Hit " + other.gameObject.name);
-            #endif
+#endif
             GameObject hit = other.gameObject;
             IDamageable damageable = hit.GetComponent<IDamageable>();
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
@@ -78,9 +108,11 @@ namespace kfutils.rpg {
 
 
 
-        public void OnUse(IActor actor) {
+        public void OnUse(IActor actor)
+        {
             ICombatant attacker = actor as ICombatant;
-            if(attacker != null) {
+            if (attacker != null)
+            {
                 if (busy) queued = true;
                 else
                 {
@@ -91,7 +123,8 @@ namespace kfutils.rpg {
         }
 
 
-        public void PlayUseAnimation(IActor attacker) {
+        public void PlayUseAnimation(IActor attacker)
+        {
             if (!busy)
             {
                 if (attacker is PCActing)
@@ -125,39 +158,43 @@ namespace kfutils.rpg {
                 ReplayEquipAnimation();
                 hitCollider.enabled = false;
             }
-            OnAttackEnd(); 
+            OnAttackEnd();
         }
 
 
-        public void OnEquipt(IActor actor) {
+        public void OnEquipt(IActor actor)
+        {
             holder = actor as ICombatant;
             hitCollider = GetComponent<Collider>();
             hitCollider.enabled = false;
-            if(actor.ActionState != null) PlayEquipAnimation(actor);
+            if (actor.ActionState != null) PlayEquipAnimation(actor);
         }
 
 
         public void OnAttackStart()
         {
-            hitCollider.enabled = true;  
+            hitCollider.enabled = true;
         }
 
 
         public void OnAttackEnd()
         {
-            hitCollider.enabled = false; 
+            hitCollider.enabled = false;
         }
 
 
         public void OnUnequipt()
         {
             holder.RemoveEquiptAnimation();
+            if(blocking) EndBlock();
             // TODO: Reset the holder's animation to default and do general clean-up
         }
 
 
-        public void PlayEquipAnimation(IActor user) {
-            if(user.ActionState.NormalizedTime >= 1) {
+        public void PlayEquipAnimation(IActor user)
+        {
+            if (user.ActionState.NormalizedTime >= 1)
+            {
                 user.PlayAction(useAnimation.Primary.mask, equiptAnim, OnEqipAnimationEnd, 0);
                 busy = true;
                 attacking = false;
@@ -166,20 +203,23 @@ namespace kfutils.rpg {
         }
 
 
-        public void ReplayEquipAnimation() {
-            if(holder == null) return;
+        public void ReplayEquipAnimation()
+        {
+            if (holder == null) return;
             AnimancerLayer animancer = holder.ActionLayer;
             AnimancerState animState = holder.ActionState;
-            if((animState == null) || (animState.NormalizedTime >= 1)) {
+            if ((animState == null) || (animState.NormalizedTime >= 1))
+            {
                 animancer.SetMask(useAnimation.Primary.mask);
                 animState = animancer.Play(equiptAnim);
-                animState.NormalizedTime = 0; 
+                animState.NormalizedTime = 0;
                 busy = false;
             }
         }
 
 
-        public void OnEqipAnimationEnd() {
+        public void OnEqipAnimationEnd()
+        {
             busy = false;
         }
 
@@ -200,18 +240,74 @@ namespace kfutils.rpg {
         }
 
 
-        public void Sheath() {
+        public void Sheath()
+        {
             // TODO:  Switch animation layer 1 to use moveState (or to have an empty mask?)
             //        Figure out the dynamic mixer so you can do this right.   
             throw new System.NotImplementedException();
         }
 
 
-        public void Draw() {
+        public void Draw()
+        {
             // TODO: Have the character draw and hold the weapon.
             //       Question -- do I need separate drawn and hold animations? Or just idle (holding), and the transition is the draw?
             throw new System.NotImplementedException();
         }
+
+
+        /*******************************************************************************************************************************/
+        /*                                     BLOCKING / PARRYING METHODS                                                             */
+        /*******************************************************************************************************************************/
+
+
+        public void StartBlock()
+        {
+            if (SetBlockArea() != null)
+            {
+                blocking = true;
+                blockArea.blockItem = this;
+                blockStart = Time.time; // FIXME: Use session independent world time
+                holder.PlayAction(blockAnimation.Primary.mask, blockAnimation.Primary.GetSequential(0), DoNothing, 0, 0);
+            }
+        }
+
+
+        public void EndBlock()
+        {
+            blocking = false;
+            holder.StopAction();
+        }
+
+
+        public BlockArea SetBlockArea()
+        {
+            blockArea = holder.GetBlockArea();
+            return blockArea;
+        }
+
+
+        public void BeHit()
+        {
+            blockAnimation.PrimarySound.Play(audioSource);
+        }
+
+
+        public void BeParried()
+        {
+            blockAnimation.SecondarySound.Play(audioSource);
+        }
+
+
+        public ClipTransition GetBlockAnimation() => blockAnimation.Primary.anim;
+
+        
+
+        public void DoNothing() {/*Hacky, but should work...*/}
+
+
+
+
     }
 
 

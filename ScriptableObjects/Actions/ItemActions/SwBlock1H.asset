@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d5b1e799118e56809a117d77a644a27, type: 3}
+  m_Name: SwBlock1H
+  m_EditorClassIdentifier: 
+  primary: {fileID: 11400000, guid: 1d6f31e9d29f1df7e8d1a4eee2e673d9, type: 2}
+  secondary: {fileID: 11400000, guid: 1d6f31e9d29f1df7e8d1a4eee2e673d9, type: 2}
+  movement: {fileID: 0}
+  primarySound:
+    sound: {fileID: 8300000, guid: 6d8c2ae98784287748e2a608067b3cee, type: 3}
+    volume: 1
+    pitch: 1
+  secondarySound:
+    sound: {fileID: 8300000, guid: 5cc6fec767bc803d5a7d236d5822dcdb, type: 3}
+    volume: 1
+    pitch: 1

@@ -168,7 +168,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void StopAction(AnimancerState animancerState)
+        public void StopAction()
         {
             actionLayer.StartFade(0, 0.1f);
         }
