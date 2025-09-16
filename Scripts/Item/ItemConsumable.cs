@@ -26,6 +26,12 @@ namespace kfutils.rpg
         }
 
 
+        public bool OutOfItem()
+        {
+            return (holder.CharInventory.Equipt.GetNumberInSlot(ItemUtils.GetEquiptSlotForType(prototype.EquiptType)) < 1);
+        }
+
+
         public void OnEquipt(IActor actor)
         {
             holder = actor;

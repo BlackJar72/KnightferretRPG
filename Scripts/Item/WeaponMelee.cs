@@ -135,6 +135,8 @@ namespace kfutils.rpg {
                 {
                     attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
                 }
+                PCActing pc = attacker as PCActing;
+                if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
                 attackState.Events.SetCallback(0, OnAttackStart);
                 attackState.Events.SetCallback(1, OnAttackEnd);
                 busy = true;
@@ -168,6 +170,8 @@ namespace kfutils.rpg {
             hitCollider = GetComponent<Collider>();
             hitCollider.enabled = false;
             if (actor.ActionState != null) PlayEquipAnimation(actor);
+            PCActing pc = actor as PCActing;
+            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
         }
 
 

@@ -20,18 +20,31 @@ namespace kfutils.rpg
         {
             DecrimentSlot();
             PlayUseAnimation(actor);
+            if (OutOfItem()) OnUnequipt();
         }
 
 
         public override void PlayUseAnimation(IActor actor)
         {
             ready = false;
-            holder.PlayAction(useAnimation.mask, useAnimation.anim, OnUseAnimationEnd, 0, useTime);
+            if (actor is PCActing)
+            {
+                PCActing pc = actor as PCActing;
+                pc.SetArmsPos(PCActing.ArmsPos.mid);
+                holder.PlayAction(useAnimation.mask, useAnimation.anim, OnUseAnimationEnd, 0, useTime);
+            }
+            else
+            {
+                holder.PlayAction(useAnimation.mask, useAnimation.anim, OnUseAnimationEnd, 0, useTime);
+            }
+            
         }
 
 
         private void OnUseAnimationEnd()
         {
+            PCActing pc = holder as PCActing;
+            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
             effects[(int)type](this);
             ready = true;
         }

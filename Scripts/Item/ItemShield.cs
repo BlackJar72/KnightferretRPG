@@ -41,6 +41,8 @@ namespace kfutils.rpg
                 blocking = true;
                 blockArea = holder.GetBlockArea();
                 blockStart = Time.time; // FIXME: Use session independent world time
+                PCActing pc = holder as PCActing;
+                if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.low);
                 PlayUseAnimation(holder);
             }
         }
@@ -50,6 +52,8 @@ namespace kfutils.rpg
         {
             blocking = false;
             holder.StopAction();
+            PCActing pc = holder as PCActing;
+            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
         }
 
 
@@ -75,7 +79,7 @@ namespace kfutils.rpg
 
 
         public void OnUnequipt()
-        {
+        { 
             //throw new System.NotImplementedException();
         }
 

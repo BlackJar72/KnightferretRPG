@@ -16,6 +16,9 @@ namespace kfutils.rpg {
         [SerializeField] CharacterEquipt itemLocations;
         [SerializeField] BlockArea blockArea;
 
+        [Tooltip("There need to be three of these, for high, mid, and low (in that order)")]
+        [SerializeField] Transform[] armsPositions;
+
 
         protected AnimancerLayer actionLayer;
         protected AnimancerLayer armsActionLayer;
@@ -63,10 +66,16 @@ namespace kfutils.rpg {
         public SpellEquiptSlot EquiptSpell => equiptSpell;
 
         public AnimancerLayer ActionLayer => actionLayer;
-
         public AnimancerState ActionState => actionState;
-
         public AnimancerState ArmsActionState => armsActionState;
+
+        public Transform[] ArmsPositions => armsPositions;
+
+
+        public enum ArmsPos
+        {
+            high = 0, mid = 1, low = 2
+        }
         
 
         protected override void Awake()
@@ -477,11 +486,18 @@ namespace kfutils.rpg {
         }
 
 
+        public void SetArmsPos(ArmsPos armsPos)
+        {
+            arms.transform.localPosition = armsPositions[(int)armsPos].localPosition;
+        }
+
+
 #region 
 
 
 
-        public void Block(ItemEquipt item) {
+        public void Block(ItemEquipt item)
+        {
             if (item is IBlockItem blocker)
             {
                 blocker.StartBlock();
