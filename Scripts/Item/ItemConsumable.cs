@@ -6,27 +6,23 @@ namespace kfutils.rpg
 {
 
 
-    public class ItemConsumable : ItemEquipt, IUsable
+    public abstract class ItemConsumable : ItemEquipt, IUsable
     {
 
+        [SerializeField] protected float useTime;
+        [SerializeField] protected AbstractAction useAnimation;
 
-        [SerializeField] float useTime;
-        [SerializeField] ItemActions useAnimation;
+        protected bool ready;
 
+        protected IActor holder;
 
-        private bool ready;
-
-
-        private IActor holder;
-
-        public AbstractAction UseAnimation => throw new System.NotImplementedException();
-
-        public int StaminaCost => throw new System.NotImplementedException();
+        public AbstractAction UseAnimation => useAnimation;
+        public virtual int StaminaCost => 0;
 
 
         public void DecrimentSlot()
         {
-            holder.CharInventory.Equipt.RemoveFromSlot((int)prototype.EquiptType, 1);
+            holder.CharInventory.Equipt.RemoveFromSlot(ItemUtils.GetEquiptSlotForType(prototype.EquiptType), 1);
         }
 
 
@@ -35,51 +31,45 @@ namespace kfutils.rpg
             holder = actor;
             if (equiptAnim != null) PlayEquipAnimation(actor);
             // TODO: Anythings else needed to equiped item?
-            throw new System.NotImplementedException();
         }
 
 
         public void OnUnequipt()
         {
+            ready = false;
             if (equiptAnim != null)
             {
-                ready = false;
                 holder.RemoveEquiptAnimation();
             }
         }
 
 
-        public void OnUse(IActor actor)
-        {
-            DecrimentSlot();
-            // TODO: Code for actually using item
-            throw new System.NotImplementedException();
-        }
-
-
         public void PlayEquipAnimation(IActor user)
         {
-            if (user.ActionState.NormalizedTime >= 1)
+            //if (equiptAnim != null)
+            //{
+            //    ready = false;
+            //    user.PlayAction(useAnimation.mask, equiptAnim, OnEqipAnimationEnd, 0);
+            //    user.ActionState.Events.OnEnd = OnEqipAnimationEnd;
+            //}
+            //else
             {
-                ready = false;
-                user.PlayAction(useAnimation.Primary.mask, equiptAnim, OnEqipAnimationEnd, 0);
-                user.ActionState.Events.OnEnd = OnEqipAnimationEnd;
+                ready = true;
             }
         }
 
 
-        public void PlayUseAnimation(IActor actor)
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract void OnUse(IActor actor);
 
-        
-        public void OnEqipAnimationEnd()
+
+        public abstract void PlayUseAnimation(IActor actor);
+
+
+        public virtual void OnEqipAnimationEnd()
         {
             ready = true;
         }
-
-
+        
 
     }
 

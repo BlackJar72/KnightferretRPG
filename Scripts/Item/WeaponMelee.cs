@@ -187,7 +187,6 @@ namespace kfutils.rpg {
         {
             holder.RemoveEquiptAnimation();
             if(blocking) EndBlock();
-            // TODO: Reset the holder's animation to default and do general clean-up
         }
 
 
