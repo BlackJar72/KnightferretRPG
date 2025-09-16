@@ -16,6 +16,8 @@ namespace kfutils.rpg
 
         public AnimancerState ActionState { get; }
 
+        public CharacterInventory CharInventory { get;  }
+
         public AnimancerState PlayAction(UnityEngine.AvatarMask mask, ITransition animation, float time = 0);
 
         public AnimancerState PlayAction(UnityEngine.AvatarMask mask, ITransition animation, System.Action onEnd, float time = 0, float delay = 1.0f);

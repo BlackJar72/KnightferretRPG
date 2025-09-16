@@ -57,6 +57,7 @@ namespace kfutils.rpg {
 
         // Accessor Properties
         public PlayerInventory Inventory => inventory;
+        public CharacterInventory CharInventory => Inventory;
         public Spellbook Spells => spellbook;
         public EquiptmentSlots EquiptItems => inventory.Equipt;
         public SpellEquiptSlot EquiptSpell => equiptSpell;

@@ -34,6 +34,7 @@ namespace kfutils.rpg {
         public Disposition AL => disposition;
 
         public MeleeTrigger meleeTrigger => meleeCollider;
+        public CharacterInventory CharInventory => inventory;
 
 
         protected delegate void ActionUpdate();

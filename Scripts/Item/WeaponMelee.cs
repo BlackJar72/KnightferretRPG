@@ -228,7 +228,7 @@ namespace kfutils.rpg {
         {
             if (attacking && (blocker != null) && (blocker.GetEntity != holder))
             {
-                Debug.Log("public void BeBlocked(ICombatant blocker, BlockArea blockArea)");
+                //Debug.Log("public void BeBlocked(ICombatant blocker, BlockArea blockArea)");
                 hitCollider.enabled = false;
                 DamageData dmg = damage.GetDamage(holder, blocker);
                 blocker.BlockDamage(dmg, blockArea);
@@ -267,6 +267,7 @@ namespace kfutils.rpg {
             {
                 blocking = true;
                 blockArea.blockItem = this;
+                hitCollider.enabled = false; // Should already be disabled, but just in case
                 blockStart = Time.time; // FIXME: Use session independent world time
                 holder.PlayAction(blockAnimation.Primary.mask, blockAnimation.Primary.GetSequential(0), DoNothing, 0, 0);
             }
