@@ -19,16 +19,16 @@ namespace kfutils.rpg {
             victim.TakeDamage(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration));
         }
 
-        public DamageData GetDamage(ICombatant attacker, int armor, int factor = 1) {
-            return new DamageData(DamageUtils.CalcDamage(baseDamage * factor, armor, damageType, armorPenetration), attacker);
+        public DamageData GetDamage(ICombatant attacker, IWeapon weapon, int armor, int factor = 1) {
+            return new DamageData(DamageUtils.CalcDamage(baseDamage * factor, armor, damageType, armorPenetration), attacker, weapon);
         }
 
-        public DamageData GetDamage(ICombatant attacker, IDamageable victim, int factor = 1) {
-            return new DamageData(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration), attacker);
+        public DamageData GetDamage(ICombatant attacker, IWeapon weapon, IDamageable victim, int factor = 1) {
+            return new DamageData(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration), attacker, weapon);
         }
 
-        public void DoDamage(ICombatant attacker, IDamageable victim, int factor = 1) {
-            victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration), attacker));
+        public void DoDamage(ICombatant attacker, IWeapon weapon, IDamageable victim, int factor = 1) {
+            victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration), attacker, weapon));
         }
     }
 
@@ -45,12 +45,12 @@ namespace kfutils.rpg {
             damageSource.DoDamage(victim);
         }
 
-        public DamageData GetDamageI(ICombatant attacker, int armor) {
-            return damageSource.GetDamage(attacker, armor);
+        public DamageData GetDamageI(ICombatant attacker, int armor, IWeapon weapon) {
+            return damageSource.GetDamage(attacker, weapon, armor);
         }
 
-        public void DoDamage(ICombatant attacker, IDamageable victim) {
-            damageSource.DoDamage(attacker, victim);
+        public void DoDamage(ICombatant attacker, IDamageable victim, IWeapon weapon) {
+            damageSource.DoDamage(attacker, weapon, victim);
         }
     }
 

@@ -16,6 +16,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemActions blockAnimation;
         [SerializeField] int attackCost;
         [SerializeField] int powerAttackCost;
+        [SerializeField] bool parriable = true;
 
         private ICombatant holder;
         private Collider hitCollider;
@@ -48,11 +49,10 @@ namespace kfutils.rpg {
 
         public int StaminaCost => attackCost;
         public int PowerAttackCost => powerAttackCost;
+        public bool Parriable => parriable;
 
         public float BlockAmount => blockAmount;
-
         public float Stability => stability;
-
         public float ParryWindow => parryWindow;
 
 
@@ -101,7 +101,7 @@ namespace kfutils.rpg {
             IDamageable damageable = hit.GetComponent<IDamageable>();
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
             {
-                damage.DoDamage(holder, damageable, damageFactor);
+                damage.DoDamage(holder, this, damageable, damageFactor);
                 attacking = false;
                 OnAttackEnd();
             }
@@ -266,7 +266,7 @@ namespace kfutils.rpg {
             {
                 //Debug.Log("public void BeBlocked(ICombatant blocker, BlockArea blockArea)");
                 hitCollider.enabled = false;
-                DamageData dmg = damage.GetDamage(holder, blocker);
+                DamageData dmg = damage.GetDamage(holder, this, blocker);
                 blocker.BlockDamage(dmg, blockArea);
                 if (holder is EntityActing actor) actor.DelayFurtherAction(2.0f);
                 attacking = false;

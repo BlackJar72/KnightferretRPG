@@ -602,12 +602,12 @@ namespace kfutils.rpg {
                 TakeDamage(damage);
                 blockArea.blockItem.BeHit();
             }
-            else
+            else if ((damage.weapon != null) && damage.weapon.Parriable);
             {
                 Debug.Log("Parry!");
                 if (damage.attacker is EntityActing enemyActor)
                 {
-                    enemyActor.DelayFurtherAction(4.0f);
+                    enemyActor.DelayFurtherAction(2.5f);
                     blockArea.blockItem.BeParried();
                 }
             }

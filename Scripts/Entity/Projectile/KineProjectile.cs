@@ -39,7 +39,7 @@ namespace kfutils.rpg {
             }
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if(damageable != null) {
-                damage.DoDamage(sender, damageable);
+                damage.DoDamage(sender, null, damageable);
             }
             Destroy(this);
         }

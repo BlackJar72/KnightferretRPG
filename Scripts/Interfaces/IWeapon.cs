@@ -14,6 +14,7 @@ namespace kfutils.rpg {
         void AttackRanged(ICombatant attacker, Vector3 direction);
 
         void BeBlocked(ICombatant blocker, BlockArea blockArea);
+        public bool Parriable { get; }
         
     }
 

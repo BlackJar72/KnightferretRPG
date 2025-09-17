@@ -32,7 +32,7 @@ namespace kfutils.rpg {
                 impact.transform.SetParent(impact.transform.parent.root);
             }
             if((damageable != null) && (damageable != sender)) {
-                damage.DoDamage(sender, damageable);
+                damage.DoDamage(sender, null, damageable);
             }
             if(damageable != sender) Destroy(gameObject);
         }
