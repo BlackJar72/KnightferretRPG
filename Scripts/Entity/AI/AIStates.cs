@@ -54,6 +54,7 @@ namespace kfutils.rpg
 
         AIState current;
         AIState previous;
+        AIStateID currentID;
 
 
         public void Init(EntityActing owner)
@@ -85,6 +86,7 @@ namespace kfutils.rpg
         public void SetState(AIStateID state)
         {
             previous = current == null ? idle : current;
+            currentID = state;
             switch (state)
             {
                 case AIStateID.idle:
@@ -128,6 +130,13 @@ namespace kfutils.rpg
             current = next;
             current.StateEnter();
         }
+
+
+        public AIStateID GetAIState => currentID;
+
+
+        // Need to determing if stealth attacks are really stealth
+        public bool IsAggro => current == aggro;
 
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using Animancer;
+using Animancer.Examples.AnimatorControllers.GameKit;
 using UnityEngine;
 
 
@@ -9,14 +10,14 @@ namespace kfutils.rpg {
     {
         public const float VRANGESQR = 64 * 64;
 
-        [SerializeField] CharacterInventory inventory;
-        [SerializeField] Spellbook spellbook;
-        [SerializeField] CharacterEquipt itemLocations;
+        [SerializeField] protected CharacterInventory inventory;
+        [SerializeField] protected Spellbook spellbook;
+        [SerializeField] protected CharacterEquipt itemLocations;
 
-        [SerializeField] AIStates basicStates;
-        [SerializeField] AIStateID defaultState;
-        [SerializeField] Disposition disposition = Disposition.neutral;
-        [SerializeField] MeleeTrigger meleeCollider;
+        [SerializeField] protected AIStates basicStates;
+        [SerializeField] protected AIStateID defaultState;
+        [SerializeField] protected Disposition disposition = Disposition.neutral;
+        [SerializeField] protected MeleeTrigger meleeCollider;
         [SerializeField] Transform aimFrom;
         [SerializeField][Range(0.0f, 1.0f)] float aimAccuracy = 0.9f;
 
@@ -132,6 +133,16 @@ namespace kfutils.rpg {
                 }
             }
         }
+
+
+        public override bool IsSurprised(ICombatant attacker)
+        {
+            EntityLiving attackingEntity = attacker as EntityLiving;
+            return !basicStates.IsAggro && (attackingEntity != null) && !CanSeeEntity(attackingEntity);
+        }
+
+
+        
 
 
         public void SetAimFrom(Transform t) => aimFrom = t;

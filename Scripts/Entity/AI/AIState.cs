@@ -29,7 +29,7 @@ namespace kfutils.rpg
             if (owner == null) { owner = character; }
             else
             {
-                Debug.LogError("Trying to call init more that once ona same AIState!");
+                Debug.LogError("Trying to call init more that once on the same AIState!");
                 throw new System.Exception("Trying to call init more that once ona same AIState!");
             }
         }

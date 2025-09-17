@@ -110,7 +110,8 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void LoadData() {
+        protected virtual void LoadData()
+        {
             entityName = data.livingData.entityName;
             attributes = data.livingData.attributes;
             health = data.livingData.health;
@@ -171,7 +172,7 @@ namespace kfutils.rpg {
             return ((dist < rangeSqr)
             && (Vector3.Dot(from.forward, toOther) > 0)
             && !Physics.Linecast(from.position, hitbox.GetCenter(), GameConstants.LevelMask));
-        } 
+        }
 
 
         public virtual bool IsStunned()
@@ -190,9 +191,13 @@ namespace kfutils.rpg {
         {
             // Do Nothing, at least for now
         }
-    
-    
-    
+
+
+        public virtual bool IsSurprised(ICombatant attacker) => false;
+
+
+
+
     }
 
 

@@ -46,6 +46,9 @@ namespace kfutils.rpg
         /// </summary>
         /// <param name="parried"></param>
         public void SetParried(bool parried = true);
+
+
+        public bool IsSurprised(ICombatant attacker);
         
     }
 
