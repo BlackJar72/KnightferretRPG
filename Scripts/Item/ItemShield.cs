@@ -19,9 +19,6 @@ namespace kfutils.rpg
         private ICombatant holder;
         private BlockArea blockArea;
 
-        private bool blocking = false;
-        private float blockStart = float.NegativeInfinity;
-
 
 
         public delegate void EventAction();
@@ -40,9 +37,7 @@ namespace kfutils.rpg
         {
             if (SetBlockArea() != null)
             {
-                blocking = true;
                 blockArea = holder.GetBlockArea();
-                blockStart = Time.time; // FIXME: Use session independent world time
                 PCActing pc = holder as PCActing;
                 if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.low);
                 PlayUseAnimation(holder);
@@ -52,7 +47,6 @@ namespace kfutils.rpg
 
         public void EndBlock()
         {
-            blocking = false;
             holder.StopAction();
             PCActing pc = holder as PCActing;
             if (pc != null) StartCoroutine(ReturnArmsToNormal(pc));

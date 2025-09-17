@@ -568,8 +568,8 @@ namespace kfutils.rpg {
 
         private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)
         {
-            Debug.Log("private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)");
-            Debug.Log("Damege = " + damage);
+            //Debug.Log("private Damages BlockDamageHelper(Damages damage, BlockArea blockArea)");
+            //Debug.Log("Damege = " + damage);
             float shock = damage.shock;
             float reduction = damage.shock * blockArea.blockItem.BlockAmount;
             float cost = reduction * (1.0f - blockArea.blockItem.Stability);
@@ -577,7 +577,7 @@ namespace kfutils.rpg {
             reduction *= (paid / cost);
             stamina.UseStamina(paid);
             damage *= (shock - reduction) /  shock;
-            Debug.Log("Damege = " + damage);
+            //Debug.Log("Damege = " + damage);
             if (stamina.currentStamina < 1) BreakBlock(blockArea.blockItem); 
             return damage;
         }
@@ -602,16 +602,18 @@ namespace kfutils.rpg {
                 TakeDamage(damage);
                 blockArea.blockItem.BeHit();
             }
-            else if ((damage.weapon != null) && damage.weapon.Parriable);
+            else if ((damage.weapon != null) && damage.weapon.Parriable)
             {
-                Debug.Log("Parry!");
+                //Debug.Log("Parry!");
                 if (damage.attacker is EntityActing enemyActor)
                 {
                     enemyActor.DelayFurtherAction(2.5f);
+                    enemyActor.SetParried(true);
                     blockArea.blockItem.BeParried();
                 }
             }
         }
+
 
 
         public void MeleeAttack(IWeapon weapon)
@@ -639,9 +641,8 @@ namespace kfutils.rpg {
             throw new System.NotImplementedException();
         }
 
-
-#endregion
-#endregion
+        #endregion
+        #endregion
 
 
 

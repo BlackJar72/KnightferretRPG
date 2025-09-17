@@ -18,6 +18,9 @@ namespace kfutils.rpg
         public Collider GetCollider() => GetComponent<Collider>();
         public Vector3 GetCenter() => GetComponent<Collider>().bounds.center;
         public EntityLiving GetEntity => owner;
+        public virtual bool IsStunned() => owner.IsStunned();
+        public virtual bool InParriedState() => owner.InParriedState();
+        public virtual void SetParried(bool parried = true) => owner.SetParried(parried);
 
         
 

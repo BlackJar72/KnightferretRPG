@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class EntityActing : EntityMoving, IActor, ICombatant
+    public class EntityActing : EntityMoving, ICombatant
     {
         public const float VRANGESQR = 64 * 64;
 
@@ -24,6 +24,8 @@ namespace kfutils.rpg {
 
         protected AnimancerLayer actionLayer;
         protected AnimancerState actionState;
+        protected float updateEnd = float.NegativeInfinity;
+        protected bool isParried;
 
         public AnimancerLayer ActionLayer => actionLayer;
         public AnimancerState ActionState => actionState;
@@ -39,7 +41,6 @@ namespace kfutils.rpg {
 
         protected delegate void ActionUpdate();
         protected ActionUpdate actionUpdate;
-        protected float updateEnd = float.NegativeInfinity;
 
 
 
@@ -98,7 +99,11 @@ namespace kfutils.rpg {
 
         protected void DelayedUpdate()
         {
-            if (Time.time > updateEnd) actionUpdate = NormalUpdate;
+            if (Time.time > updateEnd)
+            {
+                actionUpdate = NormalUpdate;
+                isParried = false;
+            }
         }
 
 
@@ -201,6 +206,13 @@ namespace kfutils.rpg {
         }
 
 
+        public override void TakeDamage(DamageData damage)
+        {
+            base.TakeDamage(damage);
+            isParried = false;
+        }
+
+
         public void UnequiptItem(ItemStack item)
         {
             if (item != null)
@@ -237,6 +249,18 @@ namespace kfutils.rpg {
                 weapon.OnUse(this);
             }
         }
+
+
+        public override bool IsStunned()
+        {
+            return actionUpdate == DelayedUpdate;
+        }
+
+
+        public override bool InParriedState() => isParried;
+
+
+        public override void SetParried(bool parried = true) => isParried = parried;
 
 
         public void Block(ItemEquipt item)
@@ -325,7 +349,7 @@ namespace kfutils.rpg {
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
         public bool CanSeeCollider(Collider other) => CanSeePosition(other.bounds.center);
         public bool CanSeeEntity(EntityLiving other) => other.CanBeSeenFrom(eyes, VRANGESQR);
-        
+
 
 
     }

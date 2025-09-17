@@ -37,9 +37,8 @@ namespace kfutils.rpg {
         private BlockArea blockArea;
 
         private bool blocking = false;
-        private float blockStart = float.NegativeInfinity;
 
-        private int damageFactor; // For normal vs power attacks
+        private float damageFactor; // For normal vs power attacks
 
 
         public delegate void EventAction();
@@ -101,6 +100,7 @@ namespace kfutils.rpg {
             IDamageable damageable = hit.GetComponent<IDamageable>();
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
             {
+                if (damageable.InParriedState() && (damageFactor > 1.1f)) damageFactor += 1.0f;
                 damage.DoDamage(holder, this, damageable, damageFactor);
                 attacking = false;
                 OnAttackEnd();
@@ -115,7 +115,7 @@ namespace kfutils.rpg {
 
         public void OnUse(IActor actor)
         {
-            damageFactor = 1;
+            damageFactor = 1.0f;
             ICombatant attacker = actor as ICombatant;
             if (attacker != null)
             {
@@ -131,7 +131,7 @@ namespace kfutils.rpg {
 
         public void OnUseCharged(IActor actor)
         {
-            damageFactor = 2;
+            damageFactor = 1.5f;
             ICombatant attacker = actor as ICombatant;
             if (attacker != null)
             {
@@ -150,13 +150,13 @@ namespace kfutils.rpg {
             if (!busy)
             {
                 AbstractAction action;
-                if (damageFactor < 2.0f)
+                if (damageFactor > 1.1f)
                 {
-                    action = useAnimation.Primary;
+                    action = useAnimation.Secondary;
                 }
                 else
                 {
-                    action = useAnimation.Secondary;
+                    action = useAnimation.Primary;
                 }
 
                 if (attacker is PCActing)
@@ -288,7 +288,6 @@ namespace kfutils.rpg {
                 blocking = true;
                 blockArea.blockItem = this;
                 hitCollider.enabled = false; // Should already be disabled, but just in case
-                blockStart = Time.time; // FIXME: Use session independent world time
                 holder.PlayAction(blockAnimation.Primary.mask, blockAnimation.Primary.GetSequential(0));
             }
         }

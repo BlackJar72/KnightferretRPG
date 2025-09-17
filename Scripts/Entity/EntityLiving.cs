@@ -172,6 +172,24 @@ namespace kfutils.rpg {
             && (Vector3.Dot(from.forward, toOther) > 0)
             && !Physics.Linecast(from.position, hitbox.GetCenter(), GameConstants.LevelMask));
         } 
+
+
+        public virtual bool IsStunned()
+        {
+            return false; // May change
+        }
+
+
+        public virtual bool InParriedState()
+        {
+            return false; // Could change (but might not)
+        }
+
+
+        public virtual void SetParried(bool parried = true)
+        {
+            // Do Nothing, at least for now
+        }
     
     
     
