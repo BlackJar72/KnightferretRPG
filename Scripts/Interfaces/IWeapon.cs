@@ -13,10 +13,6 @@ namespace kfutils.rpg {
 
         void AttackRanged(ICombatant attacker, Vector3 direction);
 
-        void Sheath();
-
-        void Draw();
-
         void BeBlocked(ICombatant blocker, BlockArea blockArea);
         
     }

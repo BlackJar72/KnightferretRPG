@@ -1,3 +1,4 @@
+using System;
 using Animancer;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -535,6 +536,7 @@ namespace kfutils.rpg {
             else
             {
                 vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
+                vSpeed = Math.Max(vSpeed, GameConstants.TERMINAL_VELOCITY);
                 if (!falling && (velocity.y < -10))
                 {
                     falling = true;

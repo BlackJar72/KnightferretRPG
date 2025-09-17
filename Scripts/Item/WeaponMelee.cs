@@ -15,6 +15,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemActions useAnimation;
         [SerializeField] ItemActions blockAnimation;
         [SerializeField] int attackCost;
+        [SerializeField] int powerAttackCost;
 
         private ICombatant holder;
         private Collider hitCollider;
@@ -37,12 +38,16 @@ namespace kfutils.rpg {
         private bool blocking = false;
         private float blockStart = float.NegativeInfinity;
 
+        private int damageFactor; // For normal vs power attacks
+
+
         public delegate void EventAction();
 
 
         public AbstractAction UseAnimation => useAnimation.Primary;
 
         public int StaminaCost => attackCost;
+        public int PowerAttackCost => powerAttackCost;
 
         public float BlockAmount => blockAmount;
 
@@ -96,7 +101,7 @@ namespace kfutils.rpg {
             IDamageable damageable = hit.GetComponent<IDamageable>();
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
             {
-                damage.DoDamage(holder, damageable);
+                damage.DoDamage(holder, damageable, damageFactor);
                 attacking = false;
                 OnAttackEnd();
             }
@@ -110,6 +115,23 @@ namespace kfutils.rpg {
 
         public void OnUse(IActor actor)
         {
+            damageFactor = 1;
+            ICombatant attacker = actor as ICombatant;
+            if (attacker != null)
+            {
+                if (busy) queued = true;
+                else
+                {
+                    AttackMelee(attacker);
+                    PlayUseAnimation(actor);
+                }
+            }
+        }
+
+
+        public void OnUseCharged(IActor actor)
+        {
+            damageFactor = 2;
             ICombatant attacker = actor as ICombatant;
             if (attacker != null)
             {
@@ -127,14 +149,25 @@ namespace kfutils.rpg {
         {
             if (!busy)
             {
-                if (attacker is PCActing)
+                AbstractAction action;
+                if (damageFactor < 2.0f)
                 {
-                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetSequential(attack), OnUseAnimationEnd, 0, attackTime);
+                    action = useAnimation.Primary;
                 }
                 else
                 {
-                    attackState = attacker.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
+                    action = useAnimation.Secondary;
                 }
+
+                if (attacker is PCActing)
+                {
+                    attackState = attacker.PlayAction(useAnimation.Primary.mask, action.GetSequential(attack), OnUseAnimationEnd, 0, attackTime);
+                }
+                else
+                {
+                    attackState = attacker.PlayAction(useAnimation.Primary.mask, action.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
+                }
+             
                 PCActing pc = attacker as PCActing;
                 if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
                 attackState.Events.SetCallback(0, OnAttackStart);
@@ -243,22 +276,6 @@ namespace kfutils.rpg {
         }
 
 
-        public void Sheath()
-        {
-            // TODO:  Switch animation layer 1 to use moveState (or to have an empty mask?)
-            //        Figure out the dynamic mixer so you can do this right.   
-            throw new System.NotImplementedException();
-        }
-
-
-        public void Draw()
-        {
-            // TODO: Have the character draw and hold the weapon.
-            //       Question -- do I need separate drawn and hold animations? Or just idle (holding), and the transition is the draw?
-            throw new System.NotImplementedException();
-        }
-
-
         /*******************************************************************************************************************************/
         /*                                     BLOCKING / PARRYING METHODS                                                             */
         /*******************************************************************************************************************************/
@@ -272,7 +289,7 @@ namespace kfutils.rpg {
                 blockArea.blockItem = this;
                 hitCollider.enabled = false; // Should already be disabled, but just in case
                 blockStart = Time.time; // FIXME: Use session independent world time
-                holder.PlayAction(blockAnimation.Primary.mask, blockAnimation.Primary.GetSequential(0), DoNothing, 0, 0);
+                holder.PlayAction(blockAnimation.Primary.mask, blockAnimation.Primary.GetSequential(0));
             }
         }
 
@@ -304,10 +321,6 @@ namespace kfutils.rpg {
 
 
         public ClipTransition GetBlockAnimation() => blockAnimation.Primary.anim;
-
-        
-
-        public void DoNothing() {/*Hacky, but should work...*/}
 
 
 

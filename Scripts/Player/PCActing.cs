@@ -32,6 +32,8 @@ namespace kfutils.rpg {
         protected AnimancerState armsLeftState;
 
         protected bool blocking;
+        protected bool chargingAction;
+        protected float chargeTimer;
  
         // Input System
         protected InputAction rightAttackAction;
@@ -109,6 +111,7 @@ namespace kfutils.rpg {
         protected override void Update()
         {
             base.Update();
+            if (chargingAction && (chargeTimer < Time.time)) UseChargedAction();
         }
         
 
@@ -189,6 +192,7 @@ namespace kfutils.rpg {
 
 
         protected virtual void EnableAction() { 
+            rightAttackAction.started += StartChargeRightItem;
             rightAttackAction.canceled += UseRightItem;
             leftBlcokAction.started  += BlockLeftItem;
             leftBlcokAction.canceled += UseLeftItem;
@@ -204,15 +208,18 @@ namespace kfutils.rpg {
             quickSlot7Action.canceled += QuickSlot7;
             quickSlot8Action.canceled += QuickSlot8;
             quickSlot9Action.canceled += QuickSlot9;
+            chargingAction = false;
         }
 
 
-        protected virtual void DisableAction() { 
+        protected virtual void DisableAction()
+        {
+            rightAttackAction.started -= StartChargeRightItem;
             rightAttackAction.canceled -= UseRightItem;
-            leftBlcokAction.started  -= BlockLeftItem;
+            leftBlcokAction.started -= BlockLeftItem;
             leftBlcokAction.canceled -= UseLeftItem;
-            if(this is not PCTalking) activateObjectAction.started -= Interact; 
-            castSpellAction.canceled -= CastSpell; 
+            if (this is not PCTalking) activateObjectAction.started -= Interact;
+            castSpellAction.canceled -= CastSpell;
             // Hotbar Quickslots
             quickSlot1Action.canceled -= QuickSlot1;
             quickSlot2Action.canceled -= QuickSlot2;
@@ -223,6 +230,7 @@ namespace kfutils.rpg {
             quickSlot7Action.canceled -= QuickSlot7;
             quickSlot8Action.canceled -= QuickSlot8;
             quickSlot9Action.canceled -= QuickSlot9;
+            chargingAction = false;
         }
 
 
@@ -285,10 +293,10 @@ namespace kfutils.rpg {
         public AnimancerState PlayAction(AvatarMask mask, ITransition animation, float time = 0)
         {            
             actionLayer.SetMask(mask);
-            actionState = animancer.Play(animation);
+            actionState = actionLayer.Play(animation);
             actionState.Time = time;
             armsActionLayer.SetMask(mask);
-            armsActionState = animancer.Play(animation);
+            armsActionState = armsActionLayer.Play(animation);
             armsActionState.Time = time; 
             return actionState;
         }
@@ -369,33 +377,28 @@ namespace kfutils.rpg {
 
         // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
         public virtual void ToggleCharacterSheet() {
-            if(gameManager.UIManager.ToggleCharacterSheet() || GameManager.Instance.UIManager.PauseMenuVisible) {
-                DisableMovement();
-                DisableAction();
-                moveLayer.Speed = 0;
-                actionLayer.Speed = 0;
-            } else {
-                EnableMovement();
-                EnableAction();
-                moveLayer.Speed = 1;
-                actionLayer.Speed = 1;
-            }
+            AllowActions(!(gameManager.UIManager.ToggleCharacterSheet() || GameManager.Instance.UIManager.PauseMenuVisible));
         }
 
 
         // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
-        public virtual void AllowActions(bool allow) {
-            if(!allow) {
+        public virtual void AllowActions(bool allow)
+        {
+            if (!allow)
+            {
                 DisableMovement();
                 DisableAction();
                 moveLayer.Speed = 0;
                 actionLayer.Speed = 0;
-            } else {
+            }
+            else
+            {
                 EnableMovement();
                 EnableAction();
                 moveLayer.Speed = 1;
                 actionLayer.Speed = 1;
             }
+            chargingAction = false;
         }
 
         
@@ -435,13 +438,43 @@ namespace kfutils.rpg {
         }
 
 
-        public void UseRightItem(InputAction.CallbackContext context) {
+        public void StartChargeRightItem(InputAction.CallbackContext contex)
+        {
+            chargingAction = true;
+            chargeTimer = Time.time + GameConstants.TIME_TO_CHARGE_ACTIONS;
+        }
+
+
+        public void UseRightItem(InputAction.CallbackContext context)
+        {
             ItemEquipt requipt = itemLocations.GetRHandItem();
-            if(requipt != null) {
+            if (chargingAction && (requipt != null))
+            {
                 IUsable usable = requipt as IUsable;
-                if((usable != null) && !blocking) {
-                    if(stamina.UseStamina(usable.StaminaCost)) {
+                if ((usable != null) && !blocking)
+                {
+                    if (stamina.UseStamina(usable.StaminaCost))
+                    {
                         usable.OnUse(this);
+                    }
+                }
+            }
+            chargingAction = false;
+        }
+
+
+        public void UseChargedAction()
+        {
+            chargingAction = false;
+            ItemEquipt requipt = itemLocations.GetRHandItem();
+            if (requipt)
+            {
+                IUsable usable = requipt as IUsable;
+                if ((usable != null) && !blocking)
+                {
+                    if (stamina.UseStamina(usable.PowerAttackCost))
+                    {
+                        usable.OnUseCharged(this);
                     }
                 }
             }

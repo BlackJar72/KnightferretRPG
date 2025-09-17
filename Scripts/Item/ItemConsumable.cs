@@ -18,6 +18,7 @@ namespace kfutils.rpg
 
         public AbstractAction UseAnimation => useAnimation;
         public virtual int StaminaCost => 0;
+        public int PowerAttackCost => 0;
 
 
         public void DecrimentSlot()
@@ -62,6 +63,12 @@ namespace kfutils.rpg
             {
                 ready = true;
             }
+        }
+
+
+        public void OnUseCharged(IActor actor)
+        {
+            OnUse(actor);
         }
 
 

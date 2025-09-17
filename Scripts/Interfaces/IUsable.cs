@@ -20,6 +20,7 @@ namespace kfutils.rpg {
         /// To use the item, called when using a selected item.
         /// </summary>
         public void OnUse(IActor actor);
+        public void OnUseCharged(IActor actor);
 
         public void OnEquipt(IActor actor); 
 
@@ -31,6 +32,9 @@ namespace kfutils.rpg {
 
         [Tooltip("Stamina cost to use item; usually 0 except for weapons which cost stamina to attack")]
         int StaminaCost { get; } // Stamina cost to use item; usually 0 for non-weapons
+
+        [Tooltip("Stamina cost to use power attack; should be 0 except for weapons with power attacks")]
+        int PowerAttackCost { get; } // Stamina cost to use item; usually 0 for non-weapons
 
         
 

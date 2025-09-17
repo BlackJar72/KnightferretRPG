@@ -15,20 +15,20 @@ namespace kfutils.rpg {
             return DamageUtils.CalcDamage(baseDamage, armor, damageType, armorPenetration);
         }
 
-        public void DoDamage(IDamageable victim) {
-            victim.TakeDamage(DamageUtils.CalcDamage(baseDamage, victim.GetArmor(), damageType, armorPenetration));
+        public void DoDamage(IDamageable victim, int factor = 1) {
+            victim.TakeDamage(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration));
         }
 
-        public DamageData GetDamage(ICombatant attacker, int armor) {
-            return new DamageData(DamageUtils.CalcDamage(baseDamage, armor, damageType, armorPenetration), attacker);
+        public DamageData GetDamage(ICombatant attacker, int armor, int factor = 1) {
+            return new DamageData(DamageUtils.CalcDamage(baseDamage * factor, armor, damageType, armorPenetration), attacker);
         }
 
-        public DamageData GetDamage(ICombatant attacker, IDamageable victim) {
-            return new DamageData(DamageUtils.CalcDamage(baseDamage, victim.GetArmor(), damageType, armorPenetration), attacker);
+        public DamageData GetDamage(ICombatant attacker, IDamageable victim, int factor = 1) {
+            return new DamageData(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration), attacker);
         }
 
-        public void DoDamage(ICombatant attacker, IDamageable victim) {
-            victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(baseDamage, victim.GetArmor(), damageType, armorPenetration), attacker));
+        public void DoDamage(ICombatant attacker, IDamageable victim, int factor = 1) {
+            victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(baseDamage * factor, victim.GetArmor(), damageType, armorPenetration), attacker));
         }
     }
 

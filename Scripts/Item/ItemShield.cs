@@ -1,3 +1,4 @@
+using System.Collections;
 using Animancer;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ namespace kfutils.rpg
         public float ParryWindow => parryWindow;
 
         public int StaminaCost => 0;
+        public int PowerAttackCost => 0;
 
 
         public void StartBlock()
@@ -53,7 +55,7 @@ namespace kfutils.rpg
             blocking = false;
             holder.StopAction();
             PCActing pc = holder as PCActing;
-            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
+            if (pc != null) StartCoroutine(ReturnArmsToNormal(pc));
         }
 
 
@@ -79,7 +81,7 @@ namespace kfutils.rpg
 
 
         public void OnUnequipt()
-        { 
+        {
             //throw new System.NotImplementedException();
         }
 
@@ -87,6 +89,12 @@ namespace kfutils.rpg
         public void OnUse(IActor actor)
         {
             //throw new System.NotImplementedException();
+        }
+
+
+        public void OnUseCharged(IActor actor)
+        {
+            OnUse(actor);
         }
 
 
@@ -103,7 +111,7 @@ namespace kfutils.rpg
 
         public void PlayUseAnimation(IActor user)
         {
-            user.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetSequential(0), DoNothing, 0, 0);
+            user.PlayAction(useAnimation.Primary.mask, useAnimation.Primary.GetSequential(0));
         }
 
 
@@ -123,9 +131,13 @@ namespace kfutils.rpg
         {
             useAnimation.SecondarySound.Play(audioSource);
         }
-        
 
-        public void DoNothing() {/*Hacky, but should work...*/}
+
+        public IEnumerator ReturnArmsToNormal(PCActing pc)
+        {
+            yield return new WaitForSeconds(0.1f);
+            pc.SetArmsPos(PCActing.ArmsPos.high);
+        }
         
 
     }
