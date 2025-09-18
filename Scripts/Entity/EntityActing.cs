@@ -1,12 +1,11 @@
 using System.Collections;
 using Animancer;
-using Animancer.Examples.AnimatorControllers.GameKit;
 using UnityEngine;
 
 
 namespace kfutils.rpg {
 
-    public class EntityActing : EntityMoving, ICombatant
+    public class EntityActing : EntityMoving, ICombatantAI
     {
         public const float VRANGESQR = 64 * 64;
 
@@ -28,6 +27,8 @@ namespace kfutils.rpg {
         protected float updateEnd = float.NegativeInfinity;
         protected bool isParried;
 
+        protected bool blocking;
+
         public AnimancerLayer ActionLayer => actionLayer;
         public AnimancerState ActionState => actionState;
 
@@ -38,6 +39,7 @@ namespace kfutils.rpg {
 
         public MeleeTrigger meleeTrigger => meleeCollider;
         public CharacterInventory CharInventory => inventory;
+        public bool IsBlocking => blocking;
 
 
         protected delegate void ActionUpdate();
@@ -142,9 +144,6 @@ namespace kfutils.rpg {
         }
 
 
-        
-
-
         public void SetAimFrom(Transform t) => aimFrom = t;
         public void UnsetAimFrom() => aimFrom = eyes;
 
@@ -191,10 +190,15 @@ namespace kfutils.rpg {
         }
 
 
-        public void DelayFurtherAction(float delay)
+        public void Stagger(float delay)
         {
-            updateEnd = Time.time + delay;
-            actionUpdate = DelayedUpdate;
+            if (alive)
+            {
+                StopAction();
+                moveState = moveLayer.Play(movementSet.Staggered);
+                updateEnd = Time.time + delay;
+                actionUpdate = DelayedUpdate;
+            }
         }
 
 
@@ -220,6 +224,7 @@ namespace kfutils.rpg {
         public override void TakeDamage(DamageData damage)
         {
             base.TakeDamage(damage);
+            if (isParried) updateEnd = Mathf.Min(updateEnd, Time.time + 0.5f); 
             isParried = false;
         }
 
@@ -241,6 +246,7 @@ namespace kfutils.rpg {
 
         protected override void Die()
         {
+            actionUpdate = NormalUpdate;
             base.Die();
             basicStates.SetState(AIStateID.death);
         }

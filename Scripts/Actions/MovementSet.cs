@@ -14,6 +14,7 @@ namespace kfutils.rpg {
 
         [SerializeField] protected ClipTransition jump;
         [SerializeField] protected ClipTransition fall;
+        [SerializeField] protected ClipTransition staggered;
 
         public MixerTransition2D Crouch => crouch;
         public MixerTransition2D Walk => walk;
@@ -22,6 +23,7 @@ namespace kfutils.rpg {
 
         public ClipTransition Jump => jump;
         public ClipTransition Fall => fall;
+        public ClipTransition Staggered => staggered;
 
     }
 

@@ -74,7 +74,7 @@ namespace kfutils.rpg {
 
         public void AttackRanged(ICombatant attacker, Vector3 direction)
         {
-            Debug.Log("Trying to perform raged attack with melee weapon " + prototype.Name);
+            Debug.LogError("Trying to perform raged attack with melee weapon " + prototype.Name);
             throw new System.NotImplementedException();
         }
 
@@ -154,10 +154,13 @@ namespace kfutils.rpg {
                 if (damageFactor > 1.1f)
                 {
                     action = useAnimation.Secondary;
+                    useAnimation.SecondarySound.Play(audioSource);
                 }
                 else
                 {
                     action = useAnimation.Primary;
+                    useAnimation.PrimarySound.Play(audioSource);
+                    
                 }
 
                 if (attacker is PCActing)
@@ -269,7 +272,7 @@ namespace kfutils.rpg {
                 hitCollider.enabled = false;
                 DamageData dmg = damage.GetDamage(holder, this, blocker);
                 blocker.BlockDamage(dmg, blockArea);
-                if (holder is EntityActing actor) actor.DelayFurtherAction(2.0f);
+                //if (holder is EntityActing actor) actor.DelayFurtherAction(1.0f, false);
                 attacking = false;
                 OnAttackEnd();
                 PlayEquipAnimation(holder);

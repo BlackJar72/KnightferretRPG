@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 
 namespace kfutils.rpg {
 
-    public class PCActing : PCMoving, ICombatant {
+    public class PCActing : PCMoving, ICombatant
+    {
 
         [SerializeField] PlayerInventory inventory;
         [SerializeField] Spellbook spellbook;
@@ -34,7 +35,7 @@ namespace kfutils.rpg {
         protected bool blocking;
         protected bool chargingAction;
         protected float chargeTimer;
- 
+
         // Input System
         protected InputAction rightAttackAction;
         protected InputAction leftBlcokAction;
@@ -72,13 +73,14 @@ namespace kfutils.rpg {
         public AnimancerState ArmsActionState => armsActionState;
 
         public Transform[] ArmsPositions => armsPositions;
+        public bool IsBlocking => blocking;
 
 
         public enum ArmsPos
         {
             high = 0, mid = 1, low = 2
         }
-        
+
 
         protected override void Awake()
         {
@@ -92,7 +94,8 @@ namespace kfutils.rpg {
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        protected override void Start() {
+        protected override void Start()
+        {
             base.Start();
             // Right / General
             actionLayer = animancer.Layers[1];
@@ -113,7 +116,7 @@ namespace kfutils.rpg {
             base.Update();
             if (chargingAction && (chargeTimer < Time.time)) UseChargedAction();
         }
-        
+
 
         public void PreSaveEquipt()
         {
@@ -121,7 +124,7 @@ namespace kfutils.rpg {
         }
 
 
-#region Input
+        #region Input
 
         private void InitInput()
         {
@@ -142,15 +145,15 @@ namespace kfutils.rpg {
             quickSlot7Action = input.actions["Hotbar7"];
             quickSlot8Action = input.actions["Hotbar8"];
             quickSlot9Action = input.actions["Hotbar9"];
-            
+
         }
 
 
         protected override void OnEnable()
-        {   
+        {
             base.OnEnable();
-            EnableAction();  
-            EnableUIActions();          
+            EnableAction();
+            EnableUIActions();
         }
 
 
@@ -171,32 +174,36 @@ namespace kfutils.rpg {
         }
 
 
-        protected void DisableUIActions() {
-            toggleInventoryAction.started -= ToggleCharacterSheet;   
-            InventoryManagement.toggleCharacterSheet -= ToggleCharacterSheet;  
-            togglePauseMenu.started -= TogglePauseMenu;  
-            pauseAction.started -= ApplyPauseButton;     
+        protected void DisableUIActions()
+        {
+            toggleInventoryAction.started -= ToggleCharacterSheet;
+            InventoryManagement.toggleCharacterSheet -= ToggleCharacterSheet;
+            togglePauseMenu.started -= TogglePauseMenu;
+            pauseAction.started -= ApplyPauseButton;
         }
 
 
-        protected override void EnableControls() {
+        protected override void EnableControls()
+        {
             EnableMovement();
             EnableAction();
         }
 
 
-        protected override void DisableControls() {
+        protected override void DisableControls()
+        {
             DisableMovement();
             DisableAction();
         }
 
 
-        protected virtual void EnableAction() { 
+        protected virtual void EnableAction()
+        {
             rightAttackAction.started += StartChargeRightItem;
             rightAttackAction.canceled += UseRightItem;
-            leftBlcokAction.started  += BlockLeftItem;
+            leftBlcokAction.started += BlockLeftItem;
             leftBlcokAction.canceled += UseLeftItem;
-            if(this is not PCTalking) activateObjectAction.started += Interact;  
+            if (this is not PCTalking) activateObjectAction.started += Interact;
             castSpellAction.canceled += CastSpell; // FIXME: Include start and stop events
             // Hotbar Quickslots
             quickSlot1Action.canceled += QuickSlot1;
@@ -238,9 +245,9 @@ namespace kfutils.rpg {
         protected void Dummy(InputAction.CallbackContext context) {/*DO NOTHING*/}
 
 
-#endregion
+        #endregion
 
-#region QuickSlots
+        #region QuickSlots
 
         public void QuickSlot1(InputAction.CallbackContext context) => inventory.UseHotbar(0);
         public void QuickSlot2(InputAction.CallbackContext context) => inventory.UseHotbar(1);
@@ -256,7 +263,7 @@ namespace kfutils.rpg {
         #endregion
 
 
-#region Saving / Loading
+        #region Saving / Loading
 
 
         protected PCData GetActionData(PCData data)
@@ -268,19 +275,16 @@ namespace kfutils.rpg {
         protected void TogglePauseMenu(InputAction.CallbackContext context)
         {
             gameManager.UIManager.TooglePauseMenu();
-        } 
+        }
 
 
         protected void ApplyPauseButton(InputAction.CallbackContext context)
         {
             gameManager.UIManager.PauseButtonHit();
-        } 
+        }
 
 
-        
-
-
-#endregion
+        #endregion
 
 
         public void GetAimParams(out AimParams aim)
@@ -291,13 +295,13 @@ namespace kfutils.rpg {
 
 
         public AnimancerState PlayAction(AvatarMask mask, ITransition animation, float time = 0)
-        {            
+        {
             actionLayer.SetMask(mask);
             actionState = actionLayer.Play(animation);
             actionState.Time = time;
             armsActionLayer.SetMask(mask);
             armsActionState = armsActionLayer.Play(animation);
-            armsActionState.Time = time; 
+            armsActionState.Time = time;
             return actionState;
         }
 
@@ -358,10 +362,13 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void CastSpell(InputAction.CallbackContext context) {
-            if(equiptSpell.currentSpell != null) {
-                float cost =  equiptSpell.currentSpell.ManaCost * attributes.manaCostFactor;
-                if(mana.CanDoAction(cost)) {
+        protected virtual void CastSpell(InputAction.CallbackContext context)
+        {
+            if (equiptSpell.currentSpell != null)
+            {
+                float cost = equiptSpell.currentSpell.ManaCost * attributes.manaCostFactor;
+                if (mana.CanDoAction(cost))
+                {
                     mana.UseMana(cost);
                     equiptSpell.currentSpell.SpellEffect.Cast(this);
                 }
@@ -370,13 +377,15 @@ namespace kfutils.rpg {
 
 
         // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
-        protected virtual void ToggleCharacterSheet(InputAction.CallbackContext context) {
+        protected virtual void ToggleCharacterSheet(InputAction.CallbackContext context)
+        {
             ToggleCharacterSheet();
         }
 
 
         // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
-        public virtual void ToggleCharacterSheet() {
+        public virtual void ToggleCharacterSheet()
+        {
             AllowActions(!(gameManager.UIManager.ToggleCharacterSheet() || GameManager.Instance.UIManager.PauseMenuVisible));
         }
 
@@ -401,39 +410,47 @@ namespace kfutils.rpg {
             chargingAction = false;
         }
 
-        
-        public virtual void AddToMainInventory(ItemStack stack) {
+
+        public virtual void AddToMainInventory(ItemStack stack)
+        {
             GetComponent<Inventory>().AddToFirstEmptySlot(stack);
         }
 
 
-#region Equipment
+        #region Equipment
 
 
-        public virtual void EquiptItem(ItemStack item) {
-            if(item != null) {
+        public virtual void EquiptItem(ItemStack item)
+        {
+            if (item != null)
+            {
                 ItemEquipt equipt = itemLocations.EquipItem(item);
                 IUsable usable = equipt as IUsable;
-                if(usable != null) {                     
-                    usable.OnEquipt(this); 
-                }            
-            } 
+                if (usable != null)
+                {
+                    usable.OnEquipt(this);
+                }
+            }
         }
 
 
-        public void RemoveEquiptAnimation() {
+        public void RemoveEquiptAnimation()
+        {
             actionLayer.StartFade(0);
         }
 
 
-        public virtual void UnequiptItem(ItemStack item) {
-            if(item != null) {
+        public virtual void UnequiptItem(ItemStack item)
+        {
+            if (item != null)
+            {
                 itemLocations.UnequipItem(item);
-            } 
+            }
         }
 
 
-        public virtual void UnequiptItem(EEquiptSlot slot) {
+        public virtual void UnequiptItem(EEquiptSlot slot)
+        {
             itemLocations.UnequipItem(slot);
         }
 
@@ -448,6 +465,7 @@ namespace kfutils.rpg {
         public void UseRightItem(InputAction.CallbackContext context)
         {
             ItemEquipt requipt = itemLocations.GetRHandItem();
+            ItemShield shield = itemLocations.GetLHandItem() as ItemShield;
             if (chargingAction && (requipt != null))
             {
                 IUsable usable = requipt as IUsable;
@@ -458,6 +476,10 @@ namespace kfutils.rpg {
                         usable.OnUse(this);
                     }
                 }
+                else if (blocking && (shield != null) && stamina.UseStamina(shield.StaminaCost))
+                {
+                    shield.OnUse(this);
+                }
             }
             chargingAction = false;
         }
@@ -467,6 +489,7 @@ namespace kfutils.rpg {
         {
             chargingAction = false;
             ItemEquipt requipt = itemLocations.GetRHandItem();
+            ItemShield shield = itemLocations.GetLHandItem() as ItemShield;
             if (requipt)
             {
                 IUsable usable = requipt as IUsable;
@@ -476,6 +499,10 @@ namespace kfutils.rpg {
                     {
                         usable.OnUseCharged(this);
                     }
+                }
+                else if (blocking && (shield != null) && stamina.UseStamina(shield.StaminaCost))
+                {
+                    shield.OnUse(this);
                 }
             }
         }
@@ -510,9 +537,9 @@ namespace kfutils.rpg {
                 blocking = false;
                 if ((lequipt != null) && (lequipt is IBlockItem)) EndBlock(lequipt);
                 if ((requipt != null) && (requipt is IBlockItem)) EndBlock(requipt);
-                
+
             }
-            else if ((lequipt != null) && (lequipt is IUsable usable)) 
+            else if ((lequipt != null) && (lequipt is IUsable usable))
             {
                 if (stamina.UseStamina(usable.StaminaCost)) usable.OnUse(this);
             }
@@ -525,7 +552,7 @@ namespace kfutils.rpg {
         }
 
 
-#region 
+        #region 
 
 
 
@@ -576,9 +603,9 @@ namespace kfutils.rpg {
             float paid = Mathf.Min(cost, stamina.currentStamina);
             reduction *= (paid / cost);
             stamina.UseStamina(paid);
-            damage *= (shock - reduction) /  shock;
+            damage *= (shock - reduction) / shock;
             //Debug.Log("Damege = " + damage);
-            if (stamina.currentStamina < 1) BreakBlock(blockArea.blockItem); 
+            if (stamina.currentStamina < 1) BreakBlock(blockArea.blockItem);
             return damage;
         }
 
@@ -607,7 +634,7 @@ namespace kfutils.rpg {
                 //Debug.Log("Parry!");
                 if (damage.attacker is EntityActing enemyActor)
                 {
-                    enemyActor.DelayFurtherAction(2.5f);
+                    enemyActor.Stagger(2.5f);
                     enemyActor.SetParried(true);
                     blockArea.blockItem.BeParried();
                 }
@@ -615,31 +642,12 @@ namespace kfutils.rpg {
         }
 
 
-
-        public void MeleeAttack(IWeapon weapon)
+        public void RangedAttack(IWeapon weapon, Vector3 direction)
         {
             throw new System.NotImplementedException();
         }
+        
 
-
-        public void RangedAttack(IWeapon weapon, Vector3 direction) {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void DrawWeapon(IWeapon weapon) {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void SheatheWeapon(IWeapon weapon) {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon) {
-            throw new System.NotImplementedException();
-        }
 
         #endregion
         #endregion

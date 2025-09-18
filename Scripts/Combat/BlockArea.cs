@@ -43,6 +43,13 @@ namespace kfutils.rpg
         }
 
 
+        public void RestoreBlock(IBlockItem item)
+        {
+            blockItem = item;
+            gameObject.SetActive(true);
+        }
+
+
         public void LowerBlock()
         {
             gameObject.SetActive(false);

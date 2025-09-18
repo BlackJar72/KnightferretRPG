@@ -7,12 +7,6 @@ namespace kfutils.rpg
 
     public interface ICombatant : IHaveName, IActor, IDamageable
     {
-        // TODO: Add relevant parameters to these methods, once we know what they are (i.e., have created entities)
-        /// <summary>
-        /// Called when attacking with the weapon at close range.
-        /// </summary>
-        /// <param name="weapon"></param>
-        public void MeleeAttack(IWeapon weapon);
 
         // TODO: Add other relevant parameters
         /// <summary>
@@ -47,27 +41,14 @@ namespace kfutils.rpg
         public void BlockDamage(DamageData damage, BlockArea blockArea);
 
         /// <summary>
-        /// Ready the weapon for combat
-        /// </summary>
-        /// <param name="weapon"></param>
-        public void DrawWeapon(IWeapon weapon);
-
-        /// <summary>
-        /// Put away the weapon (or return to non-fighting stance for natural weapons)
-        /// </summary>
-        /// <param name="weapon"></param>
-        public void SheatheWeapon(IWeapon weapon);
-
-        /// <summary>
-        /// Switch to a differet weapon.  Usually this will be a sequence of sheathing current weapon and drawing new weapon.
-        /// </summary>
-        /// <param name="weapon"></param>
-        public void SwitchWeapon(IWeapon currentWeapon, IWeapon newWeapon);
-
-        /// <summary>
         /// Returns the BlockArea of the Combatant
         /// </summary>
         public BlockArea GetBlockArea();
+
+        /// <summary>
+        /// Is the combatant currently blocking?
+        /// </summary>
+        public bool IsBlocking { get;  }
 
     }
 
