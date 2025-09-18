@@ -187,7 +187,7 @@ namespace kfutils.rpg
                     IDamageable damageable = hitObject.GetComponent<IDamageable>();
                     if (damageable != null)
                     {
-                        if (damageable is EntityActing enemy) enemy.Stagger(2.0f);
+                        if (damageable is EntityActing enemy) enemy.Stagger(1.5f);
                         if (damageable is EntityHitbox hitbox)
                         {
                             if((hitbox.GetEntity is EntityActing actor) && (!actor.IsStunned())){

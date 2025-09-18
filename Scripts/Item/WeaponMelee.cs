@@ -25,7 +25,7 @@ namespace kfutils.rpg {
         private bool attacking = false;
         private bool queued = false;
         private int attack = 0;
-        AnimancerState attackState;
+        private AnimancerState attackState;
 
         // Blocking Fields
 
