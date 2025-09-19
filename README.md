@@ -14,7 +14,7 @@ It uses standard WASD+mouse, with E to interact and space bar to jump.
 
 Dev-Logs can be found here:
 
-https://www.mediafire.com/file/lvmmkeg4x2jy6n2/RPG-WinTest.zip/file
+https://www.youtube.com/playlist?list=PLFJXfKtUiVHBLkaMTCRwtzBYd_ciG1XgP
 
 
 I did consider packaging some parts, notable the Larian-esque inventory system, as an 
