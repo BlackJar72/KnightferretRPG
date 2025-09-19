@@ -22,7 +22,7 @@ namespace kfutils.rpg {
 
 
     /// <summary>
-    /// Constants used throught the game, for example, the game layers.
+    /// Constants used throughout the game, for example, the game layers.
     /// </summary>
     public static class GameConstants
     {
