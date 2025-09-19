@@ -7,7 +7,9 @@ perhaps I'll go back to it later, perhaps not. I'm sure I could finish it, but a
 
 And example of the test game as it stands using the latest version can be found here:
 
-https://www.mediafire.com/file/lvmmkeg4x2jy6n2/RPG-WinTest.zip/file
+https://www.mediafire.com/file/lvmmkeg4x2jy6n2/RPG-WinTest.zip/file (Windows)
+
+https://www.mediafire.com/file/pahzybq1af7ozw9/RPG-LinuxTest.zip/file (Linux)
 
 It uses standard WASD+mouse, with E to interact and space bar to jump. 
 
