@@ -3,9 +3,10 @@ using UnityEngine;
 
 
 namespace kfutils.rpg {
-    
+
     [System.Serializable]
-    public class HotBar {
+    public class HotBar
+    {
 
         [SerializeField] SlotData[] slots = new SlotData[9];
 
@@ -40,9 +41,12 @@ namespace kfutils.rpg {
         }
 
 
-        public bool OnSlotEmptied(SlotData slot) {
-            for(int i = 0; i < slots.Length; i++) {
-                if(slots[i] == slot) {
+        public bool OnSlotEmptied(SlotData slot)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i] == slot)
+                {
                     slots[i].filled = false;
                     return true;
                 }
@@ -51,14 +55,34 @@ namespace kfutils.rpg {
         }
 
 
-        public void CleanUpDuplicates(int slotNumber, SlotData slot) {
-            for(int i = 0; i < slots.Length; i++) {
-                if((i != slotNumber) && (slots[i] == slot)) {
+        public void CleanUpDuplicates(int slotNumber, SlotData slot)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if ((i != slotNumber) && (slots[i] == slot))
+                {
                     slots[i].inventory = InvType.NONE;
                     slots[i].invSlot = -1;
                     slots[i].filled = false;
                 }
             }
+        }
+
+
+        public bool RemoveEquiptSlot(int slot)
+        {
+            bool changed = false;
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if ((slots[i].inventory == InvType.EQUIPT) && (slots[i].invSlot == slot))
+                {
+                    slots[i].inventory = InvType.NONE;
+                    slots[i].invSlot = -1;
+                    slots[i].filled = false;
+                    changed = true;
+                }
+            }
+            return changed;
         }
 
 

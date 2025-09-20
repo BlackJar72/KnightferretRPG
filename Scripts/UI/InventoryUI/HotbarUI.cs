@@ -80,6 +80,12 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void RemoveEquiptSlot(int slot)
+        {
+            if(hotBar.RemoveEquiptSlot(slot)) Redraw();
+        }
+
+
 
 
     }

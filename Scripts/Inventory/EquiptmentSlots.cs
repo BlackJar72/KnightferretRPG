@@ -209,16 +209,52 @@ namespace kfutils.rpg {
         }
 
 
-        public void RemoveItem(ItemStack item) {
-            if((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) ClearTwoHandedItem(item);
-            else for(int i = 0; i < slots.Length; i++) {
-                if(slots[i] == item) {
-                    mainInventory.Owner.UnequiptItem(item);
-                    slots[i] = new ItemStack(null, 0, i);
-                    SignalUpdate();
-                    return;
+        // Mostly the same as remove item, but slightly changed to update hotbar correctly.
+        // Other ways, that avoid code duplication, would complicate things greatly in other ways.
+        public void ConsumeItem(int slot, int number)
+        {
+            number = Mathf.Min(number, slots[slot].stackSize);
+            slots[slot].stackSize -= number;
+            if (slots[slot].stackSize < 1)
+            {
+                if (slots[slot].item.IsStackable)
+                {
+                    ItemManagement.itemRegistry.Remove(slots[slot].ID);
                 }
+                mainInventory.Owner.UnequiptItem(slots[slot]);
+                RemoveAllFromSlot(slot);
+                ClearHotbarSlot(slot);
             }
+            else
+            {
+                SignalSlotUpdate(slot);
+            }
+        }
+
+
+        private void ClearHotbarSlot(int slot)
+        {
+            PlayerInventory playerInventory = mainInventory as PlayerInventory;
+            if (playerInventory != null)
+            {
+                playerInventory.Hotbar.RemoveEquiptSlot(slot);
+            }
+        }
+
+
+        public void RemoveItem(ItemStack item)
+        {
+            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) ClearTwoHandedItem(item);
+            else for (int i = 0; i < slots.Length; i++)
+                {
+                    if (slots[i] == item)
+                    {
+                        mainInventory.Owner.UnequiptItem(item);
+                        slots[i] = new ItemStack(null, 0, i);
+                        SignalUpdate();
+                        return;
+                    }
+                }
         }
 
 

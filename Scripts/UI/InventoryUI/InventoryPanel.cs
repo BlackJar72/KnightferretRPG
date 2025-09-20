@@ -24,12 +24,21 @@ namespace kfutils.rpg.ui {
         //private void Awake() {}
         //private void Start() {}
 
-        protected virtual void Start() {
-            if(inventory.GetType() == typeof(PlayerInventory)) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
+        protected virtual void Start()
+        {
+            InitHotbarActions();
         }
 
 
-        protected virtual void OnEnable() {
+        public void InitHotbarActions()
+        {
+            if(inventory.GetType() == typeof(PlayerInventory)) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
+            
+        }
+
+
+        protected virtual void OnEnable()
+        {
             InventoryManagement.inventoryUpdated += UpdateInventory;
             InventoryManagement.inventorySlotUpdated += UpdateSlot;
             InventoryManagement.inventoryUpdatedAll += UpdateInventoryAll;

@@ -12,6 +12,8 @@ namespace kfutils.rpg {
         [SerializeField] TMP_Text weightText;
         [SerializeField] HotbarUI hotbarUI;
 
+        public HotbarUI Hotbar => hotbarUI;
+
 
         public override void OnEnable()
         {

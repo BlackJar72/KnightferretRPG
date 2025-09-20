@@ -23,7 +23,7 @@ namespace kfutils.rpg
 
         public void DecrimentSlot()
         {
-            holder.CharInventory.Equipt.RemoveFromSlot(ItemUtils.GetEquiptSlotForType(prototype.EquiptType), 1);
+            holder.CharInventory.Equipt.ConsumeItem(ItemUtils.GetEquiptSlotForType(prototype.EquiptType), 1);
         }
 
 
