@@ -14,6 +14,8 @@ namespace kfutils.rpg {
         public const string saveSubdir = "saves";
         public const string saveFileExtension = ".es3";
 
+        // General world data
+        [SerializeField] double time;
         // Player save data
         [SerializeField] PCData pcData = new();
         // Main Registries
@@ -40,6 +42,7 @@ namespace kfutils.rpg {
 
         public SavedGame()
         {
+            time = WorldTime.time;
             pcData = EntityManagement.playerCharacter == null ? null : EntityManagement.playerCharacter.GetPCData();
             itemRegistry = ItemManagement.itemRegistry;
             inventoryData = InventoryManagement.inventoryData;
@@ -81,6 +84,7 @@ namespace kfutils.rpg {
                 IActor actor = entityRegistry[id] as IActor;
                 if (actor != null) actor.PreSaveEquipt();
             }
+            ES3.Save("Time", time, fileName);
             ES3.Save("PCData", pcData, fileName);
             ES3.Save("ItemRegistry", itemRegistry, fileName); 
             ES3.Save("InventoryData", inventoryData, fileName);
@@ -107,6 +111,7 @@ namespace kfutils.rpg {
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             // TODO: Load the game data
+            time = ES3.Load("Time", fileName, time);
             itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
             inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
             equiptData = ES3.Load("EquiptData", fileName, equiptData);
@@ -117,6 +122,7 @@ namespace kfutils.rpg {
             currentWorldspace = ES3.Load("CurrentWorldspace", fileName, currentWorldspace);
 
             // Set runtime data
+            WorldTime.SetTime(time);
             ItemManagement.SetItemData(itemRegistry);
             InventoryManagement.SetInventoryData(inventoryData);
             InventoryManagement.SetEquiptData(equiptData);

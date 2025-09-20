@@ -9,9 +9,9 @@ namespace kfutils {
 
     [Serializable]
     public class EntityHealth : IHaveStringID {
-        public const float HEALING_PAUSE_TIME = 5.0f; // in seconds
-        public const float BASE_REGEN_RATE = 1.0f;
-        public const float BASE_REGEN_ADJUST = 0.01f;
+        public const double HEALING_PAUSE_TIME = 5.0; // in seconds
+        public const double BASE_REGEN_RATE = 1.0;
+        public const double BASE_REGEN_ADJUST = 0.01;
         public static readonly DefaultDamageAdjuster defaultDamageAdjuster = new DefaultDamageAdjuster();
 
         [NonSerialized] private EntityLiving owner = null;
@@ -36,8 +36,8 @@ namespace kfutils {
 
         public bool ShouldDie { get => ((wound < 1) || (shock < 1)); }
 
-        public float timeToHeal = float.NegativeInfinity;
-        public bool CanHeal { get => timeToHeal < Time.time; }
+        public double timeToHeal = double.NegativeInfinity;
+        public bool CanHeal { get => timeToHeal < WorldTime.time; }
 
         public string ID { get => owner.ID; }
         public string GetID => ID;
@@ -101,7 +101,7 @@ namespace kfutils {
         public void TakeDamage(Damages damage) {  
             shock -= damage.shock;
             wound -= damage.wound;
-            timeToHeal = Time.time + HEALING_PAUSE_TIME;
+            timeToHeal = WorldTime.time + HEALING_PAUSE_TIME;
             EntityManagement.AddWounded(this);
         }
 
@@ -168,7 +168,7 @@ namespace kfutils {
         /// For shock regeneration after being wounded.
         /// </summary>
         public bool NaturalRegen() {
-            shock = Mathf.Min((shock + ((baseHealth * BASE_REGEN_ADJUST) + BASE_REGEN_RATE) * Time.deltaTime), baseHealth);
+            shock = Mathf.Min((float)(shock + ((baseHealth * BASE_REGEN_ADJUST) + BASE_REGEN_RATE) * Time.deltaTime), baseHealth);
             return shock < baseHealth;
         }
 

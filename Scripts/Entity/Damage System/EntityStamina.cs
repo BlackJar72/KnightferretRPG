@@ -23,8 +23,8 @@ namespace kfutils {
         public float Stamina { get => currentStamina;  set { currentStamina = value; } }
         public float Buff { get => buff;  set { buff = value; MakeSane(); } }
 
-        public float timeToHeal = float.MinValue;
-        public bool CanHeal { get => timeToHeal < Time.time; }
+        public double timeToHeal = double.MinValue;
+        public bool CanHeal { get => timeToHeal < WorldTime.time; }
         public bool HasStamina { get => currentStamina > 0; }
 
         public string ID { get => owner.ID; }
@@ -67,7 +67,7 @@ namespace kfutils {
                 baseStamina = newStamina;
                 currentStamina = baseStamina * relative;
             }
-            timeToHeal = Time.time; // No pause when this happens
+            timeToHeal = WorldTime.time; // No pause when this happens
             EntityManagement.AddExhausted(this);
             MakeSane();
         }
@@ -78,7 +78,7 @@ namespace kfutils {
             bool result = currentStamina >= amount;
             if (result) {
                 currentStamina -= amount;
-                timeToHeal = Time.time + HEALING_PAUSE_TIME;
+                timeToHeal = WorldTime.time + HEALING_PAUSE_TIME;
                 EntityManagement.AddExhausted(this);
             } else {
                 currentStamina = 0;
