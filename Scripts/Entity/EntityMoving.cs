@@ -155,9 +155,6 @@ namespace kfutils.rpg {
 
         protected override void Die()
         {
-#if UNITY_EDITOR
-            Debug.Log(GetPersonalName() + " (" + ID + ") " + "Died!");
-#endif
             base.Die();
             navSeeker.Agent.enabled = false;
             navSeeker.gameObject.SetActive(false);

@@ -145,7 +145,6 @@ namespace kfutils.rpg {
 
         public static void SigalHotbarActivated(SlotData slot)
         {
-            Debug.Log("public static void SigalHotbarActivated(SlotData slot)");
             HotbarActivatedEvent?.Invoke(slot);
         }
 

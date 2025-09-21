@@ -149,7 +149,6 @@ namespace kfutils.rpg.ui {
 
 
         public void RespondToHotbar(SlotData slot) {
-            Debug.Log("public void RespondToHotbar(SlotData slot)");
             if (slot.inventory == InvType.MAIN)
             {
                 for (int i = 0; i < inventorySlots.Count; i++)
