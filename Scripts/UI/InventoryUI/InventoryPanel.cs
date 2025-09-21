@@ -24,16 +24,10 @@ namespace kfutils.rpg.ui {
         //private void Awake() {}
         //private void Start() {}
 
-        protected virtual void Start()
-        {
-            InitHotbarActions();
-        }
-
 
         public void InitHotbarActions()
         {
-            if(inventory.GetType() == typeof(PlayerInventory)) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
-            
+            if (inventory.GetType() == typeof(PlayerInventory)) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
         }
 
 
@@ -155,15 +149,20 @@ namespace kfutils.rpg.ui {
 
 
         public void RespondToHotbar(SlotData slot) {
-            if(slot.inventory == InvType.MAIN) {
-                for(int i = 0; i < inventorySlots.Count; i++) {
-                    if(inventorySlots[i].item.slot == slot.invSlot) {
+            Debug.Log("public void RespondToHotbar(SlotData slot)");
+            if (slot.inventory == InvType.MAIN)
+            {
+                for (int i = 0; i < inventorySlots.Count; i++)
+                {
+                    if (inventorySlots[i].item.slot == slot.invSlot)
+                    {
                         inventorySlots[i].EquipItem();
                         return;
                     }
                 }
             }
-            else if(slot.inventory == InvType.EQUIPT) {
+            else if (slot.inventory == InvType.EQUIPT)
+            {
                 equiptPanel.RespondToHotbar(slot);
             }
         }
