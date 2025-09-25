@@ -26,7 +26,7 @@ namespace kfutils.rpg
 
 
 
-        public float GetUtility(ITalkerAI entity)
+        public virtual float GetUtility(ITalkerAI entity)
         {
             if (available || shareable)
             {
@@ -42,9 +42,10 @@ namespace kfutils.rpg
         }
 
 
-
-
-
+        public ActivityHolder GetActivityOption(ITalkerAI entity)
+        {
+            return new ActivityHolder(this, GetUtility(entity));
+        }
     }
 
 
