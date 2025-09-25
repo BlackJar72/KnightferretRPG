@@ -6,7 +6,7 @@ namespace kfutils.rpg
 
     public class ActivitySocial : MonoBehaviour, IActivityObject
     {
-        public float GetUtility(EntityMoving entity)
+        public float GetUtility(ITalkerAI entity)
         {
             throw new System.NotImplementedException();
         }
@@ -14,7 +14,7 @@ namespace kfutils.rpg
 
 
 
-        
+
     }
 
 

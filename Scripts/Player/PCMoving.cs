@@ -7,7 +7,7 @@ namespace kfutils.rpg {
 
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(CharacterController))]
-    public class PCMoving : EntityLiving
+    public class PCMoving : EntityLiving, IMover
     {
 
         public enum MoveType
@@ -85,6 +85,8 @@ namespace kfutils.rpg {
 
         private readonly Vector3 standingCenter = new Vector3(0f, 0.9f, 0f);
         private readonly Vector3 crouchingCenter = new Vector3(0f, 0.6f, 0f);
+
+        public Transform GetTransform => transform;
 
 
 

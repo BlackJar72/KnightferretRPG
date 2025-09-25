@@ -5,7 +5,7 @@ using Animancer;
 namespace kfutils.rpg
 {
 
-    public interface IActor : IHaveStringID
+    public interface IActor : IHaveStringID, IMover
     {
 
         public void EquiptItem(ItemStack item);

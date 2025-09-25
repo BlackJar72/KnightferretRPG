@@ -18,7 +18,7 @@ namespace kfutils.rpg {
 
 
     [RequireComponent(typeof(CharacterController))]
-    public class EntityMoving : EntityLiving
+    public class EntityMoving : EntityLiving, IMover
     {
         [SerializeField] protected CharacterController controller;
         [SerializeField] protected MovementSet movementSetPrototype;
@@ -46,6 +46,8 @@ namespace kfutils.rpg {
 
         [SerializeField] protected Vector3 destination;
         [SerializeField] protected MoveType moveType;
+
+        public Transform GetTransform => transform;
 
 
         // This is to make sure this is never overriden into something harmful.

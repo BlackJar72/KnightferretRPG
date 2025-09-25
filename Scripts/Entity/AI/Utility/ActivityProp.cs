@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -7,23 +8,37 @@ namespace kfutils.rpg
     public class ActivityProp : MonoBehaviour, IActivityObject
     {
 
-        public ENeed need;
-        public float satisfaction;
-        public float timeToDo;
-        public Transform actorLocation;
+        [SerializeField] ENeed theNeed;
+        [Range(0.0f, 1.0f)][SerializeField] float desireabilityFactor = 1.0f;
+        [SerializeField] float timeToDo;
+        [SerializeField] Transform actorLocation;
+        [SerializeField] bool shareable = false;
 
         public bool available = true;
-        public bool shareable = false;
+
+        private float desireability;
+
+        public ENeed TheNeed => theNeed;
+        public float DesireabilityFactor => desireabilityFactor;
+        public float TimeToDo => timeToDo;
+        public Transform ActorLocation => actorLocation;
+        public bool Shareable => shareable;
 
 
-        public float GetUtility(EntityMoving entity)
+
+        public float GetUtility(ITalkerAI entity)
         {
-            // PROBLEM: Need reference to need, and these will likely be attached to 
-            // EntityTalking or an ITalker/ITalkerAI.  Then, this kind of AI will likely 
-            // only be used for intelligent creatures, so EntityLiving may be the wrong 
-            // choice here.  Perhaps change the interface to take an ITalkerAI (which also 
-            // needs to be created.)
-            throw new System.NotImplementedException();
+            if (available || shareable)
+            {
+                desireability = desireabilityFactor + Mathf.Sqrt(desireabilityFactor / (timeToDo + 60f) + 1) - 1;
+                desireability *= entity.GetNeed(theNeed).GetDrive();
+                desireability /= Mathf.Sqrt((entity.GetTransform.position - actorLocation.position).magnitude) + 3;
+                return desireability;
+            }
+            else
+            {
+                return 0.0f;
+            }
         }
 
 

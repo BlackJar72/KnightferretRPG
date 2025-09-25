@@ -13,7 +13,7 @@ namespace kfutils.rpg
     /// </summary>
     public interface IActivityObject
     {
-        public float GetUtility(EntityMoving entity); // This should probably table the subject as a parameter(?) 
+        public float GetUtility(ITalkerAI entity); // This should probably table the subject as a parameter(?) 
 
 
 
