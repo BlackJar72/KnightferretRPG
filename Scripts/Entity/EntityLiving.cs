@@ -153,6 +153,12 @@ namespace kfutils.rpg {
             if (health.ShouldDie) Die();
             // TODO: Include overrides that can react to the IAttacker
         }
+        
+
+        public Damages ApplyDamageAdjustment(Damages damage)
+        {
+            return attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage, attributes.damageAdjuster));
+        }
 
 
         protected virtual void Die()

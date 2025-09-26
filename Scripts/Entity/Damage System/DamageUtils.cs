@@ -82,6 +82,13 @@ namespace kfutils {
         }
 
 
+        public static Damages EstimateAverageDamage(int damageRating, int armor, DamageType type = DamageType.physical, float AP = 0) {
+            float damage = ((damageRating - (armor * 0.5f))) * (1.0f - KFMath.Asymptote(armor / 100f, 0.5f, 0.4f));
+            int realDamage = (int)Mathf.Max(1, (damage * (1.0f - AP)) + (damageRating * AP));
+            return new Damages(realDamage, CalcWounds(realDamage), type);
+        }
+
+
         public static Damages CalcDamageNoArmor(int damageRating, DamageType type = DamageType.physical) {
             int damage = RollDamage(damageRating);
             return new Damages(damage, CalcWounds(damage), type);

@@ -22,11 +22,7 @@ namespace kfutils.rpg
         public bool InParriedState() => owner.InParriedState();
         public void SetParried(bool parried = true) => owner.SetParried(parried);
         public bool IsSurprised(ICombatant attacker) => owner.IsSurprised(attacker);
-
-        
-
-        
-
+        public Damages ApplyDamageAdjustment(Damages damage) => owner.ApplyDamageAdjustment(damage);
     }
 
 }

@@ -17,6 +17,8 @@ namespace kfutils.rpg {
         [SerializeField] int attackCost;
         [SerializeField] int powerAttackCost;
         [SerializeField] bool parriable = true;
+        [SerializeField] float minRange = 0.1f;
+        [SerializeField] float maxRange = 1.5f;
 
         private ICombatant holder;
         private Collider hitCollider;
@@ -160,7 +162,7 @@ namespace kfutils.rpg {
                 {
                     action = useAnimation.Primary;
                     useAnimation.PrimarySound.Play(audioSource);
-                    
+
                 }
 
                 if (attacker is PCActing)
@@ -171,7 +173,7 @@ namespace kfutils.rpg {
                 {
                     attackState = attacker.PlayAction(useAnimation.Primary.mask, action.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
                 }
-             
+
                 PCActing pc = attacker as PCActing;
                 if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
                 attackState.Events.SetCallback(0, OnAttackStart);
@@ -227,7 +229,7 @@ namespace kfutils.rpg {
         public void OnUnequipt()
         {
             holder.RemoveEquiptAnimation();
-            if(blocking) EndBlock();
+            if (blocking) EndBlock();
         }
 
 
@@ -324,6 +326,20 @@ namespace kfutils.rpg {
 
 
         public ClipTransition GetBlockAnimation() => blockAnimation.Primary.anim;
+
+
+        /*******************************************************************************************************************************/
+        /*                                     BLOCKING / PARRYING METHODS                                                             */
+        /*******************************************************************************************************************************/
+
+
+        public float MaxRange => maxRange;
+        public float MinRange => minRange;
+
+        public float EstimateDamage(IDamageable victem)
+        {
+            return damage.EstimateDamage(victem);
+        }
 
 
 
