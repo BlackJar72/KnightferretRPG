@@ -57,15 +57,15 @@ namespace kfutils.rpg {
         }
 
 
+
         //-----------------------------------------------------------------------------------------------------------//
         //                                       INSTANCE FACTORIES                                                  //
         //-----------------------------------------------------------------------------------------------------------//
 
 
-        
 
-
-        public ItemStack ItemStackFactory(int number, int slot) {
+        public ItemStack ItemStackFactory(int number, int slot)
+        {
             return new ItemStack(this, number, slot);
         }
 

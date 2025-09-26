@@ -19,5 +19,20 @@ namespace kfutils.rpg
     }
 
 
+    /// <summary>
+    /// Used to tag how an IActivityObject should be handled.
+    /// </summary>
+    public enum EObjectActivity
+    {
+        NEED_DISCRETE = 0,
+        NEED_CONTINUOUS = 1,
+        COMBAT_OPTION = 2,
+        WEAPON = 3,
+        SPELL = 4,
+        HEALTH_ITEM = 5
+
+    }
+
+
 
 }
