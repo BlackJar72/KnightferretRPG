@@ -35,8 +35,8 @@ namespace kfutils.rpg
                 selector -= choices[selection].Utility;
                 selection++;
 #if UNITY_EDITOR
-                //Testing Failsage
-                if (selection >= numToConsider)
+            //Testing Failsage
+            if (selection >= numToConsider)
                 {
                     selection = 0;
                     selector = 0.0f;
@@ -46,6 +46,12 @@ namespace kfutils.rpg
 #endif
             }
             return currentActivity = choices[selection].ActivityObject;
+        }
+
+
+        public void PopulateActivityList()
+        {
+            //TODO!
         }
         
 

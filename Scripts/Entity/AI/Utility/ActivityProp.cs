@@ -22,11 +22,12 @@ namespace kfutils.rpg
     /// word "prop" in the name is used to avoid confusion and because "object" is 
     /// used elsewhere. 
     /// </summary>
-    public class ActivityProp : MonoBehaviour, IActivityObject
+    public class ActivityProp : MonoBehaviour, IActivityObject, IHaveStringID 
     {
-
+        [SerializeField] string id;
         [SerializeField] ENeed theNeed;
-        [Range(0.0f, 1.0f)][SerializeField] float desireabilityFactor = 1.0f;
+        [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
+        [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
         [SerializeField] float timeToDo;
         [SerializeField] Transform actorLocation;
         [SerializeField] bool shareable = false;
@@ -36,18 +37,20 @@ namespace kfutils.rpg
         private float desireability;
 
         public ENeed TheNeed => theNeed;
+        public float Satisfaction => satisfaction;
         public float DesireabilityFactor => desireabilityFactor;
         public float TimeToDo => timeToDo;
         public Transform ActorLocation => actorLocation;
         public bool Shareable => shareable;
-
-
+        public string ID => id;
+        
 
         public virtual float GetUtility(ITalkerAI entity)
         {
             if (available || shareable)
             {
-                desireability = desireabilityFactor + Mathf.Sqrt(desireabilityFactor / (timeToDo + 60f) + 1) - 1;
+                desireability = (satisfaction * desireabilityFactor)
+                                + Mathf.Sqrt((satisfaction * desireabilityFactor) / (timeToDo + 60f) + 1) - 1;
                 desireability *= entity.GetNeed(theNeed).GetDrive();
                 desireability /= Mathf.Sqrt((entity.GetTransform.position - actorLocation.position).magnitude) + 3;
                 return desireability;
@@ -63,6 +66,10 @@ namespace kfutils.rpg
         {
             return new ActivityHolder(this, GetUtility(entity));
         }
+
+
+
+
     }
 
 

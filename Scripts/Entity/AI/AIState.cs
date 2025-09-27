@@ -18,12 +18,6 @@ namespace kfutils.rpg
         public EntityActing Owner => owner;
 
 
-        //public AIState(EntityActing actor)
-        //{
-        //    owner = actor;
-        //}
-
-
         public virtual void Init(EntityActing character)
         {
             if (owner == null) { owner = character; }

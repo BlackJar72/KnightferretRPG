@@ -23,9 +23,13 @@ namespace kfutils.rpg {
         [SerializeField] List<string> itemsInChunk = new();
         public List<string> ItemsInChunkList => itemsInChunk;
 
+        [SerializeField] List<ActivityProp> activityProps;
+        public List<ActivityProp> ActivityProps => activityProps;
 
-        public void AddItem(string id) {
-            if(!itemsInChunk.Contains(id)) itemsInChunk.Add(id);
+
+        public void AddItem(string id)
+        {
+            if (!itemsInChunk.Contains(id)) itemsInChunk.Add(id);
         }
 
         /*
@@ -38,7 +42,14 @@ namespace kfutils.rpg {
         */
 
 
-        public ChunkData(string id) {
+        public void AddActivityProp(ActivityProp prop)
+        {
+            
+        }
+
+
+        public ChunkData(string id)
+        {
             this.id = id;
         }
 
