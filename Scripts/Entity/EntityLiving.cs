@@ -4,7 +4,7 @@ using Animancer;
 
 namespace kfutils.rpg {
 
-    public abstract class EntityLiving : MonoBehaviour, IHaveName, IHaveStringID, IDamageable
+    public abstract class EntityLiving : MonoBehaviour, IHaveName, IHaveStringID, IDamageable, IInWorld 
     {
 
         [SerializeField] private string id; // Should this be a string? A number? A UUID?  String for now.  Also, this must never change!
@@ -30,6 +30,12 @@ namespace kfutils.rpg {
         public bool Alive => alive;
         public EntityHitbox Hitbox => hitbox;
         public EntityLiving GetEntity => this;
+
+        public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
+
+
+        public virtual string GetName() => entityName;
+        public virtual string GetPersonalName() => GetName();
 
 
         public string ID
@@ -129,9 +135,6 @@ namespace kfutils.rpg {
 
         }
 
-
-        public virtual string GetName() => entityName;
-        public virtual string GetPersonalName() => GetName();
 
 
         public virtual int GetArmor()

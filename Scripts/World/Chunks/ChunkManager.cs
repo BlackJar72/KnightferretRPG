@@ -31,19 +31,29 @@ namespace kfutils.rpg {
         }
 
 
+        public override string ToString()
+        {
+            return id + " at " + location;
+        }
+
+
         /*void OnEnable() {
             Init();
         }*/
 
 
-        public void Init() {
+        public void Init()
+        {
             data = WorldManagement.GetChunkData(id);
-            if(data == null) {
+            if (data == null)
+            {
                 data = new ChunkData(id);
-                if(data.Clean) FirstInit(); 
+                if (data.Clean) FirstInit();
                 else LaterInit(); // Could be "dirty" if loaded from a save (TODO)
                 WorldManagement.StoreChunkData(data);
-            } else {
+            }
+            else
+            {
                 LaterInit();
             }
         }
