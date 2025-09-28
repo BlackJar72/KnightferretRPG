@@ -78,14 +78,6 @@ namespace kfutils.rpg {
             mana.SetOnwer(this);
         }
 
-        
-
-
-        public void PostLoadeTest()
-        {
-            Debug.Log(id + " is in " + GetChunkManager);
-        }
-
 
         protected virtual void OnEnable()
         {
@@ -101,15 +93,12 @@ namespace kfutils.rpg {
                 LoadData();
             }
             if (!alive && this is not EntityMoving) Die();
-
-            WorldManagement.OnPostLoad += PostLoadeTest;
         }
 
 
         protected virtual void OnDisable()
         {
             StoreData();
-            WorldManagement.OnPostLoad -= PostLoadeTest;
         }
 
 
