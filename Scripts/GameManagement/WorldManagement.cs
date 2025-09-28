@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,6 +28,9 @@ namespace kfutils.rpg {
         public delegate void GameReload();
         public static event GameReload GameReloaded;
 
+        public delegate void PostLoad();
+        public static event PostLoad OnPostLoad;
+
 
         public static void SetWorldspace(Worldspace world)
         {
@@ -37,6 +40,12 @@ namespace kfutils.rpg {
 
         public static void SignalGameReloaded() {
             GameReloaded?.Invoke();
+        }
+
+
+        public static void SignalPostLoad()
+        {
+            OnPostLoad?.Invoke();            
         }
 
 
@@ -77,6 +86,7 @@ namespace kfutils.rpg {
             GameManager.Instance.LoadingScreen.SetActive(false);
             Time.timeScale = 1.0f;
             transferData = null;
+            SignalPostLoad();
             return true;
         }
 
@@ -161,6 +171,7 @@ namespace kfutils.rpg {
             {
                 Worldspace loaded = worldspaceRegistry[wsid];
                 loaded.LoadForSave(worldspace);
+                GameManager.DoPostLoadForOther();
             }
             else
             {

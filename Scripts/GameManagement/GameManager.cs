@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 
 namespace kfutils.rpg {
 
     [RequireComponent(typeof(UIManager))]
-    public class GameManager : MonoBehaviour {
+    public class GameManager : MonoBehaviour
+    {
 
 
         [SerializeField] UIManager ui;
@@ -28,7 +30,8 @@ namespace kfutils.rpg {
         public GameObject LoadingScreen => loadingScreen;
 
 
-        void Awake() {
+        void Awake()
+        {
             // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
             // Makeing this a true singleton, and warning with an error message if extra copies were made
@@ -42,7 +45,8 @@ namespace kfutils.rpg {
             }
             // FIXME: This should ultimately be run at start-up, not entry into gameplay, once a start screen is added
             ItemPrototype[] itemPrototypes = itemsInGame.Items;
-            for (int i = 0; i < itemPrototypes.Length; i++) {
+            for (int i = 0; i < itemPrototypes.Length; i++)
+            {
                 ItemManagement.AddItemPrototype(itemPrototypes[i]);
             }
             EntityManagement.Initialize();
@@ -50,10 +54,12 @@ namespace kfutils.rpg {
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start() {
+        void Start()
+        {
             startingWorldspace.LoadAsSpawn();
-            if(ui == null) ui = GetComponent<UIManager>(); 
-            if(ui == null) Debug.LogError("No UI Manager provided for game manager!"); 
+            StartCoroutine(DoPostInitialLoad());
+            if (ui == null) ui = GetComponent<UIManager>();
+            if (ui == null) Debug.LogError("No UI Manager provided for game manager!");
         }
 
 
@@ -68,6 +74,21 @@ namespace kfutils.rpg {
                 if (specialUpdates[i]()) specialUpdates.RemoveAt(i);
             }
 
+        }
+
+
+        public static void DoPostLoadForOther()
+        {            
+            Instance.StartCoroutine(DoPostInitialLoad());
+        }
+
+
+        private static IEnumerator DoPostInitialLoad()
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
+            WorldManagement.SignalPostLoad();
         }
 
         
