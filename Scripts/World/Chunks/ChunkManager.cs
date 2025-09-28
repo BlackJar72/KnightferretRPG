@@ -21,6 +21,8 @@ namespace kfutils.rpg {
 
         private ChunkData data;
 
+        private List<ActivityProp> activityProps = new List<ActivityProp>();
+
 
         public ChunkData Data => data;
         public Transform LooseItems => looseItems;
@@ -37,9 +39,10 @@ namespace kfutils.rpg {
         }
 
 
-        /*void OnEnable() {
-            Init();
-        }*/
+        public void Add(ActivityProp prop)
+        {
+            if (!activityProps.Contains(prop)) activityProps.Add(prop);
+        }
 
 
         public void Init()

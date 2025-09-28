@@ -22,7 +22,7 @@ namespace kfutils.rpg
     /// word "prop" in the name is used to avoid confusion and because "object" is 
     /// used elsewhere. 
     /// </summary>
-    public class ActivityProp : MonoBehaviour, IActivityObject, IHaveStringID 
+    public class ActivityProp : MonoBehaviour, IActivityObject, IHaveStringID, IInWorld  
     {
         [SerializeField] string id;
         [SerializeField] ENeed theNeed;
@@ -43,7 +43,27 @@ namespace kfutils.rpg
         public Transform ActorLocation => actorLocation;
         public bool Shareable => shareable;
         public string ID => id;
-        
+
+        public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
+
+
+        void OnEnable()
+        {
+            WorldManagement.OnPostLoad += OnPostLoad;
+        }
+
+
+        void OnDisable()
+        {
+            WorldManagement.OnPostLoad -= OnPostLoad;            
+        }
+
+
+        private void OnPostLoad()
+        {
+            GetChunkManager.Add(this);
+        }
+
 
         public virtual float GetUtility(ITalkerAI entity)
         {
