@@ -10,6 +10,9 @@ namespace kfutils.rpg
     {
         [SerializeField] List<ActivityHolder> choices = new List<ActivityHolder>();
         [SerializeField] IActivityObject currentActivity;
+        
+
+        // TODO: Add queue from queued activities (possibly using my new RingDeque).
 
 
         public IActivityObject Choose()
@@ -35,8 +38,8 @@ namespace kfutils.rpg
                 selector -= choices[selection].Utility;
                 selection++;
 #if UNITY_EDITOR
-            //Testing Failsage
-            if (selection >= numToConsider)
+                //Testing Failsage
+                if (selection >= numToConsider)
                 {
                     selection = 0;
                     selector = 0.0f;

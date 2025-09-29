@@ -61,7 +61,7 @@ namespace kfutils.rpg
 
         private void OnPostLoad()
         {
-            GetChunkManager.Add(this);
+            GetChunkManager.AddActivityProp(this);
         }
 
 

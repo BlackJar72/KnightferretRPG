@@ -39,9 +39,9 @@ namespace kfutils.rpg {
         }
 
 
-        public void Add(ActivityProp prop)
+        public void AddActivityProp(ActivityProp prop)
         {
-            if (!activityProps.Contains(prop)) activityProps.Add(prop);
+            activityProps.Add(prop);
         }
 
 
