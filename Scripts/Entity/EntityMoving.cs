@@ -115,7 +115,8 @@ namespace kfutils.rpg {
         }
 
 
-        protected override void LoadData() {
+        protected override void LoadData()
+        {
             base.LoadData();
             movement = data.movingData.movement;
             heading = data.movingData.heading;
@@ -151,7 +152,13 @@ namespace kfutils.rpg {
         {
             return (moveType == MoveType.idle) || !navSeeker.Agent.isActiveAndEnabled
                 || (navSeeker.Agent.remainingDistance <= navSeeker.Agent.stoppingDistance)
-                || (navSeeker.Agent.velocity.sqrMagnitude == 0);;
+                || (navSeeker.Agent.velocity.sqrMagnitude == 0); ;
+        }
+
+
+        public bool AtLocation(Transform location)
+        {
+            return (transform.position - location.position).magnitude < 0.025f;
         }
 
 
@@ -240,7 +247,7 @@ namespace kfutils.rpg {
             if (Time.deltaTime == 0) return;
             movement = navSeeker.transform.position - transform.position;
             heading.Set(movement.x, 0, movement.z);
-            Vector3 newVelocity = Vector3.zero;            
+            Vector3 newVelocity = Vector3.zero;
 
             if (heading.magnitude > 0.1)
             {
@@ -311,9 +318,7 @@ namespace kfutils.rpg {
             controller.Move(velocity * Time.deltaTime);
             //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
         }
-
-
-
+        
 
 
     }

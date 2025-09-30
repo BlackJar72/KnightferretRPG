@@ -9,7 +9,7 @@ namespace kfutils.rpg
 
         public Need GetNeed(ENeed need);
         public ActivityChooser NeedChooser { get; }
-        public IActivityObject ChooseNeedActivity(); 
+        public ActivityHolder ChooseNeedActivity(); 
 
 
 

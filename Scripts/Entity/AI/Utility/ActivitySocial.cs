@@ -7,6 +7,8 @@ namespace kfutils.rpg
     public class ActivitySocial : MonoBehaviour, IActivityObject
     {
 
+        public AbstractAction UseAction => throw new System.NotImplementedException();
+
 
         public ActivityHolder GetActivityOption(ITalkerAI entity)
         {

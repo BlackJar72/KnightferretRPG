@@ -15,6 +15,7 @@ namespace kfutils.rpg
     {
         public float GetUtility(ITalkerAI entity); // This should probably table the subject as a parameter(?) 
         public ActivityHolder GetActivityOption(ITalkerAI entity);
+        public AbstractAction UseAction { get; }
 
 
 

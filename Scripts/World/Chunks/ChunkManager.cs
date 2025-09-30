@@ -26,9 +26,11 @@ namespace kfutils.rpg {
 
         public ChunkData Data => data;
         public Transform LooseItems => looseItems;
+        public List<ActivityProp> ActivityProps => activityProps;
 
 
-        public void SetID(string id) {
+        public void SetID(string id)
+        {
             this.id = id;
         }
 

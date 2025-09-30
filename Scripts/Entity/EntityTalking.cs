@@ -1,10 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace kfutils.rpg {
+namespace kfutils.rpg
+{
 
     public class EntityTalking : EntityActing, ITalkerAI
     {
+
+        [SerializeField] Personality personality;
+        [SerializeField] CoreNeeds needs;
         [SerializeField] ActivityChooser needChooser;
 
         public ActivityChooser NeedChooser => needChooser;
@@ -13,12 +18,15 @@ namespace kfutils.rpg {
 
         public Need GetNeed(ENeed need)
         {
-            throw new System.NotImplementedException();
+            return needs.GetNeed(need);
         }
 
-        public IActivityObject ChooseNeedActivity()
+        public ActivityHolder ChooseNeedActivity()
         {
-            throw new System.NotImplementedException();
+            ChunkManager chunk = GetChunkManager;
+            List<ActivityProp> props = chunk.ActivityProps;
+            needChooser.PopulateActivityList(this, props);
+            return needChooser.Choose();
         }
 
 

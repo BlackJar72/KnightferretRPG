@@ -13,9 +13,8 @@ namespace kfutils.rpg
     {
         ENERGY = 0,
         FOOD = 1,
-        POTTY = 2, // Do I really need this in a RPG? Probably not.
-        SOCIAL = 3,
-        ENJOYMENT = 4
+        SOCIAL = 2,
+        ENJOYMENT = 3
     }
 
 

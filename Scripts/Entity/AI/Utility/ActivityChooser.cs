@@ -9,17 +9,17 @@ namespace kfutils.rpg
     public class ActivityChooser
     {
         [SerializeField] List<ActivityHolder> choices = new List<ActivityHolder>();
-        [SerializeField] IActivityObject currentActivity;
+        [SerializeField] ActivityHolder currentActivity;
         
 
         // TODO: Add queue from queued activities (possibly using my new RingDeque).
 
 
-        public IActivityObject Choose()
+        public ActivityHolder Choose()
         {
             if (choices.Count < 1) return null;
             if (choices.Count == 1)
-                return currentActivity = choices[0].ActivityObject;
+                return currentActivity = choices[0];
             choices.Sort();
             int numToConsider = choices.Count;
             if (choices.Count > 3)
@@ -48,13 +48,17 @@ namespace kfutils.rpg
                 }
 #endif
             }
-            return currentActivity = choices[selection].ActivityObject;
+            return currentActivity = choices[selection];
         }
 
 
-        public void PopulateActivityList()
+        public void PopulateActivityList(ITalkerAI ai, List<ActivityProp> props)
         {
-            //TODO!
+            choices.Clear();
+            foreach (ActivityProp prop in props)
+            {
+                choices.Add(prop.GetActivityOption(ai));
+            }
         }
         
 

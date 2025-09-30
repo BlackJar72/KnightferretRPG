@@ -10,10 +10,13 @@ namespace kfutils.rpg
         [SerializeField] ENeed theNeed;
         [Range(0.0f, 1.0f)][SerializeField] float desireabilityFactor = 1.0f;
         [SerializeField] float timeToDo;
+        [SerializeField] AbstractAction useAction;
 
         public ENeed TheNeed => theNeed;
         public float DesireabilityFactor => desireabilityFactor;
         public float TimeToDo => timeToDo;
+
+        public AbstractAction UseAction => useAction;
 
 
         public ActivityHolder GetActivityOption(ITalkerAI entity)

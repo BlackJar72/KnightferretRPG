@@ -26,6 +26,7 @@ namespace kfutils.rpg
     {
         [SerializeField] string id;
         [SerializeField] ENeed theNeed;
+        [SerializeField] AbstractAction useAction;
         [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
         [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
         [SerializeField] float timeToDo;
@@ -38,6 +39,7 @@ namespace kfutils.rpg
 
         public ENeed TheNeed => theNeed;
         public float Satisfaction => satisfaction;
+        public AbstractAction UseAction => useAction;
         public float DesireabilityFactor => desireabilityFactor;
         public float TimeToDo => timeToDo;
         public Transform ActorLocation => actorLocation;

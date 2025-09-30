@@ -1,7 +1,4 @@
 using System;
-using System.Threading;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 
@@ -18,6 +15,8 @@ namespace kfutils.rpg
         private float activityTimer;
         private ActivityChooser chooser;
 
+        private ITalkerAI entity;
+
 
         public override void Init(EntityActing character)
         {
@@ -25,6 +24,7 @@ namespace kfutils.rpg
             if (character is ITalkerAI ai)
             {
                 chooser = ai.NeedChooser;
+                entity = ai;
             }
             else
             {
@@ -59,7 +59,8 @@ namespace kfutils.rpg
 
         public void ChooseActivity()
         {
-
+            ActivityHolder activity = entity.ChooseNeedActivity();
+            SetCurrentActivity(activity);
         }
 
 
@@ -67,12 +68,20 @@ namespace kfutils.rpg
         {
             activityTimer = 0.0f;
             activityObject = activityHolder.ActivityObject;
+            currentAction = StartSeekLocation;
+        }
+
+
+        public void StartActivity()
+        {
+            entity.PlayAction(activityObject.UseAction.mask, activityObject.UseAction.anim);
+            currentAction = DoActivity;            
         }
 
 
         public void DoActivity()
         {
-
+            
         }
 
 
@@ -83,12 +92,17 @@ namespace kfutils.rpg
                 owner.SetDestination(prop.ActorLocation.position);
                 currentAction = SeekActivityLocation;
             }
+            else
+            {
+                currentAction = StartActivity;
+            }
         }
 
 
         public void SeekActivityLocation()
         {
-
+            if ((activityObject is ActivityProp prop)
+                    && entity.AtLocation(prop.ActorLocation)) currentAction = StartActivity;
         }
 
 

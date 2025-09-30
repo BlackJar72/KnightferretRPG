@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.CompilerServices;
-using Unity.Entities;
 using UnityEngine;
 
 
@@ -19,18 +18,18 @@ namespace kfutils.rpg {
         [SerializeField] float decayRate = 1.0f;
         [SerializeField] float importance = 1.0f;
         [SerializeField] float driveOrigin = 1.2f;
-        [SerializeField] bool depleting = false;
 
         public float Value => value;
         public float DriveOrigin => driveOrigin;
         public float Importance => importance;
 
 
-        public Need(float decayRate, float importance, bool tracking = true) {
+        public Need(float decayRate, float importance, float driveOrigin = 1.2f)
+        {
             value = 1.0f;
             this.decayRate = decayRate;
             this.importance = importance;
-            this.depleting = tracking;
+            this.driveOrigin = driveOrigin;
         }
 
 
@@ -103,10 +102,8 @@ namespace kfutils.rpg {
         /// A likely common use (with a negative value) would be applying the effects of an injury to health
         /// </summary>
         public void AddSafe(float amount) {
-            if(depleting) {
-                value += amount;
-                Bound();
-            }
+            value += amount;
+            Bound();
         }
 
 

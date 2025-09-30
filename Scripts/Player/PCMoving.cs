@@ -159,6 +159,12 @@ namespace kfutils.rpg {
         }
 
 
+        public bool AtLocation(Transform location)
+        {
+            return (transform.position - location.position).magnitude < 0.025f;
+        }
+
+
         protected void UpdateMoveType()
         {
             if (shouldCrouch)
