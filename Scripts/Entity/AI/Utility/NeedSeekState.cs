@@ -66,9 +66,12 @@ namespace kfutils.rpg
 
         private void SetCurrentActivity(ActivityHolder activityHolder)
         {
-            activityTimer = 0.0f;
-            activityObject = activityHolder.ActivityObject;
-            currentAction = StartSeekLocation;
+            if (activityHolder != null)
+            {
+                activityTimer = 0.0f;
+                activityObject = activityHolder.ActivityObject;
+                currentAction = StartSeekLocation;
+            }
         }
 
 
@@ -101,8 +104,10 @@ namespace kfutils.rpg
 
         public void SeekActivityLocation()
         {
-            if ((activityObject is ActivityProp prop)
-                    && entity.AtLocation(prop.ActorLocation)) currentAction = StartActivity;
+            if ((activityObject is ActivityProp prop) && entity.AtLocation(prop.ActorLocation))
+            {
+                currentAction = StartActivity;
+            }
         }
 
 

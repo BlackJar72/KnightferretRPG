@@ -13,13 +13,20 @@ namespace kfutils.rpg
         [SerializeField] ActivityChooser needChooser;
 
         public ActivityChooser NeedChooser => needChooser;
-        
+
+
+        void Awake()
+        {
+            base.Awake();
+            needs.Init(this);
+        }
 
 
         public Need GetNeed(ENeed need)
         {
             return needs.GetNeed(need);
         }
+
 
         public ActivityHolder ChooseNeedActivity()
         {

@@ -168,7 +168,7 @@ namespace kfutils.rpg {
         public AnimancerState PlayAction(AvatarMask mask, ITransition animation, float time = 0)
         {
             actionLayer.SetMask(mask);
-            actionState = animancer.Play(animation);
+            actionState = actionLayer.Play(animation);
             actionState.Time = time;
             return actionState;
         }
