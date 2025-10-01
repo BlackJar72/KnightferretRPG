@@ -46,7 +46,7 @@ namespace kfutils.rpg
         }
 
 
-        public Need GetNeed(ENeed need) => allNeeds[(int)need];
+        public Need GetNeed(ENeedID need) => allNeeds[(int)need];
 
 
         public void UpdateNeeds()
@@ -64,14 +64,23 @@ namespace kfutils.rpg
         }
 
 
-        public void AlterNeedGradual(ENeed need, float timeForEffect, float amount)
+        public void AddToNeeds(ENeeds needs, float amount)
+        {
+            if ((needs & ENeeds.ENERGY) > 0) energy.Add(amount);
+            if ((needs & ENeeds.FOOD) > 0) nourishment.Add(amount);
+            if ((needs & ENeeds.SOCIAL) > 0) social.Add(amount);
+            if ((needs & ENeeds.ENJOYMENT) > 0) enjoyment.Add(amount);
+        }
+
+
+        public void AlterNeedGradual(ENeedID need, float timeForEffect, float amount)
         {
             Need theNeed = allNeeds[(int)need];
             theNeed.Add((amount / timeForEffect) * Time.deltaTime);
         }
 
 
-        public void AlterNeedInstant(ENeed need, float amount)
+        public void AlterNeedInstant(ENeedID need, float amount)
         {
             Need theNeed = allNeeds[(int)need];
             theNeed.Add(amount);

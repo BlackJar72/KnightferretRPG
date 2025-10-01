@@ -12,7 +12,7 @@ namespace kfutils.rpg
         public AbstractAction UseAction => throw new System.NotImplementedException();
         public float TimeToDo => throw new System.NotImplementedException();
 
-        public ENeed GetNeed => throw new System.NotImplementedException();
+        public ENeeds GetNeed => throw new System.NotImplementedException();
 
         public EObjectActivity ActivityType => throw new System.NotImplementedException();
 

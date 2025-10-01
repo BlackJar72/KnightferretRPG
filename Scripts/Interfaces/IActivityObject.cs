@@ -18,7 +18,7 @@ namespace kfutils.rpg
         public AbstractAction UseAction { get; }
         public float Satisfaction { get; }
         public float TimeToDo { get; }
-        public ENeed GetNeed { get; }
+        public ENeeds GetNeed { get; }
         public EObjectActivity ActivityType { get; }
 
 

@@ -25,7 +25,7 @@ namespace kfutils.rpg
     public class ActivityProp : MonoBehaviour, IActivityObject, IHaveStringID, IInWorld  
     {
         [SerializeField] string id;
-        [SerializeField] ENeed theNeed;
+        [SerializeField] ENeeds theNeeds;
         [Tooltip("Should be NEED_DISCRETE or NEED_CONTINUOUS")][SerializeField] EObjectActivity activityType;
         [SerializeField] AbstractAction useAction;
         [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
@@ -37,7 +37,7 @@ namespace kfutils.rpg
         public bool available = true;
 
         private float desireability;
-        public ENeed TheNeed => theNeed;
+        public ENeeds TheNeed => theNeeds;
         public float Satisfaction => satisfaction;
         public AbstractAction UseAction => useAction;
         public float DesireabilityFactor => desireabilityFactor;
@@ -48,7 +48,7 @@ namespace kfutils.rpg
 
         public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
 
-        public ENeed GetNeed => theNeed;
+        public ENeeds GetNeed => theNeeds;
 
         public EObjectActivity ActivityType => activityType;
 
@@ -75,16 +75,27 @@ namespace kfutils.rpg
         {
             if (available || shareable)
             {
-                desireability = (satisfaction * desireabilityFactor)
-                                + Mathf.Sqrt((satisfaction * desireabilityFactor) / (timeToDo + 60f) + 1) - 1;
-                desireability *= entity.GetNeed(theNeed).GetDrive();
-                desireability /= Mathf.Sqrt((entity.GetTransform.position - actorLocation.position).magnitude) + 3;
+                desireability = 0.0f;
+                if ((theNeeds & ENeeds.ENERGY) > 0) desireability = Mathf.Max(desireability, GetUtilityForNeed(entity, ENeedID.ENERGY));
+                if ((theNeeds & ENeeds.FOOD) > 0) desireability = Mathf.Max(desireability, GetUtilityForNeed(entity, ENeedID.FOOD));
+                if ((theNeeds & ENeeds.SOCIAL) > 0) desireability = Mathf.Max(desireability, GetUtilityForNeed(entity, ENeedID.SOCIAL));
+                if ((theNeeds & ENeeds.ENJOYMENT) > 0) desireability = Mathf.Max(desireability, GetUtilityForNeed(entity, ENeedID.ENJOYMENT));
+                desireability /= Mathf.Sqrt((entity.GetTransform.position - actorLocation.position).magnitude) + 2;
                 return desireability;
             }
             else
             {
                 return 0.0f;
             }
+        }
+
+
+        private float GetUtilityForNeed(ITalkerAI entity, ENeedID theNeed)
+        {
+            float desireability = (satisfaction * desireabilityFactor)
+                                + Mathf.Sqrt((satisfaction * desireabilityFactor) / (timeToDo + 60f) + 1) - 1;
+            desireability *= entity.GetNeed(theNeed).GetDrive();
+            return desireability;
         }
 
 

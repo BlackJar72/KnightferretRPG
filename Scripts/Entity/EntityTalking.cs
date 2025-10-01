@@ -13,6 +13,7 @@ namespace kfutils.rpg
         [SerializeField] ActivityChooser needChooser;
 
         public ActivityChooser NeedChooser => needChooser;
+        public CoreNeeds GetNeeds => needs;
 
 
         protected override void Awake()
@@ -29,7 +30,7 @@ namespace kfutils.rpg
         }
 
 
-        public Need GetNeed(ENeed need)
+        public Need GetNeed(ENeedID need)
         {
             return needs.GetNeed(need);
         }
