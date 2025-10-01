@@ -123,6 +123,12 @@ namespace kfutils.rpg {
         }
 
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();            
+        }
+
+
         public void EquiptItem(ItemStack item)
         {
             if (item != null)

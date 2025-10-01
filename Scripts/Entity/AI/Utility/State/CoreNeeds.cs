@@ -30,9 +30,9 @@ namespace kfutils.rpg
     {
 
         [SerializeField] Need energy = new Need(0.8f, 1.2f, 0.9f);
-        [SerializeField] Need nourishment = new Need(0.75f, 1.5f, 0.8f);
-        [SerializeField] Need social = new Need(0.25f, 1.0f);
-        [SerializeField] Need enjoyment = new Need(0.5f, 1.0f);
+        [SerializeField] Need nourishment = new Need((2.0f + Mathf.PI) / 10, 1.5f, 0.8f);
+        [SerializeField] Need social = new Need(1.61803398875f / 10, 1.0f);
+        [SerializeField] Need enjoyment = new Need(2.71828182846f / 10, 1.0f);
 
         public ITalker character;
 
@@ -55,6 +55,12 @@ namespace kfutils.rpg
             nourishment.Decay();
             social.Decay();
             enjoyment.Decay();
+        }
+
+
+        public void UpdateNeedsAsleep()
+        {
+            nourishment.Decay();
         }
 
 

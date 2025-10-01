@@ -15,7 +15,7 @@ namespace kfutils.rpg {
         [SerializeField] /*[HideInInspector]*/ [Range(0, 1)] float value;
         
         [Tooltip("The number of in-game days to fully decay")]
-        [SerializeField] float decayRate = 1.0f;
+        [SerializeField] float decayTime = 1.0f;
         [SerializeField] float importance = 1.0f;
         [SerializeField] float driveOrigin = 1.2f;
 
@@ -27,7 +27,7 @@ namespace kfutils.rpg {
         public Need(float decayRate, float importance, float driveOrigin = 1.2f)
         {
             value = 1.0f;
-            this.decayRate = decayRate;
+            this.decayTime = decayRate;
             this.importance = importance;
             this.driveOrigin = driveOrigin;
         }
@@ -44,7 +44,7 @@ namespace kfutils.rpg {
         /// For simple needs that just decay over time; may be used as part of some less complex needs
         /// </summary>
         public void Decay() {
-            value -= (decayRate * Time.deltaTime) / TIME_SCALE;
+            value -= (TIME_SCALE * Time.deltaTime) / decayTime;
             Bound();
         }
 
@@ -76,7 +76,7 @@ namespace kfutils.rpg {
         /// for needs that recharge slowly during activities like sleeping or eating.
         /// </summary>
         public void ApplySituationChange(float amount) {
-            value += (amount * Time.deltaTime) / TIME_SCALE;
+            value += (TIME_SCALE * Time.deltaTime) * amount;
             Bound();
         }
 
@@ -89,7 +89,7 @@ namespace kfutils.rpg {
         /// prototype and many not actually be used in a typical RPG.
         /// </summary>
         public void TrackTargetValue(float target) {
-            float amount = ((target - value) * Time.deltaTime) / TIME_SCALE;
+            float amount = ((target - value) * Time.deltaTime) * TIME_SCALE;
             value += (amount * 0.25f) + Mathf.Max(amount, 0);
             Bound();
         }

@@ -36,7 +36,8 @@ namespace kfutils.rpg {
             if (equipt == null) FixEquipt();
             equipt.mainInventory = this;
             InventoryData data = InventoryManagement.GetInventoryData(ID);
-            if(data == null) {
+            if (data == null)
+            {
                 data = new(this);
                 InventoryManagement.StoreInventoryData(data);
                 foreach (ItemStack.ProtoStack stack in startingItems)
@@ -47,13 +48,16 @@ namespace kfutils.rpg {
                     {
                         if (!equipt.AddItemNoSlot(item)) AddToFirstEmptySlot(stack.MakeStack());
                     }
-                    else AddToFirstEmptySlot(stack.MakeStack()); 
+                    else AddToFirstEmptySlot(stack.MakeStack());
                 }
-            } else {
+            }
+            else
+            {
                 inventory = data.inventory;
                 weight = data.weight;
             }
             Register();
+            initialized = true;
         }
 
 

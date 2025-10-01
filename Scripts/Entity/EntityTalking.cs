@@ -15,10 +15,17 @@ namespace kfutils.rpg
         public ActivityChooser NeedChooser => needChooser;
 
 
-        void Awake()
+        protected override void Awake()
         {
             base.Awake();
             needs.Init(this);
+        }
+
+
+        protected override void Update()
+        {
+            base.Update();
+            needs.UpdateNeeds();
         }
 
 

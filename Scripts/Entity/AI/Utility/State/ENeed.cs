@@ -21,6 +21,7 @@ namespace kfutils.rpg
     /// <summary>
     /// Used to tag how an IActivityObject should be handled.
     /// </summary>
+    [System.Serializable]
     public enum EObjectActivity
     {
         NEED_DISCRETE = 0,

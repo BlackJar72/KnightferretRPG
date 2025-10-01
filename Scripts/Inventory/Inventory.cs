@@ -49,17 +49,25 @@ namespace kfutils.rpg {
         // For Testing; TODO??: Get rid of this, but add some other way to add starting gear ... or, do I need to...?
         [SerializeField] protected ItemStack.ProtoStack[] startingItems;
 
+        protected bool initialized = false;
+        public bool Initialized => initialized;
 
-        public virtual void OnEnable() {
+
+        public virtual void OnEnable()
+        {
             InventoryData data = InventoryManagement.GetInventoryData(id);
-            if(data == null) {
+            if (data == null)
+            {
                 data = new(this);
                 InventoryManagement.StoreInventoryData(data);
-                foreach(ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
-            } else {
+                foreach (ItemStack.ProtoStack stack in startingItems) AddToFirstEmptySlot(stack.MakeStack());
+            }
+            else
+            {
                 inventory = data.inventory;
                 weight = data.weight;
             }
+            initialized = true;
         }
 
 

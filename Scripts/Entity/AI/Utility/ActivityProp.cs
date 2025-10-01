@@ -26,6 +26,7 @@ namespace kfutils.rpg
     {
         [SerializeField] string id;
         [SerializeField] ENeed theNeed;
+        [Tooltip("Should be NEED_DISCRETE or NEED_CONTINUOUS")][SerializeField] EObjectActivity activityType;
         [SerializeField] AbstractAction useAction;
         [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
         [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
@@ -36,7 +37,6 @@ namespace kfutils.rpg
         public bool available = true;
 
         private float desireability;
-
         public ENeed TheNeed => theNeed;
         public float Satisfaction => satisfaction;
         public AbstractAction UseAction => useAction;
@@ -47,6 +47,10 @@ namespace kfutils.rpg
         public string ID => id;
 
         public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
+
+        public ENeed GetNeed => theNeed;
+
+        public EObjectActivity ActivityType => activityType;
 
 
         void OnEnable()
