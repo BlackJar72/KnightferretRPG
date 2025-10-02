@@ -1,4 +1,6 @@
 using System;
+using Gaia;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -8,12 +10,15 @@ namespace kfutils.rpg
     [CreateAssetMenu(menuName = "KF-RPG/AI/States/Utility Need Seeker", fileName = "UtilityNeedSeeker", order = 256)]
     public class NeedSeekState : AIState
     {
+        private const int MAX_QUEUE = 6;
+
         private delegate void CurrentAction();
         private CurrentAction currentAction;
 
         private IActivityObject activityObject;
         private float activityTimer;
         private ActivityChooser chooser;
+        private RingDeque<IActivityObject> activityQueue;
 
         private ITalkerAI entity;
 
@@ -25,6 +30,7 @@ namespace kfutils.rpg
             {
                 chooser = ai.NeedChooser;
                 entity = ai;
+                activityQueue = new(MAX_QUEUE);
             }
             else
             {
@@ -36,7 +42,6 @@ namespace kfutils.rpg
 #endif
             }
         }
-
 
 
         public override void StateEnter()
@@ -55,8 +60,6 @@ namespace kfutils.rpg
         {
             currentAction();
         }
-
-
         public void ChooseActivity()
         {
             ActivityHolder activity = entity.ChooseNeedActivity();

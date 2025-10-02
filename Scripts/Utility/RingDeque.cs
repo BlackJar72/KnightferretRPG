@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
 
 
 // FIXME: THis should just be in kfutils, not RPG specfic
-namespace kfutils.rpg
+namespace kfutils
 {
     /// <summary>
     /// Implents a non-expandable Deque in an array that acts as a ring structure.
@@ -32,6 +34,7 @@ namespace kfutils.rpg
 
         public bool IsReadOnly => false;
         public bool IsFull => count >= data.Length;
+        public bool HasSpace => count < data.Length;
         public bool IsEmpty => count < 1;
 
 
@@ -43,24 +46,42 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Adds a new element to the front of the deque.  If full the 
+        /// last elements will be pushed off the end (deleted from the
+        /// deque).
+        /// </summary>
+        /// <param name="elem"></param>
         public void AddFront(T elem)
         {
             start = (start + data.Length - 1) % data.Length;
             data[start] = elem;
             if (start == stop) stop = (stop + data.Length - 1) % data.Length;
-            else count++;
+            count = Mathf.Min(++count, data.Length);
         }
 
 
+        /// <summary>
+        /// Adds a element to the end of the deque.  If the deque is full 
+        /// the first element will be pushed off the front (deleted from 
+        /// the deque).
+        /// </summary>
+        /// <param name="elem"></param>
         public void AddBack(T elem)
         {
-            stop = (stop + 1) % data.Length;
             data[stop] = elem;
-            if (start == stop) stop = (start + 1) % data.Length;
-            else count++;
+            stop = (stop + 1) % data.Length;
+            count++;
+            if (count > data.Length) start = (start + 1) % data.Length;
+            count = Mathf.Min(count, data.Length);
         }
 
 
+        /// <summary>
+        /// Will add a new element to the front deque if and only if it is 
+        /// not already full.  Otherwise it will fail.
+        /// </summary>
+        /// <param name="elem"></param>
         public void AddFrontSafe(T elem)
         {
             if (count < data.Length)
@@ -72,17 +93,51 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Will add a new element to the end of the deeuq if and only if it 
+        /// is not already full.  Otherwise it will fail.
+        /// </summary>
+        /// <param name="elem"></param>
         public void AddBackSafe(T elem)
         {
             if (count < data.Length)
             {
-                stop = (stop + 1) % data.Length;
                 data[stop] = elem;
+                stop = (stop + 1) % data.Length;
                 count++;
             }
         }
 
 
+        /// <summary>
+        /// Replace the first element of the deque with the provided 
+        /// element.  The deque will not otherwise change.  If the 
+        /// deque is empty this will have no effect.
+        /// </summary>
+        /// <param name="elem"></param>
+        public void ReplaceFront(T elem)
+        {
+            data[start] = elem;
+        }
+
+
+        /// <summary>
+        /// Replaces the last element of the deque with the provided 
+        /// element.  The deque will not otherwise change.  If the 
+        /// deque is empty this will do nothing.
+        /// </summary>
+        /// <param name="elem"></param>
+        public void ReplaceBack(T elem)
+        {
+            data[start] = elem;
+        }
+
+
+        /// <summary>
+        /// Pops the first item fromt he deque, returning it as the result.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public T PopFront()
         {
             if (count < 1) throw new IndexOutOfRangeException();
@@ -93,6 +148,11 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Pops the last item from the deque, returning it as the result.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public T PopBack()
         {
             if (count < 1) throw new IndexOutOfRangeException();
@@ -103,6 +163,11 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Returns the first element of the deque without altering its contents.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public T PeekFront()
         {
             if (count < 1) throw new IndexOutOfRangeException();
@@ -110,6 +175,11 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Returnes the last element in the deque without altering its contents.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public T PeekBack()
         {
             if (count < 1) throw new IndexOutOfRangeException();
@@ -117,6 +187,10 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Returns the contents of the deque as an array.
+        /// </summary>
+        /// <returns></returns>
         public T[] ToArray()
         {
             T[] result = new T[count];
@@ -128,6 +202,10 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Returns the contents of the deque as a List.
+        /// </summary>
+        /// <returns></returns>
         public List<T> ToList()
         {
             List<T> result = new(count);
@@ -154,18 +232,34 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Adds an item to the ends, removing the first elements if full. 
+        /// The wraps AddBack(T elem) as is only here for compatibility with 
+        /// ICollection.
+        /// </summary>
+        /// <param name="item"></param>
         public void Add(T item)
         {
             AddBack(item);
         }
 
 
+        /// <summary>
+        ///  Removes all elements from the deque.  Technically this resets 
+        /// the beginning, end, and count to 0 and does not alter the backing 
+        /// array.
+        /// </summary>
         public void Clear()
         {
             start = stop = count = 0;
         }
 
 
+        /// <summary>
+        /// Returns true of the deque contains the item.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Contains(T item)
         {
             for (int i = 0; i < count; i++)
@@ -176,6 +270,12 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Copies the data into the provided array starting at the given inded, stopping 
+        /// when either the deque or array reaches its end.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
         public void CopyTo(T[] array, int arrayIndex)
         {
             for (int i = 0; (i < count) && ((i + arrayIndex) < array.Length); i++)
@@ -185,6 +285,11 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Removes the first instance of the item from the deque. 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Remove(T item)
         {
             if (count == 0) return false;
@@ -203,6 +308,11 @@ namespace kfutils.rpg
         }
 
 
+        /// <summary>
+        /// Removes tha element at the given index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public bool RemoveAt(int index)
         {
             if (count == 0) return false;
@@ -212,6 +322,23 @@ namespace kfutils.rpg
             }
             count--;
             return true;
+        }
+
+
+        /// <summary>
+        /// Returns a string representation of the deque.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            StringBuilder builder = new("[");
+            for (int i = 0; i < count; i++)
+            {
+                builder.Append(data[(start + i) % data.Length]);
+                if (i < (count - 1)) builder.Append(", ");
+            }
+            builder.Append("]");
+            return builder.ToString();
         }
 
 
