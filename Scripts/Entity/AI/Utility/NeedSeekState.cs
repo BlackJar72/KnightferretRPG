@@ -105,6 +105,7 @@ namespace kfutils.rpg
                 entity.GetNeeds.AddToNeeds(activityObject.GetNeed, activityObject.Satisfaction);
                 currentAction = WaitUntilDone;
             }
+            if (activityObject.ActivityCode == EActivityRun.START) activityObject.RunSpecialCode(entity, this);
         }
 
 
@@ -114,6 +115,7 @@ namespace kfutils.rpg
             {
                 currentAction = ChooseActivity;
             }
+            if (activityObject.ActivityCode == EActivityRun.CONTINUOUS) activityObject.RunSpecialCode(entity, this);
         }
 
 
@@ -125,6 +127,7 @@ namespace kfutils.rpg
             {
                 currentAction = ChooseActivity;
             }
+            if (activityObject.ActivityCode == EActivityRun.CONTINUOUS) activityObject.RunSpecialCode(entity, this);
         }
 
 

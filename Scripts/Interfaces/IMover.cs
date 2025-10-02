@@ -15,4 +15,13 @@ namespace kfutils.rpg
     }
 
 
+    public interface IMoverAI : IMover
+    {
+        public void SetDestination(Vector3 to, float stopDist = 0.0f);
+
+
+
+    }
+
+
 }

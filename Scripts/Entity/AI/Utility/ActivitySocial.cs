@@ -18,6 +18,8 @@ namespace kfutils.rpg
 
         public float Satisfaction => throw new System.NotImplementedException();
 
+        public EActivityRun ActivityCode => throw new System.NotImplementedException();
+
         public ActivityHolder GetActivityOption(ITalkerAI entity)
         {
             return new ActivityHolder(this, GetUtility(entity));
@@ -30,9 +32,10 @@ namespace kfutils.rpg
         }
 
 
-
-
-
+        public void RunSpecialCode(ITalkerAI ai, AIState aiState)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 

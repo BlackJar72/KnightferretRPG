@@ -12,6 +12,7 @@ namespace kfutils.rpg
         public CoreNeeds GetNeeds { get; }
         public ActivityChooser NeedChooser { get; }
         public ActivityHolder ChooseNeedActivity(); 
+        public SelfActivity[] SelfActivities { get; }
 
 
 

@@ -44,7 +44,8 @@ namespace kfutils.rpg
         COMBAT_OPTION = 2,
         WEAPON = 3,
         SPELL = 4,
-        HEALTH_ITEM = 5
+        HEALTH_ITEM = 5,
+        SELF = 6
 
     }
 

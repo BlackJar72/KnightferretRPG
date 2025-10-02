@@ -15,17 +15,20 @@ namespace kfutils.rpg
         [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
         [SerializeField] float timeToDo;
         [SerializeField] AbstractAction useAction;
+        [SerializeField] EActivityRun activityRun;
 
         public ENeeds TheNeed => theNeeds;
         public float DesireabilityFactor => desireabilityFactor;
         public float TimeToDo => timeToDo;
-
         public AbstractAction UseAction => useAction;
-
         public ENeeds GetNeed => theNeeds;
         public float Satisfaction => satisfaction;
-
         public EObjectActivity ActivityType => activityType;
+        public EActivityRun ActivityCode => activityRun;
+        [SerializeField] ECodeToRun codeToRun;
+
+        public delegate void SpecialCode(ITalkerAI ai, ActivityItem activity, AIState aiState);
+
 
         public ActivityHolder GetActivityOption(ITalkerAI entity)
         {
@@ -44,6 +47,12 @@ namespace kfutils.rpg
         }
 
 
+        public void RunSpecialCode(ITalkerAI ai, AIState aiState)
+        {
+            effects[(int)codeToRun](ai, this, aiState);
+        }
+
+
         private float GetUtilityForNeed(ITalkerAI entity, ENeedID theNeed)
         {
             float desireability = (satisfaction * desireabilityFactor)
@@ -51,6 +60,40 @@ namespace kfutils.rpg
             desireability *= entity.GetNeed(theNeed).GetDrive();
             return desireability;
         }
+
+
+        #region Special Code
+        /*******************************************************************************************/
+        /*                                 SPECIAL CODE                                            */
+        /*******************************************************************************************/
+
+
+        public enum ECodeToRun
+        {
+            NONE = 0,
+            WANDER = 1
+        }
+
+
+        /// <summary>
+        /// And array of delegate methods for potion effects.  These must be in the same order as the corresponding 
+        /// enum constants in order to match them up correctly.  
+        /// </summary>
+        private static SpecialCode[] effects = new SpecialCode[]{
+            DoNothing,
+        };
+
+
+        private static void DoNothing(ITalkerAI ai, ActivityItem activity, AIState aiState) { }
+
+
+
+
+
+        #endregion
+
+    
+    
 
 
 

@@ -11,9 +11,11 @@ namespace kfutils.rpg
         [SerializeField] Personality personality;
         [SerializeField] CoreNeeds needs;
         [SerializeField] ActivityChooser needChooser;
+        [SerializeField] SelfActivity[] selfActivities;
 
         public ActivityChooser NeedChooser => needChooser;
         public CoreNeeds GetNeeds => needs;
+        public SelfActivity[] SelfActivities => selfActivities;
 
 
         protected override void Awake()
@@ -45,7 +47,9 @@ namespace kfutils.rpg
         }
 
 
-        
+
+
+
     }
 
 

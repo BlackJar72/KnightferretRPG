@@ -27,6 +27,8 @@ namespace kfutils.rpg
         [SerializeField] string id;
         [SerializeField] ENeeds theNeeds;
         [Tooltip("Should be NEED_DISCRETE or NEED_CONTINUOUS")][SerializeField] EObjectActivity activityType;
+        [SerializeField] EActivityRun activityRun;
+        [SerializeField] ECodeToRun codeToRun;
         [SerializeField] AbstractAction useAction;
         [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
         [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
@@ -45,12 +47,12 @@ namespace kfutils.rpg
         public Transform ActorLocation => actorLocation;
         public bool Shareable => shareable;
         public string ID => id;
-
         public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
-
         public ENeeds GetNeed => theNeeds;
-
         public EObjectActivity ActivityType => activityType;
+        public EActivityRun ActivityCode => activityRun;
+
+        public delegate void SpecialCode(ITalkerAI ai, ActivityProp activity, AIState aiState);
 
 
         void OnEnable()
@@ -105,8 +107,43 @@ namespace kfutils.rpg
         }
 
 
+        public void RunSpecialCode(ITalkerAI ai, AIState aiState)
+        {
+            effects[(int)codeToRun](ai, this, aiState);
+        }
 
 
+        #region Special Code
+        /*******************************************************************************************/
+        /*                                 SPECIAL CODE                                            */
+        /*******************************************************************************************/
+
+
+        public enum ECodeToRun
+        {
+            NONE = 0,
+            WANDER = 1
+        }
+
+
+        /// <summary>
+        /// And array of delegate methods for potion effects.  These must be in the same order as the corresponding 
+        /// enum constants in order to match them up correctly.  
+        /// </summary>
+        private static SpecialCode[] effects = new SpecialCode[]{
+            DoNothing,
+        };
+
+
+        private static void DoNothing(ITalkerAI ai, ActivityProp activity, AIState aiState) { }
+
+
+
+
+
+        #endregion
+
+    
     }
 
 

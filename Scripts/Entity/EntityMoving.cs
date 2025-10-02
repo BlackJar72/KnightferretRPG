@@ -18,7 +18,7 @@ namespace kfutils.rpg {
 
 
     [RequireComponent(typeof(CharacterController))]
-    public class EntityMoving : EntityLiving, IMover
+    public class EntityMoving : EntityLiving, IMoverAI
     {
         [SerializeField] protected CharacterController controller;
         [SerializeField] protected MovementSet movementSetPrototype;

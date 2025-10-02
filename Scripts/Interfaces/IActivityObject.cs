@@ -20,9 +20,20 @@ namespace kfutils.rpg
         public float TimeToDo { get; }
         public ENeeds GetNeed { get; }
         public EObjectActivity ActivityType { get; }
+        public EActivityRun ActivityCode { get; }
 
 
+        public void RunSpecialCode(ITalkerAI ai, AIState aiState);
 
+
+    }
+
+
+    public enum EActivityRun
+    {
+        NONE,
+        START,
+        CONTINUOUS,
     }
 
 }

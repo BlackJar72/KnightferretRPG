@@ -25,7 +25,7 @@ namespace kfutils.rpg {
     
     public class Inventory : AInventory {
 
-        [SerializeField] string id;
+        [SerializeField] protected string id;
 
         public List<ItemStack> inventory = new();
 

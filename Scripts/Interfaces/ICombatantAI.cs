@@ -1,11 +1,7 @@
-using kfutils.rpg;
-using UnityEngine;
-
-
 namespace kfutils.rpg
 {
 
-    public interface ICombatantAI : ICombatant
+    public interface ICombatantAI : ICombatant, IMoverAI
     {
         
         // TODO: Add relevant parameters to these methods, once we know what they are (i.e., have created entities)
