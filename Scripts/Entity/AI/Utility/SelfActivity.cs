@@ -35,7 +35,7 @@ namespace kfutils.rpg
 
         public float GetUtility(ITalkerAI entity)
         {
-            return (Random.value * 0.5f) + 0.1f; // This will likely need to be tweaked
+            return (Random.value * 0.4f) + 0.1f; // This will likely need to be tweaked
         }
 
 

@@ -108,7 +108,7 @@ namespace kfutils.rpg {
 
         protected virtual void StoreData()
         {
-            data.livingData = new();
+            data.livingData ??= new();
             data.livingData.entityName = entityName;
             data.livingData.attributes = attributes;
             data.livingData.health = health;

@@ -21,12 +21,12 @@ namespace kfutils.rpg {
 
         private ChunkData data;
 
-        private List<ActivityProp> activityProps = new List<ActivityProp>();
+        private List<IActivityObject> activityProps = new List<IActivityObject>();
 
 
         public ChunkData Data => data;
         public Transform LooseItems => looseItems;
-        public List<ActivityProp> ActivityProps => activityProps;
+        public List<IActivityObject> ActivityProps => activityProps;
 
 
         public void SetID(string id)

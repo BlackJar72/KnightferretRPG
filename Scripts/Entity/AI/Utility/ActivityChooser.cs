@@ -52,16 +52,20 @@ namespace kfutils.rpg
         }
 
 
-        public void PopulateActivityList(ITalkerAI ai, List<ActivityProp> props)
+        public void PopulateActivityList(ITalkerAI ai, params List<IActivityObject>[] activities)
         {
             choices.Clear();
-            foreach (ActivityProp prop in props)
+            for (int i = 0; i < activities.Length; i++)
             {
-                choices.Add(prop.GetActivityOption(ai));
+                foreach (IActivityObject prop in activities[i])
+                {
+                    choices.Add(prop.GetActivityOption(ai));
+                }
             }
-            foreach (SelfActivity selfActivity in ai.SelfActivities) {
-                choices.Add(selfActivity.GetActivityOption(ai));
-            }
+            foreach (SelfActivity selfActivity in ai.SelfActivities)
+                {
+                    choices.Add(selfActivity.GetActivityOption(ai));
+                }
         }
         
 

@@ -101,7 +101,7 @@ namespace kfutils.rpg {
         protected override void StoreData()
         {
             base.StoreData();
-            data.movingData = new();
+            data.movingData ??= new();
             data.movingData.movement = movement;
             data.movingData.heading = heading;
             data.movingData.rotation = rotation;
@@ -112,6 +112,7 @@ namespace kfutils.rpg {
             data.movingData.velocity = velocity;
             data.movingData.falling = falling;
             data.movingData.onGround = onGround;
+            data.movingData.navSeekerPos = navSeeker.transform.position;
         }
 
 
@@ -128,6 +129,7 @@ namespace kfutils.rpg {
             velocity = data.movingData.velocity;
             falling = data.movingData.falling;
             onGround = data.movingData.onGround;
+            navSeeker.transform.position = data.movingData.navSeekerPos;
         }
 
 

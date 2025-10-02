@@ -25,6 +25,20 @@ namespace kfutils.rpg
         }
 
 
+        protected override void StoreData()
+        {
+            base.StoreData();
+            // TODO: Store Data
+        }
+
+
+        protected override void LoadData()
+        {
+            base.LoadData();
+            // TODO: Store Data
+        }
+
+
         protected override void Update()
         {
             base.Update();
@@ -41,7 +55,7 @@ namespace kfutils.rpg
         public ActivityHolder ChooseNeedActivity()
         {
             ChunkManager chunk = GetChunkManager;
-            List<ActivityProp> props = chunk.ActivityProps;
+            List<IActivityObject> props = chunk.ActivityProps;
             needChooser.PopulateActivityList(this, props);
             return needChooser.Choose();
         }

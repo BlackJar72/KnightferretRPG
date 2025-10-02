@@ -28,6 +28,7 @@ namespace kfutils.rpg {
 
         // Accessor Properties
         static public Dictionary<string, EntityData> EntityRegistry => entityRegistry;
+        
 
 
         // TODO:  I *NEED* to create a proper entity registry, where copies or all entities can be kept and serialized, allowing all (other?) lists to be
@@ -39,7 +40,8 @@ namespace kfutils.rpg {
         //          (How much data? -- not that much per entity, but how many entities might there be?  
         //          In the age of multi-gigabyte ram, probably not a lot relatively speaking.)  
 
-        public static void Initialize() {
+        public static void Initialize()
+        {
             entityRegistry = new Dictionary<string, EntityData>();
 
             allEntities = new List<EntityLiving>();

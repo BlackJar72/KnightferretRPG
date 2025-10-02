@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class MovingData {
+    public class MovingData
+    {
 
         public Vector3 movement;
         public Vector3 heading;
@@ -15,6 +16,7 @@ namespace kfutils.rpg {
         public Vector3 velocity;
         public bool falling;
         public bool onGround;
+        public Vector3 navSeekerPos; 
         
         
 

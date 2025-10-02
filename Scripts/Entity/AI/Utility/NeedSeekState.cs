@@ -50,7 +50,7 @@ namespace kfutils.rpg
 
         public override void StateExit()
         {
-
+            EndActivity();
         }
 
 
@@ -58,10 +58,17 @@ namespace kfutils.rpg
         {
             currentAction();
         }
+
+
+
         public void ChooseActivity()
         {
-            ActivityHolder activity = entity.ChooseNeedActivity();
-            SetCurrentActivity(activity);
+            if (!activityQueue.IsEmpty) SetCurrentActivity(activityQueue.PopFront());
+            else
+            {
+                ActivityHolder activity = entity.ChooseNeedActivity();
+                SetCurrentActivity(activity);
+            }
         }
 
 
@@ -74,6 +81,28 @@ namespace kfutils.rpg
                 currentAction = StartSeekLocation;
             }
         }
+
+
+        private void SetCurrentActivity(IActivityObject activity)
+        {
+            if (activity != null)
+            {
+                activityTimer = 0.0f;
+                activityObject = activity;
+                currentAction = StartSeekLocation;
+            }
+        }
+
+
+        public void QueueActivityBack(IActivityObject activity) => activityQueue.AddBack(activity);
+        public void QueueActivityFront(IActivityObject activity) => activityQueue.AddFrontSafe(activity);
+
+
+        public void ReplaceNextQueued(IActivityObject activity)
+        {
+            if (activityQueue.IsEmpty) activityQueue.AddFront(activity);
+            else activityQueue.ReplaceFront(activity);
+        } 
 
 
         /*         
@@ -107,6 +136,7 @@ namespace kfutils.rpg
                 currentAction = WaitUntilDone;
             }
             if (activityObject.ActivityCode == EActivityRun.START) activityObject.RunSpecialCode(entity, this);
+            if (activityObject is ActivityProp prop) prop.available = false;
         }
 
 
@@ -114,7 +144,7 @@ namespace kfutils.rpg
         {
             if (Time.time > activityTimer)
             {
-                currentAction = ChooseActivity;
+                EndActivity();
             }
             if (activityObject.ActivityCode == EActivityRun.CONTINUOUS) activityObject.RunSpecialCode(entity, this);
         }
@@ -126,9 +156,19 @@ namespace kfutils.rpg
                                     (activityObject.Satisfaction / activityObject.TimeToDo) * Time.deltaTime);
             if (Time.time > activityTimer)
             {
-                currentAction = ChooseActivity;
+                EndActivity();
             }
             if (activityObject.ActivityCode == EActivityRun.CONTINUOUS) activityObject.RunSpecialCode(entity, this);
+        }
+
+
+        private void EndActivity()
+        {
+            if (activityObject is ActivityProp prop)
+            {
+                prop.available = true;
+            }
+            currentAction = ChooseActivity;
         }
 
 

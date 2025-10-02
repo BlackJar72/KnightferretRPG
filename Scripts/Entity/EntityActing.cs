@@ -60,7 +60,7 @@ namespace kfutils.rpg {
         protected override void StoreData()
         {
             base.StoreData();
-            data.actingData = new();
+            data.actingData ??= new();
             data.actingData.disposition = disposition;
             if (targetEnemy == null) data.actingData.targetEnemy = "";
             else data.actingData.targetEnemy = targetEnemy.ID;
@@ -73,7 +73,7 @@ namespace kfutils.rpg {
             InventoryManagement.loadNPCInventoryData += LoadInventoryData;
             inventory.OnEnable();
             disposition = data.actingData.disposition;
-            // TODO: Find entity, if any, that has aggro
+            
         }
 
 
