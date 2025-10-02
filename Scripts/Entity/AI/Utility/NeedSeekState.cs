@@ -94,8 +94,8 @@ namespace kfutils.rpg
         }
 
 
-        public void QueueActivityBack(IActivityObject activity) => activityQueue.AddBack(activity);
-        public void QueueActivityFront(IActivityObject activity) => activityQueue.AddFrontSafe(activity);
+        public void QueueActivityBack(IActivityObject activity) => activityQueue.AddBackSafe(activity);
+        public void QueueActivityFront(IActivityObject activity) => activityQueue.AddFront(activity);
 
 
         public void ReplaceNextQueued(IActivityObject activity)
