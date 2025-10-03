@@ -4,7 +4,8 @@ using UnityEngine;
 namespace kfutils.rpg
 {
 
-    public class ActivityItem : MonoBehaviour, IActivityObject
+    [System.Serializable]
+    public class ActivityItem : IActivityObject
     {
 
         // QUESTION: Shouod this exist, or be combined with ItemPrototype???
@@ -16,6 +17,7 @@ namespace kfutils.rpg
         [SerializeField] float timeToDo;
         [SerializeField] AbstractAction useAction;
         [SerializeField] EActivityRun activityRun;
+        
 
         public ENeeds TheNeed => theNeeds;
         public float DesireabilityFactor => desireabilityFactor;
@@ -92,8 +94,8 @@ namespace kfutils.rpg
 
         #endregion
 
-    
-    
+
+
 
 
 

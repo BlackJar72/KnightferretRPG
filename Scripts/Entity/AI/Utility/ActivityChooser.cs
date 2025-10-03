@@ -57,15 +57,27 @@ namespace kfutils.rpg
             choices.Clear();
             for (int i = 0; i < activities.Length; i++)
             {
-                foreach (IActivityObject prop in activities[i])
+                foreach (IActivityObject activity in activities[i])
                 {
-                    choices.Add(prop.GetActivityOption(ai));
+                    choices.Add(activity.GetActivityOption(ai));
                 }
             }
             foreach (SelfActivity selfActivity in ai.SelfActivities)
                 {
                     choices.Add(selfActivity.GetActivityOption(ai));
                 }
+        }
+
+
+        public void AddToList(params List<ActivityHolder>[] activities)
+        {
+            for (int i = 0; i < activities.Length; i++)
+            {
+                foreach (ActivityHolder activity in activities[i])
+                {
+                    choices.Add(activity);
+                }
+            }
         }
         
 

@@ -25,6 +25,7 @@ namespace kfutils.rpg {
 
         public static bool operator !=(SlotData slot1, SlotData slot2) 
                     => (slot1.inventory != slot2.inventory) || (slot1.invSlot != slot2.invSlot);
+                    
         // Allow access to object identity as well (I hope)
         public override bool Equals(object obj) => base.Equals(obj);
         public override int GetHashCode() => base.GetHashCode();

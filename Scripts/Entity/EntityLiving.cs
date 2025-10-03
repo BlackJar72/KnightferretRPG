@@ -49,7 +49,7 @@ namespace kfutils.rpg {
         protected virtual void MakePC(string id)
         {
             if (this is not PCMoving) Debug.LogError("You are not allowed to reset this ID!");
-            this.id = id;
+            else this.id = id;
         }
 
 

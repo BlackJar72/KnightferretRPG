@@ -102,7 +102,7 @@ namespace kfutils.rpg
         {
             if (activityQueue.IsEmpty) activityQueue.AddFront(activity);
             else activityQueue.ReplaceFront(activity);
-        } 
+        }
 
 
         /*         
@@ -120,6 +120,8 @@ namespace kfutils.rpg
         This would mean that all provided items would need to be considered, but then getting the item from 
         the provider would need to be queued.
         */
+
+        // TODO: Need to makes properly use items (now that it should be able to selection them).
 
 
         public void StartActivity()

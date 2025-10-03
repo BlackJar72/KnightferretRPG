@@ -56,7 +56,10 @@ namespace kfutils.rpg
         {
             ChunkManager chunk = GetChunkManager;
             List<IActivityObject> props = chunk.ActivityProps;
+            List<ActivityHolder> itemsDiscrete = inventory.GetActivities(EObjectActivity.NEED_DISCRETE, this);
+            List<ActivityHolder> itemsConinuous = inventory.GetActivities(EObjectActivity.NEED_CONTINUOUS, this);
             needChooser.PopulateActivityList(this, props);
+            needChooser.AddToList(itemsDiscrete, itemsConinuous);
             return needChooser.Choose();
         }
 

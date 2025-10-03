@@ -41,13 +41,14 @@ namespace kfutils.rpg
     [System.Serializable]
     public enum EObjectActivity
     {
-        NEED_DISCRETE = 0,
-        NEED_CONTINUOUS = 1,
-        COMBAT_OPTION = 2,
-        WEAPON = 3,
-        SPELL = 4,
-        HEALTH_ITEM = 5,
-        SELF = 6
+        NONE = 0, 
+        NEED_DISCRETE = 1,
+        NEED_CONTINUOUS = 2,
+        COMBAT_OPTION = 3,
+        WEAPON = 4,
+        SPELL = 5,
+        HEALTH_ITEM = 6,
+        SELF = 7
 
     }
 

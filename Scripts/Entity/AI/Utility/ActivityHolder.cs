@@ -5,20 +5,25 @@ using UnityEngine;
 namespace kfutils.rpg
 {
 
+    [System.Serializable]
     public sealed class ActivityHolder : IComparer<ActivityHolder>, System.IComparable<ActivityHolder>
     {
         // Probably will not be extended, but just incase.
-        private IActivityObject activityObject;
-        private float desirability;
+        [SerializeField] private IActivityObject activityObject;
+        [SerializeField] private float desirability;
+        [SerializeField] private ItemStack theItemStack;
 
         public IActivityObject ActivityObject => activityObject;
         public float Utility => desirability;
+        public ItemStack itemStack => theItemStack;
+        public bool IsItem => theItemStack != null;
 
 
-        public ActivityHolder(IActivityObject activity, float utility)
+        public ActivityHolder(IActivityObject activity, float utility, ItemStack item = null)
         {
             activityObject = activity;
             desirability = utility;
+            theItemStack = item;
         }
 
 
@@ -64,7 +69,7 @@ namespace kfutils.rpg
             activityHolder.desirability = utility;
         }
 
-        
+
     }
 
 

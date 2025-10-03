@@ -69,6 +69,19 @@ namespace kfutils.rpg {
         }
 
 
+
+        //-----------------------------------------------------------------------------------------------------------//
+        //                                       UTILITY AI SUPPORT                                                  //
+        //-----------------------------------------------------------------------------------------------------------//
+
+
+        public ActivityHolder GetItemUtility(EObjectActivity activityType, ITalkerAI ai)
+        {
+            return new ActivityHolder(item.Activity, item.GetItemUtility(activityType, ai), this);
+        }
+        
+
+
     }
 
 
