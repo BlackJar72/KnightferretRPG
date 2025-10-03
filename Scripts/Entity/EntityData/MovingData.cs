@@ -16,7 +16,7 @@ namespace kfutils.rpg {
         public Vector3 velocity;
         public bool falling;
         public bool onGround;
-        public Vector3 navSeekerPos; 
+        public TransformData navSeekerPos; 
         
         
 

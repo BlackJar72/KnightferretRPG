@@ -90,6 +90,7 @@ namespace kfutils.rpg {
         {
             inventory.Remove(item);
             SignalUpdate();
+            SignalSlotEmptied(item.slot);
         }
 
         public override ItemStack GetByBackingIndex(int index) {
@@ -178,6 +179,7 @@ namespace kfutils.rpg {
                 if(inventory[i].slot == slot) {
                     inventory.RemoveAt(i);
                     SignalUpdate();
+                    SignalSlotEmptied(slot);
                     return;
                 }
             }

@@ -16,13 +16,15 @@ namespace kfutils.rpg
         FOOD = 1,
         SOCIAL = 2,
         ENJOYMENT = 3
-    }
-
+    } 
+    
+    
     /// <summary>
     /// Derived from the old character engine, but simpler, and intended purely for use 
     /// in NPC AI.
     /// </summary>
-    [System.Serializable][Flags]
+    [System.Serializable]
+    [Flags]
     public enum ENeeds
     {
         NONE = 0, 

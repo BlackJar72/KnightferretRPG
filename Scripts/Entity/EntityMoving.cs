@@ -112,7 +112,7 @@ namespace kfutils.rpg {
             data.movingData.velocity = velocity;
             data.movingData.falling = falling;
             data.movingData.onGround = onGround;
-            data.movingData.navSeekerPos = navSeeker.transform.position;
+            data.movingData.navSeekerPos = navSeeker.transform.GetGlobalData();
         }
 
 
@@ -129,7 +129,7 @@ namespace kfutils.rpg {
             velocity = data.movingData.velocity;
             falling = data.movingData.falling;
             onGround = data.movingData.onGround;
-            navSeeker.transform.position = data.movingData.navSeekerPos;
+            navSeeker.transform.SetDataGlobal(data.movingData.navSeekerPos);
         }
 
 
