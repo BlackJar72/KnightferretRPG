@@ -8,8 +8,8 @@ namespace kfutils.rpg
     [System.Serializable]
     public class ActivityChooser
     {
-        [SerializeField] List<ActivityHolder> choices = new List<ActivityHolder>();
-        [SerializeField] ActivityHolder currentActivity;
+        /*[SerializeField]*/ List<ActivityHolder> choices = new List<ActivityHolder>();
+        /*[SerializeField]*/ ActivityHolder currentActivity;
         
 
         // TODO: Add queue from queued activities (possibly using my new RingDeque).

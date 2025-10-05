@@ -13,10 +13,10 @@ namespace kfutils.rpg
         private delegate void CurrentAction();
         private CurrentAction currentAction;
 
-        private IActivityObject activityObject;
+        private ActivityHolder activity;
         private float activityTimer;
         private ActivityChooser chooser;
-        private RingDeque<IActivityObject> activityQueue;
+        private RingDeque<ActivityHolder> activityQueue;
 
         private ITalkerAI entity;
 
@@ -77,28 +77,17 @@ namespace kfutils.rpg
             if (activityHolder != null)
             {
                 activityTimer = 0.0f;
-                activityObject = activityHolder.ActivityObject;
+                activity = activityHolder;
                 currentAction = StartSeekLocation;
             }
         }
 
 
-        private void SetCurrentActivity(IActivityObject activity)
-        {
-            if (activity != null)
-            {
-                activityTimer = 0.0f;
-                activityObject = activity;
-                currentAction = StartSeekLocation;
-            }
-        }
+        public void QueueActivityBack(ActivityHolder activity) => activityQueue.AddBackSafe(activity);
+        public void QueueActivityFront(ActivityHolder activity) => activityQueue.AddFront(activity);
 
 
-        public void QueueActivityBack(IActivityObject activity) => activityQueue.AddBackSafe(activity);
-        public void QueueActivityFront(IActivityObject activity) => activityQueue.AddFront(activity);
-
-
-        public void ReplaceNextQueued(IActivityObject activity)
+        public void ReplaceNextQueued(ActivityHolder activity)
         {
             if (activityQueue.IsEmpty) activityQueue.AddFront(activity);
             else activityQueue.ReplaceFront(activity);
@@ -126,19 +115,24 @@ namespace kfutils.rpg
 
         public void StartActivity()
         {
-            entity.PlayAction(activityObject.UseAction.mask, activityObject.UseAction.anim);
-            activityTimer = Time.time + activityObject.TimeToDo;
-            if (activityObject.ActivityType == EObjectActivity.NEED_CONTINUOUS)
+            activityTimer = Time.time + activity.ActivityObject.TimeToDo;
+            if (activity.ActivityObject.ActivityType == EObjectActivity.NEED_CONTINUOUS)
             {
                 currentAction = DoActivity;
             }
             else
             {
-                entity.GetNeeds.AddToNeeds(activityObject.GetNeed, activityObject.Satisfaction);
+                entity.GetNeeds.AddToNeeds(activity.ActivityObject.GetNeed, activity.ActivityObject.Satisfaction);
                 currentAction = WaitUntilDone;
             }
-            if (activityObject.ActivityCode == EActivityRun.START) activityObject.RunSpecialCode(entity, this);
-            if (activityObject is ActivityProp prop) prop.available = false;
+            if (activity.ActivityObject.ActivityCode == EActivityRun.START) activity.ActivityObject.RunSpecialCode(entity, this);
+            if (activity.ActivityObject is ActivityProp prop) prop.available = false;
+            if (activity.ActivityObject is ActivityItem item)
+            {
+                entity.EquiptItem(activity.itemStack);
+                // FIXME / TODO: Have item be used (but when exactly)
+            }
+            entity.PlayAction(activity.ActivityObject.UseAction.mask, activity.ActivityObject.UseAction.anim);
         }
 
 
@@ -148,27 +142,31 @@ namespace kfutils.rpg
             {
                 EndActivity();
             }
-            if (activityObject.ActivityCode == EActivityRun.CONTINUOUS) activityObject.RunSpecialCode(entity, this);
+            if (activity.ActivityObject.ActivityCode == EActivityRun.CONTINUOUS) activity.ActivityObject.RunSpecialCode(entity, this);
         }
 
 
         public void DoActivity()
         {
-            entity.GetNeeds.AddToNeeds(activityObject.GetNeed,
-                                    (activityObject.Satisfaction / activityObject.TimeToDo) * Time.deltaTime);
+            entity.GetNeeds.AddToNeeds(activity.ActivityObject.GetNeed,
+                                    (activity.ActivityObject.Satisfaction / activity.ActivityObject.TimeToDo) * Time.deltaTime);
             if (Time.time > activityTimer)
             {
                 EndActivity();
             }
-            if (activityObject.ActivityCode == EActivityRun.CONTINUOUS) activityObject.RunSpecialCode(entity, this);
+            if (activity.ActivityObject.ActivityCode == EActivityRun.CONTINUOUS) activity.ActivityObject.RunSpecialCode(entity, this);
         }
 
 
         private void EndActivity()
         {
-            if (activityObject is ActivityProp prop)
+            if (activity.ActivityObject is ActivityProp prop)
             {
                 prop.available = true;
+            }
+            if (activity.ActivityObject is ActivityItem item)
+            {
+                entity.EquiptItem(activity.itemStack);
             }
             currentAction = ChooseActivity;
         }
@@ -176,7 +174,7 @@ namespace kfutils.rpg
 
         private void StartSeekLocation()
         {
-            if (activityObject is ActivityProp prop)
+            if (activity.ActivityObject is ActivityProp prop)
             {
                 owner.SetDestination(prop.ActorLocation.position);
                 currentAction = SeekActivityLocation;
@@ -190,7 +188,7 @@ namespace kfutils.rpg
 
         public void SeekActivityLocation()
         {
-            if ((activityObject is ActivityProp prop) && entity.AtLocation(prop.ActorLocation))
+            if ((activity.ActivityObject is ActivityProp prop) && entity.AtLocation(prop.ActorLocation))
             {
                 currentAction = StartActivity;
             }

@@ -133,6 +133,7 @@ namespace kfutils.rpg {
         {
             if (item != null)
             {
+                // FIXME: Its is equipt in world but not move to equipt slot
                 ItemEquipt equipt = itemLocations.EquipItem(item);
                 IUsable usable = equipt as IUsable;
                 if (usable != null)
@@ -246,6 +247,9 @@ namespace kfutils.rpg {
 
         public void UnequiptItem(EEquiptSlot slot)
         {
+            // FIXME: This does not unequip the item; it is neither moved  from 
+            // the equip slots to the main inventory, nor removed from its equipped 
+            // location in world! 
             itemLocations.UnequipItem(slot);
         }
 
