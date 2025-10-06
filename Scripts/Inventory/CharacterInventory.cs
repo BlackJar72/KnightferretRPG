@@ -123,7 +123,58 @@ namespace kfutils.rpg {
         */
 
 
+        /// <summary>
+        /// Use this to equip and item from the NPCs inventory
+        /// </summary>
+        /// <param name="stack"></param>
+        public void EquipItem(ItemStack stack)
+        {
+            EEquiptSlot equiptSlot = stack.item.EquiptType;
+            ItemStack currentEqipt = equipt.GetItemForSlotType(equiptSlot);
+            RemoveItem(stack);
+            equipt.AddItemNoSlot(stack);
+            AddToFirstEmptySlot(currentEqipt);
+            //owner.UnequiptItemFromBody(currentEqipt);
+            //owner.EquiptItemToBody(stack);            
+        }
 
+
+        /// <summary>
+        /// Use this method to add a new item to an NPCs main inventory.
+        /// </summary>
+        /// <param name="stack"></param>
+        public void AddNewItemNPC(ItemStack stack)
+        {
+            AddToFirstEmptySlot(stack);
+        }
+
+
+        /// <summary>
+        /// Use this method to add an item directly to the NPCs equipt slots, 
+        /// i.e., to give a new item and have it equipped imediately.
+        /// </summary>
+        /// <param name="stack"></param>
+        public void AddNewEquiptItem(ItemStack stack)
+        {
+            EEquiptSlot equiptSlot = stack.item.EquiptType;
+            ItemStack currentEqipt = equipt.GetItemForSlotType(equiptSlot);
+            equipt.AddItemNoSlot(stack);
+            AddToFirstEmptySlot(currentEqipt);
+            //owner.UnequiptItemFromBody(currentEqipt);
+            //owner.EquiptItemToBody(stack);
+        }
+
+
+        /// <summary>
+        /// Use this method to transfer an item from the equpt into the meain inventory.
+        /// </summary>
+        /// <param name="stack"></param>
+        public void UnequipItem(ItemStack stack)
+        {
+            equipt.RemoveItem(stack);
+            AddToFirstEmptySlot(stack);
+            owner.UnequiptItemFromBody(stack);
+        }
 
 
 

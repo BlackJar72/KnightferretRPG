@@ -83,6 +83,7 @@ namespace kfutils.rpg {
         {
             if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
+            item.slot = slot;
             mainInventory.Owner.EquiptItemToBody(item);
             SignalUpdate();
             return true;
@@ -102,6 +103,7 @@ namespace kfutils.rpg {
         public bool AddTwoHandedItem(ItemStack item) {
             if(item.slot == lhand) item.slot = rhand;
             if(item.slot == rhand) {
+                item.slot = rhand;
                 slots[rhand] = item;
                 slots[lhand] = item.Copy();
                 slots[lhand].slot = lhand;
@@ -280,12 +282,12 @@ namespace kfutils.rpg {
         }
 
 
-        public ItemStack GetItemForSlotType(EEquiptSlot slot) { 
-            if(slot == EEquiptSlot.HANDS) {
+        public ItemStack GetItemForSlotType(EEquiptSlot slotID) { 
+            if(slotID == EEquiptSlot.HANDS) {
                 return slots[rhand];
             }
             for(int i = 0; i < slots.Length; i++) {
-                if((slots[i].item != null) && slots[i].item.EquiptType == slot) return slots[i];
+                if((slots[i].item != null) && slots[i].item.EquiptType == slotID) return slots[i];
             }
             return null;
         }

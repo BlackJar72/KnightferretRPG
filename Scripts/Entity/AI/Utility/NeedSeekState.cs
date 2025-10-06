@@ -129,8 +129,12 @@ namespace kfutils.rpg
             if (activity.ActivityObject is ActivityProp prop) prop.available = false;
             if (activity.ActivityObject is ActivityItem item)
             {
-                entity.EquiptItemToBody(activity.itemStack);
+                entity.EquipItem(activity.itemStack);
                 // FIXME / TODO: Have item be used (but when exactly)
+                if (activity.itemStack.item.EquiptItem is IUsable)
+                {
+                    entity.UseItem(activity.itemStack.item.EquiptType);
+                }
             }
             entity.PlayAction(activity.ActivityObject.UseAction.mask, activity.ActivityObject.UseAction.anim);
         }
@@ -166,7 +170,10 @@ namespace kfutils.rpg
             }
             if (activity.ActivityObject is ActivityItem item)
             {
-                entity.UnequiptItemFromBody(activity.itemStack);
+                if (activity.itemStack.stackSize > 0)
+                {
+                    entity.UnequipItem(activity.itemStack);
+                }
             }
             currentAction = ChooseActivity;
         }

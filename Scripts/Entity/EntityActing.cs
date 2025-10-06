@@ -73,7 +73,7 @@ namespace kfutils.rpg {
             InventoryManagement.loadNPCInventoryData += LoadInventoryData;
             inventory.OnEnable();
             disposition = data.actingData.disposition;
-            
+
         }
 
 
@@ -125,8 +125,14 @@ namespace kfutils.rpg {
 
         protected override void OnEnable()
         {
-            base.OnEnable();            
+            base.OnEnable();
         }
+
+
+        public void EquipItem(ItemStack stack) => inventory.EquipItem(stack);
+        public void AddNewItemNPC(ItemStack stack) => inventory.AddNewItemNPC(stack);
+        public void AddNewEquiptItem(ItemStack stack) => inventory.AddNewEquiptItem(stack);
+        public void UnequipItem(ItemStack stack) => inventory.UnequipItem(stack);
 
 
         public void EquiptItemToBody(ItemStack item)
@@ -140,6 +146,37 @@ namespace kfutils.rpg {
                 {
                     usable.OnEquipt(this);
                 }
+            }
+        }
+
+
+        public void UnequiptItemFromBody(ItemStack item)
+        {
+            if (item != null)
+            {
+                itemLocations.UnequipItem(item);
+            }
+        }
+
+
+        public void UnequiptItemFromBody(EEquiptSlot slot)
+        {
+            // FIXME: This does not unequip the item; it is neither moved  from 
+            // the equip slots to the main inventory, nor removed from its equipped 
+            // location in world! 
+            itemLocations.UnequipItem(slot);
+        }
+
+
+        public void UseItem(EEquiptSlot slot)
+        {
+            ItemEquipt item = itemLocations.GetItem(slot);
+            if ((item != null) && (item is IUsable usable))
+            {
+                    if (stamina.UseStamina(usable.StaminaCost))
+                    {
+                        usable.OnUse(this);
+                    }
             }
         }
 
@@ -231,26 +268,8 @@ namespace kfutils.rpg {
         public override void TakeDamage(DamageData damage)
         {
             base.TakeDamage(damage);
-            if (isParried) updateEnd = Mathf.Min(updateEnd, Time.time + 0.5f); 
+            if (isParried) updateEnd = Mathf.Min(updateEnd, Time.time + 0.5f);
             isParried = false;
-        }
-
-
-        public void UnequiptItemFromBody(ItemStack item)
-        {
-            if (item != null)
-            {
-                itemLocations.UnequipItem(item);
-            }
-        }
-
-
-        public void UnequiptItemFromBody(EEquiptSlot slot)
-        {
-            // FIXME: This does not unequip the item; it is neither moved  from 
-            // the equip slots to the main inventory, nor removed from its equipped 
-            // location in world! 
-            itemLocations.UnequipItem(slot);
         }
 
 
@@ -376,6 +395,8 @@ namespace kfutils.rpg {
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
         public bool CanSeeCollider(Collider other) => CanSeePosition(other.bounds.center);
         public bool CanSeeEntity(EntityLiving other) => other.CanBeSeenFrom(eyes, VRANGESQR);
+        
+
 
 
 

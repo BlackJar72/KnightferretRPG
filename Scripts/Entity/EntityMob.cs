@@ -185,11 +185,30 @@ namespace kfutils.rpg
             throw new NotImplementedException();
         }
 
+        public void EquipItem(ItemStack stack)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void AddNewItemNPC(ItemStack stack)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void AddNewEquiptItem(ItemStack stack)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void UnequipItem(ItemStack stack)
+        {
+            throw new NotImplementedException();
+        }
 
-
+        public void UseItem(EEquiptSlot slot)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
