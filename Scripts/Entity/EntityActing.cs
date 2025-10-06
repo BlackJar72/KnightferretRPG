@@ -181,6 +181,16 @@ namespace kfutils.rpg {
         }
 
 
+        public void DropEquiptItem(EEquiptSlot slot)
+        {
+            ItemEquipt item = itemLocations.GetItem(slot);
+            if (item != null)
+            {   if(alive) item.BeDropped();
+                inventory.Equipt.RemoveAllFromSlot(ItemUtils.GetEquiptSlotForType(slot));
+            }
+        }
+
+
         public override bool IsSurprised(ICombatant attacker)
         {
             EntityLiving attackingEntity = attacker as EntityLiving;
@@ -275,6 +285,9 @@ namespace kfutils.rpg {
 
         protected override void Die()
         {
+            // Drop items before setting dead, so they will no be dropped again if loaded in a dead state 
+            DropEquiptItem(EEquiptSlot.RHAND);
+            DropEquiptItem(EEquiptSlot.LHAND);
             actionUpdate = NormalUpdate;
             base.Die();
             basicStates.SetState(AIStateID.death);

@@ -261,13 +261,13 @@ namespace kfutils.rpg {
 
 
         public virtual void SignalUpdate() {
-            InventoryManagement.SignalInventoryUpdate(this);
+            if (belongsToPC) InventoryManagement.SignalInventoryUpdate(this);
             CalculateWeight();
         }
 
 
         public virtual void SignalSlotUpdate(int slot) {
-            InventoryManagement.SignalSlotUpdate(this, slot);
+            if (belongsToPC) InventoryManagement.SignalSlotUpdate(this, slot);
             CalculateWeight();
         }
 

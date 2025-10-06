@@ -3,12 +3,13 @@ using UnityEngine;
 
 
 namespace kfutils.rpg {
-    
-    public class ItemEquipt : MonoBehaviour {
+
+    public class ItemEquipt : MonoBehaviour
+    {
 
         [SerializeField] protected ItemPrototype prototype;
 
-        [Tooltip("This holds a copy of the items local transform data, which will " 
+        [Tooltip("This holds a copy of the items local transform data, which will "
                     + "be copied on to the items real transform after it has been parented to the bones.")]
         [SerializeField] TransformData itemTransform;
         [SerializeField] protected ClipTransition equiptAnim;
@@ -26,7 +27,8 @@ namespace kfutils.rpg {
         public TransformData ItemTransform => itemTransform;
 
 
-        public void SetEquiptTransform() {
+        public void SetEquiptTransform()
+        {
             transform.localPosition = itemTransform.position;
             transform.localRotation = itemTransform.rotation;
             transform.localScale = itemTransform.scale;
@@ -34,8 +36,19 @@ namespace kfutils.rpg {
 
 
         [ContextMenu("Set TransformData From Transform")]
-        public void SetTransformDataFromTransform() {
+        public void SetTransformDataFromTransform()
+        {
             itemTransform = new TransformData(gameObject.transform);
+        }
+
+
+        public void BeDropped()
+        {
+            Transform trParent;
+            ChunkManager chunk = WorldManagement.WorldLogic.GetChunk(transform);
+            if (chunk == null) trParent = transform.root;
+            else trParent = chunk.LooseItems;
+            ItemInWorld item = prototype.DropItemInWorld(transform, 0.0f, Random.value * 0.25f);
         }
 
 
