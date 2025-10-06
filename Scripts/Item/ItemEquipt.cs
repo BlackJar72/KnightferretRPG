@@ -44,10 +44,7 @@ namespace kfutils.rpg {
 
         public void BeDropped()
         {
-            Transform trParent;
             ChunkManager chunk = WorldManagement.WorldLogic.GetChunk(transform);
-            if (chunk == null) trParent = transform.root;
-            else trParent = chunk.LooseItems;
             ItemInWorld item = prototype.DropItemInWorld(transform, 0.0f, Random.value * 0.25f);
         }
 
