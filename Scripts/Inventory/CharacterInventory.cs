@@ -5,16 +5,17 @@ using System;
 
 namespace kfutils.rpg {
 
-    public class CharacterInventory : Inventory {
+    public class CharacterInventory : Inventory
+    {
 
         [SerializeField] protected EquiptmentSlots equipt;
-        
+
         protected IActor owner;
 
 
         public EquiptmentSlots Equipt => equipt;
         public IActor Owner => owner;
-        
+
         [SerializeField] protected Money money;
         public Money MoneyHeld => money;
 
@@ -26,7 +27,8 @@ namespace kfutils.rpg {
         }
 
 
-        void Awake() {
+        void Awake()
+        {
             equipt.mainInventory = this;
         }
 
@@ -105,6 +107,32 @@ namespace kfutils.rpg {
         {
             equipt.PreSave();
         }
+
+
+        #region NPC inventory controls 
+        /*************************************************************************************************************/
+        /*                                  NPC INVENTORY MANIPULATION                                               */
+        /*************************************************************************************************************/
+
+        /*
+        Moving of items between inventories, notably between main inventory and equipt slots, is different for NPC 
+        than for the PC.  For the PC this is controlled by the player through the UI, but NPCs do not use the UI 
+        as they are not being controlled by a player but by their own AI.  As a result, NPCs (including enemies) 
+        need code to do these switches attached to their inventories and callable from their own code wich mirror 
+        what the UI classes and methods do for the player / player character. These will go in this section. 
+        */
+
+
+
+
+
+
+
+
+
+
+        #endregion
+
 
 
 

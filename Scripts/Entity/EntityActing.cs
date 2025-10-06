@@ -129,7 +129,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void EquiptItem(ItemStack item)
+        public void EquiptItemToBody(ItemStack item)
         {
             if (item != null)
             {
@@ -236,7 +236,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void UnequiptItem(ItemStack item)
+        public void UnequiptItemFromBody(ItemStack item)
         {
             if (item != null)
             {
@@ -245,7 +245,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void UnequiptItem(EEquiptSlot slot)
+        public void UnequiptItemFromBody(EEquiptSlot slot)
         {
             // FIXME: This does not unequip the item; it is neither moved  from 
             // the equip slots to the main inventory, nor removed from its equipped 

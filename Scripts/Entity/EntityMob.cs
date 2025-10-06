@@ -132,19 +132,19 @@ namespace kfutils.rpg
         }
 
 
-        public void EquiptItem(ItemStack item)
+        public void EquiptItemToBody(ItemStack item)
         {
             throw new NotImplementedException();
         }
 
 
-        public void UnequiptItem(ItemStack item)
+        public void UnequiptItemFromBody(ItemStack item)
         {
             throw new NotImplementedException();
         }
 
 
-        public void UnequiptItem(EEquiptSlot slot)
+        public void UnequiptItemFromBody(EEquiptSlot slot)
         {
             throw new NotImplementedException();
         }

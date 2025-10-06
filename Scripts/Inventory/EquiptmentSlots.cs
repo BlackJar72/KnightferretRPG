@@ -83,7 +83,7 @@ namespace kfutils.rpg {
         {
             if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
-            mainInventory.Owner.EquiptItem(item);
+            mainInventory.Owner.EquiptItemToBody(item);
             SignalUpdate();
             return true;
         }
@@ -105,8 +105,8 @@ namespace kfutils.rpg {
                 slots[rhand] = item;
                 slots[lhand] = item.Copy();
                 slots[lhand].slot = lhand;
-                mainInventory.Owner.EquiptItem(item);
-                mainInventory.Owner.UnequiptItem(EEquiptSlot.LHAND);
+                mainInventory.Owner.EquiptItemToBody(item);
+                mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
                 SignalUpdate();
                 return true;
             }
@@ -150,8 +150,8 @@ namespace kfutils.rpg {
         private void ClearTwoHandedItem(ItemStack stack) {
             slots[rhand] = new ItemStack(null, 0, rhand);
             slots[lhand] = new ItemStack(null, 0, lhand); 
-            mainInventory.Owner.UnequiptItem(EEquiptSlot.RHAND);
-            mainInventory.Owner.UnequiptItem(EEquiptSlot.LHAND);
+            mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
+            mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
             SignalUpdate();           
         }
 
@@ -188,7 +188,7 @@ namespace kfutils.rpg {
                 if(slots[slot].item.IsStackable) {
                     ItemManagement.itemRegistry.Remove(slots[slot].ID);
                 }
-                mainInventory.Owner.UnequiptItem(slots[slot]);
+                mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
                 RemoveAllFromSlot(slot);
             } else {
                 SignalSlotUpdate(slot);
@@ -201,7 +201,7 @@ namespace kfutils.rpg {
                             && (slots[slot].item.EquiptType == EEquiptSlot.HANDS)) {
                     ClearTwoHandedItem(slots[slot]);
                 } else {
-                    mainInventory.Owner.UnequiptItem(slots[slot]);
+                    mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
                     slots[slot] = new ItemStack(null, 0, slot);
                     SignalUpdate();
                 }
@@ -221,7 +221,7 @@ namespace kfutils.rpg {
                 {
                     ItemManagement.itemRegistry.Remove(slots[slot].ID);
                 }
-                mainInventory.Owner.UnequiptItem(slots[slot]);
+                mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
                 RemoveAllFromSlot(slot);
                 ClearHotbarSlot(slot);
             }
@@ -249,7 +249,7 @@ namespace kfutils.rpg {
                 {
                     if (slots[i] == item)
                     {
-                        mainInventory.Owner.UnequiptItem(item);
+                        mainInventory.Owner.UnequiptItemFromBody(item);
                         slots[i] = new ItemStack(null, 0, i);
                         SignalUpdate();
                         return;

@@ -8,9 +8,9 @@ namespace kfutils.rpg
     public interface IActor : IHaveStringID, IMover
     {
 
-        public void EquiptItem(ItemStack item);
-        public void UnequiptItem(ItemStack item);
-        public void UnequiptItem(EEquiptSlot slot);
+        public void EquiptItemToBody(ItemStack item);
+        public void UnequiptItemFromBody(ItemStack item);
+        public void UnequiptItemFromBody(EEquiptSlot slot);
 
         public AnimancerLayer ActionLayer { get; }
 

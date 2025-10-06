@@ -422,7 +422,7 @@ namespace kfutils.rpg {
         #region Equipment
 
 
-        public virtual void EquiptItem(ItemStack item)
+        public virtual void EquiptItemToBody(ItemStack item)
         {
             if (item != null)
             {
@@ -442,7 +442,7 @@ namespace kfutils.rpg {
         }
 
 
-        public virtual void UnequiptItem(ItemStack item)
+        public virtual void UnequiptItemFromBody(ItemStack item)
         {
             if (item != null)
             {
@@ -451,7 +451,7 @@ namespace kfutils.rpg {
         }
 
 
-        public virtual void UnequiptItem(EEquiptSlot slot)
+        public virtual void UnequiptItemFromBody(EEquiptSlot slot)
         {
             itemLocations.UnequipItem(slot);
         }
