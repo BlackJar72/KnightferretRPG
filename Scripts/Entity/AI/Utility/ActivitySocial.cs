@@ -20,6 +20,8 @@ namespace kfutils.rpg
 
         public EActivityRun ActivityCode => throw new System.NotImplementedException();
 
+        public float DesireabilityFactor => throw new System.NotImplementedException();
+
         public ActivityHolder GetActivityOption(ITalkerAI entity)
         {
             return new ActivityHolder(this, GetUtility(entity));

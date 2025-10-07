@@ -126,10 +126,17 @@ namespace kfutils.rpg
                 currentAction = WaitUntilDone;
             }
             if (activity.ActivityObject.ActivityCode == EActivityRun.START) activity.ActivityObject.RunSpecialCode(entity, this);
-            if (activity.ActivityObject is ActivityProp prop) prop.available = false;
+            if (activity.ActivityObject is IActivityProp prop) prop.Available = false;
             if (activity.ActivityObject is ActivityItem item)
             {
                 entity.EquipItem(activity.itemStack);
+            }
+            if (activity.ActivityObject is ActivityItemProvider provider)
+            {
+                ActivityHolder providedItem = provider.ProvideItem(entity, this);
+                entity.CharInventory.AddNewEquiptItem(providedItem.itemStack);
+                QueueActivityFront(providedItem);
+                QueueActivityFront(provider.PreUseActivityHolder);
             }
             entity.PlayAction(activity.ActivityObject.UseAction.mask, activity.ActivityObject.UseAction.anim);
         }
@@ -159,9 +166,9 @@ namespace kfutils.rpg
 
         private void EndActivity()
         {
-            if (activity.ActivityObject is ActivityProp prop)
+            if (activity.ActivityObject is IActivityProp prop)
             {
-                prop.available = true;
+                prop.Available = true;
             }
             if (activity.ActivityObject is ActivityItem item)
             {
@@ -182,7 +189,7 @@ namespace kfutils.rpg
 
         private void StartSeekLocation()
         {
-            if (activity.ActivityObject is ActivityProp prop)
+            if (activity.ActivityObject is IHaveUseLocation prop)
             {
                 owner.SetDestination(prop.ActorLocation.position);
                 currentAction = SeekActivityLocation;
@@ -196,7 +203,7 @@ namespace kfutils.rpg
 
         public void SeekActivityLocation()
         {
-            if ((activity.ActivityObject is ActivityProp prop) && entity.AtLocation(prop.ActorLocation))
+            if ((activity.ActivityObject is IHaveUseLocation prop) && entity.AtLocation(prop.ActorLocation))
             {
                 currentAction = StartActivity;
             }

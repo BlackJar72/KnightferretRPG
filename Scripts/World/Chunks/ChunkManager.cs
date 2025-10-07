@@ -41,7 +41,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void AddActivityProp(ActivityProp prop)
+        public void AddActivityProp(IActivityObject prop)
         {
             activityProps.Add(prop);
         }

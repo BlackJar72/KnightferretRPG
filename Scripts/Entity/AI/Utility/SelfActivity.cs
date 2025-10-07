@@ -14,6 +14,7 @@ namespace kfutils.rpg
 
         [SerializeField] AbstractAction useAction;
         [SerializeField] float timeToDo;
+        [Range(0.0f, 2.0f)][SerializeField] protected float desireabilityFactor = 1.0f;
         [SerializeField] EActivityRun activityCode;
         [SerializeField] ECodeToRun codeToRun;
 
@@ -23,6 +24,7 @@ namespace kfutils.rpg
         public ENeeds GetNeed => ENeeds.NONE;
         public EObjectActivity ActivityType => EObjectActivity.SELF;
         public EActivityRun ActivityCode => activityCode;
+        public float DesireabilityFactor => desireabilityFactor;
 
         public delegate void SpecialCode(ITalkerAI ai, SelfActivity activity, AIState aiState);
 
@@ -35,7 +37,7 @@ namespace kfutils.rpg
 
         public float GetUtility(ITalkerAI entity)
         {
-            return Random.value * 0.25f; // This will likely need to be tweaked
+            return Random.value * 0.25f * desireabilityFactor; // This will likely need to be tweaked
         }
 
 

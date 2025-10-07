@@ -17,6 +17,7 @@ namespace kfutils.rpg
         public ActivityHolder GetActivityOption(ITalkerAI entity);
         public AbstractAction UseAction { get; }
         public float Satisfaction { get; }
+        public float DesireabilityFactor { get; }
         public float TimeToDo { get; }
         public ENeeds GetNeed { get; }
         public EObjectActivity ActivityType { get; }
@@ -24,6 +25,7 @@ namespace kfutils.rpg
 
 
         public void RunSpecialCode(ITalkerAI ai, AIState aiState);
+        
 
 
     }

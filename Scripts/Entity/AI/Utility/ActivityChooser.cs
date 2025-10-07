@@ -38,7 +38,7 @@ namespace kfutils.rpg
                 selector -= choices[selection].Utility;
                 selection++;
 #if UNITY_EDITOR
-                //Testing Failsage
+                //Testing Failsafe
                 if (selection >= numToConsider)
                 {
                     selection = 0;

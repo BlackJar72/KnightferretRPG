@@ -27,6 +27,14 @@ namespace kfutils.rpg
         }
 
 
+        public ActivityHolder(ItemStack item)
+        {
+            activityObject = item.item.Activity;
+            desirability = float.PositiveInfinity;
+            theItemStack = item;
+        }
+
+
         // Comparisons -- desirability is the basis, since the more desirable choices willl be preferred
         // Compare() and CompareTo() are set up so that sort functions will place higher desirability on top
         public static bool operator >(ActivityHolder a, ActivityHolder b) => a.desirability > b.desirability;

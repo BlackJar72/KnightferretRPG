@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -22,23 +21,25 @@ namespace kfutils.rpg
     /// word "prop" in the name is used to avoid confusion and because "object" is 
     /// used elsewhere. 
     /// </summary>
-    public class ActivityProp : MonoBehaviour, IActivityObject, IHaveStringID, IInWorld  
+    public class ActivityProp : MonoBehaviour, IActivityObject, IHaveStringID, IInWorld, IActivityProp
     {
         [SerializeField] string id;
-        [SerializeField] ENeeds theNeeds;
-        [Tooltip("Should be NEED_DISCRETE or NEED_CONTINUOUS")][SerializeField] EObjectActivity activityType;
-        [SerializeField] EActivityRun activityRun;
-        [SerializeField] ECodeToRun codeToRun;
-        [SerializeField] AbstractAction useAction;
-        [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
-        [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
-        [SerializeField] float timeToDo;
-        [SerializeField] Transform actorLocation;
-        [SerializeField] bool shareable = false;
+        [SerializeField] protected ENeeds theNeeds;
+        [Tooltip("Should be NEED_DISCRETE or NEED_CONTINUOUS")][SerializeField] protected EObjectActivity activityType;
+        [SerializeField] protected EActivityRun activityRun;
+        [SerializeField] protected ECodeToRun codeToRun;
+        [SerializeField] protected AbstractAction useAction;
+        [Range(0.0f, 1.0f)][SerializeField] protected float satisfaction;
+        [Range(0.0f, 2.0f)][SerializeField] protected float desireabilityFactor = 1.0f;
+        [SerializeField] protected float timeToDo;
+        [SerializeField] protected Transform actorLocation;
+        [SerializeField] protected bool shareable = false;
 
         public bool available = true;
+        public bool Available { get => available; set => available = value;  }
 
-        private float desireability;
+        protected float desireability;
+
         public ENeeds TheNeed => theNeeds;
         public float Satisfaction => satisfaction;
         public AbstractAction UseAction => useAction;
@@ -55,15 +56,15 @@ namespace kfutils.rpg
         public delegate void SpecialCode(ITalkerAI ai, ActivityProp activity, AIState aiState);
 
 
-        void OnEnable()
+        protected void OnEnable()
         {
             WorldManagement.OnPostLoad += OnPostLoad;
         }
 
 
-        void OnDisable()
+        protected void OnDisable()
         {
-            WorldManagement.OnPostLoad -= OnPostLoad;            
+            WorldManagement.OnPostLoad -= OnPostLoad;
         }
 
 
@@ -82,7 +83,7 @@ namespace kfutils.rpg
                 if ((theNeeds & ENeeds.FOOD) > 0) desireability = Mathf.Max(desireability, GetUtilityForNeed(entity, ENeedID.FOOD));
                 if ((theNeeds & ENeeds.SOCIAL) > 0) desireability = Mathf.Max(desireability, GetUtilityForNeed(entity, ENeedID.SOCIAL));
                 if ((theNeeds & ENeeds.ENJOYMENT) > 0) desireability = Mathf.Max(desireability, GetUtilityForNeed(entity, ENeedID.ENJOYMENT));
-                desireability /= Mathf.Sqrt((entity.GetTransform.position - actorLocation.position).magnitude) + 2;
+                desireability /= Mathf.Sqrt((entity.GetTransform.position - actorLocation.position).magnitude) + 1;
                 return desireability;
             }
             else
@@ -95,7 +96,7 @@ namespace kfutils.rpg
         private float GetUtilityForNeed(ITalkerAI entity, ENeedID theNeed)
         {
             float desireability = (satisfaction * desireabilityFactor)
-                                + Mathf.Sqrt((satisfaction * desireabilityFactor) / (timeToDo + 60f) + 1) - 1;
+                                + Mathf.Sqrt((satisfaction * desireabilityFactor) / (timeToDo + 5f) + 1) - 1;
             desireability *= entity.GetNeed(theNeed).GetDrive();
             return desireability;
         }
@@ -122,7 +123,6 @@ namespace kfutils.rpg
         public enum ECodeToRun
         {
             NONE = 0,
-            WANDER = 1
         }
 
 
@@ -143,7 +143,7 @@ namespace kfutils.rpg
 
         #endregion
 
-    
+
     }
 
 

@@ -32,6 +32,9 @@ namespace kfutils.rpg {
 
         void Awake()
         {
+            #if UNITY_EDITOR
+            itemsInGame.Awake();
+            #endif
             // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
             // Makeing this a true singleton, and warning with an error message if extra copies were made
