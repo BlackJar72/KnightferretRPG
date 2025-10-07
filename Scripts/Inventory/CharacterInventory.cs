@@ -131,11 +131,10 @@ namespace kfutils.rpg {
         {
             EEquiptSlot equiptSlot = stack.item.EquiptType;
             ItemStack currentEqipt = equipt.GetItemForSlotType(equiptSlot);
+            if (stack == currentEqipt) return; // Don't try equip items that are already equiped 
             RemoveItem(stack);
             equipt.AddItemNoSlot(stack);
-            AddToFirstEmptySlot(currentEqipt);
-            //owner.UnequiptItemFromBody(currentEqipt);
-            //owner.EquiptItemToBody(stack);            
+            AddToFirstEmptySlot(currentEqipt);         
         }
 
 
@@ -160,8 +159,6 @@ namespace kfutils.rpg {
             ItemStack currentEqipt = equipt.GetItemForSlotType(equiptSlot);
             equipt.AddItemNoSlot(stack);
             AddToFirstEmptySlot(currentEqipt);
-            //owner.UnequiptItemFromBody(currentEqipt);
-            //owner.EquiptItemToBody(stack);
         }
 
 
