@@ -87,6 +87,17 @@ namespace kfutils.rpg {
         }
 
 
+        public ItemInWorld DropItemInFromHand(Transform where, float distance, float force = 0.0f)
+        {
+            ItemInWorld dropped = worldItem.Spawn(where.position + (where.forward * distance));
+            dropped.gameObject.transform.rotation = where.rotation;
+            dropped.EnablePhysics();
+            if (force == 0.0f) return dropped;
+            dropped.ApplyImpulseForce(where.forward * force * Random.Range(0.95f, 1.05f));
+            return dropped;
+        }
+
+
 
         //-----------------------------------------------------------------------------------------------------------//
         //                                       UTILITY AI SUPPORT                                                  //
