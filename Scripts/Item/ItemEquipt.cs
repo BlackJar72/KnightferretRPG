@@ -45,7 +45,7 @@ namespace kfutils.rpg {
         public void BeDropped()
         {
             ChunkManager chunk = WorldManagement.WorldLogic.GetChunk(transform);
-            ItemInWorld item = prototype.DropItemInWorld(transform, 0.0f, Random.value * 0.25f);
+            ItemInWorld item = prototype.DropItemInFromHand(transform, 0.0f, Random.value * 0.25f);
         }
 
 
