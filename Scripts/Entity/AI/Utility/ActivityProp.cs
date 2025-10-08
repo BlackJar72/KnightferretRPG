@@ -24,16 +24,16 @@ namespace kfutils.rpg
     public class ActivityProp : MonoBehaviour, IActivityObject, IHaveStringID, IInWorld, IActivityProp
     {
         [SerializeField] string id;
-        [SerializeField] protected ENeeds theNeeds;
+        [SerializeField] ENeeds theNeeds;
         [Tooltip("Should be NEED_DISCRETE or NEED_CONTINUOUS")][SerializeField] protected EObjectActivity activityType;
-        [SerializeField] protected EActivityRun activityRun;
-        [SerializeField] protected ECodeToRun codeToRun;
-        [SerializeField] protected AbstractAction useAction;
-        [Range(0.0f, 1.0f)][SerializeField] protected float satisfaction;
-        [Range(0.0f, 2.0f)][SerializeField] protected float desireabilityFactor = 1.0f;
-        [SerializeField] protected float timeToDo;
-        [SerializeField] protected Transform actorLocation;
-        [SerializeField] protected bool shareable = false;
+        [SerializeField] EActivityRun activityRun;
+        [SerializeField] ECodeToRun codeToRun;
+        [SerializeField] AbstractAction useAction;
+        [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
+        [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
+        [SerializeField] float timeToDo;
+        [SerializeField] Transform actorLocation;
+        [SerializeField] bool shareable = false;
 
         public bool available = true;
         public bool Available { get => available; set => available = value;  }

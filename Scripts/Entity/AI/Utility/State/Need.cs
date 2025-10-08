@@ -12,8 +12,7 @@ namespace kfutils.rpg {
         const float MAX_VALUE = 1.0f;
         public const float TIME_SCALE = GameConstants.TIME_SCALE / (float)WorldTime.DAY;
 
-        [SerializeField] /*[HideInInspector]*/ [Range(0, 1)] float value;
-        
+        [SerializeField] /*[HideInInspector]*/ [Range(0, 1)] float value = 1.0f;        
         [Tooltip("The number of in-game days to fully decay")]
         [SerializeField] float decayTime = 1.0f;
         [SerializeField] float importance = 1.0f;
@@ -24,12 +23,21 @@ namespace kfutils.rpg {
         public float Importance => importance;
 
 
-        public Need(float decayRate, float importance, float driveOrigin = 1.2f)
+        public Need(float decayTime, float importance, float driveOrigin = 1.2f)
         {
             value = 1.0f;
-            this.decayTime = decayRate;
+            this.decayTime = decayTime;
             this.importance = importance;
             this.driveOrigin = driveOrigin;
+        }
+
+
+        public Need(Need other)
+        {
+            value = 1.0f;
+            decayTime = other.decayTime;
+            importance = other.importance;
+            driveOrigin = other.driveOrigin;
         }
 
 
