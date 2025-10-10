@@ -197,7 +197,7 @@ namespace kfutils.rpg {
             {
                 attack = 0;
                 ReplayEquipAnimation();
-                hitCollider.enabled = false;
+                if(hitCollider != null) hitCollider.enabled = false;
             }
             OnAttackEnd();
         }
