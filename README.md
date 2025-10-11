@@ -9,6 +9,9 @@ Dev-Logs can be found here:
 
 https://www.youtube.com/playlist?list=PLFJXfKtUiVHBLkaMTCRwtzBYd_ciG1XgP
 
+This has been abandoned because changes in Unity seem to have broken this beyond repair,
+as it will no longer build (dispite running fine in the editor), and because its a bigger
+project that I really wanted. I will not be coming back to this.
 
 I did consider packaging some parts, notable the Larian-esque inventory system, as an 
 asset for the asset store, but it requires progamming skill to integrate into any other 
