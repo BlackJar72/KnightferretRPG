@@ -5,15 +5,6 @@ mostly separate (as a "Test Game," not included, in the development project -- t
 at least for now, as there are other things I'd rather do with my life, and the actual game I planned to make with it was an ill-concieved whim with little direction; 
 perhaps I'll go back to it later, perhaps not. I'm sure I could finish it, but again, there are other things I'd rather being doing with my life right now. 
 
-And example of the test game as it stands using the latest version can be found here:
-
-https://www.mediafire.com/file/lvmmkeg4x2jy6n2/RPG-WinTest.zip/file (Windows)
-
-https://www.mediafire.com/file/pahzybq1af7ozw9/RPG-LinuxTest.zip/file (Linux)
-
-It uses standard WASD+mouse, with E to interact and space bar to jump. 
-
-
 Dev-Logs can be found here:
 
 https://www.youtube.com/playlist?list=PLFJXfKtUiVHBLkaMTCRwtzBYd_ciG1XgP
