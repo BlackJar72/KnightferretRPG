@@ -9,9 +9,7 @@ namespace kfutils.rpg {
     {
 
         [SerializeField] protected EquiptmentSlots equipt;
-
-        protected IActor owner;
-
+        [SerializeField] protected IActor owner;
 
         public EquiptmentSlots Equipt => equipt;
         public IActor Owner => owner;
@@ -27,7 +25,7 @@ namespace kfutils.rpg {
         }
 
 
-        void Awake()
+        protected virtual void Awake()
         {
             equipt.mainInventory = this;
         }

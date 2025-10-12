@@ -222,7 +222,7 @@ namespace kfutils.rpg {
 
         public void OnAttackEnd()
         {
-            hitCollider.enabled = false;
+            if(hitCollider != null) hitCollider.enabled = false;
         }
 
 

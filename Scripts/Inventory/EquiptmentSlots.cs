@@ -2,7 +2,7 @@ using UnityEngine;
 using kfutils.rpg.ui;
 using System;
 using System.Text;
-using System.Buffers;
+using System.Collections;
 
 
 namespace kfutils.rpg {
@@ -84,9 +84,18 @@ namespace kfutils.rpg {
             if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
             item.slot = slot;
-            mainInventory.Owner.EquiptItemToBody(item);
+            if (mainInventory.Owner == null) EquipItemDelayed(item);
+            else mainInventory.Owner.EquiptItemToBody(item);
             SignalUpdate();
             return true;
+        }
+
+
+        IEnumerator EquipItemDelayed(ItemStack item)
+        {
+            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForEndOfFrame(); 
+            mainInventory.Owner.EquiptItemToBody(item);
         }
 
 

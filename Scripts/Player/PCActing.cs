@@ -84,12 +84,12 @@ namespace kfutils.rpg {
 
         protected override void Awake()
         {
+            inventory.SetOwner(this); 
+            blockArea.SetOwner(this);
             InventoryPanel[] invPanels = (InventoryPanel[])FindObjectsByType(typeof(InventoryPanel), FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int i = 0; i < invPanels.Length; i++) invPanels[i].InitHotbarActions();
             if (inventory == null) inventory = GetComponent<PlayerInventory>();
             if (spellbook == null) spellbook = GetComponent<Spellbook>();
-            inventory.SetOwner(this); // Just in case it wasn't set correctly
-            blockArea.SetOwner(this);
             base.Awake();
             InitInput();
         }

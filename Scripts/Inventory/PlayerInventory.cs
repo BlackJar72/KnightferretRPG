@@ -11,8 +11,16 @@ namespace kfutils.rpg {
         [SerializeField] TMP_Text moneyText;
         [SerializeField] TMP_Text weightText;
         [SerializeField] HotbarUI hotbarUI;
+        [SerializeField] PCActing pc;
 
         public HotbarUI Hotbar => hotbarUI;
+
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (owner == null) owner = pc;            
+        }
 
 
         public override void OnEnable()
@@ -22,7 +30,6 @@ namespace kfutils.rpg {
             InventoryManagement.inventoryUpdated += UpdateBottomBar;
             InventoryManagement.inventorySlotUpdated += UpdateBottomBar;
             UpdateBottomBar(this);
-
         }
 
 
