@@ -1,17 +1,11 @@
 # Knightferret RPG
 
 My current RPG project, intendend to be well architected and flexible (unlike Caverns of Evil) -- and and also designed more as a framework, with game content 
-mostly separate (as a "Test Game," not included, in the development project -- though a lot of the test game would have been the basis of a real game).  Set asside, 
-at least for now, as there are other things I'd rather do with my life, and the actual game I planned to make with it was an ill-concieved whim with little direction; 
-perhaps I'll go back to it later, perhaps not. I'm sure I could finish it, but again, there are other things I'd rather being doing with my life right now. 
+mostly separate (as a "Test Game," not included, in the development project -- though a lot of the test game would have been the basis of a real game). 
 
 Dev-Logs can be found here:
 
 https://www.youtube.com/playlist?list=PLFJXfKtUiVHBLkaMTCRwtzBYd_ciG1XgP
-
-This has been abandoned because changes in Unity seem to have broken this beyond repair,
-as it will no longer build (dispite running fine in the editor), and because its a bigger
-project that I really wanted. I will not be coming back to this.
 
 I did consider packaging some parts, notable the Larian-esque inventory system, as an 
 asset for the asset store, but it requires progamming skill to integrate into any other 
