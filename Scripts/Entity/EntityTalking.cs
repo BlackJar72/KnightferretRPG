@@ -30,7 +30,7 @@ namespace kfutils.rpg
         public bool available = true, shareable = true;
 
         public AbstractAction UseAction => socialActions;
-        public float Satisfaction => (((attributes.baseStats.Charisma + personality.Extroverted) / 2) + (personality.Sensitive * 2)) * 0.01f;
+        public float Satisfaction => (((attributes.baseStats.Charisma + personality.Extroverted) * 0.25f) + personality.Sensitive) * 0.01f;
         public float DesireabilityFactor => ((attributes.baseStats.Charisma + personality.Extroverted) * 0.01f) + 0.8f;
         public float TimeToDo => 2.0f;
         ENeeds IActivityObject.GetNeed => ENeeds.SOCIAL;
@@ -44,8 +44,10 @@ namespace kfutils.rpg
 
         public float GetUtility(ITalkerAI entity)
         {
-            float desirability = (Satisfaction + (entity.AIPersonality.Extroverted * 0.02f)) * personality.Compatibility(entity.AIPersonality);
+            float desirability = (Satisfaction + (entity.AIPersonality.Extroverted * 0.01f)) * personality.Compatibility(entity.AIPersonality);
+            desirability *= 2.0f; // This will be replace by desirability += relationship effect; this stand-in compesates for the lack of this addition.
             // TODO: Factor in relationship status (perhaps make it the main source) once relationship system is done.
+            desirability *= entity.GetNeed(ENeedID.SOCIAL).GetDrive();
             desirability /= Mathf.Sqrt((entity.GetTransform.position - actorLocation.position).magnitude) + 1;
             return desirability;
         }
