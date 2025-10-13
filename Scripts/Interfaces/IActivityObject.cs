@@ -36,6 +36,7 @@ namespace kfutils.rpg
         NONE,
         START,
         CONTINUOUS,
+        END
     }
 
 }

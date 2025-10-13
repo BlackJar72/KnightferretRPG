@@ -13,6 +13,7 @@ namespace kfutils.rpg
         public ActivityChooser NeedChooser { get; }
         public ActivityHolder ChooseNeedActivity(); 
         public SelfActivity[] SelfActivities { get; }
+        public Personality AIPersonality { get; }
 
 
 

@@ -13,6 +13,8 @@ namespace kfutils.rpg
             public const int MAX_TRAIT = 20;
             public const int AVG_TRAIT = 10;
             public const int MIN_TRAIT = 1;
+            public const float MAX_SEPARATION = 50.0f; // The maximum distance between personalities (46.5403051129) rounded
+            public const float MAX_DIST_INVERSE = 1.0f / MAX_SEPARATION;
 
             public const float F_MAX_TRAIT = MAX_TRAIT;
             public const float F_AVG_TRAIT = AVG_TRAIT;
@@ -25,6 +27,14 @@ namespace kfutils.rpg
             [Range(MIN_TRAIT, MAX_TRAIT)][SerializeField] int sensitive = AVG_TRAIT;
             [Range(MIN_TRAIT, MAX_TRAIT)][SerializeField] int emotional = AVG_TRAIT;
             [Range(MIN_TRAIT, MAX_TRAIT)][SerializeField] int industrious = AVG_TRAIT; // Concientiousness, dumbed-down (though differently than that game that called it neat)
+
+            [Range(MIN_TRAIT, MAX_TRAIT)]public int Open => open;
+            [Range(MIN_TRAIT, MAX_TRAIT)]public int Moral => moral; 
+            [Range(MIN_TRAIT, MAX_TRAIT)]public int Extroverted => extroverted;
+            [Range(MIN_TRAIT, MAX_TRAIT)]public int Sensitive => sensitive;
+            [Range(MIN_TRAIT, MAX_TRAIT)]public int Emotional => emotional;
+            [Range(MIN_TRAIT, MAX_TRAIT)]public int Industrious => industrious; 
+
 
             // Minor traits / Quirks -- refers to small traits based on simple description
             List<MinorTrait> quirks;
@@ -42,18 +52,19 @@ namespace kfutils.rpg
             /// TODO  and/or other addition transformation.
             public float Compatibility(Personality other)
             {
-                  return (50f - Mathf.Sqrt((float)((open - other.open)
-                                              * (open - other.open))
-                                        + ((moral - other.moral)
-                                              * (open - other.moral))
-                                        + ((extroverted - other.extroverted)
-                                              * (extroverted - other.extroverted))
-                                        + ((sensitive - other.sensitive)
-                                              * (sensitive - other.sensitive))
-                                        + ((emotional - other.emotional)
-                                              * (emotional - other.emotional))
-                                        + ((industrious - other.industrious)
-                                              * (industrious - other.industrious)))) * 0.02f;
+                  // This the equivalent of scaling the distance to 1
+                  return (MAX_SEPARATION - Mathf.Sqrt((float)((open - other.open)
+                                                * (open - other.open))
+                                          + ((moral - other.moral)
+                                                * (open - other.moral))
+                                          + ((extroverted - other.extroverted)
+                                                * (extroverted - other.extroverted))
+                                          + ((sensitive - other.sensitive)
+                                                * (sensitive - other.sensitive))
+                                          + ((emotional - other.emotional)
+                                                * (emotional - other.emotional))
+                                          + ((industrious - other.industrious)
+                                                * (industrious - other.industrious)))) * MAX_DIST_INVERSE;
             }
 
 
