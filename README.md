@@ -35,34 +35,7 @@ about the static "management" classes.
 This is under the MIT license. I'm open to other licensing agreements if you just don't want 
 to include the license with everything (contact me if so), so long as they waive any claims 
 liability or warrantee.  The main reason I use licenses instead of just dropping things as 
-unlicensed freeware is to cover my own butt, just in case.
-
-## What has happened since, and post mortem. 
-
-After open sourcing this development was slowly continued. I cannot keep doing this.  The time 
-that ends up going to this is interfering in my life in ways that are destructive to my health; 
-yes, my physical health, quite substantially.  That is besides other disruptions.  And for what?  
-This project is rooted in a whim, it was never a passion project nor do I expect it will make 
-any money.
-
-Pre-planning all the data structures and how they were to be saved, loaded, and handled between 
-scenes would have been a good idea.  Unfortunately this was not possible because of my own 
-inexperience with some of the other systems, as how the inventory system would works was also new 
-and not understood in advance. 
-
-The use of Animancer to create a framework in which animations are stored with the objects they are 
-used on, but has had to difficulties as well.  Most recently, this involves animations for off-hand 
-items not play.
-
-I also never figured out how to stream scenes efficiently in order to divide the world into chunks 
-or cells.  I know there is a way because several paid assets (World Streamer and RPG Creation Kit I 
-know for sure) do this.  However, even with the scenes pre-loaded, simply activating and de-activing 
-chunks not only failed to produce any benefit but also produced a persistent slowing of the frame 
-rate (even when not near any boundaries).  
-
-The use of static registries, as well as lists for handling things like who is healing (and idea 
-borrowed directly from Data Orient Design) worked well, and though these would disturbed traditional 
-OOP programmers, I find to have have worked very well and simplified many things. These were a good 
+unlicensed freeware is to cover my own butt, just in case.nd simplified many things. These were a good 
 idea. 
 
 ---
