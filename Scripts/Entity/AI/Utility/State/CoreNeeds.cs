@@ -86,11 +86,11 @@ namespace kfutils.rpg
 
         public bool AreLow(ENeeds needs)
         {
-            bool result = true;
-            if ((needs & ENeeds.ENERGY) > 0) result = result && energy.IsLow;
-            if ((needs & ENeeds.FOOD) > 0) result = result && nourishment.IsLow;
-            if ((needs & ENeeds.SOCIAL) > 0) result = result && social.IsLow;
-            if ((needs & ENeeds.ENJOYMENT) > 0) result = result && enjoyment.IsLow;
+            bool result = false;
+            if ((needs & ENeeds.ENERGY) > 0) result = result || energy.IsLow;
+            if ((needs & ENeeds.FOOD) > 0) result = result || nourishment.IsLow;
+            if ((needs & ENeeds.SOCIAL) > 0) result = result || social.IsLow;
+            if ((needs & ENeeds.ENJOYMENT) > 0) result = result || enjoyment.IsLow;
             return result;
         }
 
