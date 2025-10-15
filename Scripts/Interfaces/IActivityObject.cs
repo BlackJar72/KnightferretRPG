@@ -22,7 +22,8 @@ namespace kfutils.rpg
         public ENeeds GetNeed { get; }
         public EObjectActivity ActivityType { get; }
         public EActivityRun ActivityCode { get; }
-        public bool ShouldEndActivity(); 
+        public ActivityHelper.EEndCondition EndCondition { get; }
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState); 
 
 
         public void RunSpecialCode(ITalkerAI ai, AIState aiState);

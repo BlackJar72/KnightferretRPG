@@ -22,6 +22,8 @@ namespace kfutils.rpg
 
         public float DesireabilityFactor => throw new System.NotImplementedException();
 
+        public ActivityHelper.EEndCondition EndCondition => throw new System.NotImplementedException();
+
         public ActivityHolder GetActivityOption(ITalkerAI entity)
         {
             return new ActivityHolder(this, GetUtility(entity));
@@ -40,6 +42,11 @@ namespace kfutils.rpg
         }
 
         public bool ShouldEndActivity()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
         {
             throw new System.NotImplementedException();
         }

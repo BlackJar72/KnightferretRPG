@@ -17,6 +17,7 @@ namespace kfutils.rpg
         [SerializeField] float timeToDo;
         [SerializeField] AbstractAction useAction;
         [SerializeField] EActivityRun activityRun;
+        [SerializeField] ActivityHelper.EEndCondition endCondition;
         
 
         public ENeeds TheNeed => theNeeds;
@@ -27,6 +28,8 @@ namespace kfutils.rpg
         public float Satisfaction => satisfaction;
         public EObjectActivity ActivityType => activityType;
         public EActivityRun ActivityCode => activityRun;
+        public ActivityHelper.EEndCondition EndCondition => endCondition;
+
         [SerializeField] ECodeToRun codeToRun;
 
         public delegate void SpecialCode(ITalkerAI ai, ActivityItem activity, AIState aiState);
@@ -64,9 +67,9 @@ namespace kfutils.rpg
         }
 
 
-        public bool ShouldEndActivity()
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            return ActivityHelper.ShouldEndActivity(ai, this, aiState);
         }
 
 

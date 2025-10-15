@@ -34,6 +34,7 @@ namespace kfutils.rpg
         [SerializeField] float timeToDo;
         [SerializeField] Transform actorLocation;
         [SerializeField] bool shareable = false;
+        [SerializeField] ActivityHelper.EEndCondition endCondition;
 
         public bool available = true;
         public bool Available { get => available; set => available = value;  }
@@ -52,6 +53,8 @@ namespace kfutils.rpg
         public ENeeds GetNeed => theNeeds;
         public EObjectActivity ActivityType => activityType;
         public EActivityRun ActivityCode => activityRun;
+        public ActivityHelper.EEndCondition EndCondition => endCondition;
+        
 
         public delegate void SpecialCode(ITalkerAI ai, ActivityProp activity, AIState aiState);
 
@@ -114,9 +117,9 @@ namespace kfutils.rpg
         }
 
 
-        public bool ShouldEndActivity()
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            return ActivityHelper.ShouldEndActivity(ai, this, aiState);
         }
 
 

@@ -73,6 +73,32 @@ namespace kfutils.rpg
         }
 
 
+        public bool AreFull(ENeeds needs)
+        {
+            bool result = true;
+            if ((needs & ENeeds.ENERGY) > 0) result = result && energy.IsFull;
+            if ((needs & ENeeds.FOOD) > 0) result = result && nourishment.IsFull;
+            if ((needs & ENeeds.SOCIAL) > 0) result = result && social.IsFull;
+            if ((needs & ENeeds.ENJOYMENT) > 0) result = result && enjoyment.IsFull;
+            return result;
+        }
+
+
+        public bool AreLow(ENeeds needs)
+        {
+            bool result = true;
+            if ((needs & ENeeds.ENERGY) > 0) result = result && energy.IsLow;
+            if ((needs & ENeeds.FOOD) > 0) result = result && nourishment.IsLow;
+            if ((needs & ENeeds.SOCIAL) > 0) result = result && social.IsLow;
+            if ((needs & ENeeds.ENJOYMENT) > 0) result = result && enjoyment.IsLow;
+            return result;
+        }
+
+
+        public bool InDangerZone() => 
+            energy.IsVeryLow || nourishment.IsVeryLow || social.IsVeryLow || enjoyment.IsVeryLow;
+
+
         public void AlterNeedGradual(ENeedID need, float timeForEffect, float amount)
         {
             Need theNeed = allNeeds[(int)need];

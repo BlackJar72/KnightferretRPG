@@ -30,6 +30,7 @@ namespace kfutils.rpg
 
         [SerializeField] AbstractAction socialActions;
         [SerializeField] Transform actorLocation;
+        [SerializeField] ActivityHelper.EEndCondition endCondition;
 
         public bool available = true, shareable = true;
 
@@ -42,8 +43,8 @@ namespace kfutils.rpg
         public EActivityRun ActivityCode => EActivityRun.END; // FIXME? See comment below on needed special codes. 
         public Transform ActorLocation => actorLocation;
         public bool Available { get => available; set => available = value; }
-
         public ActivityHolder GetActivityOption(ITalkerAI entity) => new ActivityHolder(this, GetUtility(entity));
+        public ActivityHelper.EEndCondition EndCondition => endCondition;
 
 
         public float GetUtility(ITalkerAI entity)
@@ -63,10 +64,11 @@ namespace kfutils.rpg
         public void RunSpecialCode(ITalkerAI ai, AIState aiState) {}
 
 
-        public bool ShouldEndActivity()
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
         {
-            return true; // FIXME/TODO: Actually figure out a legitimate result.
+            return ActivityHelper.ShouldEndActivity(ai, this, aiState);
         }
+        
 
         // NOTE ON RELATIONSHIP SYSTEM: Do I really need the kind of complex, dynamic relationship system between NPCs I was 
         // planning on for the life simulator project.  For a long running, "live in the world" game with strong life simulation 

@@ -1,4 +1,5 @@
 using System;
+using Animancer;
 using UnityEngine;
 
 
@@ -17,8 +18,16 @@ namespace kfutils.rpg
         private float activityTimer;
         private ActivityChooser chooser;
         private RingDeque<ActivityHolder> activityQueue;
-
         private ITalkerAI entity;
+        private AnimancerState animState;
+
+        private bool notified = false;
+        private bool animEnded = false;
+
+        public float ActivityTimer => activityTimer; 
+
+        public bool Notified => notified;
+        public bool AnimEnded => animEnded;
 
 
         public override void Init(EntityActing character)
@@ -50,6 +59,7 @@ namespace kfutils.rpg
 
         public override void StateExit()
         {
+            activityQueue.Clear();
             EndActivity();
         }
 
@@ -138,13 +148,21 @@ namespace kfutils.rpg
                 QueueActivityFront(providedItem);
                 QueueActivityFront(provider.PreUseActivityHolder);
             }
-            entity.PlayAction(activity.ActivityObject.UseAction.mask, activity.ActivityObject.UseAction.anim);
+            animState = entity.PlayAction(activity.ActivityObject.UseAction.mask, activity.ActivityObject.UseAction.anim);
+            animState.Events.OnEnd += OnAnimEnd;
+        }
+        
+
+        public void OnAnimEnd()
+        {
+            animState.Events.OnEnd -= OnAnimEnd;
+            animEnded = true;
         }
 
 
         public void WaitUntilDone()
         {
-            if (Time.time > activityTimer)
+            if (activity.ActivityObject.ShouldEndActivity(entity, this))
             {
                 EndActivity();
             }
@@ -156,7 +174,7 @@ namespace kfutils.rpg
         {
             entity.GetNeeds.AddToNeeds(activity.ActivityObject.GetNeed,
                                     (activity.ActivityObject.Satisfaction / activity.ActivityObject.TimeToDo) * Time.deltaTime);
-            if (Time.time > activityTimer)
+            if (activity.ActivityObject.ShouldEndActivity(entity, this)) 
             {
                 EndActivity();
             }
@@ -189,6 +207,7 @@ namespace kfutils.rpg
 
         private void StartSeekLocation()
         {
+            animEnded = notified = false;
             if (activity.ActivityObject is IHaveUseLocation prop)
             {
                 owner.SetDestination(prop.ActorLocation.position);
@@ -207,6 +226,12 @@ namespace kfutils.rpg
             {
                 currentAction = StartActivity;
             }
+        }
+
+
+        public void BeNotified()
+        {
+            notified = true;
         }
 
 

@@ -17,6 +17,7 @@ namespace kfutils.rpg
         [Range(0.0f, 2.0f)][SerializeField] protected float desireabilityFactor = 1.0f;
         [SerializeField] EActivityRun activityCode;
         [SerializeField] ECodeToRun codeToRun;
+        [SerializeField] ActivityHelper.EEndCondition endCondition;
 
         public AbstractAction UseAction => useAction;
         public float Satisfaction => 0.0f;
@@ -25,6 +26,7 @@ namespace kfutils.rpg
         public EObjectActivity ActivityType => EObjectActivity.SELF;
         public EActivityRun ActivityCode => activityCode;
         public float DesireabilityFactor => desireabilityFactor;
+        public ActivityHelper.EEndCondition EndCondition => endCondition;
 
         public delegate void SpecialCode(ITalkerAI ai, SelfActivity activity, AIState aiState);
 
@@ -47,9 +49,9 @@ namespace kfutils.rpg
         }
 
 
-        public bool ShouldEndActivity()
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            return ActivityHelper.ShouldEndActivity(ai, this, aiState);
         }
 
 

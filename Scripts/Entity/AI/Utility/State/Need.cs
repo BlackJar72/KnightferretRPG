@@ -21,7 +21,9 @@ namespace kfutils.rpg {
         public float Value => value;
         public float DriveOrigin => driveOrigin;
         public float Importance => importance;
-
+        public bool IsFull => value == MAX_VALUE;
+        public bool IsLow => value < (MAX_VALUE - MIN_VALUE) * 0.25f;
+        public bool IsVeryLow => value < (MAX_VALUE - MIN_VALUE) * 0.1f; 
 
         public Need(float decayTime, float importance, float driveOrigin = 1.2f)
         {
@@ -163,12 +165,11 @@ namespace kfutils.rpg {
         }
 
 
-        public static float GetDrive(float value) {
+        public static float GetDrive(float value)
+        {
             return ((1.2f - value) / Mathf.Clamp(value, 0.05f, 0.5f));
         }
-
-
-        public bool IsLow() => value < 0.35f;
+        
 
         public float GetLowness() => Mathf.Max(0.35f - value, 0.0f);
 

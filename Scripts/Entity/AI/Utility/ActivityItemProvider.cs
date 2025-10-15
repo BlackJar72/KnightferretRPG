@@ -18,6 +18,7 @@ namespace kfutils.rpg
         [SerializeField] protected float timeToDo;
         [SerializeField] protected Transform actorLocation;
         [SerializeField] protected bool shareable = false;
+        [SerializeField] ActivityHelper.EEndCondition endCondition;
 
         public bool available = true;
         public bool Available { get => available; set => available = value;  }
@@ -34,11 +35,10 @@ namespace kfutils.rpg
         public string ID => id;
         public Transform ActorLocation => actorLocation;
         public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
-
-
         public float Satisfaction => FindHighestSatisfaction();
         public float DesireabilityFactor => FindHighestDesirability();
         public ENeeds GetNeed => FindNeeds();
+        public ActivityHelper.EEndCondition EndCondition => endCondition;
 
 
         private ENeeds FindNeeds()
@@ -130,6 +130,12 @@ namespace kfutils.rpg
         public bool ShouldEndActivity()
         {
             throw new System.NotImplementedException();
+        }
+
+
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
+        {
+            return ActivityHelper.ShouldEndActivity(ai, this, aiState);
         }
 
 
