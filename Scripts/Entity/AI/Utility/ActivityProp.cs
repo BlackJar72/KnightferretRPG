@@ -26,8 +26,6 @@ namespace kfutils.rpg
         [SerializeField] string id;
         [SerializeField] ENeeds theNeeds;
         [Tooltip("Should be NEED_DISCRETE or NEED_CONTINUOUS")][SerializeField] protected EObjectActivity activityType;
-        [SerializeField] EActivityRun activityRun;
-        [SerializeField] ECodeToRun codeToRun;
         [SerializeField] AbstractAction useAction;
         [Range(0.0f, 1.0f)][SerializeField] float satisfaction;
         [Range(0.0f, 2.0f)][SerializeField] float desireabilityFactor = 1.0f;
@@ -35,6 +33,9 @@ namespace kfutils.rpg
         [SerializeField] Transform actorLocation;
         [SerializeField] bool shareable = false;
         [SerializeField] ActivityHelper.EEndCondition endCondition;
+        [SerializeField] ActivityHelper.ECodeToRun codeToRunAtStart;
+        [SerializeField] ActivityHelper.ECodeToRun codeToRunContinuously;
+        [SerializeField] ActivityHelper.ECodeToRun codeToRunAtEnd;
 
         public bool available = true;
         public bool Available { get => available; set => available = value;  }
@@ -52,8 +53,10 @@ namespace kfutils.rpg
         public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
         public ENeeds GetNeed => theNeeds;
         public EObjectActivity ActivityType => activityType;
-        public EActivityRun ActivityCode => activityRun;
         public ActivityHelper.EEndCondition EndCondition => endCondition;
+        public ActivityHelper.ECodeToRun StartCode => codeToRunAtStart;
+        public ActivityHelper.ECodeToRun ContinuousCode => codeToRunContinuously;
+        public ActivityHelper.ECodeToRun EndCode => codeToRunAtEnd;
         
 
         public delegate void SpecialCode(ITalkerAI ai, ActivityProp activity, AIState aiState);
@@ -111,9 +114,21 @@ namespace kfutils.rpg
         }
 
 
-        public void RunSpecialCode(ITalkerAI ai, AIState aiState)
+        public void RunStartCode(ITalkerAI ai, NeedSeekState aiState)
         {
-            effects[(int)codeToRun](ai, this, aiState);
+            ActivityHelper.RunStartCode(ai, this, aiState);
+        }
+
+
+        public void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState)
+        {
+            ActivityHelper.RunContinuousCode(ai, this, aiState);
+        }
+
+
+        public void RunEndCode(ITalkerAI ai, NeedSeekState aiState)
+        {
+            ActivityHelper.RunEndCode(ai, this, aiState);
         }
 
 
@@ -122,35 +137,6 @@ namespace kfutils.rpg
             return ActivityHelper.ShouldEndActivity(ai, this, aiState);
         }
 
-
-        #region Special Code
-        /*******************************************************************************************/
-        /*                                 SPECIAL CODE                                            */
-        /*******************************************************************************************/
-
-
-        public enum ECodeToRun
-        {
-            NONE = 0,
-        }
-
-
-        /// <summary>
-        /// And array of delegate methods for potion effects.  These must be in the same order as the corresponding 
-        /// enum constants in order to match them up correctly.  
-        /// </summary>
-        private static SpecialCode[] effects = new SpecialCode[]{
-            DoNothing,
-        };
-
-
-        private static void DoNothing(ITalkerAI ai, ActivityProp activity, AIState aiState) { }
-
-
-
-
-
-        #endregion
 
 
     }

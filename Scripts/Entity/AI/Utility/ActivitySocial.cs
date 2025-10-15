@@ -18,11 +18,15 @@ namespace kfutils.rpg
 
         public float Satisfaction => throw new System.NotImplementedException();
 
-        public EActivityRun ActivityCode => throw new System.NotImplementedException();
-
         public float DesireabilityFactor => throw new System.NotImplementedException();
 
         public ActivityHelper.EEndCondition EndCondition => throw new System.NotImplementedException();
+
+        public ActivityHelper.ECodeToRun StartCode => throw new System.NotImplementedException();
+
+        public ActivityHelper.ECodeToRun ContinuousCode => throw new System.NotImplementedException();
+
+        public ActivityHelper.ECodeToRun EndCode => throw new System.NotImplementedException();
 
         public ActivityHolder GetActivityOption(ITalkerAI entity)
         {
@@ -35,21 +39,27 @@ namespace kfutils.rpg
             throw new System.NotImplementedException();
         }
 
-
-        public void RunSpecialCode(ITalkerAI ai, AIState aiState)
+        public void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool ShouldEndActivity()
+        public void RunEndCode(ITalkerAI ai, NeedSeekState aiState)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RunStartCode(ITalkerAI ai, NeedSeekState aiState)
         {
             throw new System.NotImplementedException();
         }
 
         public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            return ActivityHelper.ShouldEndActivity(ai, this, aiState);
         }
+
+        
     }
 
 

@@ -21,24 +21,17 @@ namespace kfutils.rpg
         public float TimeToDo { get; }
         public ENeeds GetNeed { get; }
         public EObjectActivity ActivityType { get; }
-        public EActivityRun ActivityCode { get; }
+        public ActivityHelper.ECodeToRun StartCode { get; }
+        public ActivityHelper.ECodeToRun ContinuousCode { get; }
+        public ActivityHelper.ECodeToRun EndCode { get; }
         public ActivityHelper.EEndCondition EndCondition { get; }
         public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState); 
-
-
-        public void RunSpecialCode(ITalkerAI ai, AIState aiState);
+        public void RunStartCode(ITalkerAI ai, NeedSeekState aiState);
+        public void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState);
+        public void RunEndCode(ITalkerAI ai, NeedSeekState aiState);
         
 
 
-    }
-
-
-    public enum EActivityRun
-    {
-        NONE,
-        START,
-        CONTINUOUS,
-        END
     }
 
 }

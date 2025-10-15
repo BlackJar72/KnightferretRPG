@@ -135,7 +135,7 @@ namespace kfutils.rpg
                 entity.GetNeeds.AddToNeeds(activity.ActivityObject.GetNeed, activity.ActivityObject.Satisfaction);
                 currentAction = WaitUntilDone;
             }
-            if (activity.ActivityObject.ActivityCode == EActivityRun.START) activity.ActivityObject.RunSpecialCode(entity, this);
+            activity.ActivityObject.RunStartCode(entity, this);
             if (activity.ActivityObject is IActivityProp prop) prop.Available = false;
             if (activity.ActivityObject is ActivityItem item)
             {
@@ -166,7 +166,7 @@ namespace kfutils.rpg
             {
                 EndActivity();
             }
-            if (activity.ActivityObject.ActivityCode == EActivityRun.CONTINUOUS) activity.ActivityObject.RunSpecialCode(entity, this);
+            activity.ActivityObject.RunContinuousCode(entity, this);
         }
 
 
@@ -178,12 +178,13 @@ namespace kfutils.rpg
             {
                 EndActivity();
             }
-            if (activity.ActivityObject.ActivityCode == EActivityRun.CONTINUOUS) activity.ActivityObject.RunSpecialCode(entity, this);
+            activity.ActivityObject.RunContinuousCode(entity, this);
         }
 
 
         private void EndActivity()
         {
+            activity.ActivityObject.RunEndCode(entity, this);
             if (activity.ActivityObject is IActivityProp prop)
             {
                 prop.Available = true;

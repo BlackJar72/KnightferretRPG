@@ -15,18 +15,21 @@ namespace kfutils.rpg
         [SerializeField] AbstractAction useAction;
         [SerializeField] float timeToDo;
         [Range(0.0f, 2.0f)][SerializeField] protected float desireabilityFactor = 1.0f;
-        [SerializeField] EActivityRun activityCode;
-        [SerializeField] ECodeToRun codeToRun;
         [SerializeField] ActivityHelper.EEndCondition endCondition;
+        [SerializeField] ActivityHelper.ECodeToRun codeToRunAtStart;
+        [SerializeField] ActivityHelper.ECodeToRun codeToRunContinuously;
+        [SerializeField] ActivityHelper.ECodeToRun codeToRunAtEnd;
 
         public AbstractAction UseAction => useAction;
         public float Satisfaction => 0.0f;
         public float TimeToDo => timeToDo;
         public ENeeds GetNeed => ENeeds.NONE;
         public EObjectActivity ActivityType => EObjectActivity.SELF;
-        public EActivityRun ActivityCode => activityCode;
         public float DesireabilityFactor => desireabilityFactor;
         public ActivityHelper.EEndCondition EndCondition => endCondition;
+        public ActivityHelper.ECodeToRun StartCode => codeToRunAtStart;
+        public ActivityHelper.ECodeToRun ContinuousCode => codeToRunContinuously;
+        public ActivityHelper.ECodeToRun EndCode => codeToRunAtEnd;
 
         public delegate void SpecialCode(ITalkerAI ai, SelfActivity activity, AIState aiState);
 
@@ -43,9 +46,21 @@ namespace kfutils.rpg
         }
 
 
-        public void RunSpecialCode(ITalkerAI ai, AIState aiState)
+        public void RunStartCode(ITalkerAI ai, NeedSeekState aiState)
         {
-            effects[(int)codeToRun](ai, this, aiState);
+            ActivityHelper.RunStartCode(ai, this, aiState);
+        }
+
+
+        public void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState)
+        {
+            ActivityHelper.RunContinuousCode(ai, this, aiState);
+        }
+
+
+        public void RunEndCode(ITalkerAI ai, NeedSeekState aiState)
+        {
+            ActivityHelper.RunEndCode(ai, this, aiState);
         }
 
 
@@ -55,52 +70,10 @@ namespace kfutils.rpg
         }
 
 
-        #region Special Code
-        /*******************************************************************************************/
-        /*                                 SPECIAL CODE                                            */
-        /*******************************************************************************************/
-
-
-        public enum ECodeToRun
-        {
-            NONE = 0,
-            WANDER = 1
-        }
-
-
-        /// <summary>
-        /// And array of delegate methods for potion effects.  These must be in the same order as the corresponding 
-        /// enum constants in order to match them up correctly.  
-        /// </summary>
-        private static SpecialCode[] effects = new SpecialCode[]{
-            DoNothing,
-            Wander
-
-        };
-
-
-        private static void DoNothing(ITalkerAI ai, SelfActivity activity, AIState aiState) { }
-
-
-        private static void Wander(ITalkerAI ai, SelfActivity activity, AIState aiState)
-        {
-            // TODO (FIXME): A better way to pick location to wander to; this ignores buildings / boundaries, 
-            // presence or absense of navemesh, general validity of destination, and height.  It should work 
-            // for testing in the test village.  Also, there should be some kind of anchor to keep from wandering 
-            // too far off. 
-            float distance = Random.Range(2.0f, 8.0f);
-            float direction = Random.Range(0.0f, 360.0f);
-            Vector3 vector = new Vector3(distance * Mathf.Sin(direction), 0.0f, distance * Mathf.Cos(direction));
-            Vector3 destination = ai.GetTransform.position + vector;
-            ai.SetDestination(destination, Random.value * 0.5f + 0.25f);
-        }
 
 
 
-
-
-        #endregion
-
+        
     }
 
 

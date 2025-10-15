@@ -75,6 +75,77 @@ namespace kfutils.rpg
 
 
 
+        #region Special Code
+        /*******************************************************************************************/
+        /*                                 SPECIAL CODE                                            */
+        /*******************************************************************************************/
+
+
+        public delegate void SpecialCode(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState);
+
+
+        public static void RunStartCode(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
+        {
+            effects[(int)activity.StartCode](ai, activity, aiState);
+        }
+
+
+        public static void RunContinuousCode(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
+        {
+            effects[(int)activity.ContinuousCode](ai, activity, aiState);
+        }
+
+
+        public static void RunEndCode(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
+        {
+            effects[(int)activity.EndCode](ai, activity, aiState);
+        }
+
+
+
+
+        public enum ECodeToRun
+        {
+            NONE = 0,
+            WANDER = 1
+        }
+
+
+        /// <summary>
+        /// And array of delegate methods for potion effects.  These must be in the same order as the corresponding 
+        /// enum constants in order to match them up correctly.  
+        /// </summary>
+        private static SpecialCode[] effects = new SpecialCode[]{
+            DoNothing,
+            Wander 
+        };
+
+
+        private static void DoNothing(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState) { }
+
+
+        private static void Wander(ITalkerAI ai, IActivityObject activity, NeedSeekState aiStatee)
+        {
+            // TODO (FIXME): A better way to pick location to wander to; this ignores buildings / boundaries, 
+            // presence or absense of navemesh, general validity of destination, and height.  It should work 
+            // for testing in the test village.  Also, there should be some kind of anchor to keep from wandering 
+            // too far off. 
+            float distance = Random.Range(2.0f, 8.0f);
+            float direction = Random.Range(0.0f, 360.0f);
+            Vector3 vector = new Vector3(distance * Mathf.Sin(direction), 0.0f, distance * Mathf.Cos(direction));
+            Vector3 destination = ai.GetTransform.position + vector;
+            ai.SetDestination(destination, Random.value * 0.5f + 0.25f);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
 
     }
 

@@ -40,11 +40,13 @@ namespace kfutils.rpg
         public float TimeToDo => 2.0f;
         ENeeds IActivityObject.GetNeed => ENeeds.SOCIAL;
         public EObjectActivity ActivityType => EObjectActivity.NEED_CONTINUOUS;
-        public EActivityRun ActivityCode => EActivityRun.END; // FIXME? See comment below on needed special codes. 
+        public ActivityHelper.EEndCondition EndCondition => endCondition;
+        public ActivityHelper.ECodeToRun StartCode => ActivityHelper.ECodeToRun.NONE;
+        public ActivityHelper.ECodeToRun ContinuousCode => ActivityHelper.ECodeToRun.NONE;
+        public ActivityHelper.ECodeToRun EndCode => ActivityHelper.ECodeToRun.NONE;
         public Transform ActorLocation => actorLocation;
         public bool Available { get => available; set => available = value; }
         public ActivityHolder GetActivityOption(ITalkerAI entity) => new ActivityHolder(this, GetUtility(entity));
-        public ActivityHelper.EEndCondition EndCondition => endCondition;
 
 
         public float GetUtility(ITalkerAI entity)
@@ -61,7 +63,10 @@ namespace kfutils.rpg
         //        and the end (to determine if more interaction should occur, pre-opting other actions); perhap, 
         //        though, the decision to continue to be up to the target. 
 
-        public void RunSpecialCode(ITalkerAI ai, AIState aiState) {}
+        
+        public void RunStartCode(ITalkerAI ai, NeedSeekState aiState){}
+        public void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState){}
+        public void RunEndCode(ITalkerAI ai, NeedSeekState aiState){}
 
 
         public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
