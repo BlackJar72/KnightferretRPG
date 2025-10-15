@@ -38,6 +38,11 @@ namespace kfutils.rpg
         {
             throw new System.NotImplementedException();
         }
+
+        public bool ShouldEndActivity()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 

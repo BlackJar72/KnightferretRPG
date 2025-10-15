@@ -19,10 +19,14 @@ namespace kfutils.rpg
         public Personality AIPersonality => personality;
 
 
-#region Social Activity Object
+        #region Social Activity Object
         /*********************************************************************************************/
         /*                              SOCIAL ACTIVITY OBJECT                                       */
         /*********************************************************************************************/
+
+        // FIXME: Should this even be here?  There may be a better way to do this, if I can make it work
+        //        at all.  No, start with shared activities, then have them create a temporary group 
+        //        activity for conversation (possibly a special sub-class).
 
         [SerializeField] AbstractAction socialActions;
         [SerializeField] Transform actorLocation;
@@ -56,10 +60,12 @@ namespace kfutils.rpg
         //        and the end (to determine if more interaction should occur, pre-opting other actions); perhap, 
         //        though, the decision to continue to be up to the target. 
 
-        public void RunSpecialCode(ITalkerAI ai, AIState aiState)
+        public void RunSpecialCode(ITalkerAI ai, AIState aiState) {}
+
+
+        public bool ShouldEndActivity()
         {
-            // TODO: Code for dermining if interaction should coninue 
-            throw new System.NotImplementedException();
+            return true; // FIXME/TODO: Actually figure out a legitimate result.
         }
 
         // NOTE ON RELATIONSHIP SYSTEM: Do I really need the kind of complex, dynamic relationship system between NPCs I was 
@@ -120,6 +126,11 @@ namespace kfutils.rpg
             needChooser.AddToList(itemsDiscrete, itemsConinuous);
             return needChooser.Choose();
         }
+
+
+
+
+
     }
 
 

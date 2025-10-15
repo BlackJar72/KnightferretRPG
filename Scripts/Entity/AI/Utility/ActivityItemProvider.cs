@@ -127,6 +127,12 @@ namespace kfutils.rpg
         }
 
 
+        public bool ShouldEndActivity()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
 
 
         #region Special Code
@@ -167,7 +173,7 @@ namespace kfutils.rpg
 
 
         #endregion
-        
+
 
     }
 

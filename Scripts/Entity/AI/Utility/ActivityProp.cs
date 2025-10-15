@@ -114,6 +114,12 @@ namespace kfutils.rpg
         }
 
 
+        public bool ShouldEndActivity()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
         #region Special Code
         /*******************************************************************************************/
         /*                                 SPECIAL CODE                                            */
