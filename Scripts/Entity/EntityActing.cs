@@ -106,6 +106,7 @@ namespace kfutils.rpg {
             {
                 actionUpdate = NormalUpdate;
                 isParried = false;
+                RestoreWalk();
             }
         }
 

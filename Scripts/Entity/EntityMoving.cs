@@ -1,7 +1,9 @@
 using System;
 using Animancer;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.PostProcessing;
 
 
 namespace kfutils.rpg {
@@ -43,6 +45,7 @@ namespace kfutils.rpg {
         protected Vector3 velocity;
         protected bool falling;
         protected bool onGround;
+        protected float moveSpeed;
 
         [SerializeField] protected Vector3 destination;
         [SerializeField] protected MoveType moveType;
@@ -146,7 +149,13 @@ namespace kfutils.rpg {
             {
                 SetDirectionalParameters(Vector2.zero);
             }
-            LandMove();
+            LandMoveRM();
+        }
+
+
+        protected void RestoreWalk()
+        {
+            moveState = moveLayer.Play(moveMixer);            
         }
 
 
@@ -268,7 +277,7 @@ namespace kfutils.rpg {
                 {
                     Vector3 motion = transform.position - lastPos;
                     motion.y = 0;
-                    float moveSpeed = (motion.magnitude / Time.deltaTime) / speed;
+                    moveSpeed = (motion.magnitude / Time.deltaTime) / speed;
                     dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, moveSpeed), 10 * Time.deltaTime);
                     lastPos = transform.position;
                 }
@@ -317,6 +326,54 @@ namespace kfutils.rpg {
             }
 
             velocity.Set(hVelocity.x, vSpeed, hVelocity.z);
+            controller.Move(velocity * Time.deltaTime);
+            //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
+        }
+
+
+
+
+
+        protected void LandMoveRM()
+        {
+            if (Time.deltaTime == 0) return;
+            movement = navSeeker.transform.position - transform.position;
+            heading.Set(movement.x, 0, movement.z);
+            Vector3 newVelocity = Vector3.zero;
+
+            if (heading.magnitude > 0.1)
+            {
+                float speed = Mathf.Min(1.0f, heading.magnitude);
+                heading.Normalize();
+                rotation.SetLookRotation(heading, Vector3.up);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 4.0f);
+                if (moveType == MoveType.run)
+                {
+                    stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor);
+                    if (!stamina.HasStamina) SetMoveType(MoveType.walk);
+                }
+
+                DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+                if (dms != null)
+                {
+                    Vector3 motion = navSeeker.transform.position - lastPos;
+                    motion.y = 0;
+                    if(speed > 0.25f) moveSpeed = Mathf.Lerp(moveSpeed, speed, Time.deltaTime * 4.0f);
+                    else moveSpeed = Mathf.Lerp(moveSpeed, 0, Time.deltaTime * 4.0f);
+                    dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, moveSpeed), 10 * Time.deltaTime); //new Vector2(0, moveSpeed);
+                    lastPos = transform.position;
+                }
+            }
+            else
+            {
+                DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+                if (dms != null)
+                {
+                    dms.Parameter = Vector2.zero;
+                    lastPos = transform.position;
+                }
+            }
+            velocity.Set(0, vSpeed, 0);
             controller.Move(velocity * Time.deltaTime);
             //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
         }

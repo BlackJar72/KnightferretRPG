@@ -1,5 +1,6 @@
 using System;
 using Animancer;
+using Unity.Entities;
 using UnityEngine;
 
 
@@ -148,8 +149,15 @@ namespace kfutils.rpg
                 QueueActivityFront(providedItem);
                 QueueActivityFront(provider.PreUseActivityHolder);
             }
-            animState = entity.PlayAction(activity.ActivityObject.UseAction.mask, activity.ActivityObject.UseAction.anim);
-            animState.Events.OnEnd += OnAnimEnd;
+            if (activity.ActivityObject.UseAction == null)
+            {
+                entity.StopAction();
+            }
+            else
+            {
+                animState = entity.PlayAction(activity.ActivityObject.UseAction.mask, activity.ActivityObject.UseAction.anim);
+                animState.Events.OnEnd += OnAnimEnd;
+            }
         }
         
 
