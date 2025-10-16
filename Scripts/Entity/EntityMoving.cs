@@ -1,10 +1,6 @@
 using System;
 using Animancer;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering.PostProcessing;
-
 
 namespace kfutils.rpg {
 
