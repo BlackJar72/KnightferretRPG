@@ -336,13 +336,14 @@ namespace kfutils.rpg {
             movement = navSeeker.transform.position - transform.position;
             heading.Set(movement.x, 0, movement.z);
             Vector3 newVelocity = Vector3.zero;
+            float speed = Mathf.Min(1.0f, heading.magnitude);
 
-            if (heading.magnitude > 0.1)
+            if (speed > 0.1)
             {
-                float speed = Mathf.Min(1.0f, heading.magnitude);
                 heading.Normalize();
                 rotation.SetLookRotation(heading, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 4.0f);
+            }
                 if (moveType == MoveType.run)
                 {
                     stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor);
@@ -359,16 +360,16 @@ namespace kfutils.rpg {
                     dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, moveSpeed), 10 * Time.deltaTime); //new Vector2(0, moveSpeed);
                     lastPos = transform.position;
                 }
-            }
-            else
-            {
-                DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
-                if (dms != null)
-                {
-                    dms.Parameter = Vector2.zero;
-                    lastPos = transform.position;
-                }
-            }
+            //}
+            //else
+            // {
+            //     DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+            //     if (dms != null)
+            //     {
+            //         dms.Parameter = Vector2.zero;
+            //         lastPos = transform.position;
+            //     }
+            // }
             velocity.Set(0, vSpeed, 0);
             controller.Move(velocity * Time.deltaTime);
             //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));

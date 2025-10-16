@@ -18,7 +18,7 @@ namespace kfutils.rpg
         private ActivityHolder activity;
         private float activityTimer;
         private ActivityChooser chooser;
-        private RingDeque<ActivityHolder> activityQueue;
+        private RingDeque<ActivityHolder> activityQueue = new(MAX_QUEUE);
         private ITalkerAI entity;
         private AnimancerState animState;
 
@@ -38,7 +38,6 @@ namespace kfutils.rpg
             {
                 chooser = ai.NeedChooser;
                 entity = ai;
-                activityQueue = new(MAX_QUEUE);
             }
             else
             {
@@ -60,8 +59,15 @@ namespace kfutils.rpg
 
         public override void StateExit()
         {
+            if(animState != null) animState.Events.OnEnd -= OnAnimEnd;
+            if(activity != null) EndActivity();
             activityQueue.Clear();
-            EndActivity();
+        }
+
+
+        void OnDisable()
+        {
+            StateExit();
         }
 
 
@@ -69,7 +75,6 @@ namespace kfutils.rpg
         {
             currentAction();
         }
-
 
 
         public void ChooseActivity()
@@ -164,6 +169,10 @@ namespace kfutils.rpg
         public void OnAnimEnd()
         {
             animState.Events.OnEnd -= OnAnimEnd;
+            if(activity.ActivityObject.EndCondition == ActivityHelper.EEndCondition.ANIM_END)
+            {
+                currentAction = EndActivity;
+            }
             animEnded = true;
         }
 
@@ -241,6 +250,10 @@ namespace kfutils.rpg
         public void BeNotified()
         {
             notified = true;
+            if(activity.ActivityObject.EndCondition == ActivityHelper.EEndCondition.NOTIFIED)
+            {
+                currentAction = EndActivity;
+            }
         }
 
 
