@@ -16,6 +16,7 @@ namespace kfutils.rpg
 
         public override void StateEnter()
         {
+            owner.SetMoveType(MoveType.run);
             owner.meleeTrigger.Notifiable = this;
             owner.meleeTrigger.enabled = true;
             owner.meleeTrigger.gameObject.SetActive(true);
@@ -26,6 +27,7 @@ namespace kfutils.rpg
 
         public override void StateExit()
         {
+            if(owner.Alive) owner.SetMoveType(MoveType.walk);
             owner.meleeTrigger.enabled = false;            
             owner.meleeTrigger.gameObject.SetActive(false);
         }
@@ -36,12 +38,17 @@ namespace kfutils.rpg
             if (shouldMelee)
             {
                 owner.StopMoving();
+                owner.SetMoveType(MoveType.idle);
                 if (Time.time > nextAttackTime) MeleeAttack();
             }
-            else if (Time.time > destUpdateTime)
-            {                
-                owner.SetDestination(EntityManagement.playerCharacter.transform.position);
-                destUpdateTime += 0.1f;
+            else
+            {
+                if (Time.time > destUpdateTime)
+                {
+                    owner.SetMoveType(MoveType.run);
+                    owner.SetDestination(EntityManagement.playerCharacter.transform.position);
+                    destUpdateTime += 0.1f;
+                }
             }
         }
 

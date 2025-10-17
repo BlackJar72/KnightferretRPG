@@ -22,6 +22,7 @@ namespace kfutils.rpg {
         [SerializeField] protected MovementSet movementSetPrototype;
         [SerializeField] protected Transform eyes;
         [SerializeField] protected NavSeeker navSeeker;
+        [SerializeField] protected GameObject destMaker;  // Temp, debugging
 
         protected MovementSet movementSet;
 
@@ -75,13 +76,11 @@ namespace kfutils.rpg {
         protected override void Start()
         {
             base.Start();
-            moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
-            moveState = moveLayer.Play(moveMixer);
             lastPos = transform.position;
             if (alive)
             {
-                moveState = moveLayer.Play(moveMixer);
+                SetMoveType(MoveType.walk);
                 moveTween = new MixerParameterTweenVector2(moveMixer.State);
             }
             else
@@ -176,6 +175,12 @@ namespace kfutils.rpg {
         }
 
 
+        public bool AtDestination()
+        {
+            return (transform.position - destination).magnitude < 0.25f;
+        }
+
+
         protected override void Die()
         {
             base.Die();
@@ -195,6 +200,7 @@ namespace kfutils.rpg {
             navSeeker.Agent.SetDestination(destination);
             navSeeker.Agent.stoppingDistance = stopDist;
             navSeeker.stopped = false;
+            if (destMaker != null) destMaker.transform.position = destination; // Temp, debugging
         }
 
 
@@ -210,7 +216,7 @@ namespace kfutils.rpg {
         }
 
 
-        protected void SetMoveType(MoveType type)
+        public void SetMoveType(MoveType type)
         {
             moveType = type;
             switch (moveType)
@@ -218,29 +224,25 @@ namespace kfutils.rpg {
                 case MoveType.idle:
                     navSeeker.Agent.speed = speed = 0;
                     moveMixer = movementSet.Walk;
-                    SetDirectionalParameters(Vector2.zero);
                     break;
                 case MoveType.crouch:
                     navSeeker.Agent.speed = speed = attributes.crouchSpeed;
                     moveMixer = movementSet.Crouch;
-                    // TODO: Set DirectionalMixerState parameters
                     break;
                 case MoveType.walk:
                     navSeeker.Agent.speed = speed = attributes.walkSpeed;
                     moveMixer = movementSet.Walk;
-                    // TODO: Set DirectionalMixerState parameters
                     break;
                 case MoveType.run:
-                    navSeeker.Agent.speed = speed = attributes.crouchSpeed;
+                    navSeeker.Agent.speed = speed = attributes.runSpeed;
                     moveMixer = movementSet.Run;
-                    // TODO: Set DirectionalMixerState parameters
                     break;
                 default:
                     navSeeker.Agent.speed = speed = 0;
                     moveMixer = movementSet.Walk;
-                    // TODO: Set DirectionalMixerState parameters
                     break;
             }
+            moveState = moveLayer.Play(moveMixer);
         }
 
 
@@ -343,21 +345,21 @@ namespace kfutils.rpg {
             movement = navSeeker.transform.position - transform.position;
             heading.Set(movement.x, 0, movement.z);
             Vector3 newVelocity = Vector3.zero;
-            float speed = Mathf.Min(1.0f, heading.magnitude);
+            float speed = Mathf.Min((float)moveType, heading.magnitude);
 
             if (speed > 0.1)
             {
                 heading.Normalize();
                 rotation.SetLookRotation(heading, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 4.0f);
-            }
-                if (moveType == MoveType.run)
+                if (moveSpeed > 0.1f && (moveType == MoveType.run))
                 {
                     stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor);
                     if (!stamina.HasStamina) SetMoveType(MoveType.walk);
                 }
+            }
 
-                DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
+            DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
                 if (dms != null)
                 {
                     Vector3 motion = navSeeker.transform.position - lastPos;
@@ -367,16 +369,6 @@ namespace kfutils.rpg {
                     dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, moveSpeed), 10 * Time.deltaTime); //new Vector2(0, moveSpeed);
                     lastPos = transform.position;
                 }
-            //}
-            //else
-            // {
-            //     DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
-            //     if (dms != null)
-            //     {
-            //         dms.Parameter = Vector2.zero;
-            //         lastPos = transform.position;
-            //     }
-            // }
             velocity.Set(0, vSpeed, 0);
             controller.Move(velocity * Time.deltaTime);
             //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));

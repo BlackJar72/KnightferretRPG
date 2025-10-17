@@ -165,6 +165,9 @@ namespace kfutils.rpg {
         }
 
 
+        public bool AtDestination() => false;
+
+
         protected void UpdateMoveType()
         {
             if (shouldCrouch)

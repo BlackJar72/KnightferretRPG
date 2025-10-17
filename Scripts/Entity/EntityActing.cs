@@ -117,10 +117,6 @@ namespace kfutils.rpg {
             // Line only to 
             actionLayer = animancer.Layers[1];
             actionState = moveState;
-            if (alive)
-            {
-                SetMoveType(MoveType.walk); // REMOVE ME?
-            }
         }
 
 

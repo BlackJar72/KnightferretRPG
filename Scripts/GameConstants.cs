@@ -14,10 +14,11 @@ namespace kfutils.rpg {
         pcBody = 7,
         pcArms = 8,
         npc = 9,
-        projectile = 10, 
+        projectile = 10,
         damageable = 11,
         attack = 12,
         block = 13,
+        door = 16,
         sky = 20
     }
 
@@ -49,9 +50,10 @@ namespace kfutils.rpg {
         public const int damageableLayer = 0x1 << (int)Layers.damageable;
         public const int attackableLayer = damageableLayer | (0x1 << (int)Layers.block);
         public const int attackLayer = 0x1 << (int)Layers.attack;
+        public const int doorLayer = 0x1 << (int)Layers.door;
         public const int skyLayer = 0x1 << (int)Layers.sky;
 
-        public const int interactable = interactableLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
+        public const int interactable = interactableLayer | doorLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
         public const int LevelMask = defaultLayer | interactableLayer;
         #endregion
 

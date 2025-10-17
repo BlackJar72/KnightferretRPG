@@ -9,6 +9,7 @@ namespace kfutils.rpg
     {
         public Transform GetTransform { get; }
         public bool AtLocation(Transform location);
+        public bool AtDestination();
 
 
 

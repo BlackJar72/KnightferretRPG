@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace kfutils.rpg
@@ -26,8 +28,9 @@ namespace kfutils.rpg
         {
             TIMED = 0,
             FILLED = 1,
-            ANIM_END = 3,
-            NOTIFIED = 4
+            ANIM_END = 2,
+            NOTIFIED = 3,
+            AT_DESTINATION = 4 
         }
 
 
@@ -39,7 +42,8 @@ namespace kfutils.rpg
             TimedEnd,
             FilledEnd,
             AnimEnded,
-            EndNotified
+            EndNotified,
+            AtDestination
         };
 
 
@@ -64,6 +68,12 @@ namespace kfutils.rpg
         private static bool EndNotified(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
         {            
             return aiState.Notified;
+        }
+
+
+        private static bool AtDestination(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
+        {
+            return ai.AtDestination();
         }
 
 
@@ -130,11 +140,21 @@ namespace kfutils.rpg
             // presence or absense of navemesh, general validity of destination, and height.  It should work 
             // for testing in the test village.  Also, there should be some kind of anchor to keep from wandering 
             // too far off. 
-            float distance = Random.Range(2.0f, 8.0f);
-            float direction = Random.Range(0.0f, 360.0f);
-            Vector3 vector = new Vector3(distance * Mathf.Sin(direction), 0.0f, distance * Mathf.Cos(direction));
-            Vector3 destination = ai.GetTransform.position + vector;
-            ai.SetDestination(destination, Random.value * 0.5f + 0.25f);
+            Vector3 destination = ai.GetTransform.position;
+            for (int i = 0; i < 10; i++)
+            {
+                float distance = Random.Range(2.0f, 8.0f);
+                float direction = Random.Range(0.0f, 360.0f);
+                Vector3 vector = new Vector3(distance * Mathf.Sin(direction), 0.0f, distance * Mathf.Cos(direction));
+                destination = ai.GetTransform.position + vector;
+                NavMesh.SamplePosition(destination, out NavMeshHit navMeshHit, 3.0f, 1);
+                if (navMeshHit.hit)
+                {
+                    destination = navMeshHit.position;
+                    i = 11;
+                }
+            }
+            ai.SetDestination(destination);
         }
 
 

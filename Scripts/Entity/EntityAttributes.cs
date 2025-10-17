@@ -34,9 +34,15 @@ namespace kfutils.rpg {
         /// <param name="stamina">Should be the EntityStamina field of the entity</param>
         /// <param name="mana">Should be the EntityMana field of the entity</param>
         public void DeriveAttributesForHuman(EntityHealth health, EntityStamina stamina, EntityMana mana) {
-            crouchSpeed = 1.0f + (baseStats.Agility * 0.1f);
-            walkSpeed = 4.5f + (baseStats.Agility * 0.05f);
-            runSpeed  = walkSpeed + (baseStats.Agility * 0.25f);
+            #if FAST_ACTION
+                crouchSpeed = 1.0f + (baseStats.Agility * 0.1f);
+                walkSpeed = 4.5f + (baseStats.Agility * 0.05f);
+                runSpeed  = walkSpeed + (baseStats.Agility * 0.25f);
+            # else
+                crouchSpeed = 0.1f + (baseStats.Agility * 0.1f);
+                walkSpeed = 1.1f + (baseStats.Agility * 0.05f);
+                runSpeed = walkSpeed + (baseStats.Agility * 0.2f);
+            #endif
             jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f), 0.25f, 2.0f);
             naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5);
             meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);

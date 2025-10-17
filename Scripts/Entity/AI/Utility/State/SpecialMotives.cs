@@ -9,7 +9,7 @@ namespace kfutils.rpg
     /// A class to repressent special motive attached to special AI states, notably for 
     /// work states where the NPC might move between various work related tasks. 
     /// </summary>
-    [CreateAssetMenu(menuName = "KF-RPG/AI/Utility/Special Motives", fileName = "SpecialMotives", order = 10)]
+    [CreateAssetMenu(menuName = "KF-RPG/AI/Utility/Special Motives", fileName = "SpecialMotives", order = 100)]
     public class SpecialMotives : ScriptableObject, IHaveStringID 
     {
         [System.Serializable]
