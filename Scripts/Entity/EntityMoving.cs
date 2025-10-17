@@ -48,6 +48,10 @@ namespace kfutils.rpg {
 
         public Transform GetTransform => transform;
 
+        protected delegate void Movement();
+        protected Movement DoMove;
+        protected Movement DefaultMove;
+
 
         // This is to make sure this is never overriden into something harmful.
         protected sealed override void MakePC(string id) { base.MakePC(ID); }
@@ -60,6 +64,9 @@ namespace kfutils.rpg {
             // and no CreateInstance is not appropriate as I need to clone the give 
             // object, not create a totally new one.
             movementSet = Instantiate(movementSetPrototype);
+            if (movementSet.UseRootMotion) DefaultMove = LandMoveRM;
+            else DefaultMove = LandMove;
+            DoMove = DefaultMove;
             rotation = new Quaternion();
         }
 
@@ -145,7 +152,7 @@ namespace kfutils.rpg {
             {
                 SetDirectionalParameters(Vector2.zero);
             }
-            LandMoveRM();
+            DoMove();
         }
 
 
