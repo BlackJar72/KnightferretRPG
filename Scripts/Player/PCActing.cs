@@ -366,6 +366,8 @@ namespace kfutils.rpg {
 
         protected virtual void CastSpell(InputAction.CallbackContext context)
         {
+            // FXIME!!!! WTF!?! Spell equiping is broken
+            Debug.Log(equiptSpell);
             if (equiptSpell.currentSpell != null)
             {
                 float cost = equiptSpell.currentSpell.ManaCost * attributes.manaCostFactor;

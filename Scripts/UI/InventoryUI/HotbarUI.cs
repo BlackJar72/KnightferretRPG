@@ -22,6 +22,8 @@ namespace kfutils.rpg.ui {
             InventoryManagement.hotBar = hotBar;
             InventoryManagement.slotsSwappedEvent += OnSlotsSwapped;
             InventoryManagement.slotEmptiedEvent += OnSlotEmptied;
+            InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
+            InventoryManagement.HotbarUpdateEvent += RespondToChanges;
             WorldManagement.GameReloaded += OnGameReloaded;
 
         }
@@ -31,6 +33,8 @@ namespace kfutils.rpg.ui {
         {
             InventoryManagement.slotsSwappedEvent -= OnSlotsSwapped;
             InventoryManagement.slotEmptiedEvent -= OnSlotEmptied;
+            InventoryManagement.HotbarActivatedEvent -= RespondToHotbar;
+            InventoryManagement.HotbarUpdateEvent -= RespondToChanges;
             WorldManagement.GameReloaded -= OnGameReloaded;
         }
 
@@ -83,6 +87,16 @@ namespace kfutils.rpg.ui {
         public void RemoveEquiptSlot(int slot)
         {
             if (hotBar.RemoveEquiptSlot(slot)) Redraw();
+        }
+
+
+        private void RespondToHotbar(SlotData slotData) => RespondToChanges();
+        
+
+        private void RespondToChanges()
+        {
+            HotbarSlotUI[] slots = GetComponentsInChildren<HotbarSlotUI>();
+            for (int i = 0; i < slots.Length; i++) slots[i].RedrawForLoad(this);
         }
 
 

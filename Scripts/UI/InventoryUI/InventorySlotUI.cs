@@ -53,6 +53,7 @@ namespace kfutils.rpg.ui {
                 } 
             }
             inventory.SignalUpdate(); 
+            InventoryManagement.SigalHotbarUpdate();
             return true;          
         }
 

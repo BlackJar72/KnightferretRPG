@@ -11,7 +11,7 @@ namespace kfutils.rpg.ui {
         [SerializeField] bool belongsToPC;
 
         [HideInInspector] public Spell currentSpell;
-
+        
 
         protected virtual void Start() {
             if(belongsToPC) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;

@@ -11,15 +11,29 @@ namespace kfutils.rpg.ui {
     public class HotbarSlotUI : MonoBehaviour, IDropHandler, IPointerClickHandler {
 
         
-        [SerializeField] public HotbarUI hotBar;
+        [SerializeField] HotbarUI hotBar;
         [SerializeField] TMP_Text numberText;
         [SerializeField] int slotNumber;
+        [SerializeField] Sprite unselectedImage;
+        [SerializeField] Sprite selectedImage;
 
         public Image icon;
 
+        private Image image;
 
-        public void Redraw() {            
-            icon.gameObject.SetActive(hotBar.GetSlot(slotNumber).filled);
+
+        private void Awake()
+        {
+            image = GetComponent<Image>();
+        }
+
+
+        public void Redraw()
+        {
+            SlotData slotData = hotBar.GetSlot(slotNumber);
+            icon.gameObject.SetActive(slotData.filled);
+            if ((slotData.inventory == InvType.EQUIPT) || (slotData.inventory == InvType.SPELLS)) image.sprite = selectedImage;
+            else image.sprite = unselectedImage;
         }
 
 
@@ -34,18 +48,23 @@ namespace kfutils.rpg.ui {
                 {
                     case InvType.MAIN:
                         icon.sprite = EntityManagement.playerCharacter.Inventory.GetItemInSlot(sd.invSlot).item.Icon;
+                        image.sprite = unselectedImage;
                         break;
                     case InvType.EQUIPT:
                         icon.sprite = EntityManagement.playerCharacter.Inventory.Equipt.GetItemInSlot(sd.invSlot).item.Icon;
+                        image.sprite = selectedImage;
                         break;
                     case InvType.SPELLS:
                         icon.sprite = EntityManagement.playerCharacter.Spells.GetItemInSlot(sd.invSlot).Icon;
+                        image.sprite = unselectedImage;
                         break;
                     default:
+                        image.sprite = unselectedImage;
                         icon.gameObject.SetActive(false);
                         break;
                 }
-            }            
+            }
+            else image.sprite = unselectedImage;
         }
 
 

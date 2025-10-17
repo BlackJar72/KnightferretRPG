@@ -69,7 +69,10 @@ namespace kfutils.rpg {
         public void UseHotbar(int slotNumber)
         {
             SlotData slot = hotbarUI.GetSlot(slotNumber);
-            if (slot.filled) InventoryManagement.SigalHotbarActivated(slot);
+            if (slot.filled)
+            {
+                InventoryManagement.SigalHotbarActivated(slot);
+            }
         }
 
 

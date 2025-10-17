@@ -59,6 +59,9 @@ namespace kfutils.rpg {
         public delegate void HotbarActivated(SlotData slot);
         public static event HotbarActivated HotbarActivatedEvent;
 
+        public delegate void HotbarUpdate();
+        public static event HotbarUpdate HotbarUpdateEvent;
+
 
         public static void Initialize()
         {
@@ -147,6 +150,13 @@ namespace kfutils.rpg {
         {
             HotbarActivatedEvent?.Invoke(slot);
         }
+
+
+        public static void SigalHotbarUpdate()
+        {
+            HotbarUpdateEvent?.Invoke();
+        }
+
 
         public static System.Delegate[] GetHotbackActivedSub() => HotbarActivatedEvent.GetInvocationList();
 

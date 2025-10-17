@@ -270,7 +270,10 @@ namespace kfutils.rpg {
 
 
         public virtual void SignalUpdate() {
-            if (belongsToPC) InventoryManagement.SignalInventoryUpdate(this);
+            if (belongsToPC)
+            {
+                InventoryManagement.SignalInventoryUpdate(this);
+            }
             CalculateWeight();
         }
 
