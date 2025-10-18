@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -16,16 +17,31 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void Update() {
-            if((startPos - gameObject.transform.position).sqrMagnitude > sqrRange) {
-                if(impactPrefab != null) {
-                    GameObject impact;
-                    impact = Instantiate(impactPrefab, transform);
-                    impact.transform.SetParent(impact.transform.parent.root);
+        protected virtual void Update()
+        {
+            if ((startPos - gameObject.transform.position).sqrMagnitude > sqrRange)
+            {
+                if (impactPrefab != null)
+                {
+                    Instantiate(impactPrefab, transform.position, transform.rotation,
+                                WorldManagement.GetChunkFromTransform(transform).transform);
                 }
                 Destroy(gameObject);
             }
         }
+
+
+        /*protected override void OnCollisionEnter(Collision collision)
+        {
+                Debug.Log(collision.gameObject.name);
+                Debug.Log(((startPos - gameObject.transform.position).sqrMagnitude) 
+                        + " (" + ((startPos - gameObject.transform.position).magnitude) + ") "
+                        + " > " + sqrRange + " (" + Mathf.Sqrt(sqrRange) + ") ");
+            base.OnCollisionEnter(collision);
+        }*/
+
+
+
 
     }
 

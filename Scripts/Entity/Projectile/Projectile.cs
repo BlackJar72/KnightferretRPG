@@ -25,16 +25,17 @@ namespace kfutils.rpg {
 
 
         protected virtual void OnCollisionEnter(Collision collision) {
-            GameObject impact;
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+            if (damageable == sender) return;
             if(impactPrefab != null) {
-                impact = Instantiate(impactPrefab, transform);
-                impact.transform.SetParent(impact.transform.parent.root);
+                GameObject impact;
+                impact = Instantiate(impactPrefab, transform.position, transform.rotation,
+                            WorldManagement.GetChunkFromTransform(transform).transform);
             }
-            if((damageable != null) && (damageable != sender)) {
+            if(damageable != null) {
                 damage.DoDamage(sender, null, damageable);
             }
-            if(damageable != sender) Destroy(gameObject);
+            Destroy(gameObject);
         }
 
 
