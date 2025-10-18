@@ -48,6 +48,7 @@ namespace kfutils.rpg {
 
         public AbstractAction UseAnimation => useAnimation.Primary;
 
+        public float AttackTime => attackTime;
         public int StaminaCost => attackCost;
         public int PowerAttackCost => powerAttackCost;
         public bool Parriable => parriable;
@@ -55,6 +56,7 @@ namespace kfutils.rpg {
         public float BlockAmount => blockAmount;
         public float Stability => stability;
         public float ParryWindow => parryWindow;
+        public DamageSource DamagerSrc => damage;
 
 
         /*******************************************************************************************************************************/
@@ -216,7 +218,7 @@ namespace kfutils.rpg {
 
         public void OnAttackStart()
         {
-            hitCollider.enabled = true;
+            if(hitCollider != null) hitCollider.enabled = true;
         }
 
 

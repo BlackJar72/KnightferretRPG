@@ -11,6 +11,7 @@ namespace kfutils.rpg {
         [SerializeField] float armorPenetration;
         public int BaseDamage => baseDamage;
         public DamageType Type => damageType;
+        public float AP => armorPenetration;
 
         public Damages GetDamage(int armor)
         {

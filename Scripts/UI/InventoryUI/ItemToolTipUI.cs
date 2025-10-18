@@ -76,7 +76,7 @@ namespace kfutils.rpg.ui {
 
 
         private void SetDescription(string text) {
-            itemDescription.SetText(text);
+            itemDescription.SetText(System.Environment.NewLine + text);
             int w = Mathf.CeilToInt(itemDescription.GetPreferredValues(text)[0]);
             Vector2 rtSize = itemDescription.rectTransform.sizeDelta;
             rtSize[1] = ((w / 354) * 40) + 60;
@@ -113,22 +113,66 @@ namespace kfutils.rpg.ui {
 
             SetDescription(item.Description);
 
-            itemDamage.SetInfo(null);
-            itemSpeed.SetInfo(null);
-            itemDmgType.SetInfo(null);
-            itemAP.SetInfo(null);
-            itemBlock.SetInfo(null);
-            itemStability.SetInfo(null);
-            itemParry.SetInfo(null);
-            itemAR.SetInfo(null);
+            if (item.EquiptItem is WeaponMelee weapon)
+            {
+                itemDamage.SetInfo(weapon.GetDamage().ToString());
+                itemSpeed.SetInfo((1.0f / weapon.AttackTime).ToString("0.0"));
+                itemDmgType.SetInfo(weapon.DamagerSrc.Type.ToString());
+                itemAP.SetInfo(((int)(weapon.DamagerSrc.AP * 100)).ToString() + "%");
+                itemBlock.SetInfo(((int)(weapon.BlockAmount * 100)).ToString() + "%");
+                itemStability.SetInfo(((int)(weapon.Stability * 100)).ToString() + "%");
+                itemParry.SetInfo(weapon.ParryWindow.ToString("0.00") + " s");
+                itemAR.SetInfo(null);
+            }
+            else
+            {
+                itemDamage.SetInfo(null);
+                itemSpeed.SetInfo(null);
+                itemDmgType.SetInfo(null);
+                itemAP.SetInfo(null);
+                itemBlock.SetInfo(null);
+                itemStability.SetInfo(null);
+                itemParry.SetInfo(null);
+                itemAR.SetInfo(null);
+            }
 
             finalSpace.gameObject.SetActive(false);
         }
 
 
         private void SetFieldsForShield(ItemPrototype item) {
-            SetFieldsForGeneral(item);
+            itemName.SetText(item.Name);
 
+            itemWeight.SetInfo(item.Weight.ToString());
+            itemValue.SetInfo(item.Value.GetGoodMoneyString());
+
+            SetDescription(item.Description);
+
+            if (item.EquiptItem is ItemShield shield)
+            {
+                itemDamage.SetInfo(shield.GetDamage().ToString());
+                itemSpeed.SetInfo(null);
+                itemDmgType.SetInfo(null);
+                itemAP.SetInfo(null);
+                itemBlock.SetInfo(((int)(shield.BlockAmount * 100)).ToString() + "%");
+                itemStability.SetInfo(((int)(shield.Stability * 100)).ToString() + "%");
+                if(shield.ParryWindow > 0.0f) itemParry.SetInfo(shield.ParryWindow.ToString("0.00") + " s");
+                else itemParry.SetInfo(null);
+                itemAR.SetInfo(null);
+            }
+            else
+            {
+                itemDamage.SetInfo(null);
+                itemSpeed.SetInfo(null);
+                itemDmgType.SetInfo(null);
+                itemAP.SetInfo(null);
+                itemBlock.SetInfo(null);
+                itemStability.SetInfo(null);
+                itemParry.SetInfo(null);
+                itemAR.SetInfo(null);
+            }
+
+            finalSpace.gameObject.SetActive(false);
         }
 
 
