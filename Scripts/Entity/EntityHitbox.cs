@@ -23,6 +23,8 @@ namespace kfutils.rpg
         public void SetParried(bool parried = true) => owner.SetParried(parried);
         public bool IsSurprised(ICombatant attacker) => owner.IsSurprised(attacker);
         public Damages ApplyDamageAdjustment(Damages damage) => owner.ApplyDamageAdjustment(damage);
+        public void HealDamage(float amount) => owner.HealDamage(amount); 
+        
     }
 
 }

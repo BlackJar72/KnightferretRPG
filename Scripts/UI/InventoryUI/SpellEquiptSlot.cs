@@ -10,7 +10,9 @@ namespace kfutils.rpg.ui {
         [SerializeField] Image icon;
         [SerializeField] bool belongsToPC;
 
-        [HideInInspector] public Spell currentSpell;
+        [SerializeField] public Spell currentSpell;
+
+        public Spell CurrentSpell => currentSpell;
         
 
         protected virtual void Start() {
@@ -30,11 +32,13 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void EquiptSpell(SpellEntry spellEntry) {
-                currentSpell = spellEntry.Spell;
-                icon.sprite = spellEntry.Icon.sprite;
-                icon.gameObject.SetActive(true);
-            }
+        public void EquiptSpell(SpellEntry spellEntry) 
+        {
+            currentSpell = spellEntry.Spell;
+            icon.sprite = spellEntry.Icon.sprite;
+            icon.gameObject.SetActive(true);
+            InventoryManagement.SigalHotbarUpdate();
+        }
 
 
         public void OnPointerEnter(PointerEventData eventData) {
@@ -53,21 +57,27 @@ namespace kfutils.rpg.ui {
                 GameManager.Instance.UIManager.HideItemStackManipulator();
                 currentSpell = null;
                 icon.gameObject.SetActive(false);
+                InventoryManagement.SigalHotbarUpdate();
             } 
         }
 
 
         public void RespondToHotbar(SlotData slot) {
-            if(slot.inventory == InvType.SPELLS) {
+            if (slot.inventory == InvType.SPELLS)
+            {
                 Spell otherSpell = EntityManagement.playerCharacter.Spells.spells[slot.invSlot];
-                if(otherSpell == currentSpell) {
+                if (otherSpell == currentSpell)
+                {
                     currentSpell = null;
                     icon.gameObject.SetActive(false);
-                } else {
+                }
+                else
+                {
                     currentSpell = otherSpell;
                     icon.sprite = otherSpell.Icon;
                     icon.gameObject.SetActive(true);
                 }
+                InventoryManagement.SigalHotbarUpdate();
             }
         }
 

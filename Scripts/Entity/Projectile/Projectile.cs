@@ -28,8 +28,7 @@ namespace kfutils.rpg {
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if (damageable == sender) return;
             if(impactPrefab != null) {
-                GameObject impact;
-                impact = Instantiate(impactPrefab, transform.position, transform.rotation,
+                Instantiate(impactPrefab, transform.position, transform.rotation,
                             WorldManagement.GetChunkFromTransform(transform).transform);
             }
             if(damageable != null) {

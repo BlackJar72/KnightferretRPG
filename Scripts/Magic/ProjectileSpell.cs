@@ -3,7 +3,7 @@ using UnityEngine;
 namespace kfutils.rpg {
 
 
-    [CreateAssetMenu(menuName = "KF-RPG/Magic/Projectile Spell Prototype", fileName = "ProjectileCast", order = 20)]
+    [CreateAssetMenu(menuName = "KF-RPG/Magic/Projectile Spell", fileName = "ProjectileCast", order = 20)]
     public class ProjectileSpell : ASpellCast {
 
         [SerializeField] GameObject projectilePrefab;

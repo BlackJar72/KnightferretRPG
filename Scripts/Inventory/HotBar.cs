@@ -13,6 +13,7 @@ namespace kfutils.rpg {
 
         public SlotData GetSlot(int index) => slots[index];
 
+
         public void CopyInto(HotBar other)
         {
             for (int i = 0; i < slots.Length; i++) slots[i] = other.slots[i];
@@ -86,6 +87,20 @@ namespace kfutils.rpg {
                 }
             }
             return changed;
+        }
+
+
+        public void UnequipSpell()
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i].inventory == InvType.SPELLS)
+                {
+                    slots[i].inventory = InvType.NONE;
+                    slots[i].invSlot = -1;
+                    slots[i].filled = false;
+                }
+            }
         }
 
 

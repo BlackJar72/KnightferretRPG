@@ -91,7 +91,7 @@ namespace kfutils.rpg.ui {
 
 
         private void RespondToHotbar(SlotData slotData) => RespondToChanges();
-        
+
 
         private void RespondToChanges()
         {

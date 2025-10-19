@@ -26,6 +26,7 @@ namespace kfutils.rpg
         public void TakeDamage(DamageData damage);
         public EntityLiving GetEntity { get; }
         public Damages ApplyDamageAdjustment(Damages damage);
+        public void HealDamage(float amount);
 
 
         /// <summary>

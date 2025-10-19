@@ -23,9 +23,9 @@ namespace kfutils.rpg.ui {
         public void AddSpell(Spell spell, int slot) {
             slot %= 2;
             if(slot == 0) {
-                spell01.AddSpell(spell);
+                spell01.AddSpell(spell, slot);
             } else {
-                spell02.AddSpell(spell);
+                spell02.AddSpell(spell, slot);
             }
         }
 

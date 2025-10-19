@@ -3,10 +3,12 @@ using kfutils.rpg.ui;
 using System.Collections.Generic;
 
 
-namespace kfutils.rpg {
-    
-    public class Spellbook : MonoBehaviour, IInventory<Spell> {
-        
+namespace kfutils.rpg
+{
+
+    public class Spellbook : MonoBehaviour, IInventory<Spell>
+    {
+
         public List<Spell> spells;
 
         public bool unlocked = false; // Spells should not normally be removed from list; can make it possible in special circumstances
@@ -24,14 +26,16 @@ namespace kfutils.rpg {
 
         void Start() // FIXME: This will need to be moved to an method run only at the start of a new game!!
         {
-            foreach(Spell spell in startingItems) AddToFirstEmptySlot(spell);
+            foreach (Spell spell in startingItems) AddToFirstEmptySlot(spell);
             SignalUpdate();
         }
 
 
-        public bool AddItemToSlot(int slot, Spell spell) {
-            for(int i = 0; i < spells.Count; i++) {
-                if(spells[i] == spell) return false; // Do not add a spell more than once
+        public bool AddItemToSlot(int slot, Spell spell)
+        {
+            for (int i = 0; i < spells.Count; i++)
+            {
+                if (spells[i] == spell) return false; // Do not add a spell more than once
             }
             spells.Add(spell);
             SignalUpdate();
@@ -39,13 +43,15 @@ namespace kfutils.rpg {
         }
 
 
-        public int AddToFirstEmptySlot(Spell spell) {
+        public int AddToFirstEmptySlot(Spell spell)
+        {
             AddItemToSlot(spells.Count, spell);
             return spells.Count - 1;
         }
 
 
-        public int AddToFirstReallyEmptySlot(Spell spell) {
+        public int AddToFirstReallyEmptySlot(Spell spell)
+        {
             AddItemToSlot(spells.Count, spell);
             return spells.Count - 1;
         }
@@ -54,55 +60,69 @@ namespace kfutils.rpg {
         public float CalculateWeight() => 0.0f;
 
 
-        public Spell GetByBackingIndex(int index) {
+        public Spell GetByBackingIndex(int index)
+        {
             return spells[index];
         }
 
 
-        public Spell GetItemInSlot(int slot) {
+        public Spell GetItemInSlot(int slot)
+        {
             return GetByBackingIndex(slot);
         }
 
 
-        public int GetLastSlot() {
+        public int GetLastSlot()
+        {
             return spells.Count - 1;
         }
 
 
-        public int GetNumberInSlot(int slot) {
-            if(slot < spells.Count) return 1;
+        public int GetNumberInSlot(int slot)
+        {
+            if (slot < spells.Count) return 1;
             return 0;
         }
 
 
-        public bool HasItem(Spell spell) {
-            for(int i = 0; i < spells.Count; i++) {
-                if(spells[i] == spell) return true;
+        public bool HasItem(Spell spell)
+        {
+            for (int i = 0; i < spells.Count; i++)
+            {
+                if (spells[i] == spell) return true;
             }
             return false;
         }
 
 
-        public void RemoveAllFromSlot(int slot) {
-            if(unlocked) {
+        public void RemoveAllFromSlot(int slot)
+        {
+            if (unlocked)
+            {
                 spells.RemoveAt(slot);
                 SignalUpdate();
             }
         }
 
 
-        public void RemoveFromSlot(int slot, int number) {
-            if(unlocked) {
+        public void RemoveFromSlot(int slot, int number)
+        {
+            if (unlocked)
+            {
                 spells.RemoveAt(slot);
                 SignalUpdate();
             }
         }
 
 
-        public void RemoveItem(Spell spell) {
-            if(unlocked) {
-                for(int i = spells.Count - 1; i > -1; i--) {
-                    if(spells[i] == spell) {
+        public void RemoveItem(Spell spell)
+        {
+            if (unlocked)
+            {
+                for (int i = spells.Count - 1; i > -1; i--)
+                {
+                    if (spells[i] == spell)
+                    {
                         spells.RemoveAt(i);
                         SignalUpdate();
                         return;
@@ -112,29 +132,40 @@ namespace kfutils.rpg {
         }
 
 
-        public virtual void SignalUpdate() {
+        public virtual void SignalUpdate()
+        {
             InventoryManagement.SignalSpellbookUpdate(this);
             CalculateWeight();
         }
 
 
-        public virtual void SignalSlotUpdate(int slot) {
+        public virtual void SignalSlotUpdate(int slot)
+        {
             InventoryManagement.SignalSpellbookUpdate(this);
             CalculateWeight();
         }
 
 
-        public int FindFirstEmptySlot() {
+        public int FindFirstEmptySlot()
+        {
             return spells.Count;
         }
 
 
-        public int GetIndexOfSpell(Spell spell) {
-            return spells.IndexOf(spell);            
+        public int GetIndexOfSpell(Spell spell)
+        {
+            return spells.IndexOf(spell);
         }
 
 
         public bool BelongsToPC(IInventory<Spell> inv) => belongsToPC;
+
+
+
+
+
     }
+
+
 
 }

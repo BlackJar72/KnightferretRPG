@@ -32,7 +32,14 @@ namespace kfutils.rpg.ui {
         {
             SlotData slotData = hotBar.GetSlot(slotNumber);
             icon.gameObject.SetActive(slotData.filled);
-            if ((slotData.inventory == InvType.EQUIPT) || (slotData.inventory == InvType.SPELLS)) image.sprite = selectedImage;
+            if (slotData.inventory == InvType.SPELLS)
+            {                
+                PCActing pc = EntityManagement.playerCharacter;
+                Spell spell = pc.Spells.GetItemInSlot(slotData.invSlot);
+                if (spell == pc.EquiptSpell.CurrentSpell) image.sprite = selectedImage;
+                else image.sprite = unselectedImage;
+            }
+            else if (slotData.inventory == InvType.EQUIPT) image.sprite = selectedImage;
             else image.sprite = unselectedImage;
         }
 
@@ -55,8 +62,11 @@ namespace kfutils.rpg.ui {
                         image.sprite = selectedImage;
                         break;
                     case InvType.SPELLS:
-                        icon.sprite = EntityManagement.playerCharacter.Spells.GetItemInSlot(sd.invSlot).Icon;
-                        image.sprite = unselectedImage;
+                        PCActing pc = EntityManagement.playerCharacter;
+                        Spell spell = pc.Spells.GetItemInSlot(sd.invSlot);
+                        icon.sprite = spell.Icon;
+                        if (spell == pc.EquiptSpell.CurrentSpell) image.sprite = selectedImage;
+                        else image.sprite = unselectedImage;
                         break;
                     default:
                         image.sprite = unselectedImage;
@@ -98,12 +108,14 @@ namespace kfutils.rpg.ui {
             SpellEntry spellEntry = other.GetComponent<SpellEntry>();
             if(spellEntry != null) {
                 SlotData slot = hotBar.GetSlot(slotNumber);
+                PCActing pc = EntityManagement.playerCharacter;
                 slot.inventory = InvType.SPELLS;
-                slot.invSlot = EntityManagement.playerCharacter.Spells.GetIndexOfSpell(spellEntry.Spell);
-                slot.filled = true; 
+                slot.invSlot = pc.Spells.GetIndexOfSpell(spellEntry.Spell);
+                slot.filled = true;
                 icon.sprite = spellEntry.Icon.sprite;
                 icon.gameObject.SetActive(true);
-                hotBar.SlotData.CleanUpDuplicates(slotNumber, slot);
+                hotBar.SlotData.CleanUpDuplicates(slotNumber, slot); 
+                InventoryManagement.SigalHotbarUpdate();
                 hotBar.Redraw();
                 return;
             }

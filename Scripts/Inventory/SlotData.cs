@@ -3,9 +3,10 @@ using UnityEngine;
 
 
 namespace kfutils.rpg {
-        
+
     [System.Serializable]
-    public enum InvType {
+    public enum InvType
+    {
         NONE = -1,
         MAIN = 0,
         EQUIPT = 1,

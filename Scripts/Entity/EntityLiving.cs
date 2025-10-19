@@ -160,7 +160,11 @@ namespace kfutils.rpg {
             if (health.ShouldDie) Die();
             // TODO: Include overrides that can react to the IAttacker
         }
-        
+
+        public void HealDamage(float amount)
+        {
+            health.Heal(amount);
+        }
 
         public Damages ApplyDamageAdjustment(Damages damage)
         {
