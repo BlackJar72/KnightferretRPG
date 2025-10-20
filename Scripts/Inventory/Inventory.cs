@@ -72,13 +72,6 @@ namespace kfutils.rpg {
         }
 
 
-        public virtual void OnDisable()
-        {
-            InventoryData data = new(this);
-            InventoryManagement.StoreInventoryData(data);
-        }
-
-
         public virtual EquiptmentSlots GetEquiptmentSlots()
         {
             return null;

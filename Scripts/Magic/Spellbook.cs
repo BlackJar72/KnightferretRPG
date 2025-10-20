@@ -67,13 +67,6 @@ namespace kfutils.rpg
         }
 
 
-        // public void OnDisable()
-        // {
-        //     SpellbookData data = new(this);
-        //     InventoryManagement.StoreSpellbookData(data);
-        // }
-
-
         public bool AddItemToSlot(int slot, Spell spell)
         {
             for (int i = 0; i < spells.Count; i++)
