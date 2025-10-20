@@ -60,7 +60,10 @@ namespace kfutils.rpg
         public override void StateExit()
         {
             if(animState != null) animState.Events.OnEnd -= OnAnimEnd;
-            if(activity != null) EndActivity();
+            if((activity != null) && (activity.ActivityObject is IActivityProp prop)) 
+            {
+                prop.Available = true;
+            }
             activityQueue.Clear();
         }
 
