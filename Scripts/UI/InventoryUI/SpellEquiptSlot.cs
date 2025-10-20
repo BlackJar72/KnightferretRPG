@@ -65,7 +65,7 @@ namespace kfutils.rpg.ui {
         public void RespondToHotbar(SlotData slot) {
             if (slot.inventory == InvType.SPELLS)
             {
-                Spell otherSpell = EntityManagement.playerCharacter.Spells.spells[slot.invSlot];
+                Spell otherSpell = EntityManagement.playerCharacter.Spells.Spells[slot.invSlot];
                 if (otherSpell == currentSpell)
                 {
                     currentSpell = null;

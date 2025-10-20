@@ -1,8 +1,6 @@
 using UnityEngine;
 using kfutils.rpg.ui;
 using System.Collections.Generic;
-using System.Buffers;
-using System.Text;
 
 
 
@@ -13,7 +11,11 @@ namespace kfutils.rpg {
 
         public static Dictionary<string, InventoryData> inventoryData = new();
         public static InventoryData GetInventoryData(string id) => inventoryData.ContainsKey(id) ? inventoryData[id] : null;
-        public static void StoreInventoryData(InventoryData data) => inventoryData.Add(data.ID, data);
+        public static void StoreInventoryData(InventoryData data) { if (!inventoryData.TryAdd(data.ID, data)) inventoryData[data.ID] = data; }
+
+        public static Dictionary<string, SpellbookData> spellbookData = new();
+        public static SpellbookData GetSpellbookData(string id) => spellbookData.ContainsKey(id) ? spellbookData[id] : null;
+        public static void StoreSpellbookData(SpellbookData data) { if(!spellbookData.TryAdd(data.ID, data)) spellbookData[data.ID] = data; }
 
         public static Dictionary<string, EquiptmentSlots> equiptData = new();
         public static EquiptmentSlots GetEquiptData(string id) => equiptData.ContainsKey(id) ? equiptData[id] : null;
@@ -72,6 +74,12 @@ namespace kfutils.rpg {
         public static void SetInventoryData(Dictionary<string, InventoryData> loaded)
         {
             inventoryData = loaded;
+        }
+
+
+        public static void SetSpellbookData(Dictionary<string, SpellbookData> loaded)
+        {
+            spellbookData = loaded;
         }
 
 

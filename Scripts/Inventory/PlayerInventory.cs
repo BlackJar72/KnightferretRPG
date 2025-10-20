@@ -63,7 +63,7 @@ namespace kfutils.rpg {
         }
 
 
-        public override bool BelongsToPC(IInventory<ItemStack> inv) => true;
+        public override bool OwnedByPC => true;
 
 
         public void UseHotbar(int slotNumber)

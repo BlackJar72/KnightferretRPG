@@ -5,7 +5,7 @@ using System;
 
 namespace kfutils.rpg {
 
-    public class CharacterInventory : Inventory
+    public class CharacterInventory : Inventory, ISerializationCallbackReceiver
     {
 
         [SerializeField] protected EquiptmentSlots equipt;
@@ -105,6 +105,16 @@ namespace kfutils.rpg {
         {
             equipt.PreSave();
         }
+
+
+        public void OnBeforeSerialize()
+        {
+            IActor owner = GetComponent<IActor>();
+            if (owner != null) id = owner.ID;
+        }
+
+
+        public void OnAfterDeserialize() { }
 
 
         #region NPC inventory controls 

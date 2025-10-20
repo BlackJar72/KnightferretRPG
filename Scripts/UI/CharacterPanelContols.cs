@@ -7,7 +7,13 @@ namespace kfutils.rpg {
 
         [SerializeField] GameObject inventoryPanel;
         [SerializeField] GameObject spellbookPanel;
-        
+
+
+        void OnEnable()
+        {
+            ShowInventory();
+        }
+
 
         public void ShowInventory() {
             inventoryPanel.SetActive(true);

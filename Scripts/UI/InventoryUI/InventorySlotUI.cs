@@ -26,7 +26,7 @@ namespace kfutils.rpg.ui {
 
         public virtual bool SwapWith(InventorySlotUI other) {
             if(!CanSwapSlotTypes(other)) return false;
-            if(inventory.BelongsToPC(inventory)) InventoryManagement.SignalSlotsSwapped(SlotDataFromSlot(), other.SlotDataFromSlot());
+            if(inventory.OwnedByPC) InventoryManagement.SignalSlotsSwapped(SlotDataFromSlot(), other.SlotDataFromSlot());
             else InventoryManagement.SignalSlotEmptied(other.SlotDataFromSlot());
             if((other.item.item == item.item) && item.item.IsStackable) {
                 item.stackSize += other.item.stackSize;

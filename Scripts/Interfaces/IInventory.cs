@@ -79,7 +79,9 @@ namespace kfutils.rpg {
         
         int FindFirstEmptySlot();
 
-        public bool BelongsToPC(IInventory<T> inv);
+        public bool OwnedByPC { get; }
+
+        public static bool BelongsToPC(IInventory<T> inv) => inv.OwnedByPC;
     }
 
 }

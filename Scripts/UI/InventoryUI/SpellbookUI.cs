@@ -44,7 +44,7 @@ namespace kfutils.rpg.ui {
                 rows.Add(row);
             }
             for(int i = 0; i < spellbook.Count; i++) {
-                rows[i / 2].AddSpell(spellbook.spells[i], i);
+                rows[i / 2].AddSpell(spellbook.Spells[i], i);
             }
 
         }

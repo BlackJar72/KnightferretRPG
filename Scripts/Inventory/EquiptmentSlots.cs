@@ -294,17 +294,24 @@ namespace kfutils.rpg {
         }
 
 
-        public ItemStack GetItemForSlotType(EEquiptSlot slotID) { 
-            if(slotID == EEquiptSlot.HANDS) {
+        public ItemStack GetItemForSlotType(EEquiptSlot slotID)
+        {
+            if (slotID == EEquiptSlot.HANDS)
+            {
                 return slots[rhand];
             }
-            for(int i = 0; i < slots.Length; i++) {
-                if((slots[i].item != null) && slots[i].item.EquiptType == slotID) return slots[i];
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if ((slots[i].item != null) && slots[i].item.EquiptType == slotID) return slots[i];
             }
             return null;
         }
+        
 
-        public bool BelongsToPC(IInventory<ItemStack> inv) => belongsToPC;
+        public bool OwnedByPC => belongsToPC;
+        
+
+        public static bool BelongsToPC(IInventory<ItemStack> inv) => inv.OwnedByPC;
     }
 
 

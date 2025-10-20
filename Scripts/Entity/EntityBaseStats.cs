@@ -38,8 +38,9 @@ namespace kfutils.rpg {
 
 
         private int RollStat() {
-            return Random.Range(1, 7) + Random.Range(1, 7) + Random.Range(1, 7) + 2;
-            // return 20;
+            return Random.Range(1, 7) + Random.Range(1, 7) + Random.Range(1, 7) + 2; 
+            //return Random.Range(1, 7) + Random.Range(1, 7) + 9;
+            //return 20;
         }
 
 

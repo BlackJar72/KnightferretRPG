@@ -21,6 +21,7 @@ namespace kfutils.rpg {
         // Main Registries
         [SerializeField] Dictionary<string, ItemData> itemRegistry;
         [SerializeField] Dictionary<string, InventoryData> inventoryData;
+        [SerializeField] Dictionary<string, SpellbookData> spellbookData;
         [SerializeField] Dictionary<string, EquiptmentSlots> equiptData;
         [SerializeField] Dictionary<string, Money> moneyData;
         [SerializeField] Dictionary<string, EntityData> entityRegistry;
@@ -46,11 +47,11 @@ namespace kfutils.rpg {
             pcData = EntityManagement.playerCharacter == null ? null : EntityManagement.playerCharacter.GetPCData();
             itemRegistry = ItemManagement.itemRegistry;
             inventoryData = InventoryManagement.inventoryData;
+            spellbookData = InventoryManagement.spellbookData;
             equiptData = InventoryManagement.equiptData;
             moneyData = InventoryManagement.moneyData;
             hotbar = InventoryManagement.hotBar;
             entityRegistry = EntityManagement.EntityRegistry;
-            // TODO: Get world space to save
             chunkData = WorldManagement.ChunkDataRegistry;
             currentWorldspace = WorldManagement.GetCurrentWorldspaceID();
 
@@ -88,6 +89,7 @@ namespace kfutils.rpg {
             ES3.Save("PCData", pcData, fileName);
             ES3.Save("ItemRegistry", itemRegistry, fileName); 
             ES3.Save("InventoryData", inventoryData, fileName);
+            ES3.Save("SpellbookData", spellbookData, fileName);
             ES3.Save("EquiptData", equiptData, fileName);
             ES3.Save("MoneyData", moneyData, fileName);
             ES3.Save("HotBar", hotbar, fileName);
@@ -114,6 +116,7 @@ namespace kfutils.rpg {
             time = ES3.Load("Time", fileName, time);
             itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
             inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
+            spellbookData = ES3.Load("SpellbookData", fileName, spellbookData);
             equiptData = ES3.Load("EquiptData", fileName, equiptData);
             moneyData = ES3.Load("MoneyData", fileName, moneyData);
             hotbar = ES3.Load("HotBar", fileName, hotbar);
@@ -125,6 +128,7 @@ namespace kfutils.rpg {
             WorldTime.SetTime(time);
             ItemManagement.SetItemData(itemRegistry);
             InventoryManagement.SetInventoryData(inventoryData);
+            InventoryManagement.SetSpellbookData(spellbookData);
             InventoryManagement.SetEquiptData(equiptData);
             InventoryManagement.SetMoneyData(moneyData);;
             InventoryManagement.hotBar.CopyInto(hotbar);

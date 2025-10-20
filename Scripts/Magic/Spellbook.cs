@@ -6,29 +6,72 @@ using System.Collections.Generic;
 namespace kfutils.rpg
 {
 
-    public class Spellbook : MonoBehaviour, IInventory<Spell>
+
+    [System.Serializable]
+    public class SpellbookData
+    {
+        protected readonly string id;
+        public List<Spell> inventory;
+        public string ID => id;
+        public SpellbookData(Spellbook inv)
+        {
+            id = inv.ID;
+            inventory = inv.Spells;
+        }
+    }
+    
+
+    public class Spellbook : MonoBehaviour, IInventory<Spell>, ISerializationCallbackReceiver
     {
 
-        public List<Spell> spells;
+        [SerializeField] protected string id;
 
-        public bool unlocked = false; // Spells should not normally be removed from list; can make it possible in special circumstances
-        public bool belongsToPC = false;
+        [SerializeField] List<Spell> spells;
+
+        [SerializeField] bool unlocked = false; // Spells should not normally be removed from list; can make it possible in special circumstances
+        [SerializeField] bool belongsToPC = false;
+        [SerializeField] Spell[] startingItems;
 
 
         public int Count => spells.Count;
         public float Weight => 0.0f;
 
+        public bool Unlocked => unlocked;
+        public bool OwnedByPC => belongsToPC;
+        public List<Spell> Spells => spells;
+        public string ID => id;
+
+        public void SetID(string ID) => id ??= ID;
+        public void Lock() => unlocked = false;
+        public void Unlock() => unlocked = true;
+
+        private bool initialized = false;
+        public bool Initialized => initialized;
 
 
-        // For Testing; TODO??: Get rid of this, but add some other way to add starting gear ... or, do I need to...?
-        [SerializeField] Spell[] startingItems;
-
-
-        void Start() // FIXME: This will need to be moved to an method run only at the start of a new game!!
+        public virtual void OnEnable()
         {
-            foreach (Spell spell in startingItems) AddToFirstEmptySlot(spell);
+            SpellbookData data = InventoryManagement.GetSpellbookData(id);
+            if (data == null)
+            {
+                data = new(this);
+                foreach (Spell spell in startingItems) AddToFirstEmptySlot(spell);
+                InventoryManagement.StoreSpellbookData(data);
+            }
+            else
+            {
+                spells = data.inventory;
+            }
             SignalUpdate();
+            initialized = true;
         }
+
+
+        // public void OnDisable()
+        // {
+        //     SpellbookData data = new(this);
+        //     InventoryManagement.StoreSpellbookData(data);
+        // }
 
 
         public bool AddItemToSlot(int slot, Spell spell)
@@ -158,11 +201,18 @@ namespace kfutils.rpg
         }
 
 
-        public bool BelongsToPC(IInventory<Spell> inv) => belongsToPC;
+        public static bool BelongsToPC(IInventory<Spell> inv) => inv.OwnedByPC;
 
 
+        public void OnBeforeSerialize()
+        {
+            IActor owner = GetComponent<IActor>();
+            if (owner != null) id = owner.ID;
+        }
 
 
+        public void OnAfterDeserialize() { }
+        
 
     }
 
