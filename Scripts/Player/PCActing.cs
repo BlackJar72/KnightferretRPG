@@ -3,6 +3,7 @@ using Animancer;
 using kfutils.rpg.ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 
 namespace kfutils.rpg {
@@ -35,6 +36,8 @@ namespace kfutils.rpg {
         protected bool blocking;
         protected bool chargingAction;
         protected float chargeTimer;
+        protected float castTimer;
+        protected bool isCasting;
 
         // Input System
         protected InputAction rightAttackAction;
@@ -117,6 +120,7 @@ namespace kfutils.rpg {
         {
             base.Update();
             if (chargingAction && (chargeTimer < Time.time)) UseChargedAction();
+            else if (isCasting && (castTimer < Time.time)) CastSpell();
         }
 
 
@@ -206,7 +210,8 @@ namespace kfutils.rpg {
             leftBlcokAction.started += BlockLeftItem;
             leftBlcokAction.canceled += UseLeftItem;
             if (this is not PCTalking) activateObjectAction.started += Interact;
-            castSpellAction.canceled += CastSpell; // FIXME: Include start and stop events
+            castSpellAction.started += StartCastSpell;
+            castSpellAction.canceled += StopCastSpell;
             // Hotbar Quickslots
             quickSlot1Action.canceled += QuickSlot1;
             quickSlot2Action.canceled += QuickSlot2;
@@ -228,7 +233,8 @@ namespace kfutils.rpg {
             leftBlcokAction.started -= BlockLeftItem;
             leftBlcokAction.canceled -= UseLeftItem;
             if (this is not PCTalking) activateObjectAction.started -= Interact;
-            castSpellAction.canceled -= CastSpell;
+            castSpellAction.started -= StartCastSpell;
+            castSpellAction.canceled -= StopCastSpell;
             // Hotbar Quickslots
             quickSlot1Action.canceled -= QuickSlot1;
             quickSlot2Action.canceled -= QuickSlot2;
@@ -364,7 +370,16 @@ namespace kfutils.rpg {
         }
 
 
-        protected virtual void CastSpell(InputAction.CallbackContext context)
+        protected void StartCastSpell(InputAction.CallbackContext context)
+        {
+            if (EquiptSpell.currentSpell == null) return;
+            chargingAction = false;
+            isCasting = true;
+            castTimer = Time.time + EquiptSpell.currentSpell.CastTime;
+        }
+
+
+        protected void CastSpell()
         {
             if (equiptSpell.currentSpell != null)
             {
@@ -373,8 +388,29 @@ namespace kfutils.rpg {
                 {
                     mana.UseMana(cost);
                     equiptSpell.currentSpell.SpellEffect.Cast(this);
+                    AudioSource audio = GetComponent<AudioSource>();
+                    if ((audio != null) && (equiptSpell.currentSpell.CastSound != null))
+                    {
+                        equiptSpell.CurrentSpell.CastSound.Play(audio);
+                    }
+                    if (equiptSpell.CurrentSpell.CastParticles != null)
+                    {
+                        // FIXME/TODO: Determine where they should be based on spell type (etc.)
+                        Instantiate(equiptSpell.currentSpell.CastParticles, transform);
+                    }
+                    castTimer = Time.time + EquiptSpell.currentSpell.CastTime;
                 }
+                else StopCastSpell();
             }
+            else StopCastSpell();
+        }
+
+
+        protected void StopCastSpell(InputAction.CallbackContext context) => StopCastSpell();
+        protected void StopCastSpell()
+        {
+            isCasting = false;
+            StopAction();
         }
 
 
@@ -459,6 +495,7 @@ namespace kfutils.rpg {
 
         public void StartChargeRightItem(InputAction.CallbackContext contex)
         {
+            if (isCasting) return;
             chargingAction = true;
             chargeTimer = Time.time + GameConstants.TIME_TO_CHARGE_ACTIONS;
         }
@@ -466,6 +503,7 @@ namespace kfutils.rpg {
 
         public void UseRightItem(InputAction.CallbackContext context)
         {
+            if (isCasting) return;
             ItemEquipt requipt = itemLocations.GetRHandItem();
             ItemShield shield = itemLocations.GetLHandItem() as ItemShield;
             if (chargingAction && (requipt != null))

@@ -31,16 +31,6 @@ namespace kfutils.rpg {
         }
 
 
-        /*protected override void OnCollisionEnter(Collision collision)
-        {
-                Debug.Log(collision.gameObject.name);
-                Debug.Log(((startPos - gameObject.transform.position).sqrMagnitude) 
-                        + " (" + ((startPos - gameObject.transform.position).magnitude) + ") "
-                        + " > " + sqrRange + " (" + Mathf.Sqrt(sqrRange) + ") ");
-            base.OnCollisionEnter(collision);
-        }*/
-
-
 
 
     }

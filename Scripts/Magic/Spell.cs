@@ -23,7 +23,9 @@ namespace kfutils.rpg {
         [SerializeField] ASpellCast spellEffect;
         [SerializeField] int manaCost;
         [SerializeField] float range;
-        [SerializeField] float castTime; 
+        [SerializeField] float castTime;
+        [SerializeField] GameObject castParticles;
+        [SerializeField] Sound castSound;
 
 
 
@@ -37,6 +39,8 @@ namespace kfutils.rpg {
         public int ManaCost => manaCost;
         public float Range => range;
         public float CastTime => castTime;
+        public GameObject CastParticles => castParticles;
+        public Sound CastSound => castSound; 
 
 
         

@@ -12,8 +12,9 @@ namespace kfutils.rpg
         [Range(0f, 1f)]
         [SerializeField] float volume = 1;
 
-        [Range (0.5f, 2f)]
+        [Range(0.5f, 2f)]
         [SerializeField] float pitch = 1;
+        
 
         public void Play(AudioSource source)
         {
@@ -22,6 +23,7 @@ namespace kfutils.rpg
             source.pitch = pitch;
             source.Play();
         }
+
 
         public void PlayRandomized(AudioSource source)
         {

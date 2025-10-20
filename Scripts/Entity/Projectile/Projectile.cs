@@ -9,6 +9,7 @@ namespace kfutils.rpg {
         [SerializeField] protected DamageSource damage;
         [SerializeField] protected float speed;
         [SerializeField] protected Rigidbody rb;
+        [SerializeField] bool stickyImpact;
 
         private ICombatant sender;
 
@@ -28,8 +29,16 @@ namespace kfutils.rpg {
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if (damageable == sender) return;
             if(impactPrefab != null) {
-                Instantiate(impactPrefab, transform.position, transform.rotation,
-                            WorldManagement.GetChunkFromTransform(transform).transform);
+                if (stickyImpact)
+                {
+                    Instantiate(impactPrefab, transform.position, transform.rotation,
+                                collision.gameObject.transform);
+                }
+                else
+                {
+                    Instantiate(impactPrefab, transform.position, transform.rotation,
+                                WorldManagement.GetChunkFromTransform(transform).transform);
+                }
             }
             if(damageable != null) {
                 damage.DoDamage(sender, null, damageable);
