@@ -16,7 +16,7 @@ namespace kfutils.rpg {
         [SerializeField] Sprite icon;
         [SerializeField] bool isStackable;
         [SerializeField] EItemType itemType;
-        [SerializeField] EEquiptSlot equiptType;
+        [SerializeField] EEquiptSlot equiptType = EEquiptSlot.RHAND;
         [SerializeField] string description;
 
         [SerializeField] float weight;

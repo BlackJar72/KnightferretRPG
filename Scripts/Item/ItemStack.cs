@@ -16,13 +16,14 @@ namespace kfutils.rpg {
                 return new ItemStack(item.Prototype, stackSize, slot, item.ID);
             }
         }
-  
+
 
         public ItemPrototype item;
         [SerializeField] string id;
-        public string ID => id;
         public int stackSize;
         public int slot; 
+        
+        public string ID => id;
 
         
         public ItemStack(ItemPrototype item, int number, int slot = -1) {

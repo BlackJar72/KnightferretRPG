@@ -14,6 +14,7 @@ namespace kfutils.rpg {
         [SerializeField] PlayerInventory inventory;
         [SerializeField] Spellbook spellbook;
         [SerializeField] SpellEquiptSlot equiptSpell;
+        [SerializeField] ParticleSystem magicSparkles;
 
         [SerializeField] CharacterEquipt itemLocations;
         [SerializeField] BlockArea blockArea;
@@ -70,6 +71,7 @@ namespace kfutils.rpg {
         public Spellbook Spells => spellbook;
         public EquiptmentSlots EquiptItems => inventory.Equipt;
         public SpellEquiptSlot EquiptSpell => equiptSpell;
+        public bool IsCasting => isCasting;
 
         public AnimancerLayer ActionLayer => actionLayer;
         public AnimancerState ActionState => actionState;
@@ -376,6 +378,7 @@ namespace kfutils.rpg {
             chargingAction = false;
             isCasting = true;
             castTimer = Time.time + EquiptSpell.currentSpell.CastTime;
+            magicSparkles.Play();
         }
 
 
@@ -410,6 +413,7 @@ namespace kfutils.rpg {
         protected void StopCastSpell()
         {
             isCasting = false;
+            magicSparkles.Stop();
             StopAction();
         }
 
