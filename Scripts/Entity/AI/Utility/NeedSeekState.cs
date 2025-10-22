@@ -66,7 +66,6 @@ namespace kfutils.rpg
             {
                 prop.Available = true;
             }
-            if(entity.ActionLayer != null) entity.StopAction();
             activityQueue.Clear();
         }
 

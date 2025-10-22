@@ -283,11 +283,12 @@ namespace kfutils.rpg {
         protected override void Die()
         {
             // Drop items before setting dead, so they will no be dropped again if loaded in a dead state 
+            if(ActionLayer != null) StopAction();
             DropEquiptItem(EEquiptSlot.RHAND);
             DropEquiptItem(EEquiptSlot.LHAND);
             actionUpdate = NormalUpdate;
-            base.Die();
             basicStates.SetState(AIStateID.death);
+            base.Die();
         }
 
 
