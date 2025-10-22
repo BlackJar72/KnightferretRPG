@@ -16,7 +16,7 @@ namespace kfutils.rpg
     [System.Serializable]
     public enum Disposition
     {
-        friendly = 0, // Entities friendly ot he player  
+        friendly = 0, // Entities friendly to he player  
         neutral = 1,  // Includes animals and other non-aligned creatures, as well as unaligned humans
         avoidant = 2, // Entities that avoid the player, such as wild prey animals that flee
         hostile = 3   // Entities that should normally attack the player

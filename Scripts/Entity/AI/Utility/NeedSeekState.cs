@@ -22,6 +22,8 @@ namespace kfutils.rpg
         private ITalkerAI entity;
         private AnimancerState animState;
 
+        private ActivityGroup potentialGroup;
+
         private bool notified = false;
         private bool animEnded = false;
 
@@ -60,10 +62,11 @@ namespace kfutils.rpg
         public override void StateExit()
         {
             if(animState != null) animState.Events.OnEnd -= OnAnimEnd;
-            if((activity != null) && (activity.ActivityObject is IActivityProp prop)) 
+            if ((activity != null) && (activity.ActivityObject is IActivityProp prop))
             {
                 prop.Available = true;
             }
+            if(entity.ActionLayer != null) entity.StopAction();
             activityQueue.Clear();
         }
 

@@ -27,10 +27,10 @@ namespace kfutils.rpg
 
         public float GetUtility(ITalkerAI entity) => parent.GetUtility(entity);
         public ActivityHolder GetActivityOption(ITalkerAI entity) => parent.GetActivityOption(entity);
-        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState) => parent.ShouldEndActivity(ai, aiState);
-        public void RunStartCode(ITalkerAI ai, NeedSeekState aiState) => parent.RunStartCode(ai, aiState);
-        public void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState) => parent.RunContinuousCode(ai, aiState);
-        public void RunEndCode(ITalkerAI ai, NeedSeekState aiState) => parent.RunEndCode(ai, aiState);
+        public bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState) => parent.ShouldEndActivity(ai, this, aiState);
+        public void RunStartCode(ITalkerAI ai, NeedSeekState aiState) => parent.RunStartCode(ai, this, aiState);
+        public void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState) => parent.RunContinuousCode(ai, this, aiState);
+        public void RunEndCode(ITalkerAI ai, NeedSeekState aiState) => parent.RunEndCode(ai, this, aiState);
         #endregion parent property reference 
 
         public bool Available { get => available; set => available = value; }
@@ -47,56 +47,87 @@ namespace kfutils.rpg
 
         [SerializeField] string id;
         [SerializeField] ActivitySlot[] slots;
+        [SerializeField] ENeeds needs;
+        [SerializeField] float timeToDo;
+        [SerializeField] float satisfaction;
+        [SerializeField] float desireabilityFactor;
+        [SerializeField] AbstractAction useAction;
+        [SerializeField] EObjectActivity activityType;
+        [SerializeField] ActivityHelper.ECodeToRun startCode;
+        [SerializeField] ActivityHelper.ECodeToRun continuousCode;
+        [SerializeField] ActivityHelper.ECodeToRun endCode;
+        [SerializeField] ActivityHelper.EEndCondition endCondition;
 
         public string ID => id;
         public ChunkManager GetChunkManager => WorldManagement.WorldLogic.GetChunk(transform);
 
-        public AbstractAction UseAction => throw new System.NotImplementedException(); 
-        public float Satisfaction => throw new System.NotImplementedException(); 
-        public float DesireabilityFactor => throw new System.NotImplementedException(); 
-        public float TimeToDo  => throw new System.NotImplementedException(); 
-        public ENeeds GetNeed => throw new System.NotImplementedException(); 
-        public EObjectActivity ActivityType => throw new System.NotImplementedException(); 
-        public ActivityHelper.ECodeToRun StartCode => throw new System.NotImplementedException(); 
-        public ActivityHelper.ECodeToRun ContinuousCode => throw new System.NotImplementedException(); 
-        public ActivityHelper.ECodeToRun EndCode => throw new System.NotImplementedException(); 
-        public ActivityHelper.EEndCondition EndCondition => throw new System.NotImplementedException();
+        public AbstractAction UseAction => useAction; 
+        public float Satisfaction => satisfaction; 
+        public float DesireabilityFactor => desireabilityFactor;
+        public float TimeToDo => timeToDo;
+        public ENeeds GetNeed => needs; 
+        public EObjectActivity ActivityType => activityType;
+        public ActivityHelper.ECodeToRun StartCode => startCode; 
+        public ActivityHelper.ECodeToRun ContinuousCode => continuousCode; 
+        public ActivityHelper.ECodeToRun EndCode => endCode; 
+        public ActivityHelper.EEndCondition EndCondition => endCondition;
 
 
-        internal ActivityHolder GetActivityOption(ITalkerAI entity)
+        public ActivityHolder GetActivityOption(ITalkerAI entity)
         {
             throw new System.NotImplementedException();
         }
 
 
-        internal float GetUtility(ITalkerAI entity)
+        public float GetUtility(ITalkerAI entity)
         {
-            throw new System.NotImplementedException();
+            return GetSatisfactionForNeed(entity) * desireabilityFactor 
+                   * Mathf.Sqrt((entity.GetTransform.position - transform.position).magnitude);
         }
 
 
-        internal void RunContinuousCode(ITalkerAI ai, NeedSeekState aiState)
+        public void RunStartCode(ITalkerAI ai, ActivitySlot slot, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            ActivityHelper.RunStartCode(ai, slot, aiState);
         }
 
 
-        internal void RunEndCode(ITalkerAI ai, NeedSeekState aiState)
+        public void RunContinuousCode(ITalkerAI ai, ActivitySlot slot, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            ActivityHelper.RunContinuousCode(ai, slot, aiState);
         }
 
 
-        internal void RunStartCode(ITalkerAI ai, NeedSeekState aiState)
+        public void RunEndCode(ITalkerAI ai, ActivitySlot slot, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            ActivityHelper.RunEndCode(ai, slot, aiState);
         }
 
 
-        internal bool ShouldEndActivity(ITalkerAI ai, NeedSeekState aiState)
+        public bool ShouldEndActivity(ITalkerAI ai, ActivitySlot slot, NeedSeekState aiState)
         {
-            throw new System.NotImplementedException();
+            return ActivityHelper.ShouldEndActivity(ai, slot, aiState);
         }
+
+
+        public bool ShouldExceptInvite(ITalkerAI entity)
+        {
+            return Random.value < GetUtility(entity);
+        }
+        
+
+        private float GetSatisfactionForNeed(ITalkerAI entity)
+        {
+            float result = 0.0f;
+            if ((needs & ENeeds.ENERGY) > 0) result = Mathf.Max(result, satisfaction * entity.GetNeed(ENeedID.ENERGY).GetDrive());
+            if ((needs & ENeeds.FOOD) > 0) result = Mathf.Max(result, satisfaction * entity.GetNeed(ENeedID.FOOD).GetDrive());
+            if ((needs & ENeeds.SOCIAL) > 0) result = Mathf.Max(result, satisfaction * entity.GetNeed(ENeedID.SOCIAL).GetDrive());
+            if ((needs & ENeeds.ENJOYMENT) > 0) result = Mathf.Max(result, satisfaction * entity.GetNeed(ENeedID.ENJOYMENT).GetDrive());
+            return result;
+        }
+
+
+
 
 
 
