@@ -102,6 +102,7 @@ namespace kfutils.rpg {
 #endif
             GameObject hit = other.gameObject;
             IDamageable damageable = hit.GetComponent<IDamageable>();
+#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
             {
                 if (damageable.InParriedState() && (damageFactor > 1.1f)) damageFactor += 1.0f;
@@ -110,6 +111,7 @@ namespace kfutils.rpg {
                 attacking = false;
                 OnAttackEnd();
             }
+#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
         }
 
 
@@ -270,6 +272,7 @@ namespace kfutils.rpg {
 
         public void BeBlocked(ICombatant blocker, BlockArea blockArea)
         {
+#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
             if (attacking && (blocker != null) && (blocker.GetEntity != holder))
             {
                 //Debug.Log("public void BeBlocked(ICombatant blocker, BlockArea blockArea)");
@@ -281,6 +284,7 @@ namespace kfutils.rpg {
                 OnAttackEnd();
                 PlayEquipAnimation(holder);
             }
+#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
         }
 
 

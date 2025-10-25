@@ -187,7 +187,7 @@ namespace kfutils.rpg
         public ActivityHolder GetActivityOption(ITalkerAI entity)
         {
 #if UNITY_EDITOR
-            Debug.Log("I'm a group activity!  Choosen by " + entity.ID + " at " + Time.time + " (Frame " + WorldTime.Frame + ") "); 
+            //Debug.Log("I'm a group activity!  Choosen by " + entity.ID + " at " + Time.time + " (Frame " + WorldTime.Frame + ") "); 
 #endif
             return new ActivityHolder(this, GetUtility(entity));
         }
@@ -250,19 +250,21 @@ namespace kfutils.rpg
             {
                 if(ai is EntityLiving entity)
                 {
+                    int invited = 1;
                     ChunkManager chunk = entity.GetChunkManager;
                     foreach(ITalkerAI other in chunk.ActivityNPCs)
                     {
                         if((other != ai) && (other.CurrentAIState is NeedSeekState needSeek))
                         {
-                            needSeek.BeInvitedToActivity(this); 
+                            if (needSeek.BeInvitedToActivity(this)) invited++;
+                            if (invited >= maxUsers) break;
                         }
                     }
                 }
                 availableSlots.Shuffle();
                 ActivitySlot selected = availableSlots[0];
                 selected.Assign(ai);
-                Debug.Log("GetSlotForParticipant found slot for " + ai.ID + " on frame " + WorldTime.Frame + ".");
+                //Debug.Log("GetSlotForParticipant found slot for " + ai.ID + " on frame " + WorldTime.Frame + ".");
                 return new ActivityHolder(selected, 1.0f);
             }
             return null;

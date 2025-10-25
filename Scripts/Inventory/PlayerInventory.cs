@@ -55,10 +55,12 @@ namespace kfutils.rpg {
         private void UpdateBottomBar(IInventory<ItemStack> inv, int slot) { UpdateBottomBar(inv); }
         private void UpdateBottomBar(IInventory<ItemStack> inv)
         {
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
             if ((inv == this) || (inv == equipt))
             {
                 weightText.SetText("Weight: " + UpdateWeight());
             }
+#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
             moneyText.SetText("Money: " + money.GetGoodMoneyString());
         }
 

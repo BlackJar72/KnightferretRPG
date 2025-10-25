@@ -168,11 +168,13 @@ namespace kfutils.rpg.ui {
             if(eventData.button == PointerEventData.InputButton.Left) {
                 GameManager.Instance.UIManager.HideItemToolTip();
                 GameManager.Instance.UIManager.HideItemStackManipulator();
-                if(inventory == InventoryManagement.currentContainerInventory) {
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+                if (inventory == InventoryManagement.currentContainerInventory) {
                     EntityManagement.playerCharacter.AddToMainInventory(item);
                     inventory.RemoveItem(item);
                 } else if(eventData.clickCount == 2) {
-                    if(GameManager.Instance.UIManager.IsContainerUIVisible) {
+#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
+                    if (GameManager.Instance.UIManager.IsContainerUIVisible) {
                         InventoryManagement.currentContainerInventory.AddToFirstEmptySlot(item);
                         inventory.RemoveItem(item);
                     } else {

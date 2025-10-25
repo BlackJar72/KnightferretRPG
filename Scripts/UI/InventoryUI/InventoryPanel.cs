@@ -114,7 +114,9 @@ namespace kfutils.rpg.ui {
 
 
         protected void UpdateInventory(IInventory<ItemStack> inv) {
-            if(inv == inventory) Redraw();
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+            if (inv == inventory) Redraw();
+#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
         }
 
 
@@ -139,12 +141,14 @@ namespace kfutils.rpg.ui {
 
 
         protected void UpdateSlot(IInventory<ItemStack> inv, int slot) {
-            if(inventory == inv) {
+#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
+            if (inventory == inv) {
                 if((slot < inventorySlots.Count) && (inventorySlots[slot] != null) 
                             && inventorySlots[slot].item.item.IsStackable) {
                     inventorySlots[slot].SetText(inventorySlots[slot].item.stackSize);
                 }
             }
+#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
         }
 
 

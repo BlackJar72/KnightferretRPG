@@ -39,12 +39,6 @@ namespace kfutils.rpg {
 
         public void SetID(string ID) => id ??= ID;
 
-        public delegate void InventoryUpdate(IInventory<ItemStack> inv);
-        public event InventoryUpdate inventoryUpdated;
-
-        public delegate void InventorySlotUpdate(IInventory<ItemStack> inv, int slot);
-        public event InventorySlotUpdate inventorySlotUpdated;
-
 
 
         // For Testing; TODO??: Get rid of this, but add some other way to add starting gear ... or, do I need to...?

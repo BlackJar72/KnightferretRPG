@@ -135,7 +135,7 @@ namespace kfutils.rpg
         public bool BeInvitedToActivity(GroupActivity activity)
         {
 #if UNITY_EDITOR
-            Debug.Log(entity.ID + " was invite on frame " + WorldTime.Frame + ". ");
+            //Debug.Log(entity.ID + " was invite on frame " + WorldTime.Frame + ". ");
 #endif
             bool accepted = activity.ShouldExceptInvite(entity, potentialGroup);
             if (accepted) potentialGroup = activity;
