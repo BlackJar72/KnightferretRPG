@@ -73,6 +73,11 @@ namespace kfutils.rpg
 
         public override void StateEnter() {/*Do Nothing*/}
         public override void StateExit() {/*Do Nothing*/}
+
+        public override void Pause() {/*Do Nothing*/}
+        public override void Resume() {/*Do Nothing*/}
+        
+
         
     }
 

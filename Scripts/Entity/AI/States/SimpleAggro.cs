@@ -12,6 +12,7 @@ namespace kfutils.rpg
         private float destUpdateTime;
         private float nextAttackTime;
         private bool shouldMelee = false;
+        private float pauseTime;
 
 
         public override void StateEnter()
@@ -66,6 +67,21 @@ namespace kfutils.rpg
         {
             shouldMelee = notifier.Triggered;
         }
+
+
+        public override void Pause()
+        {
+            pauseTime = Time.time; 
+        }
+
+
+        public override void Resume()
+        {
+            destUpdateTime = Time.time;
+            pauseTime = destUpdateTime - pauseTime;
+            attackTime += pauseTime;
+        }
+
 
 
     }

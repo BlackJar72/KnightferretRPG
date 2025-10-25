@@ -69,6 +69,19 @@ namespace kfutils.rpg
         }
 
 
+        public override void Pause()
+        {
+            // Something *MAY* need to be done here, but nothing I can think of right now.
+        }
+
+
+        public override void Resume()
+        {
+            // May have changed destination to move somewhere else, thus this must be reset 
+            currentAction = StartSeekLocation; 
+        }
+
+
         void OnDisable()
         {
             StateExit();
@@ -315,15 +328,12 @@ namespace kfutils.rpg
         public void BeNotified()
         {
             notified = true;
-            if(activity.ActivityObject.EndCondition == ActivityHelper.EEndCondition.NOTIFIED)
+            if (activity.ActivityObject.EndCondition == ActivityHelper.EEndCondition.NOTIFIED)
             {
                 currentAction = EndActivity;
             }
         }
-
-
-    
-
+        
 
     }
 

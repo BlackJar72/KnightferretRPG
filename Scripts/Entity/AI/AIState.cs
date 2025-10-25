@@ -38,6 +38,12 @@ namespace kfutils.rpg
         public abstract void Act();
 
 
+        public abstract void Pause();
+
+
+        public abstract void Resume();
+
+
     }
 
 }

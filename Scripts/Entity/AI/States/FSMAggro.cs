@@ -55,7 +55,6 @@ namespace kfutils.rpg
         }
 
 
-
         public override void StateExit()
         {
             currentState.StateExit();
@@ -65,7 +64,14 @@ namespace kfutils.rpg
         public void SetStateNumber(int number) => currentState = stateArray[number];
 
 
+        public override void Pause() {}
+
+
+        public override void Resume() {}
+
+
 
     }
+
 
 }
