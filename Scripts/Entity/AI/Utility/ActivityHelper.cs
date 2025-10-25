@@ -30,7 +30,8 @@ namespace kfutils.rpg
             FILLED = 1,
             ANIM_END = 2,
             NOTIFIED = 3,
-            AT_DESTINATION = 4 
+            AT_DESTINATION = 4,
+            GROUP_FILLED = 5
         }
 
 
@@ -43,7 +44,8 @@ namespace kfutils.rpg
             FilledEnd,
             AnimEnded,
             EndNotified,
-            AtDestination
+            AtDestination,
+            GroupFilled
         };
 
 
@@ -74,6 +76,14 @@ namespace kfutils.rpg
         private static bool AtDestination(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
         {
             return ai.AtDestination();
+        }
+
+
+        private static bool GroupFilled(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
+        {
+            if ((activity is ActivitySlot slot) && slot.Parent.Completed) return true;
+            else if ((activity is GroupActivity group) && group.Completed) return true;
+            return ai.GetNeeds.AreFull(activity.GetNeed) || ai.GetNeeds.AreLow(~activity.GetNeed);
         }
 
 

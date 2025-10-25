@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce41d5e2c4df954838f377994b50ff43, type: 3}
+  m_Name: Dance15
+  m_EditorClassIdentifier: 
+  animation:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400006, guid: e4e03a9185639014cbadceb3018b3101, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: NaN
+  avatarMask: {fileID: 31900000, guid: 6c784b11b44cdc43291e9a25e5290fb8, type: 2}

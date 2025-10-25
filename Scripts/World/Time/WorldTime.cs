@@ -19,6 +19,11 @@ namespace kfutils.rpg
         public static double time => seconds;
         public static float ftime => (float)seconds;
 
+#if UNITY_EDITOR
+        private static long frame = 0;
+        public static long Frame => frame;
+#endif
+
 
         void Awake()
         {
@@ -45,6 +50,9 @@ namespace kfutils.rpg
         void Update()
         {
             seconds += Time.deltaTime;
+#if UNITY_EDITOR
+            frame++;
+#endif
         }
 
 

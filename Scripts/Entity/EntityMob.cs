@@ -35,6 +35,8 @@ namespace kfutils.rpg
 
         public CharacterInventory CharInventory => throw new NotImplementedException();
 
+        public AIState CurrentAIState => throw new NotImplementedException();
+
 
 
         #region  Overridden Unity Methods

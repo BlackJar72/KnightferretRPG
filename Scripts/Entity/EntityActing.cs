@@ -34,6 +34,7 @@ namespace kfutils.rpg {
 
         public AIStates BasicStates => basicStates;
         public AIStateID DefaultState => defaultState;
+        public AIState CurrentAIState => basicStates.GetCurrentState;
 
         public Disposition AL => disposition;
 

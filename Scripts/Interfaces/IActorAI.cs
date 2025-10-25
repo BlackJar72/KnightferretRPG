@@ -13,6 +13,8 @@ namespace kfutils.rpg
         public void UnequipItem(ItemStack stack);
         public void UseItem(EEquiptSlot slot);
 
+        public AIState CurrentAIState { get; }
+
 
     }
 

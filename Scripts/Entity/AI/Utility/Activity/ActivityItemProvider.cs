@@ -113,7 +113,6 @@ namespace kfutils.rpg
             {
                 range += choices[i].Utility;
             }
-            range *= range;
             int selection = 0;
             while (range > choices[selection].Utility)
             {

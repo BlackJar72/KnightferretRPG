@@ -1,6 +1,5 @@
 using System;
 using Animancer;
-using Unity.Entities;
 using UnityEngine;
 
 
@@ -22,7 +21,7 @@ namespace kfutils.rpg
         private ITalkerAI entity;
         private AnimancerState animState;
 
-        private ActivityGroup potentialGroup;
+        private GroupActivity potentialGroup;
 
         private bool notified = false;
         private bool animEnded = false;
@@ -87,8 +86,26 @@ namespace kfutils.rpg
             if (!activityQueue.IsEmpty) SetCurrentActivity(activityQueue.PopFront());
             else
             {
-                ActivityHolder activity = entity.ChooseNeedActivity();
-                SetCurrentActivity(activity);
+                if (potentialGroup != null)
+                {
+                    ActivityHolder activitySlot = potentialGroup.GetSlotForParticipant(entity, this);
+                    if (activitySlot == null)
+                    {
+                        ActivityHolder activity = entity.ChooseNeedActivity();
+                        SetCurrentActivity(activity);
+                    }
+                    else
+                    {
+                        if (activity.ActivityObject is ActivitySlot slot) slot.Parent.AbandonActivity(slot, entity);
+                        SetCurrentActivity(activitySlot);
+                    }
+                    potentialGroup = null; 
+                }
+                else
+                {
+                    ActivityHolder activity = entity.ChooseNeedActivity();
+                    SetCurrentActivity(activity);
+                }
             }
         }
 
@@ -112,6 +129,28 @@ namespace kfutils.rpg
         {
             if (activityQueue.IsEmpty) activityQueue.AddFront(activity);
             else activityQueue.ReplaceFront(activity);
+        }
+
+
+        public bool BeInvitedToActivity(GroupActivity activity)
+        {
+#if UNITY_EDITOR
+            Debug.Log(entity.ID + " was invite on frame " + WorldTime.Frame + ". ");
+#endif
+            bool accepted = activity.ShouldExceptInvite(entity, potentialGroup);
+            if (accepted) potentialGroup = activity;
+            return accepted;
+        }
+
+
+        public void QuitSocialActivity()
+        {
+            potentialGroup = null;
+            if((activity.ActivityObject is ActivitySlot) || (activity.ActivityObject is GroupActivity))
+            {
+                EndActivity();
+            }
+            currentAction = ChooseActivity;
         }
 
 
@@ -152,6 +191,10 @@ namespace kfutils.rpg
             {
                 entity.EquipItem(activity.itemStack);
             }
+            if (activity.ActivityObject is ActivitySlot activitySlot)
+            {
+                activitySlot.Parent.StartParticipation(activitySlot, entity);
+            }
             if (activity.ActivityObject is ActivityItemProvider provider)
             {
                 ActivityHolder providedItem = provider.ProvideItem(entity, this);
@@ -184,7 +227,8 @@ namespace kfutils.rpg
 
         public void WaitUntilDone()
         {
-            if (activity.ActivityObject.ShouldEndActivity(entity, this))
+            if ((activity.ActivityObject.ShouldEndActivity(entity, this)) 
+                        /*|| ((activity.ActivityObject is ActivitySlot activitySlot) && activitySlot.NotInUse)*/)
             {
                 EndActivity();
             }
@@ -196,7 +240,8 @@ namespace kfutils.rpg
         {
             entity.GetNeeds.AddToNeeds(activity.ActivityObject.GetNeed,
                                     (activity.ActivityObject.Satisfaction / activity.ActivityObject.TimeToDo) * Time.deltaTime);
-            if (activity.ActivityObject.ShouldEndActivity(entity, this)) 
+            if ((activity.ActivityObject.ShouldEndActivity(entity, this)) 
+                        /*|| ((activity.ActivityObject is ActivitySlot activitySlot) && activitySlot.NotInUse)*/)
             {
                 EndActivity();
             }
@@ -210,6 +255,10 @@ namespace kfutils.rpg
             if (activity.ActivityObject is IActivityProp prop)
             {
                 prop.Available = true;
+            }
+            if (activity.ActivityObject is ActivitySlot activitySlot)
+            {
+                activitySlot.Parent.StopParticipation(activitySlot);
             }
             if (activity.ActivityObject is ActivityItem item)
             {
@@ -231,6 +280,17 @@ namespace kfutils.rpg
         private void StartSeekLocation()
         {
             animEnded = notified = false;
+            if(activity.ActivityObject is GroupActivity group)
+            {
+                ActivityHolder activitySlot = group.GetSlotForParticipant(entity, this);
+                if (activitySlot != null) SetCurrentActivity(activitySlot);
+                else
+                {
+                    potentialGroup = null; 
+                    currentAction = ChooseActivity;
+                }
+                return;  // Should start seek for the slot on next frame
+            }
             if (activity.ActivityObject is IHaveUseLocation prop)
             {
                 owner.SetDestination(prop.ActorLocation.position);

@@ -23,10 +23,13 @@ namespace kfutils.rpg {
 
         private List<IActivityObject> activityProps = new List<IActivityObject>();
 
+        private List<ITalkerAI> activityNPCs = new List<ITalkerAI>();
+
 
         public ChunkData Data => data;
         public Transform LooseItems => looseItems;
         public List<IActivityObject> ActivityProps => activityProps;
+        public List<ITalkerAI> ActivityNPCs => activityNPCs;
 
 
         public void SetID(string id)
@@ -43,7 +46,13 @@ namespace kfutils.rpg {
 
         public void AddActivityProp(IActivityObject prop)
         {
-            activityProps.Add(prop);
+            if(!activityProps.Contains(prop)) activityProps.Add(prop);
+        }
+
+
+        public void AddActivityNPC(ITalkerAI npc)
+        {
+            if(!activityNPCs.Contains(npc)) activityNPCs.Add(npc);
         }
 
 

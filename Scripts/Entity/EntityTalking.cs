@@ -96,6 +96,26 @@ namespace kfutils.rpg
         }
 
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            WorldManagement.OnPostLoad += OnPostLoad;
+        }
+
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            WorldManagement.OnPostLoad -= OnPostLoad;
+        }
+
+
+        private void OnPostLoad()
+        {
+            GetChunkManager.AddActivityNPC(this);
+        }
+
+
         protected override void StoreData()
         {
             base.StoreData();

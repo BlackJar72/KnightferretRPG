@@ -135,6 +135,9 @@ namespace kfutils.rpg
         public AIStateID GetAIState => currentID;
 
 
+        public AIState GetCurrentState => current;
+
+
         // Need to determing if stealth attacks are really stealth
         public bool IsAggro => current == aggro;
 
