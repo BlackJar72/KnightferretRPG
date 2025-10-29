@@ -118,11 +118,13 @@ namespace kfutils.rpg {
             data.movingData.falling = falling;
             data.movingData.onGround = onGround;
             data.movingData.navSeekerPos = navSeeker.transform.GetGlobalData();
+            transform.SetDataGlobal(data.livingData.transform);  
         }
 
 
         protected override void LoadData()
         {
+            controller.enabled = false;
             base.LoadData();
             movement = data.movingData.movement;
             heading = data.movingData.heading;
@@ -134,7 +136,9 @@ namespace kfutils.rpg {
             velocity = data.movingData.velocity;
             falling = data.movingData.falling;
             onGround = data.movingData.onGround;
-            navSeeker.transform.SetDataGlobal(data.movingData.navSeekerPos);
+            destination = data.livingData.transform.position;
+            StopMoving();
+            controller.enabled = true;
         }
 
 

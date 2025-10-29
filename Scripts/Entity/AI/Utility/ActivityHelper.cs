@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -127,7 +126,8 @@ namespace kfutils.rpg
         public enum ECodeToRun
         {
             NONE = 0,
-            WANDER = 1
+            WANDER_SHORT = 1,
+            WANDER_FAR = 2
         }
 
 
@@ -137,14 +137,15 @@ namespace kfutils.rpg
         /// </summary>
         private static SpecialCode[] effects = new SpecialCode[]{
             DoNothing,
-            Wander 
+            WanderShort,
+            WanderFar
         };
 
 
         private static void DoNothing(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState) { }
 
 
-        private static void Wander(ITalkerAI ai, IActivityObject activity, NeedSeekState aiStatee)
+        private static void WanderShort(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
         {
             // TODO (FIXME): A better way to pick location to wander to; this ignores buildings / boundaries, 
             // presence or absense of navemesh, general validity of destination, and height.  It should work 
@@ -165,6 +166,20 @@ namespace kfutils.rpg
                 }
             }
             ai.SetDestination(destination);
+        }
+
+
+        private static void WanderFar(ITalkerAI ai, IActivityObject activity, NeedSeekState aiState)
+        {
+            if (ai is EntityLiving entity)
+            {
+                ChunkManager chunk = entity.GetChunkManager;
+                if ((chunk != null) && (chunk.WanderPointList != null)) ai.SetDestination(chunk.WanderPointList.GetWanderPoint().position);
+            }
+            else
+            {
+                WanderShort(ai, activity, aiState);
+            }
         }
 
 

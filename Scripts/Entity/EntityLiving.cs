@@ -129,7 +129,7 @@ namespace kfutils.rpg {
             mana = data.livingData.mana;
             alive = data.livingData.alive;
             enviroCooldown = data.livingData.enviroCooldown;
-            transform.SetDataGlobal(data.livingData.transform);
+            transform.SetDataGlobal(data.livingData.transform);        
         }
 
 

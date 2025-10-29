@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -52,9 +50,16 @@ namespace kfutils.rpg
         [SerializeField] AIState[] special;
 
 
-        AIState current;
-        AIState previous;
-        AIStateID currentID;
+        private AIState current;
+        private AIState previous;
+        private AIStateID currentID;
+        private AIState paused;
+
+
+        public AIStateID GetAIState => currentID;
+        public AIState GetCurrentState => current;
+        // Need to determing if stealth attacks are really stealth
+        public bool IsAggro => current == aggro;
 
 
         public void Init(EntityActing owner)
@@ -132,14 +137,30 @@ namespace kfutils.rpg
         }
 
 
-        public AIStateID GetAIState => currentID;
+        public void RevertState()
+        {
+            AIState next = previous;
+            current.StateExit();
+            previous = current;
+            current = next;
+            current.StateEnter();
+        }
 
 
-        public AIState GetCurrentState => current;
+        public void SetTempState(AIState tmpState)
+        {
+            paused = current;
+            paused.Pause();
+            current = tmpState;
+        }
 
 
-        // Need to determing if stealth attacks are really stealth
-        public bool IsAggro => current == aggro;
+        public void EndTempState()
+        {
+            current = paused;
+            paused.Resume();
+            paused = null;
+        }
 
 
 

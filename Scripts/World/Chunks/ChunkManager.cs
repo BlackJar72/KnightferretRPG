@@ -16,6 +16,7 @@ namespace kfutils.rpg {
         string id = null;
 
         [SerializeField] Transform looseItems;
+        [SerializeField] WanderPoints wanderPoints;
         
         public Vector2Int location;
 
@@ -30,6 +31,7 @@ namespace kfutils.rpg {
         public Transform LooseItems => looseItems;
         public List<IActivityObject> ActivityProps => activityProps;
         public List<ITalkerAI> ActivityNPCs => activityNPCs;
+        public WanderPoints WanderPointList => wanderPoints;
 
 
         public void SetID(string id)

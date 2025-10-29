@@ -8,8 +8,6 @@ namespace kfutils.rpg
     public class ActivityItem : IActivityObject
     {
 
-        // QUESTION: Shouod this exist, or be combined with ItemPrototype???
-
         [SerializeField] ENeeds theNeeds;
         [SerializeField] EObjectActivity activityType;
         [Range(0.0f, 1.0f)][SerializeField] float satisfaction;

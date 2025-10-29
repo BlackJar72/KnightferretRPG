@@ -127,6 +127,12 @@ namespace kfutils.rpg {
         }
 
 
+        protected void OllisionEnter(Collision collision)
+        {
+            Debug.Log(ID + " collided wiht " + collision.gameObject);          
+        }
+
+
         public void EquipItem(ItemStack stack) => inventory.EquipItem(stack);
         public void AddNewItemNPC(ItemStack stack) => inventory.AddNewItemNPC(stack);
         public void AddNewEquiptItem(ItemStack stack) => inventory.AddNewEquiptItem(stack);

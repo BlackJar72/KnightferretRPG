@@ -13,7 +13,6 @@ namespace kfutils.rpg {
             caster.GetAimParams(out aimParams);
             GameObject projectileObj = Instantiate(projectilePrefab);
             projectileObj.transform.position = aimParams.from;
-            projectileObj.transform.parent = projectileObj.transform.root; 
             Projectile projectile = projectileObj.GetComponent<Projectile>();
             if(projectile != null) {
                 if(projectile is SpellProjectile spellProj) {
@@ -21,7 +20,7 @@ namespace kfutils.rpg {
                 }
                 projectile.Launch(caster, aimParams.toward);
             }
-
+            projectileObj.transform.parent = projectileObj.transform.root; 
         }
 
 

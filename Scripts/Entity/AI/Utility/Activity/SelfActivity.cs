@@ -8,13 +8,15 @@ namespace kfutils.rpg
     /// Used to represent activities done by a character without use of any particualar 
     /// object, item, etc., but only involving themself.  E.g., idling or wandering.
     /// </summary>
-    [System.Serializable]
-    public class SelfActivity : IActivityObject
+    // [System.Serializable]
+    [CreateAssetMenu(menuName = "KF-RPG/AI/Activities/Simple Self Activity", fileName = "SelfActivity", order = 10)]
+    public class SelfActivity : ScriptableObject, IActivityObject
     {
 
         [SerializeField] AbstractAction useAction;
         [SerializeField] float timeToDo;
         [Range(0.0f, 2.0f)][SerializeField] protected float desireabilityFactor = 1.0f;
+
         [SerializeField] ActivityHelper.EEndCondition endCondition;
         [SerializeField] ActivityHelper.ECodeToRun codeToRunAtStart;
         [SerializeField] ActivityHelper.ECodeToRun codeToRunContinuously;
@@ -26,6 +28,7 @@ namespace kfutils.rpg
         public ENeeds GetNeed => ENeeds.NONE;
         public EObjectActivity ActivityType => EObjectActivity.SELF;
         public float DesireabilityFactor => desireabilityFactor;
+
         public ActivityHelper.EEndCondition EndCondition => endCondition;
         public ActivityHelper.ECodeToRun StartCode => codeToRunAtStart;
         public ActivityHelper.ECodeToRun ContinuousCode => codeToRunContinuously;

@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ namespace kfutils.rpg {
         [SerializeField] string id;
         [Tooltip("The location of the scene file.")]
         [SerializeField] string scenePath;
+        [Tooltip("The graph data for A* Pathfinding Project.")]
+        [SerializeField] string aStarGraphPath;
         [SerializeField] bool multiChunk;
         [Tooltip("The Y coordinate below which is considered underwater; used for visual effect and switching movement to swim mode.")]
         [SerializeField] float seaLevel;
@@ -91,6 +94,20 @@ namespace kfutils.rpg {
             yield return new WaitForEndOfFrame();
             WorldManagement.SetupWorldspace();
             Time.timeScale = 1.0f;
+        }
+
+
+        public byte[] GetASGraphData()
+        {
+            Debug.Log(aStarGraphPath + " exists?  " + ((!string.IsNullOrWhiteSpace(aStarGraphPath)) && AssetDatabase.AssetPathExists(aStarGraphPath)));
+            if ((!string.IsNullOrWhiteSpace(aStarGraphPath)) && AssetDatabase.AssetPathExists(aStarGraphPath))
+            {
+                TextAsset graphData = new(aStarGraphPath);
+                //AstarPath.active.data.DeserializeGraphs(graphData.bytes);
+                Debug.Log(graphData.dataSize);
+                return graphData.bytes;
+            }
+            return null;
         }
 
 
