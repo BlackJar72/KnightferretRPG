@@ -123,6 +123,7 @@ namespace kfutils.rpg {
             {
                 logic.Init();
             }
+            worldspace.LoadASGraphData();
         }
 
 

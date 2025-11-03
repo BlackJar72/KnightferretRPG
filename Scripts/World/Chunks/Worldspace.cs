@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -75,6 +76,7 @@ namespace kfutils.rpg {
             yield return new WaitForEndOfFrame();
             WorldManagement.SetupWorldspace();
             EntityManagement.playerCharacter.Teleport(defaultStartLocation);
+            InventoryManagement.SigalHotbarUpdate();
             Time.timeScale = 1.0f;
         }
 
@@ -97,17 +99,21 @@ namespace kfutils.rpg {
         }
 
 
-        public byte[] GetASGraphData()
+        public void LoadASGraphData() // FIXME: This may not need to return the data
         {
-            Debug.Log(aStarGraphPath + " exists?  " + ((!string.IsNullOrWhiteSpace(aStarGraphPath)) && AssetDatabase.AssetPathExists(aStarGraphPath)));
+#if UNITY_EDITOR
+            Debug.Log(aStarGraphPath + " exists?  " + ((!string.IsNullOrWhiteSpace(aStarGraphPath)) 
+                     && AssetDatabase.AssetPathExists(aStarGraphPath)));
+#endif
             if ((!string.IsNullOrWhiteSpace(aStarGraphPath)) && AssetDatabase.AssetPathExists(aStarGraphPath))
             {
-                TextAsset graphData = new(aStarGraphPath);
-                //AstarPath.active.data.DeserializeGraphs(graphData.bytes);
-                Debug.Log(graphData.dataSize);
-                return graphData.bytes;
+                TextAsset graphData = new(File.ReadAllBytes(aStarGraphPath));
+                AstarPath.active.data.DeserializeGraphs(graphData.bytes);
             }
-            return null;
+            else
+            {
+                AstarPath.active.Scan();
+            }
         }
 
 

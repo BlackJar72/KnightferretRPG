@@ -60,7 +60,6 @@ namespace kfutils.rpg {
         void Start()
         {
             startingWorldspace.LoadAsSpawn();
-            startingWorldspace.GetASGraphData();
             StartCoroutine(DoPostInitialLoad());
             if (ui == null) ui = GetComponent<UIManager>();
             if (ui == null) Debug.LogError("No UI Manager provided for game manager!");
