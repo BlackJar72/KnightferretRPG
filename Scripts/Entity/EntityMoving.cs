@@ -1,5 +1,5 @@
-using System;
 using Animancer;
+using Pathfinding;
 using UnityEngine;
 
 namespace kfutils.rpg {
@@ -15,7 +15,7 @@ namespace kfutils.rpg {
     }
 
 
-    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(CharacterController))][RequireComponent(typeof(Seeker))]
     public class EntityMoving : EntityLiving, IMoverAI
     {
         [SerializeField] protected CharacterController controller;
@@ -31,6 +31,12 @@ namespace kfutils.rpg {
 
         protected MixerTransition2D moveMixer;
         protected MixerParameterTweenVector2 moveTween;
+
+        [SerializeField] protected Seeker seeker;
+        protected int seekerWaypoint;
+        protected float seekerDistToWaypoint;
+        protected Path seekerPath;
+        protected bool seekerPathEnd;
 
         protected Vector3 movement;
         protected Vector3 heading;
@@ -64,6 +70,7 @@ namespace kfutils.rpg {
             // This is required for the animations to work on multiple characters,
             // and no CreateInstance is not appropriate as I need to clone the give 
             // object, not create a totally new one.
+            Seeker seeker = GetComponent<Seeker>();
             movementSet = Instantiate(movementSetPrototype);
             if (movementSet.UseRootMotion) DefaultMove = LandMoveRM;
             else DefaultMove = LandMove;
@@ -201,15 +208,34 @@ namespace kfutils.rpg {
         public void SetDestination(Vector3 to, float stopDist = 0.0f)
         {
             destination = to;
-            navSeeker.Agent.SetDestination(destination);
-            navSeeker.Agent.stoppingDistance = stopDist;
-            navSeeker.stopped = false;
+            seekerWaypoint = 0;
+            // navSeeker.Agent.SetDestination(destination);
+            // navSeeker.Agent.stoppingDistance = stopDist;
+            // navSeeker.stopped = false;
             if (destMaker != null) destMaker.transform.position = destination; // Temp, debugging
+            seeker.StartPath(transform.position, to, OnPathComplete);
+        }
+        
+
+        private void OnPathComplete(Path p)
+        {
+            if (!p.error)
+            {
+                seekerPath = p;
+                seekerWaypoint = 0;
+                seekerPathEnd = false; 
+            }
+            #if UNITY_EDITOR
+            else
+            {                
+                Debug.LogWarning("Error found in OnPathComplete(Path p): " + p.errorLog);
+            }
+            #endif
         }
 
 
         public void StartMoving()
-        {
+        {            
             navSeeker.stopped = false;
         }
 
@@ -259,13 +285,33 @@ namespace kfutils.rpg {
         }
 
 
-
+        private void SetDirection()
+        {            
+            seekerDistToWaypoint = Vector3.Distance(transform.position, seekerPath.vectorPath[seekerWaypoint]);
+            if (seekerDistToWaypoint < 1.0f) // FIXME: Use constant 
+            {
+                if (seekerWaypoint + 1 < seekerPath.vectorPath.Count)
+                {
+                    seekerWaypoint++;
+                }
+                else
+                {
+                    seekerPathEnd = true;
+                }
+            }
+            speed = seekerPathEnd ? Mathf.Sqrt(seekerDistToWaypoint / 1.0f) : 1f; // FIXME: Use constant (as above)
+            movement = (seekerPath.vectorPath[seekerWaypoint] - transform.position).normalized;
+        }
 
 
         protected void LandMove()
         {
-            if (Time.deltaTime == 0) return;
-            movement = navSeeker.transform.position - transform.position;
+            if ((Time.deltaTime == 0) || (seekerPath == null)) return;
+
+            SetDirection();
+
+            //Debug.Log("movement = " + movement + "; speed = " + speed);
+
             heading.Set(movement.x, 0, movement.z);
             Vector3 newVelocity = Vector3.zero;
 
@@ -284,11 +330,7 @@ namespace kfutils.rpg {
                 DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
                 if (dms != null)
                 {
-                    Vector3 motion = transform.position - lastPos;
-                    motion.y = 0;
-                    moveSpeed = (motion.magnitude / Time.deltaTime) / speed;
-                    dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, moveSpeed), 10 * Time.deltaTime);
-                    lastPos = transform.position;
+                    dms.Parameter = new Vector2(0, speed); 
                 }
             }
             else
@@ -326,7 +368,7 @@ namespace kfutils.rpg {
             else
             {
                 vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
-                vSpeed = Math.Max(vSpeed, GameConstants.TERMINAL_VELOCITY);
+                vSpeed = Mathf.Max(vSpeed, GameConstants.TERMINAL_VELOCITY);
                 if (!falling && (velocity.y < -10))
                 {
                     falling = true;
@@ -345,18 +387,15 @@ namespace kfutils.rpg {
 
         protected void LandMoveRM()
         {
-            if (Time.deltaTime == 0) return;
-            movement = navSeeker.transform.position - transform.position;
+            if ((Time.deltaTime == 0) || (seekerPath == null)) return;
+            SetDirection();
             heading.Set(movement.x, 0, movement.z);
-            Vector3 newVelocity = Vector3.zero;
-            float speed = Mathf.Min((float)moveType, heading.magnitude);
 
             if (speed > 0.1)
             {
-                heading.Normalize();
-                rotation.SetLookRotation(heading, Vector3.up);
+                heading.Normalize();rotation.SetLookRotation(heading, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 4.0f);
-                if (moveSpeed > 0.1f && (moveType == MoveType.run))
+                if (speed > 0.1f && (moveType == MoveType.run))
                 {
                     stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor);
                     if (!stamina.HasStamina) SetMoveType(MoveType.walk);
@@ -366,12 +405,7 @@ namespace kfutils.rpg {
             DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
                 if (dms != null)
                 {
-                    Vector3 motion = navSeeker.transform.position - lastPos;
-                    motion.y = 0;
-                    if(speed > 0.25f) moveSpeed = Mathf.Lerp(moveSpeed, speed, Time.deltaTime * 4.0f);
-                    else moveSpeed = Mathf.Lerp(moveSpeed, 0, Time.deltaTime * 4.0f);
-                    dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(0, moveSpeed), 10 * Time.deltaTime); //new Vector2(0, moveSpeed);
-                    lastPos = transform.position;
+                    dms.Parameter = new Vector2(0, speed); 
                 }
             velocity.Set(0, vSpeed, 0);
             controller.Move(velocity * Time.deltaTime);
