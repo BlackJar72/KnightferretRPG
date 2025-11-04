@@ -3,7 +3,6 @@ using Animancer;
 using kfutils.rpg.ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 
 namespace kfutils.rpg {
