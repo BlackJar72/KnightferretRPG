@@ -35,8 +35,13 @@ about the static "management" classes.
 This is under the MIT license. I'm open to other licensing agreements if you just don't want 
 to include the license with everything (contact me if so), so long as they waive any claims 
 liability or warrantee.  The main reason I use licenses instead of just dropping things as 
-unlicensed freeware is to cover my own butt, just in case.nd simplified many things. These were a good 
-idea. 
+unlicensed freeware is to cover my own butt, just in case.nd simplified many things. These 
+were a good idea. 
+
+One things I'd like to ask PLEASE DO NOT USE MY ART WORK (UI).  I included it so my own UI 
+wouldn't be broken and have to be rebuilt if I have to download this again, please, if you 
+make your own game using this make your own UI graphics (or at least get them from a third 
+party asset other than this). 
 
 ---
 
