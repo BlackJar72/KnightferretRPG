@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace kfutils.rpg {
 
@@ -16,6 +17,13 @@ namespace kfutils.rpg {
 
         void OnDisable() {
             WorldManagement.teleportMarkers.Remove(id);
+        }
+
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(transform.position, 0.35f);
         }
 
     }
