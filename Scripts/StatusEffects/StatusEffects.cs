@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using kfutils.rpg;
 using UnityEngine;
 
 
-namespace kfutils
+namespace kfutils.rpg
 {
 
     [System.Serializable]
@@ -77,22 +76,32 @@ namespace kfutils
         #endregion Class Core
 
 
-        public struct Effect
-        {
-            private readonly EEffectType type;
-            private readonly float magnitude;
-            private readonly double endTime;
-            private readonly bool finite;
 
-            public readonly EEffectType Type => type;
-            public readonly float Magnitude => magnitude;
-            public readonly double EndTime => endTime;
-            public readonly bool Finite => finite;
-            public readonly bool ShouldEnd => finite && (endTime < WorldTime.time);
-            public readonly string MakeID => type + endTime.ToString() + finite;
+        [System.Serializable]
+        public class Effect
+        {
+            [SerializeField] EEffectType type;
+            [SerializeField] float magnitude;
+            [SerializeField] double endTime;
+            [SerializeField] bool finite;
+
+            public EEffectType Type => type;
+            public float Magnitude => magnitude;
+            public double EndTime => endTime;
+            public bool Finite => finite;
+            public bool ShouldEnd => finite && (endTime < WorldTime.time);
+            public string MakeID => type + endTime.ToString() + finite;
 
             public static bool operator ==(Effect a, Effect b) => (a.type == b.type) && (a.finite == b.finite) && (a.endTime == b.endTime);
             public static bool operator !=(Effect a, Effect b) => (a.type != b.type) || (a.finite != b.finite) || (a.endTime != b.endTime);
+
+            public Effect()
+            {
+                type = (EEffectType)0;
+                magnitude = 0.0f;
+                endTime = 0.0;
+                finite = true;
+            }
 
             public Effect(EEffectType type, float magnitude, double duration, bool finite = true)
             {
@@ -124,32 +133,34 @@ namespace kfutils
 
             public void StartEffect(EntityLiving entity)
             {
-                implementations[(int)type].StartEffect(entity, ref this);
+                implementations[(int)type].StartEffect(entity, this);
             }
 
             public void ContinueEffect(EntityLiving entity)
             {
-                implementations[(int)type].ContinueEffect(entity, ref this);
+                implementations[(int)type].ContinueEffect(entity, this);
             }
 
             public void EndEffect(EntityLiving entity)
             {
-                implementations[(int)type].EndEffect(entity, ref this);
+                implementations[(int)type].EndEffect(entity, this);
             }
         }
 
 
         public interface IEffect
         {
-            public void StartEffect(EntityLiving entity, ref Effect effect);
-            public void ContinueEffect(EntityLiving entity, ref Effect effect);
-            public void EndEffect(EntityLiving entity, ref Effect effect);
+            public void StartEffect(EntityLiving entity, Effect effect);
+            public void ContinueEffect(EntityLiving entity, Effect effect);
+            public void EndEffect(EntityLiving entity, Effect effect);
         }
 
 
         #region Effects Implementation Code
 
 
+
+        [System.Serializable]
         public enum EEffectType
         {
             FIRE_RESIT = 0
@@ -163,14 +174,14 @@ namespace kfutils
 
         public class FireResist : IEffect
         {
-            public void ContinueEffect(EntityLiving entity, ref Effect effect)
+            public void ContinueEffect(EntityLiving entity, Effect effect)
             {
                 entity.attributes.damageModifiers.AddModifier(new DamageModInstance(effect.Magnitude, DamageType.fire, effect.MakeID));
             }
 
-            public void EndEffect(EntityLiving entity, ref Effect effect) {}
+            public void EndEffect(EntityLiving entity, Effect effect) {}
 
-            public void StartEffect(EntityLiving entity, ref Effect effect)
+            public void StartEffect(EntityLiving entity, Effect effect)
             {
                 entity.attributes.damageModifiers.RemoveModifer(effect.MakeID);
             }

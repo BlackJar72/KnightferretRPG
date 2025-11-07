@@ -136,7 +136,7 @@ namespace kfutils.rpg {
             WorldManagement.SetChunkData(chunkData);
             WorldManagement.LoadWSFromSave(currentWorldspace);
 
-            // FIXME: Entities and there data are partially separated in this
+            // FIXME: Entities and their data are partially separated in this
             healingEntities = EntityManagement.RestoreHealing(LoadStringIDList("HealingEntities", fileName));
             waitingToHeal = EntityManagement.RestoreWaitingToHeal(LoadStringIDList("WaitingToHeal", fileName));
             recoveringEntities = EntityManagement.RestoreRecoving(LoadStringIDList("ReoveringEntities", fileName));
@@ -158,6 +158,7 @@ namespace kfutils.rpg {
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             pcData = ES3.Load("PCData", fileName, oldData);
+            EntityManagement.pcStatusEffect = pcData.entityData.livingData.statusEffects;
             return pcData;
         }
 

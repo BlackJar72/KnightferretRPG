@@ -20,6 +20,7 @@ namespace kfutils.rpg
         public static float ftime => (float)seconds;
 
 #if UNITY_EDITOR
+        [SerializeField] double worldTime;
         private static long frame = 0;
         public static long Frame => frame;
 #endif
@@ -51,6 +52,7 @@ namespace kfutils.rpg
         {
             seconds += Time.deltaTime;
 #if UNITY_EDITOR
+            worldTime = seconds;
             frame++;
 #endif
         }

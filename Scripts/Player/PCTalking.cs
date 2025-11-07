@@ -73,6 +73,18 @@ namespace kfutils.rpg {
         }
 
 
+        public void LoadDataForLoad()
+        {
+            LoadData();
+            if (EntityManagement.pcStatusEffect != null)
+            {
+                statusEffects = EntityManagement.pcStatusEffect;
+            } else {
+                statusEffects = data.livingData.statusEffects;
+            }
+        }
+
+
         protected override void OnDisable()
         {
             base.OnDisable();

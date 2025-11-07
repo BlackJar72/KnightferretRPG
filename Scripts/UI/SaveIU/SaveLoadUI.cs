@@ -187,6 +187,7 @@ namespace kfutils.rpg.ui
             loadingScreen.SetActive(false);
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
+            EntityManagement.playerCharacter.LoadDataForLoad();
             GameManager.Instance.UIManager.CloseCharacterSheet();
             GameManager.Instance.UIManager.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);
