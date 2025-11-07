@@ -14,6 +14,7 @@ namespace kfutils.rpg {
         [SerializeField] public EntityStamina stamina;
         [SerializeField] public EntityMana mana;
         [SerializeField] public EntityAttributes attributes;
+        [SerializeField] public StatusEffects statusEffects;
         [SerializeField] protected bool alive = true;
 
         [SerializeField] protected EntityHitbox hitbox;
@@ -136,7 +137,7 @@ namespace kfutils.rpg {
         // Update is called once per frame
         protected virtual void Update()
         {
-
+            statusEffects.ApplyEffects(this);
         }
 
 
@@ -189,6 +190,24 @@ namespace kfutils.rpg {
             return ((dist < rangeSqr)
             && (Vector3.Dot(from.forward, toOther) > 0)
             && !Physics.Linecast(from.position, hitbox.GetCenter(), GameConstants.LevelMask));
+        }
+
+
+        public void AddStatusEffect(StatusEffects.EEffectType type, float magnitude, double duration)
+        {
+            statusEffects.AddEffect(this, type, magnitude, duration);
+        }
+
+
+        public void AddItemStatusEffect(StatusEffects.EEffectType type, float magnitude, string id)
+        {
+            statusEffects.AddItemEffect(this, type, magnitude, id);
+        }
+
+
+        public void RemoveItemStatusEffect(string id, StatusEffects.EEffectType type)
+        {
+            statusEffects.RemoveEffect(this, id, type);
         }
 
 

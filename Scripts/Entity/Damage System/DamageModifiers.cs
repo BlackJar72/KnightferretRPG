@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 
@@ -85,6 +84,34 @@ namespace kfutils {
         /// <param name="modifier"></param>
         public void RemoveModifer(DamageModInstance modifier) {
             modifiers.Remove(modifier);
+            BuildFromModifiers();
+        }
+
+
+        /// <summary>
+        /// Removers a specific modifier from the list
+        /// </summary>
+        /// <param name="modifier"></param>
+        public void RemoveModifer(string id)
+        {
+            RemoveModifer((long)id.GetHashCode());
+        }
+
+
+        /// <summary>
+        /// Removers a specific modifier from the list
+        /// </summary>
+        /// <param name="modifier"></param>
+        public void RemoveModifer(long id) {
+            long idHash = (long)id.GetHashCode();
+            for(int i = modifiers.Count - 1; i > -1; i--)
+            {
+                if(modifiers[i].ID == id)
+                {
+                    modifiers.RemoveAt(i);
+                    break;
+                }
+            }
             BuildFromModifiers();
         }
 

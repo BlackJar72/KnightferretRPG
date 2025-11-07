@@ -62,7 +62,8 @@ namespace kfutils.rpg
         public enum PotionType
         {
             NONE = 0,
-            HEALING = 1
+            HEALING = 1,
+            FIRE_RESIT = 2
         }
 
 
@@ -72,7 +73,8 @@ namespace kfutils.rpg
         /// </summary>
         private static TakeEffect[] effects = new TakeEffect[]{
             NoEffect,
-            HealingEffect
+            HealingEffect,
+            FireResitEffect
 
         };
 
@@ -91,6 +93,13 @@ namespace kfutils.rpg
         {
             EntityLiving user = potion.holder as EntityLiving;
             if (user != null) user.health.Heal(potion.strength);
+        }
+
+
+        private static void FireResitEffect(ItemPotion potion)
+        {
+            EntityLiving user = potion.holder as EntityLiving;
+            if (user != null) user.AddStatusEffect(StatusEffects.EEffectType.FIRE_RESIT, potion.duration, potion.strength);
         }
 
 
