@@ -11,6 +11,7 @@ namespace kfutils.rpg {
         public EntityStamina stamina;
         public EntityMana mana;
         public EntityAttributes attributes;
+        public StatusEffects statusEffects;
         public bool alive;
         public float enviroCooldown;
         public TransformData transform;

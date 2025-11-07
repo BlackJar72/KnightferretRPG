@@ -116,6 +116,7 @@ namespace kfutils.rpg {
             data.livingData.stamina = stamina;
             data.livingData.mana = mana;
             data.livingData.alive = alive;
+            data.livingData.statusEffects = statusEffects;
             data.livingData.enviroCooldown = enviroCooldown;
             data.livingData.transform = transform.GetGlobalData();
         }
@@ -129,6 +130,7 @@ namespace kfutils.rpg {
             stamina = data.livingData.stamina;
             mana = data.livingData.mana;
             alive = data.livingData.alive;
+            statusEffects = data.livingData.statusEffects;
             enviroCooldown = data.livingData.enviroCooldown;
             transform.SetDataGlobal(data.livingData.transform);
         }
