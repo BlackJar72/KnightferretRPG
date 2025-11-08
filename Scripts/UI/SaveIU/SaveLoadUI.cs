@@ -146,6 +146,9 @@ namespace kfutils.rpg.ui
             {
                 SavedGame savedGame = new();
                 savedGame.Save(fileToSave);
+                // Cache the path of the last save so it can be conveniently continued 
+                // from the start menu. 
+                PlayerPrefs.SetString("LastSave", fileToSave);
             }
         }
 
@@ -155,6 +158,10 @@ namespace kfutils.rpg.ui
             if (!string.IsNullOrWhiteSpace(fileToSave))
             {
                 SavedGame.DeleteSave(fileToSave);
+                if(PlayerPrefs.HasKey("LastSave") && PlayerPrefs.GetString("LastSave").Equals(fileToSave))
+                {
+                    PlayerPrefs.DeleteKey("LastSave");
+                }
                 OnEnable();
             }
         }

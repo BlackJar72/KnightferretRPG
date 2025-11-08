@@ -130,7 +130,7 @@ namespace kfutils.rpg {
             InventoryManagement.SetInventoryData(inventoryData);
             InventoryManagement.SetSpellbookData(spellbookData);
             InventoryManagement.SetEquiptData(equiptData);
-            InventoryManagement.SetMoneyData(moneyData);;
+            InventoryManagement.SetMoneyData(moneyData);
             InventoryManagement.hotBar.CopyInto(hotbar);
             EntityManagement.SetEntityRegistry(entityRegistry);
             WorldManagement.SetChunkData(chunkData);

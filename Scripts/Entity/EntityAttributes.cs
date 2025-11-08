@@ -94,6 +94,13 @@ namespace kfutils.rpg {
         }
 
 
+        public void CopyIntoNew(EntityAttributes source, EntityHealth health, EntityStamina stamina, EntityMana mana) {
+            level = 1; 
+            baseStats.CopyInto(source.baseStats);
+            DeriveAttributesForHuman(health, stamina, mana);
+        }
+
+
         
 
 
