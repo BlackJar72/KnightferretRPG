@@ -100,10 +100,24 @@ namespace kfutils {
         }
 
 
-        public static void AppyDamageToExisting(ref Damages damages, int armor, float ap) {
+        public static Damages CalcFixedDamage(int damage, int armor, float AP, DamageType type = DamageType.physical) {
+            float modifiedDamage = ((damage - (armor * 0.5f))) * (1.0f - KFMath.Asymptote(armor / 100f, 0.5f, 0.4f));
+            damage = (int)Mathf.Max(1, (modifiedDamage * (1.0f - AP)) + (damage * AP));
+            return new Damages(damage, CalcWounds(damage), type);
+        }
+
+
+        public static void AppyDamageToExisting(ref Damages damages, int armor, float ap)
+        {
             float dam = ((damages.shock - (armor * 0.5f))) * (1.0f - KFMath.Asymptote(armor / 100f, 0.5f, 0.4f));
             damages.shock = (int)Mathf.Max(1, (dam * (1.0f - ap)) + (damages.shock * ap));
             damages.wound = CalcWounds(damages.shock);
+        }
+        
+
+        public static float ApplyAdjusterToShock(int shock, DamageType type, DamageAdjuster adjuster)
+        {
+            return adjuster.adjust(new Damages(shock, 0, type)).shock;
         }
 
 

@@ -24,6 +24,10 @@ namespace kfutils.rpg
         public int GetArmor();
         public void TakeDamage(Damages damage);
         public void TakeDamage(DamageData damage);
+        public void TakeDamageOverTime(Damages damage);
+        public void TakeDamageOverTime(DamageData damage);
+        public void TakeShockOverTime(Damages damage);
+        public void TakeShockOverTime(DamageData damage);
         public EntityLiving GetEntity { get; }
         public Damages ApplyDamageAdjustment(Damages damage);
         public void HealDamage(float amount);

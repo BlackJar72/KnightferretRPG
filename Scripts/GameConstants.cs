@@ -37,6 +37,9 @@ namespace kfutils.rpg {
 
         public const float TIME_TO_CHARGE_ACTIONS = 0.5f;
 
+        public const int ENVIRO_DMG_FACTOR = 4;
+        public const float ENVIRO_DMG_INV = 1.0f / (float)ENVIRO_DMG_FACTOR;
+
 
         #region Layers
         public const int defaultLayer = 0x1;

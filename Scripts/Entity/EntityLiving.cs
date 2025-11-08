@@ -161,8 +161,32 @@ namespace kfutils.rpg {
         {
             health.TakeDamage(attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage.damage, attributes.damageAdjuster)));
             if (health.ShouldDie) Die();
-            // TODO: Include overrides that can react to the IAttacker
         }
+
+
+        public void TakeDamageOverTime(Damages damage) { 
+            health.TakeDamageOverTime(attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage, attributes.damageAdjuster)));
+            if (health.ShouldDie) Die();
+        }
+
+
+        public void TakeDamageOverTime(DamageData damage) { 
+            health.TakeDamageOverTime(attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage.damage, attributes.damageAdjuster)));
+            if (health.ShouldDie) Die();
+        }
+
+
+        public void TakeShockOverTime(Damages damage) {
+            health.TakeShockOverTime(attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage, attributes.damageAdjuster)));
+            if (health.ShouldDie) Die();
+        }
+
+
+        public void TakeShockOverTime(DamageData damage) {
+            health.TakeShockOverTime(attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage.damage, attributes.damageAdjuster)));
+            if (health.ShouldDie) Die();
+        }
+
 
         public void HealDamage(float amount)
         {

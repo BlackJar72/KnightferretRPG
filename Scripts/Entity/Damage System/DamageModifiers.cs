@@ -46,6 +46,27 @@ namespace kfutils {
         }
 
 
+        public float Apply(float damage, DamageType type) {
+            float resist = 0f;
+            float weakness = 0f;
+            float result;
+
+            if((type & DamageType.physical) > 0) {
+                resist = resists[0];
+                weakness = weaknesses[0];
+            } else {
+                for(int i = 1; i < 8; i++) {
+                    if(((int)type & (0x1 << i)) > 0) {
+                        resist   = Mathf.Max(resists[i],    resist);
+                        weakness = Mathf.Max(weaknesses[i], weakness);
+                    }
+                }
+            }
+            result = Mathf.Max(1.0f + weakness - resist, 0f);
+            return damage * result;
+        }
+
+
         /// <summary>
         /// Create the modifiers; for efficiency this is called when the modifiers in effect change, not when applied to
         /// actual damage (which is likely to happen more frequently, especially with long-term modifiers such as those
@@ -94,6 +115,7 @@ namespace kfutils {
         /// <param name="modifier"></param>
         public void RemoveModifer(string id)
         {
+            Debug.Log(id);
             RemoveModifer((long)id.GetHashCode());
         }
 
@@ -194,6 +216,7 @@ namespace kfutils {
             this.amount = amount;
             this.type = type;
             this.id = (long)id.GetHashCode();
+            Debug.Log(id + " => " + this.id);
         }
 
         public DamageModInstance(float amount, DamageType type, long id) {

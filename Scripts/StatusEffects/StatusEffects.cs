@@ -133,7 +133,7 @@ namespace kfutils.rpg
 
             public void StartEffect(EntityLiving entity)
             {
-                implementations[(int)type].StartEffect(entity, this);
+                implementations[(int)type].BeginEffect(entity, this);
             }
 
             public void ContinueEffect(EntityLiving entity)
@@ -150,7 +150,7 @@ namespace kfutils.rpg
 
         public interface IEffect
         {
-            public void StartEffect(EntityLiving entity, Effect effect);
+            public void BeginEffect(EntityLiving entity, Effect effect);
             public void ContinueEffect(EntityLiving entity, Effect effect);
             public void EndEffect(EntityLiving entity, Effect effect);
         }
@@ -174,14 +174,14 @@ namespace kfutils.rpg
 
         public class FireResist : IEffect
         {
-            public void ContinueEffect(EntityLiving entity, Effect effect)
+            public void BeginEffect(EntityLiving entity, Effect effect)
             {
                 entity.attributes.damageModifiers.AddModifier(new DamageModInstance(effect.Magnitude, DamageType.fire, effect.MakeID));
             }
 
-            public void EndEffect(EntityLiving entity, Effect effect) {}
+            public void ContinueEffect(EntityLiving entity, Effect effect) {}
 
-            public void StartEffect(EntityLiving entity, Effect effect)
+            public void EndEffect(EntityLiving entity, Effect effect) 
             {
                 entity.attributes.damageModifiers.RemoveModifer(effect.MakeID);
             }

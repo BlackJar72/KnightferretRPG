@@ -15,6 +15,10 @@ namespace kfutils.rpg
         public int GetArmor() => owner.GetArmor();
         public void TakeDamage(Damages damage) => owner.TakeDamage(damage);
         public void TakeDamage(DamageData damage) => owner.TakeDamage(damage);
+        public void TakeDamageOverTime(Damages damage) => owner.TakeDamageOverTime(damage);
+        public void TakeDamageOverTime(DamageData damage) => owner.TakeDamageOverTime(damage);
+        public void TakeShockOverTime(Damages damage) => owner.TakeShockOverTime(damage);
+        public void TakeShockOverTime(DamageData damage) => owner.TakeShockOverTime(damage);
         public Collider GetCollider() => GetComponent<Collider>();
         public Vector3 GetCenter() => GetComponent<Collider>().bounds.center;
         public EntityLiving GetEntity => owner;
@@ -23,8 +27,8 @@ namespace kfutils.rpg
         public void SetParried(bool parried = true) => owner.SetParried(parried);
         public bool IsSurprised(ICombatant attacker) => owner.IsSurprised(attacker);
         public Damages ApplyDamageAdjustment(Damages damage) => owner.ApplyDamageAdjustment(damage);
-        public void HealDamage(float amount) => owner.HealDamage(amount); 
+        public void HealDamage(float amount) => owner.HealDamage(amount);
         
-    }
+     }
 
 }

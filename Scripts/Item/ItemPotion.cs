@@ -99,7 +99,7 @@ namespace kfutils.rpg
         private static void FireResitEffect(ItemPotion potion)
         {
             EntityLiving user = potion.holder as EntityLiving;
-            if (user != null) user.AddStatusEffect(StatusEffects.EEffectType.FIRE_RESIT, potion.duration, potion.strength);
+            if (user != null) user.AddStatusEffect(StatusEffects.EEffectType.FIRE_RESIT, -potion.strength, potion.duration);
         }
 
 

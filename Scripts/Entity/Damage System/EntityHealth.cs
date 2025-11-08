@@ -106,6 +106,22 @@ namespace kfutils {
         }
 
 
+        public void TakeDamageOverTime(Damages damage) {  
+            // Damage per second, allowing
+            shock -= damage.shock * Time.deltaTime * GameConstants.ENVIRO_DMG_INV;
+            wound -= damage.wound * Time.deltaTime * GameConstants.ENVIRO_DMG_INV;
+            timeToHeal = WorldTime.time + HEALING_PAUSE_TIME;
+            EntityManagement.AddWounded(this);
+        }
+
+
+        public void TakeShockOverTime(Damages damage) {
+            shock -= damage.shock * Time.deltaTime * GameConstants.ENVIRO_DMG_INV;
+            timeToHeal = WorldTime.time + HEALING_PAUSE_TIME;
+            EntityManagement.AddWounded(this);
+        }
+
+
         public void Heal(float amount) {
             wound = Mathf.Clamp(wound + amount, 0, baseHealth + buff);
             shock = Mathf.Clamp(shock + amount, 0, baseHealth + buff);
