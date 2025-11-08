@@ -63,7 +63,7 @@ namespace kfutils.rpg
         {
             NONE = 0,
             HEALING = 1,
-            FIRE_RESIT = 2
+            MOD_FIRE_DMG = 2
         }
 
 
@@ -74,7 +74,7 @@ namespace kfutils.rpg
         private static TakeEffect[] effects = new TakeEffect[]{
             NoEffect,
             HealingEffect,
-            FireResitEffect
+            ModFireDmg
 
         };
 
@@ -96,10 +96,10 @@ namespace kfutils.rpg
         }
 
 
-        private static void FireResitEffect(ItemPotion potion)
+        private static void ModFireDmg(ItemPotion potion)
         {
             EntityLiving user = potion.holder as EntityLiving;
-            if (user != null) user.AddStatusEffect(StatusEffects.EEffectType.FIRE_RESIT, -potion.strength, potion.duration);
+            if (user != null) user.AddStatusEffect(StatusEffects.EEffectType.FIRE_RESIT, potion.strength, potion.duration);
         }
 
 

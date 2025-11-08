@@ -115,7 +115,6 @@ namespace kfutils {
         /// <param name="modifier"></param>
         public void RemoveModifer(string id)
         {
-            Debug.Log(id);
             RemoveModifer((long)id.GetHashCode());
         }
 
@@ -216,7 +215,6 @@ namespace kfutils {
             this.amount = amount;
             this.type = type;
             this.id = (long)id.GetHashCode();
-            Debug.Log(id + " => " + this.id);
         }
 
         public DamageModInstance(float amount, DamageType type, long id) {
