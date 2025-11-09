@@ -68,7 +68,7 @@ namespace kfutils {
             wound = other.wound;
             shock = other.shock;
             buff = other.buff;
-            // TODO: Add copying of time to heal once that is based on global time.
+            timeToHeal = other.timeToHeal;
         }
 
 
@@ -101,6 +101,7 @@ namespace kfutils {
         public void TakeDamage(Damages damage) {  
             shock -= damage.shock;
             wound -= damage.wound;
+            if ((damage.shock == 0.0f) || (damage.wound == 0.0f)) return;
             timeToHeal = WorldTime.time + HEALING_PAUSE_TIME;
             EntityManagement.AddWounded(this);
         }
@@ -110,6 +111,7 @@ namespace kfutils {
             // Damage per second, allowing
             shock -= damage.shock * Time.deltaTime * GameConstants.ENVIRO_DMG_INV;
             wound -= damage.wound * Time.deltaTime * GameConstants.ENVIRO_DMG_INV;
+            if ((damage.shock == 0.0f) || (damage.wound == 0.0f)) return;
             timeToHeal = WorldTime.time + HEALING_PAUSE_TIME;
             EntityManagement.AddWounded(this);
         }
@@ -117,6 +119,7 @@ namespace kfutils {
 
         public void TakeShockOverTime(Damages damage) {
             shock -= damage.shock * Time.deltaTime * GameConstants.ENVIRO_DMG_INV;
+            if (damage.shock == 0.0f) return;
             timeToHeal = WorldTime.time + HEALING_PAUSE_TIME;
             EntityManagement.AddWounded(this);
         }
@@ -133,7 +136,8 @@ namespace kfutils {
         }
 
 
-        public void HealShockFully() {
+        public void HealShockFully()
+        {
             shock = baseHealth;
         }
 
@@ -199,6 +203,14 @@ namespace kfutils {
         public void SetOnwer(EntityLiving owner) {
             // Only allow this to change if it has not yet been set.
             if(this.owner == null) this.owner = owner;
+        }
+        
+
+        public EntityHealth BeLoaded(EntityLiving owner)
+        {
+            if(owner != null) this.owner = owner;
+            if (shock < baseHealth) EntityManagement.AddWounded(this);
+            return this;
         }
 
 

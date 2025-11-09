@@ -73,20 +73,6 @@ namespace kfutils.rpg {
         }
 
 
-        public void LoadStatusEffects()
-        {
-            if (EntityManagement.pcData != null)
-            {
-                statusEffects = EntityManagement.pcData.entityData.livingData.statusEffects;
-                characterController.enabled = true;
-            }
-            else
-            {
-                statusEffects = data.livingData.statusEffects;
-            }
-        }
-
-
         protected override void OnDisable()
         {
             base.OnDisable();
@@ -127,8 +113,19 @@ namespace kfutils.rpg {
         public void SetPCData(PCData loaded)
         {
             SetFromMovingData(loaded);
-            LoadStatusEffects();
+            SetFromActiningData(loaded);
+            SetFromTalkingData(loaded);
         } 
+
+
+        /// <summary>
+        /// This sets Talking data during loads; living is included since.
+        /// </summary>
+        /// <param name="data"></param>
+        protected void SetFromTalkingData(PCData data)
+        {
+            // TODO
+        }
 
 
 

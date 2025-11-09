@@ -126,9 +126,9 @@ namespace kfutils.rpg {
         {
             entityName = data.livingData.entityName;
             attributes = data.livingData.attributes;
-            health = data.livingData.health;
-            stamina = data.livingData.stamina;
-            mana = data.livingData.mana;
+            health = data.livingData.health.BeLoaded(this);
+            stamina = data.livingData.stamina.BeLoaded(this);
+            mana = data.livingData.mana.BeLoaded(this);
             alive = data.livingData.alive;
             statusEffects = data.livingData.statusEffects;
             enviroCooldown = data.livingData.enviroCooldown;

@@ -49,7 +49,8 @@ namespace kfutils {
         public void CopyInto(EntityStamina other) {
             baseStamina = other.baseStamina;
             currentStamina = other.currentStamina;
-            // TODO: Add copying of time to heal once that is based on global time.
+            buff = other.buff;
+            timeToHeal = other.timeToHeal;
         }
 
 
@@ -114,6 +115,14 @@ namespace kfutils {
         public void SetOnwer(EntityLiving owner) {
             // Only allow this to change if it has not yet been set.
             if(this.owner == null) this.owner = owner;
+        }
+        
+
+        public EntityStamina BeLoaded(EntityLiving owner)
+        {
+            if(owner != null) this.owner = owner;
+            if (currentStamina < baseStamina) EntityManagement.AddExhausted(this);
+            return this;
         }
 
 

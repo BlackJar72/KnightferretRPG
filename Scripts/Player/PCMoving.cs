@@ -117,6 +117,7 @@ namespace kfutils.rpg {
             // Normal stuff below      
             Cursor.lockState = CursorLockMode.Locked;
 
+            movementSet = Instantiate(movementSet);
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
             armsMoveLayer = arms.Layers[0];
@@ -280,6 +281,7 @@ namespace kfutils.rpg {
         protected override void LoadData()
         {
             base.LoadData();
+            characterController.enabled = false;
             velocity = data.movingData.movement;
             movement = data.movingData.heading;
             transform.rotation = data.movingData.rotation;
@@ -290,6 +292,7 @@ namespace kfutils.rpg {
             velocity = data.movingData.velocity;
             falling = data.movingData.falling;
             onGround = data.movingData.onGround;
+            characterController.enabled = true;
         }
 
 
@@ -450,6 +453,11 @@ namespace kfutils.rpg {
         }
 
 
+        /// <summary>
+        /// This sets Living and Moving data during loads; living is included since 
+        /// there is no PCLiving but instead entity living is inherited directly.
+        /// </summary>
+        /// <param name="data"></param>
         protected void SetFromMovingData(PCData data)
         {
             characterController.enabled = false;
@@ -458,6 +466,10 @@ namespace kfutils.rpg {
             health.CopyInto(data.entityData.livingData.health);
             stamina.CopyInto(data.entityData.livingData.stamina);
             mana.CopyInto(data.entityData.livingData.mana);
+            health.BeLoaded(this);
+            stamina.BeLoaded(this);
+            mana.BeLoaded(this);
+            statusEffects = data.entityData.livingData.statusEffects;
             EntityManagement.AddToRegistryForce(this.data);
             gameObject.transform.SetPositionAndRotation(data.location.position, data.location.rotation);
             gameObject.transform.localScale = data.location.scale;

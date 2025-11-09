@@ -131,6 +131,16 @@ namespace kfutils.rpg {
         }
 
 
+        /// <summary>
+        /// This sets Acting data during loads; living is included since.
+        /// </summary>
+        /// <param name="data"></param>
+        protected void SetFromActiningData(PCData data)
+        {
+            // TODO
+        }
+
+
         #region Input
 
         private void InitInput()

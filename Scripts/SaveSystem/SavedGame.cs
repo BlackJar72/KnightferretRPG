@@ -166,7 +166,6 @@ namespace kfutils.rpg {
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             pcData = ES3.Load("PCData", fileName, oldData);
-            EntityManagement.pcData = pcData;
             return pcData;
         }
 

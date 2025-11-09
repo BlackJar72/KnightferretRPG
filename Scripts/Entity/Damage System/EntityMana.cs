@@ -45,7 +45,7 @@ namespace kfutils {
         public void CopyInto(EntityMana other) {
             baseMana = other.baseMana;
             currentMana = other.currentMana;
-            // TODO: Add copying of time to heal once that is based on global time.
+            buff = other.buff;
         }
 
 
@@ -123,6 +123,14 @@ namespace kfutils {
         public void SetOnwer(EntityLiving owner) {
             // Only allow this to change if it has not yet been set.
             if(this.owner == null) this.owner = owner;
+        }
+        
+
+        public EntityMana BeLoaded(EntityLiving owner)
+        {
+            if(owner != null) this.owner = owner;
+            if (currentMana < baseMana) EntityManagement.AddManaExhausted(this);
+            return this;
         }
 
 
