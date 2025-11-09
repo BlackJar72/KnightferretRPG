@@ -29,7 +29,7 @@ namespace kfutils.rpg {
         // Accessor Properties
         static public Dictionary<string, EntityData> EntityRegistry => entityRegistry;
 
-        static public StatusEffects pcStatusEffect; 
+        static public PCData pcData; 
         
 
 

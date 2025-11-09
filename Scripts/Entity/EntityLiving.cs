@@ -106,7 +106,7 @@ namespace kfutils.rpg {
 
         //protected virtual void ExtraInit() {}
 
-
+        public void StoreDataForSave() => StoreData();
         protected virtual void StoreData()
         {
             data.livingData ??= new();

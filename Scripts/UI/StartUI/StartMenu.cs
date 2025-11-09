@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace kfutils.rpg.ui
@@ -21,7 +22,7 @@ namespace kfutils.rpg.ui
 
         private string lastSave = null;
         private string saveToLoad = null;
-         private string[] files;
+        private string[] files;
         private List<string> saveNames = new();
 
         public string SaveToLoad => saveToLoad;
@@ -65,8 +66,7 @@ namespace kfutils.rpg.ui
                 lastSave = PlayerPrefs.GetString("LastSave");
                 if (!string.IsNullOrWhiteSpace(lastSave))
                 {
-                    lastSave = SavedGame.saveSubdir + Path.DirectorySeparatorChar + lastSave + SavedGame.saveFileExtension;
-                    lastSaveExists = File.Exists(lastSave);
+                    lastSaveExists = SavedGame.HasSave(lastSave);
                 }
                 // If the file was not valid, go ahead and remove it from player prefs
                 if (!lastSaveExists)
@@ -76,9 +76,9 @@ namespace kfutils.rpg.ui
                 }
             }
             continueButton.SetActive(lastSaveExists);
-        }        
-        
-        
+        }
+
+
         /// <summary>
         /// Called by the Start() to initialize lists of available save files that could be loaded. If 
         /// there are no save files available, it will also hide the load button. 
@@ -110,8 +110,25 @@ namespace kfutils.rpg.ui
         {
             Debug.Log("public void NewGame()");
             PlayUIClick();
+            //FIXME: Don't do this, go to character creation instead
+            StartCoroutine(StartGameBAD());
+            //TODO: Go to character creation screen, once there is one
 
         }
+
+
+        //FIXME: Remove this and all references once a propper chracter creation system is in place
+        private IEnumerator StartGameBAD()
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+            yield return null;
+            GameManager.Instance.CloseStartScreen();
+        }
+
 
 
         /// <summary>
@@ -212,7 +229,21 @@ namespace kfutils.rpg.ui
 #endif
             }
             // TODO: Load game save at path "saveToLoad"
+            StartCoroutine(ConitnueLoading());
+        }
 
+
+        private IEnumerator ConitnueLoading()
+        {
+            Time.timeScale = 0.0f;
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
+            while (!asyncLoad.isDone)
+            {
+                //PercentageDoneText.text = ((int)(100f*asyncLoad.progress/.9f)).ToString() + "%";
+                yield return null;
+            }
+            yield return null;
+            GameManager.Instance.ConitnueLoading(saveToLoad);
         }
 
 
@@ -227,14 +258,13 @@ namespace kfutils.rpg.ui
             PlayUIClick();
             StartCoroutine(PauseAndQuit());
         }
-        
+
 
         private IEnumerator PauseAndQuit()
         {
             yield return new WaitForSeconds(0.5f);
             Application.Quit();
         }
-
 
 
 

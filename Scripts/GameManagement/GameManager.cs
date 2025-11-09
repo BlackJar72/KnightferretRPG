@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 namespace kfutils.rpg {
@@ -92,6 +93,46 @@ namespace kfutils.rpg {
             yield return new WaitForFixedUpdate();
             yield return new WaitForEndOfFrame();
             WorldManagement.SignalPostLoad();
+        }
+
+
+        public void ConitnueLoading(string saveToLoad)
+        {
+            LoadingScreen.SetActive(true);
+            StartCoroutine(ConitnueLoadHelper(saveToLoad));
+            SceneManager.UnloadSceneAsync("StartScreen");
+        }
+
+
+        public void CloseStartScreen()
+        {
+            SceneManager.UnloadSceneAsync("StartScreen");
+        }
+
+
+        private IEnumerator ConitnueLoadHelper(string saveToLoad)
+        {
+            Time.timeScale = 0.0f;
+            yield return null;
+            yield return new WaitForEndOfFrame();
+            UIManager.ShowLoadingScreen();
+            SavedGame savedGame = new();
+            savedGame.LoadWorld(saveToLoad);
+            PCData pcData = savedGame.LoadPlayer(saveToLoad, EntityManagement.playerCharacter.GetPCData());
+            EntityManagement.playerCharacter.SetPCData(pcData);
+            yield return null;
+            yield return new WaitForEndOfFrame();
+            EntityManagement.playerCharacter.Inventory.OnEnable();
+            EntityManagement.playerCharacter.Spells.OnEnable();
+            InventoryManagement.SignalLoadNPCInventoryData();
+            WorldManagement.SignalGameReloaded();
+            UIManager.HideLoadingScreen();
+            Time.timeScale = 1.0f;
+            InventoryManagement.SignalCloseUIs();
+            //EntityManagement.playerCharacter.LoadStatusEffects();
+            GameManager.Instance.UIManager.CloseCharacterSheet();
+            GameManager.Instance.UIManager.HidePauseMenu();
+            EntityManagement.playerCharacter.AllowActions(true);
         }
 
         

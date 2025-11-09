@@ -187,6 +187,7 @@ namespace kfutils.rpg.ui
             PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
             EntityManagement.playerCharacter.SetPCData(pcData);
             yield return new WaitForEndOfFrame();
+            EntityManagement.playerCharacter.SetPCData(pcData);
             EntityManagement.playerCharacter.Inventory.OnEnable();
             EntityManagement.playerCharacter.Spells.OnEnable();
             InventoryManagement.SignalLoadNPCInventoryData();
@@ -194,7 +195,7 @@ namespace kfutils.rpg.ui
             loadingScreen.SetActive(false);
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
-            EntityManagement.playerCharacter.LoadDataForLoad();
+            //EntityManagement.playerCharacter.LoadStatusEffects();
             GameManager.Instance.UIManager.CloseCharacterSheet();
             GameManager.Instance.UIManager.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);

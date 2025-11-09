@@ -259,6 +259,40 @@ namespace kfutils.rpg {
         }
 
 
+        protected override void StoreData()
+        {
+            base.StoreData();
+            data.movingData ??= new();
+            data.movingData.movement = velocity;
+            data.movingData.heading = movement;
+            data.movingData.rotation = transform.rotation;
+            data.movingData.lastPos = transform.position;
+            data.movingData.speed = baseSpeed;
+            data.movingData.hVelocity = hVelocity;
+            data.movingData.vSpeed = vSpeed;
+            data.movingData.velocity = velocity;
+            data.movingData.falling = falling;
+            data.movingData.onGround = onGround;
+            data.movingData.navSeekerPos = new TransformData(transform.position, transform.rotation, transform.localScale);;
+        }
+
+
+        protected override void LoadData()
+        {
+            base.LoadData();
+            velocity = data.movingData.movement;
+            movement = data.movingData.heading;
+            transform.rotation = data.movingData.rotation;
+            transform.position = data.movingData.lastPos;
+            baseSpeed = data.movingData.speed;
+            hVelocity = data.movingData.hVelocity;
+            vSpeed = data.movingData.vSpeed;
+            velocity = data.movingData.velocity;
+            falling = data.movingData.falling;
+            onGround = data.movingData.onGround;
+        }
+
+
         protected virtual void EnableControls()
         {
             EnableMovement();

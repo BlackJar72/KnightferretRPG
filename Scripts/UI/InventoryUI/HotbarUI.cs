@@ -79,7 +79,7 @@ namespace kfutils.rpg.ui {
 
         IEnumerator DelayedRedraw()
         {
-            yield return new WaitForEndOfFrame();
+            yield return null;
             Redraw();
         }
 

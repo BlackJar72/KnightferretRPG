@@ -1,5 +1,7 @@
+using System.Collections;
 using Animancer.Examples;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace kfutils.rpg.ui
@@ -33,7 +35,10 @@ namespace kfutils.rpg.ui
         }
 
 
-        public void QuitButtonClicked() => Application.Quit();
+        public void QuitButtonClicked()
+        {
+            Application.Quit();
+        }
 
 
         public void CancelButtonClicked()
@@ -50,7 +55,7 @@ namespace kfutils.rpg.ui
 
         public void MainMenuButtonClicked()
         {
-            Debug.LogWarning("PauseMenuUI.MainMenuButtonClicked() is not implemented yet!");
+            SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Single);
         }
 
 

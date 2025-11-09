@@ -20,6 +20,7 @@ namespace kfutils.rpg {
         [SerializeField] EquiptmentPanel pcEquiptPanel;
         [SerializeField] SaveLoadUI saveLoadPanel;
         [SerializeField] PauseMenuUI pauseMenuUI;
+        [SerializeField] GameObject loadingScreen;
 
 
         public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
@@ -130,6 +131,7 @@ namespace kfutils.rpg {
 
         public void ShowPauseMenu()
         {
+            crossHairs.SetHidden();
             Cursor.lockState = CursorLockMode.None;
             EntityManagement.playerCharacter.AllowActions(false);
             pauseMenuUI.ShowMenu();
@@ -139,6 +141,7 @@ namespace kfutils.rpg {
 
         public void HidePauseMenu()
         {
+            crossHairs.SetVisible();
             Cursor.lockState = CursorLockMode.Locked;
             EntityManagement.playerCharacter.AllowActions(true);
             pauseMenuVisible = false;
@@ -217,9 +220,22 @@ namespace kfutils.rpg {
             toast.Show(text);
         }
 
-        
-        public void ShowToast(string text, float duration) {
+
+        public void ShowToast(string text, float duration)
+        {
             toast.Show(text, duration);
+        }
+        
+
+        public void ShowLoadingScreen()
+        {
+            loadingScreen.SetActive(true);
+        }
+        
+
+        public void HideLoadingScreen()
+        {
+            loadingScreen.SetActive(false);
         }
 
 

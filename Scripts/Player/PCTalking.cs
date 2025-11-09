@@ -73,13 +73,15 @@ namespace kfutils.rpg {
         }
 
 
-        public void LoadDataForLoad()
+        public void LoadStatusEffects()
         {
-            LoadData();
-            if (EntityManagement.pcStatusEffect != null)
+            if (EntityManagement.pcData != null)
             {
-                statusEffects = EntityManagement.pcStatusEffect;
-            } else {
+                statusEffects = EntityManagement.pcData.entityData.livingData.statusEffects;
+                characterController.enabled = true;
+            }
+            else
+            {
                 statusEffects = data.livingData.statusEffects;
             }
         }
@@ -125,6 +127,7 @@ namespace kfutils.rpg {
         public void SetPCData(PCData loaded)
         {
             SetFromMovingData(loaded);
+            LoadStatusEffects();
         } 
 
 

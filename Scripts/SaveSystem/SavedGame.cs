@@ -76,9 +76,17 @@ namespace kfutils.rpg {
         }
 
 
+        public static bool HasSave(string saveName)
+        {
+            string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+            return ES3.FileExists(fileName);
+        }
+
+
         public void Save(string saveName)
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+            EntityManagement.playerCharacter.StoreDataForSave();
             EntityManagement.playerCharacter.PreSaveEquipt();
             foreach (string id in entityRegistry.Keys)
             {
@@ -158,7 +166,7 @@ namespace kfutils.rpg {
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             pcData = ES3.Load("PCData", fileName, oldData);
-            EntityManagement.pcStatusEffect = pcData.entityData.livingData.statusEffects;
+            EntityManagement.pcData = pcData;
             return pcData;
         }
 
