@@ -27,7 +27,7 @@ several unused shaders that didn't belong anywhere else, including outline and l
 screen space shaders and a recreation of the spectre effect from classic doom (perhaps 
 would have work for some kind of shadow people/creatures).
 
-Many parts were based on ideas cherry picked from "Data Orient Design" as well as idea (not 
+Many parts were based on ideas cherry picked from "Data Orient Design" as well as ideas (not 
 code) seen in other projects (such as having a "scene-loader" scene).  Also, static contexts 
 are required to share data or move objects between scenes in Unity, for anyone wondering 
 about the static "management" classes. 
@@ -42,6 +42,9 @@ One things I'd like to ask PLEASE DO NOT USE MY ART WORK (UI).  I included it so
 wouldn't be broken and have to be rebuilt if I have to download this again, please, if you 
 make your own game using this make your own UI graphics (or at least get them from a third 
 party asset other than this). 
+
+Also, this is very much a work in progress, anyone wanting to try making their own game with 
+this will need to add a lot (or wait until I'm done with core systems),
 
 ---
 
