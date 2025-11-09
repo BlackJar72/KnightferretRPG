@@ -1,10 +1,10 @@
-using UnityEngine;
 using kfutils.rpg.ui;
 using System.Collections.Generic;
 
 
 
 namespace kfutils.rpg {
+
 
     public static class InventoryManagement
     {
@@ -65,9 +65,13 @@ namespace kfutils.rpg {
         public static event HotbarUpdate HotbarUpdateEvent;
 
 
-        public static void Initialize()
+        public static void NewGame()
         {
-            waitingToRedraw = new List<IRedrawing>();
+            waitingToRedraw = new();
+            inventoryData = new();
+            spellbookData = new();
+            equiptData = new();
+            moneyData = new();
         }
 
 

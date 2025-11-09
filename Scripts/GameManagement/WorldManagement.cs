@@ -32,6 +32,12 @@ namespace kfutils.rpg {
         public static event PostLoad OnPostLoad;
 
 
+        public static void NewGame()
+        {
+            chunkData = new();
+        }
+
+
         public static void SetWorldspace(Worldspace world)
         {
             worldspace = world;

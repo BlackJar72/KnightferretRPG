@@ -122,6 +122,7 @@ namespace kfutils.rpg.ui
 
         public void SelectAsSave(SaveButtonUI saveButton)
         {
+            GameManager.Instance.UIManager.PlayShortClick();
             for (int i = 0; i < saveButtons.Count; i++)
             {
                 saveButtons[i].SetSelected(saveButtons[i] == saveButton);
@@ -132,6 +133,7 @@ namespace kfutils.rpg.ui
 
         public void SelectAsLoad(LoadButtonUI loadButton)
         {
+            GameManager.Instance.UIManager.PlayShortClick();
             for (int i = 0; i < loadButtons.Count; i++)
             {
                 loadButtons[i].SetSelected(loadButtons[i] == loadButton);
@@ -142,6 +144,7 @@ namespace kfutils.rpg.ui
 
         public void Save()
         {
+            PlayButtonSound();
             if (!string.IsNullOrWhiteSpace(fileToSave))
             {
                 SavedGame savedGame = new();
@@ -155,6 +158,7 @@ namespace kfutils.rpg.ui
 
         public void DeleteSave()
         {
+            PlayButtonSound();
             if (!string.IsNullOrWhiteSpace(fileToSave))
             {
                 SavedGame.DeleteSave(fileToSave);
@@ -169,6 +173,7 @@ namespace kfutils.rpg.ui
 
         public void Load()
         {
+            PlayButtonSound();
             if (!string.IsNullOrWhiteSpace(fileToLoad))
             {
                 loadingScreen.SetActive(true);
@@ -195,7 +200,6 @@ namespace kfutils.rpg.ui
             loadingScreen.SetActive(false);
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
-            //EntityManagement.playerCharacter.LoadStatusEffects();
             GameManager.Instance.UIManager.CloseCharacterSheet();
             GameManager.Instance.UIManager.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);
@@ -252,6 +256,8 @@ namespace kfutils.rpg.ui
 
         public void AddNewSave()
         {
+            PlayButtonSound();
+            EntityManagement.playerCharacter.FixOwnerships();
             SaveButtonUI saveButton = Instantiate(saveMenuItemPrefab, saveContentArea.transform).GetComponent<SaveButtonUI>();
             saveButton.SetOwner(this);
             saveButton.SetAsNewSave();

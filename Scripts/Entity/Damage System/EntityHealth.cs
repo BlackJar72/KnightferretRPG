@@ -34,12 +34,12 @@ namespace kfutils {
 
         public float HP => Mathf.Min(wound, shock);
 
-        public bool ShouldDie { get => ((wound < 1) || (shock < 1)); }
+        public bool ShouldDie => ((wound < 1) || (shock < 1)); 
 
         public double timeToHeal = double.NegativeInfinity;
-        public bool CanHeal { get => timeToHeal < WorldTime.time; }
+        public bool CanHeal => timeToHeal < WorldTime.time; 
 
-        public string ID { get => owner.ID; }
+        public string ID => owner.ID; 
         public string GetID => ID;
 
         //Tried to fix BTree error, didn't work.

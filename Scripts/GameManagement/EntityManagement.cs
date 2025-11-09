@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -60,6 +59,9 @@ namespace kfutils.rpg {
         public static void SetEntityRegistry(Dictionary<string, EntityData> loaded) {
             entityRegistry = loaded;
         }
+
+
+        public static void NewGame() => Initialize();
 
 
         /// <summary>
@@ -204,6 +206,38 @@ namespace kfutils.rpg {
         }
 
 
+        static public void CleanLists()
+        {            
+            for(int i = waitingToHeal.Count - 1; i > -1; i--) {
+                if(waitingToHeal[i].Owner == null) {
+                    waitingToHeal.RemoveAt(i);
+                }
+            }
+            for(int i = healingEntities.Count - 1; i > -1; i--) {
+                if(healingEntities[i].Owner == null) {
+                    healingEntities.RemoveAt(i);
+                }
+            }
+            for(int i = waitingToRecover.Count - 1; i > -1; i--) {
+                if(waitingToRecover[i] == null) {
+                    waitingToRecover.RemoveAt(i);
+                }
+            }
+            for(int i = recoveringEntities.Count - 1; i > -1; i--) {
+                if(recoveringEntities[i].Owner == null) {
+                    recoveringEntities.RemoveAt(i);
+                }
+            }
+            for(int i = recoveringMana.Count - 1; i > -1; i--) {
+                if (recoveringMana[i].Owner == null) {
+                    recoveringMana.RemoveAt(i);
+                }
+            }
+        
+        
+        }
+
+
         #endregion
 
 
@@ -312,47 +346,47 @@ namespace kfutils.rpg {
         }
 
 
-    public static void RestoreHealthFromIDs(List<string> IDs, List<EntityHealth> entites) {
-        entites.Clear();
-        for(int i = 0; i < IDs.Count; i++) {
-            entites.Add(entityRegistry[IDs[i]].livingData.health);
+        public static void RestoreHealthFromIDs(List<string> IDs, List<EntityHealth> entites) {
+            entites.Clear();
+            for(int i = 0; i < IDs.Count; i++) {
+                entites.Add(entityRegistry[IDs[i]].livingData.health);
+            }
         }
-    }
 
 
-    public static List<EntityStamina> RestoreStaminaFromIDs(List<string> IDs) {
-        List<EntityStamina> result = new();
-        for(int i = 0; i < IDs.Count; i++) {
-            result.Add(entityRegistry[IDs[i]].livingData.stamina);
+        public static List<EntityStamina> RestoreStaminaFromIDs(List<string> IDs) {
+            List<EntityStamina> result = new();
+            for(int i = 0; i < IDs.Count; i++) {
+                result.Add(entityRegistry[IDs[i]].livingData.stamina);
+            }
+            return result;
         }
-        return result;
-    }
 
 
-    public static void RestoreHealthStaminaDs(List<string> IDs, List<EntityStamina> entites) {
-        entites.Clear();
-        for(int i = 0; i < IDs.Count; i++) {
-            entites.Add(entityRegistry[IDs[i]].livingData.stamina);
+        public static void RestoreHealthStaminaIDs(List<string> IDs, List<EntityStamina> entites) {
+            entites.Clear();
+            for(int i = 0; i < IDs.Count; i++) {
+                entites.Add(entityRegistry[IDs[i]].livingData.stamina);
+            }
         }
-    }
 
 
-    public static List<EntityMana> RestoreManaFromIDs(List<string> IDs) {
-        List<EntityMana> result = new();
-        for(int i = 0; i < IDs.Count; i++) {
-            result.Add(entityRegistry[IDs[i]].livingData.mana);
+        public static List<EntityMana> RestoreManaFromIDs(List<string> IDs) {
+            List<EntityMana> result = new();
+            for(int i = 0; i < IDs.Count; i++) {
+                result.Add(entityRegistry[IDs[i]].livingData.mana);
+            }
+            return result;
         }
-        return result;
-    }
 
 
-    public static void RestoreHealthManaIDs(List<string> IDs, List<EntityMana> entites) {
-        entites.Clear();
-        for(int i = 0; i < IDs.Count; i++) {
-            entites.Add(entityRegistry[IDs[i]].livingData.mana);
+        public static void RestoreHealthManaIDs(List<string> IDs, List<EntityMana> entites) {
+            entites.Clear();
+            for(int i = 0; i < IDs.Count; i++) {
+                entites.Add(entityRegistry[IDs[i]].livingData.mana);
+            }
         }
-    }
-    #endregion
+#endregion
 
 
 

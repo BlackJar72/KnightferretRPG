@@ -8,7 +8,9 @@ namespace kfutils.rpg {
     public class UIManager : MonoBehaviour {
 
         // UI Control
-        [SerializeField] AudioSource buttonClick;
+        [SerializeField] AudioSource audioSource;
+        [SerializeField] AudioClip click;
+        [SerializeField] AudioClip shortClick;
         [SerializeField] ShowOrHide characterPanelToggler;
         [SerializeField] Canvas mainCanvas;
         [SerializeField] ShowOrHide crossHairs;
@@ -59,7 +61,15 @@ namespace kfutils.rpg {
 
         public void PlayButtonClick()
         {
-            buttonClick.Play();
+            audioSource.clip = click;
+            audioSource.Play();
+        }
+
+
+        public void PlayShortClick()
+        {
+            audioSource.clip = shortClick;
+            audioSource.Play();
         }
 
 

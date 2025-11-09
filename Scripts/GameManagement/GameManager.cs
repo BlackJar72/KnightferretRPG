@@ -81,6 +81,20 @@ namespace kfutils.rpg {
         }
 
 
+        /// <summary>
+        /// Initialize static data tables before the game starts.  This can be called before 
+        /// the the GameManager instance is instatiated, and often should be. 
+        /// </summary>
+        public static void NewGame()
+        {
+            EntityManagement.NewGame();
+            InventoryManagement.NewGame();
+            ItemManagement.NewGame();
+            ObjectManagement.NewGame();
+            WorldManagement.NewGame();
+        }
+
+
         public static void DoPostLoadForOther()
         {            
             Instance.StartCoroutine(DoPostInitialLoad());

@@ -24,11 +24,11 @@ namespace kfutils {
         public float Buff { get => buff;  set { buff = value; MakeSane(); } }
 
         public double timeToHeal = double.MinValue;
-        public bool CanHeal { get => timeToHeal < WorldTime.time; }
-        public bool HasStamina { get => currentStamina > 0; }
+        public bool CanHeal => timeToHeal < WorldTime.time;
+        public bool HasStamina => currentStamina > 0; 
 
-        public string ID { get => owner.ID; }
-        
+        public string ID => owner.ID; 
+
 
         public EntityStamina(float maxStamina)
         {

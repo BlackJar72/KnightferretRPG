@@ -12,6 +12,8 @@ namespace kfutils.rpg.ui
     {
 
         [SerializeField] SaveLoadUI saveLoadUI;
+        [SerializeField] AudioSource audioSource;
+        [SerializeField] AudioClip click;
 
 
         public void ShowMenu()
@@ -21,8 +23,16 @@ namespace kfutils.rpg.ui
         }
 
 
+        private void PlayClick()
+        {
+            audioSource.clip = click;
+            audioSource.Play();
+        }
+
+
         public void SaveButtonClicked()
         {
+            PlayClick();
             saveLoadUI.SetVisible();
             saveLoadUI.SetToSavePanel();
         }
@@ -30,6 +40,7 @@ namespace kfutils.rpg.ui
 
         public void LoadButtonClicked()
         {
+            PlayClick();
             saveLoadUI.SetVisible();
             saveLoadUI.SetToLoadPanel();
         }
@@ -37,24 +48,27 @@ namespace kfutils.rpg.ui
 
         public void QuitButtonClicked()
         {
+            PlayClick();
             Application.Quit();
         }
 
 
         public void CancelButtonClicked()
         {
+            PlayClick();
             GameManager.Instance.UIManager.HidePauseMenu();
         }
 
-
         public void OptionsButtonClicked()
         {
+            PlayClick();
             Debug.LogWarning("PauseMenuUI.OptionsButtonClicked() is not implemented yet!");
         }
 
 
         public void MainMenuButtonClicked()
         {
+            PlayClick();
             SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Single);
         }
 

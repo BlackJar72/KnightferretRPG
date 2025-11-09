@@ -22,9 +22,9 @@ namespace kfutils {
         public float Mana { get => currentMana;  set { currentMana = value; } }
         public float Buff { get => buff;  set { buff = value; MakeSane(); } }
 
-        public bool HasMana { get => currentMana > 0; }
+        public bool HasMana => currentMana > 0; 
 
-        public string ID { get => owner.ID; }
+        public string ID => owner.ID; 
         
 
         public EntityMana(float maxMana)

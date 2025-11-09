@@ -20,6 +20,12 @@ namespace kfutils.rpg
         public static bool GetBool(string id) => WorldObjectBools[id];
 
 
+        public static void NewGame()
+        {
+            WorldObjectBools = new();
+        }
+
+
     }
 
 

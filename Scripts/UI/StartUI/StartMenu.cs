@@ -108,9 +108,9 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void NewGame()
         {
-            Debug.Log("public void NewGame()");
             PlayUIClick();
             //FIXME: Don't do this, go to character creation instead
+            GameManager.NewGame();
             StartCoroutine(StartGameBAD());
             //TODO: Go to character creation screen, once there is one
 
@@ -138,7 +138,6 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void ContinuePrevious()
         {
-            Debug.Log("public void NewGame()");
             if (string.IsNullOrWhiteSpace(lastSave))
             {
                 Debug.LogError("Continue previous game was selected (public void ContinuePrevious()), but save path was invalid!");
@@ -162,7 +161,6 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void LoadGame()
         {
-            Debug.Log("public void NewGame()");
             PlayUIClick();
             blockerPanel.SetActive(true);
             loadPanel.SetActive(true);
@@ -181,7 +179,6 @@ namespace kfutils.rpg.ui
         public void SetFileToLoad(string filename)
         {
             saveToLoad = filename;
-            Debug.Log(saveToLoad);
         }
 
 
@@ -228,7 +225,6 @@ namespace kfutils.rpg.ui
                 throw new System.Exception("Trying to load save game from invalid path or non-existant file (saveToLoad)!  (public void DoLoadGame())");
 #endif
             }
-            // TODO: Load game save at path "saveToLoad"
             StartCoroutine(ConitnueLoading());
         }
 
@@ -254,15 +250,7 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void ExitGame()
         {
-            Debug.Log("public void ExitGame()");
             PlayUIClick();
-            StartCoroutine(PauseAndQuit());
-        }
-
-
-        private IEnumerator PauseAndQuit()
-        {
-            yield return new WaitForSeconds(0.5f);
             Application.Quit();
         }
 

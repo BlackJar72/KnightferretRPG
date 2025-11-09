@@ -143,6 +143,13 @@ namespace kfutils.rpg {
         }
 
 
+        public void FixOwnerships()
+        {
+            health.SetOnwer(this);
+            stamina.SetOnwer(this);
+            mana.SetOnwer(this);
+        }
+
 
         public virtual int GetArmor()
         {

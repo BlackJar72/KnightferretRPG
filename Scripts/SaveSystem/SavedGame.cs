@@ -88,6 +88,7 @@ namespace kfutils.rpg {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             EntityManagement.playerCharacter.StoreDataForSave();
             EntityManagement.playerCharacter.PreSaveEquipt();
+            EntityManagement.CleanLists();
             foreach (string id in entityRegistry.Keys)
             {
                 IActor actor = entityRegistry[id] as IActor;
@@ -107,7 +108,7 @@ namespace kfutils.rpg {
             // TODO: More, much, much more...
             ES3.Save("HealingEntities", EntityManagement.GetIDList(healingEntities.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("WaitingToHeal", EntityManagement.GetIDList(waitingToHeal.Cast<IHaveStringID>().ToList()), fileName);
-            ES3.Save("ReoveringEntities", EntityManagement.GetIDList(recoveringEntities.Cast<IHaveStringID>().ToList()), fileName);
+            ES3.Save("RecoveringEntities", EntityManagement.GetIDList(recoveringEntities.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("WaitingToRecover", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("RecoveringMana", EntityManagement.GetIDList(recoveringMana.Cast<IHaveStringID>().ToList()), fileName);
         }
@@ -120,6 +121,7 @@ namespace kfutils.rpg {
         public void LoadWorld(string saveName)
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+            
             // TODO: Load the game data
             time = ES3.Load("Time", fileName, time);
             itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
@@ -133,6 +135,7 @@ namespace kfutils.rpg {
             currentWorldspace = ES3.Load("CurrentWorldspace", fileName, currentWorldspace);
 
             // Set runtime data
+            GameManager.NewGame();
             WorldTime.SetTime(time);
             ItemManagement.SetItemData(itemRegistry);
             InventoryManagement.SetInventoryData(inventoryData);
@@ -147,7 +150,7 @@ namespace kfutils.rpg {
             // FIXME: Entities and their data are partially separated in this
             healingEntities = EntityManagement.RestoreHealing(LoadStringIDList("HealingEntities", fileName));
             waitingToHeal = EntityManagement.RestoreWaitingToHeal(LoadStringIDList("WaitingToHeal", fileName));
-            recoveringEntities = EntityManagement.RestoreRecoving(LoadStringIDList("ReoveringEntities", fileName));
+            recoveringEntities = EntityManagement.RestoreRecoving(LoadStringIDList("RecoveringEntities", fileName));
             waitingToRecover = EntityManagement.RestoreWaitingToRecover(LoadStringIDList("WaitingToRecover", fileName));
             recoveringMana = EntityManagement.RestoreRecovingMana(LoadStringIDList("RecoveringMana", fileName));
         }

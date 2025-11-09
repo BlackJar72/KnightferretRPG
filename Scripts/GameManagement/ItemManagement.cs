@@ -36,6 +36,12 @@ namespace kfutils.rpg {
             itemRegistry = loaded;
         }
 
+
+        public static void NewGame()
+        {
+            itemRegistry = new();
+        }
+
  
 
     }
