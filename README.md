@@ -44,7 +44,7 @@ make your own game using this make your own UI graphics (or at least get them fr
 party asset other than this). 
 
 Also, this is very much a work in progress, anyone wanting to try making their own game with 
-this will need to add a lot (or wait until I'm done with core systems),
+this will need to add a lot (or wait until I'm done with core systems).
 
 ---
 
