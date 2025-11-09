@@ -1,5 +1,7 @@
 using kfutils.rpg.ui;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 
 
@@ -161,6 +163,12 @@ namespace kfutils.rpg {
         public static void SigalHotbarActivated(SlotData slot)
         {
             HotbarActivatedEvent?.Invoke(slot);
+        }
+
+
+        public static void AssignHotbarActivated(HotbarActivated method)
+        {
+            if (!HotbarActivatedEvent.GetInvocationList().Contains(method)) HotbarActivatedEvent += method;
         }
 
 

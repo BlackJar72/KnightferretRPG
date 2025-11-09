@@ -103,6 +103,7 @@ namespace kfutils.rpg {
         protected override void Start()
         {
             base.Start();
+            equiptSpell.InitForPC();
             // Right / General
             actionLayer = animancer.Layers[1];
             armsActionLayer = arms.Layers[1];

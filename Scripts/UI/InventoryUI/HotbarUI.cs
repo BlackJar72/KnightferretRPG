@@ -25,7 +25,6 @@ namespace kfutils.rpg.ui {
             InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
             InventoryManagement.HotbarUpdateEvent += RespondToChanges;
             WorldManagement.GameReloaded += OnGameReloaded;
-
         }
 
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,10 +14,17 @@ namespace kfutils.rpg.ui {
         [SerializeField] public Spell currentSpell;
 
         public Spell CurrentSpell => currentSpell;
+
+
+        protected virtual void Start()
+        {
+            if (belongsToPC) InitForPC();
+        }
         
 
-        protected virtual void Start() {
-            if(belongsToPC) InventoryManagement.HotbarActivatedEvent += RespondToHotbar;
+        public void InitForPC()
+        {
+            InventoryManagement.AssignHotbarActivated(RespondToHotbar);
         }
 
 
