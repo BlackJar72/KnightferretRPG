@@ -4,11 +4,24 @@ namespace kfutils.rpg {
 
 
     [System.Serializable]
+    public enum EBaseStats
+    {
+        Strength = 0,
+        Agility = 1,
+        Vitality = 2,
+        Endurance = 3,
+        Intelligence = 4,
+        Charisma = 5,
+        Spirit = 6 
+    }
+
+
+    [System.Serializable]
     public class EntityBaseStats
     {
         public const int MIN_SCORE = 1; // Minimum score for a player character
         public const int MAX_SCORE = 20; // Maximum score for a player character (or any human)
-        public const int DEFAULT_SCORE = 10; // Average score for a human, and default for a player character
+        public const int DEFAULT_SCORE = 10; // Average score for a human, and default for a player character 
 
         [SerializeField] int strength = DEFAULT_SCORE;
         [SerializeField] int agility = DEFAULT_SCORE;
@@ -24,7 +37,31 @@ namespace kfutils.rpg {
         public int Endurance { get => endurance; set => endurance = value; }    
         public int Intelligence { get => intelligence; set => intelligence = value; }
         public int Charisma { get => charisma; set => charisma = value; }
-        public int Spirit { get => spirit; set => spirit = value; } 
+        public int Spirit { get => spirit; set => spirit = value; }
+
+        /// <summary>
+        /// Not intdended to be commonly used, but in some situations this is preferable. 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <exception cref="System.IndexOutOfRangeException"></exception>
+        public int this[EBaseStats index]
+        {
+            get
+            {
+                return index switch
+                {
+                    EBaseStats.Strength => strength,
+                    EBaseStats.Agility => agility,
+                    EBaseStats.Vitality => vitality,
+                    EBaseStats.Endurance => endurance,
+                    EBaseStats.Intelligence => intelligence,
+                    EBaseStats.Charisma => charisma,
+                    EBaseStats.Spirit => spirit,
+                    _ => throw new System.IndexOutOfRangeException("Non-existent index passed to indexer."),
+                };
+            }
+        }
 
         public void GenRandomHumanStats() {
             strength = RollStat();
