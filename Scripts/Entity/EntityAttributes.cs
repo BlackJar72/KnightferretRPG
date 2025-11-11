@@ -56,6 +56,36 @@ namespace kfutils.rpg {
         }
 
 
+        /// <summary>
+        /// Used for characters of playable races (human or not); other creatures will have bespoke attribute assignments, or perhaps 
+        /// different  specialized methods for special cases.
+        /// </summary>
+        /// <param name="health">Should be the EntityHealth field of the entity</param>
+        /// <param name="stamina">Should be the EntityStamina field of the entity</param>
+        /// <param name="mana">Should be the EntityMana field of the entity</param>
+        public void DeriveAttributesForHuman(Skills skills, EntityHealth health, EntityStamina stamina, EntityMana mana) {
+            #if FAST_ACTION
+                crouchSpeed = 1.0f + (baseStats.Agility * 0.1f);
+                walkSpeed = 4.5f + (baseStats.Agility * 0.05f);
+                runSpeed  = walkSpeed + ((baseStats.Agility + (skills.Athletics.Adds *0.5f)) * 0.25f);
+            # else
+                crouchSpeed = 0.1f + (baseStats.Agility * 0.1f);
+                walkSpeed = 1.1f + (baseStats.Agility * 0.05f);
+                runSpeed = walkSpeed + ((baseStats.Agility + (skills.Athletics.Adds *0.5f)) * 0.25f);
+            #endif
+            jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (skills.Acrobatics * 0.05f), 0.25f, 3.0f);
+            naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5);
+            meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);
+            maxEncumbrance = 20 + (10 * baseStats.Strength);
+            halfEncumbrance = maxEncumbrance / 2f; 
+            runningCostFactor = 2.0f - ((float)skills.Athletics / EntityBaseStats.MAX_SCORE);
+            manaCostFactor = 1.5f - ((float)skills.Spellcraft / (EntityBaseStats.MAX_SCORE + Skill.MAX_SCORE));
+            health.ChangeBaseHealth((20 + (baseStats.Vitality * 5)) * (0.9f + (level * 0.1f)));
+            stamina.ChangeBaseStamina((20 + (baseStats.Endurance * 5)) * (0.9f + (level * 0.1f)));
+            mana.ChangeBaseMana((20 + (baseStats.Spirit * 5)) * (0.9f + (level * 0.1f)));
+        }
+
+
         public EntityAttributes Copy() {
             EntityAttributes copy = new();
             copy.baseStats.CopyInto(baseStats);

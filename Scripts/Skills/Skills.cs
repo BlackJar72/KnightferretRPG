@@ -15,7 +15,7 @@ namespace kfutils.rpg
         // idea to start getting some ideas into a more concrete form.  (This is quasi-brainstorming.)
         */
 
-        // Strength Skills (???)
+        // Strength Skills (???) (possible addition: intimidation; may end up with no skills?!)
 
         // Agility Skills
         [SerializeField] Skill melee;
@@ -23,21 +23,41 @@ namespace kfutils.rpg
         [SerializeField] Skill acrobatics;
         [SerializeField] Skill stealth;
 
-        // Endurance Skills 
+        // Endurance Skills (few sills, but determines endurance)
         [SerializeField] Skill athletics;
 
-        // Vitality Skills (???) 
-        // Intelligence Skills
+        // Vitality Skills (???) (May end up with no skills, but still determines health / hit points)
+        // Intelligence Skills (possible additions: crafting and/or smithng)
         [SerializeField] Skill thaumaturgy; // "Magical Theory," effect what spells can be learned (more?)
         [SerializeField] Skill spellcraft; // Effects the mana cost to cast spells
+        [SerializeField] Skill security; 
 
-        // Charisma skills
-        [SerializeField] Skill charm;
-        [SerializeField] Skill persuasion;
+        // Charisma skills (possible additions: entertaining, leadership)
+        [SerializeField] Skill charm; // Effects relationshp increases and general reactions 
+        [SerializeField] Skill persuasion; 
 
-        // Spirit Skills 
+        // Spirit Skills (may end up with no skills, but still determines mana pool; possible addition: intimidation)
         [SerializeField] Skill theurgy; // Miracles, if I include them as distinct from magic (else, remove this)
         [SerializeField] Skill faith; // May not last, probably also related to miracles, if they exist (as a skill) 
+
+
+        // Accessor form
+
+        // Strength Skills (???)
+
+
+        public Skill Melee => melee;
+        public Skill Missile => missile;
+        public Skill Acrobatics => acrobatics;
+        public Skill Stealth => stealth;
+        public Skill Athletics => athletics;
+        public Skill Thaumaturgy => thaumaturgy;
+        public Skill Spellcraft => spellcraft; 
+        public Skill Security => security; 
+        public Skill Charm => charm;
+        public Skill Persuasion => persuasion;
+        public Skill Theurgy => theurgy; 
+        public Skill Faith => faith; 
 
 
     }
