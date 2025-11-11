@@ -197,14 +197,16 @@ namespace kfutils.rpg {
 
         protected void FirstPerson()
         {
-            playerCam.gameObject.SetActive(true);
+            playerCam.enabled = true;
+            playerCam.gameObject.GetComponent<AudioListener>().enabled = true;
             followCam.SetActive(false);
         }
 
 
         protected void ThirdPerson()
         {
-            playerCam.gameObject.SetActive(false);
+            playerCam.enabled = false; 
+            playerCam.gameObject.GetComponent<AudioListener>().enabled = false;
             followCam.SetActive(true);
         }
 

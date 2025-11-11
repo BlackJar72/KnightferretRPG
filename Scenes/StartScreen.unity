@@ -32,7 +32,7 @@ RenderSettings:
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 1
+  m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
@@ -1817,7 +1817,6 @@ MonoBehaviour:
   blockerPanel: {fileID: 519846881}
   loadPanel: {fileID: 678478765}
   loadMenu: {fileID: 678478769}
-  audioListener: {fileID: 2081575126}
 --- !u!1 &782373547
 GameObject:
   m_ObjectHideFlags: 0

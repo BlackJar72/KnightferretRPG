@@ -54,7 +54,6 @@ namespace kfutils.rpg
         {
             yield return null;
             string fileToLoad = SavedGame.LastSave;
-            Debug.Log(fileToLoad);
             SavedGame savedGame = new();
             savedGame.LoadWorld(fileToLoad);
             PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());

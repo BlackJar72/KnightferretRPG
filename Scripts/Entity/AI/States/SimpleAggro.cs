@@ -1,3 +1,4 @@
+using Unity.Transforms;
 using UnityEngine;
 
 
@@ -51,6 +52,9 @@ namespace kfutils.rpg
                     destUpdateTime += 0.1f;
                 }
             }
+            // FIXME: If used in a real game, checking for other enemies and switching target 
+            //        if such enemies are present.
+            if (!owner.targetEnemy.Alive) owner.BasicStates.SetState(owner.DefaultState);
         }
 
 
