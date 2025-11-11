@@ -188,9 +188,18 @@ namespace kfutils.rpg {
             if (alive)
             {
                 DisableAction();
+                DisableUIActions();
                 StopAction();
                 base.Die();
             }
+        }
+
+
+        protected override void MakeAlive()
+        {
+            base.MakeAlive();
+            EnableAction();
+            EnableUIActions();
         }
 
 

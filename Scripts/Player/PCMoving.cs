@@ -181,8 +181,17 @@ namespace kfutils.rpg {
 
         private IEnumerator DeathHelper()
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
             GameManager.Instance.UIManager.ShowDeathMessage();
+        }
+
+
+        protected virtual void MakeAlive()
+        {
+            alive = true;
+            if (hitbox != null) hitbox.gameObject.SetActive(true);
+            EnableMovement();
+            FirstPerson();
         }
 
 
@@ -533,6 +542,7 @@ namespace kfutils.rpg {
             weightBoyancyFactor = data.weightBoyancyFactor;
             looky = data.looky;
             characterController.enabled = true;
+            MakeAlive();
         }
 
 

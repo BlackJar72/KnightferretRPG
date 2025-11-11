@@ -10,16 +10,21 @@ namespace kfutils.rpg
     public class DeathPopup : ShowOrHide
     {
         [SerializeField] GameObject reloadButton;
-        [SerializeField] bool showReload;
+        [SerializeField] bool showReload = true;
 
 
         void OnEnable()
         {
-            showReload = false; // Don't allow this until reloading is possible.
-            reloadButton.SetActive(showReload && !string.IsNullOrWhiteSpace(SavedGame.LastSave));
+            reloadButton.SetActive(showReload && !string.IsNullOrWhiteSpace(SavedGame.LastSave)
+                                              && SavedGame.HasSave(SavedGame.LastSave));
         }
 
 
+        /// <summary>
+        /// Return to the main menu.  The player may reload an arbitrary save 
+        /// or start a new game from there.  (Those options are not on the 
+        /// pop-up due to space concernes.)
+        /// </summary>
         public void MainMenu()
         {
             GameManager.Instance.UIManager.PlayButtonClick();
@@ -31,14 +36,11 @@ namespace kfutils.rpg
         /// Reload the last save.  If the player has loaded a save and not 
         /// loaded since, it will reload that save.  If this is a new game 
         /// and no saves have been made this is not valid.
-        /// 
-        /// THIS IS COMPLETELY BROKEN RIGHT NOW AND SHOULD NOT BE USED. To
-        /// make this usable the player needs to be resurected properly.
         /// </summary>
         public void Reload()
         {
             GameManager.Instance.UIManager.PlayButtonClick();
-            if (!string.IsNullOrWhiteSpace(SavedGame.LastSave))
+            if (!string.IsNullOrWhiteSpace(SavedGame.LastSave) && SavedGame.HasSave(SavedGame.LastSave))
             {
                 GameManager.Instance.UIManager.ShowLoadingScreen();
                 Time.timeScale = 0.0f; // FIXME: The pause should happen when the GUI is activated
