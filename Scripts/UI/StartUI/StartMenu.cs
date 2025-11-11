@@ -109,6 +109,7 @@ namespace kfutils.rpg.ui
         public void NewGame()
         {
             PlayUIClick();
+            SavedGame.ClearLastSave();
             //FIXME: Don't do this, go to character creation instead
             GameManager.NewGame();
             StartCoroutine(StartGameBAD());

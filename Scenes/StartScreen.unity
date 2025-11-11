@@ -470,7 +470,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.3789673, y: -481.41785}
+  m_AnchoredPosition: {x: -1.3789062, y: -481.41785}
   m_SizeDelta: {x: -34.416, y: -983.374}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &93308689
@@ -1817,6 +1817,7 @@ MonoBehaviour:
   blockerPanel: {fileID: 519846881}
   loadPanel: {fileID: 678478765}
   loadMenu: {fileID: 678478769}
+  audioListener: {fileID: 2081575126}
 --- !u!1 &782373547
 GameObject:
   m_ObjectHideFlags: 0

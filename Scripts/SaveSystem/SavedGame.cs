@@ -14,6 +14,9 @@ namespace kfutils.rpg {
         public const string saveSubdir = "saves";
         public const string saveFileExtension = ".es3";
 
+        private static string lastSave;
+        public static string LastSave => lastSave;
+
         // General world data
         [SerializeField] double time;
         // Player save data
@@ -82,9 +85,16 @@ namespace kfutils.rpg {
             return ES3.FileExists(fileName);
         }
 
+        
+        public static void ClearLastSave()
+        {
+            lastSave = null;
+        }
+
 
         public void Save(string saveName)
         {
+            lastSave = saveName;
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             EntityManagement.playerCharacter.StoreDataForSave();
             EntityManagement.playerCharacter.PreSaveEquipt();
@@ -120,6 +130,7 @@ namespace kfutils.rpg {
         /// <param name="saveName"></param>
         public void LoadWorld(string saveName)
         {
+            lastSave = saveName;
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             
             // TODO: Load the game data

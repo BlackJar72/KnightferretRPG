@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Animancer;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,9 +36,10 @@ namespace kfutils.rpg {
         [SerializeField] protected Transform eyeY;
 
         // Camera
-        public GameObject camPivot;
-        public Camera playerCam;
-        public Transform swimpoint;
+        [SerializeField] protected GameObject camPivot;
+        [SerializeField] protected Camera playerCam;
+        [SerializeField] protected GameObject followCam;
+        [SerializeField] protected Transform swimpoint;
 
         // Movement and Position Data
         protected Vector3 movement;
@@ -88,6 +90,11 @@ namespace kfutils.rpg {
 
         public Transform GetTransform => transform;
 
+        public GameObject CamPivot => camPivot;
+        public Camera PlayerCam => playerCam;
+        public GameObject FollowCam => followCam;
+        public Transform Swimpoint => swimpoint;
+
 
 
         public void SetWeightForMovement(float weight)
@@ -134,6 +141,7 @@ namespace kfutils.rpg {
         /// TODO / FIXME?  This may need to take a some character creation data as an argument later
         public virtual void NewCharacterInit()
         {
+            FirstPerson();
             // First, we need to handle the derived attribute (may be moved to more derived class later)
             attributes.baseStats.GenRandomHumanStats();
             attributes.DeriveAttributesForHuman(health, stamina, mana);
@@ -156,8 +164,39 @@ namespace kfutils.rpg {
 
         protected override void Die()
         {
-            //base.Die();
-            //TODO!
+            if (alive)
+            {
+                alive = false;
+                if (hitbox != null) hitbox.gameObject.SetActive(false);
+                EntityManagement.RemoveDead(this);
+                DisableMovement();
+                moveLayer.SetMask(deathAnimation.mask);
+                moveState = moveLayer.Play(deathAnimation.anim);
+                Move = LieDead;
+                ThirdPerson();
+                StartCoroutine(DeathHelper());
+            }
+        }
+
+
+        private IEnumerator DeathHelper()
+        {
+            yield return new WaitForSeconds(2.0f);
+            GameManager.Instance.UIManager.ShowDeathMessage();
+        }
+
+
+        protected void FirstPerson()
+        {
+            playerCam.gameObject.SetActive(true);
+            followCam.SetActive(false);
+        }
+
+
+        protected void ThirdPerson()
+        {
+            playerCam.gameObject.SetActive(false);
+            followCam.SetActive(true);
         }
 
 
@@ -310,14 +349,17 @@ namespace kfutils.rpg {
 
         protected void EnableMovement()
         {
-            jumpAction.started += TriggerJump;
-            sprintAction.started += StartSprint;
-            sprintAction.canceled += StopSprint;
-            //sprintToggle.started += ToggleSprint;
-            crouchAction.started += StartCrouch;
-            crouchAction.canceled += StopCrouch;
-            //crouchToggle.started += ToggleCrouch; 
-            movementAllowed = true;
+            if (alive)
+            {
+                jumpAction.started += TriggerJump;
+                sprintAction.started += StartSprint;
+                sprintAction.canceled += StopSprint;
+                //sprintToggle.started += ToggleSprint;
+                crouchAction.started += StartCrouch;
+                crouchAction.canceled += StopCrouch;
+                //crouchToggle.started += ToggleCrouch; 
+                movementAllowed = true;
+            }
         }
 
 
@@ -460,6 +502,7 @@ namespace kfutils.rpg {
         /// <param name="data"></param>
         protected void SetFromMovingData(PCData data)
         {
+            FirstPerson();
             characterController.enabled = false;
             entityName = data.entityData.livingData.entityName;
             attributes.CopyInto(data.entityData.livingData.attributes);
@@ -668,6 +711,24 @@ namespace kfutils.rpg {
             characterController.Move(velocity * Time.deltaTime);
             shouldJump = false;
             SetSwimming(swimpoint.position.y < (WorldManagement.SeaLevel + 0.5f));
+        }
+
+
+        protected void LieDead()
+        {
+            onGround = characterController.isGrounded;
+            if (onGround)
+            {
+                vSpeed = -GameConstants.GRAVITY3;
+            }
+            else
+            {
+                vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
+                vSpeed = Math.Max(vSpeed, GameConstants.TERMINAL_VELOCITY);
+            }
+            velocity.Set(0, vSpeed, 0);
+            characterController.Move(velocity * Time.deltaTime);
+            shouldJump = false;
         }
 
 

@@ -183,6 +183,17 @@ namespace kfutils.rpg {
         }
 
 
+        protected override void Die()
+        {
+            if (alive)
+            {
+                DisableAction();
+                StopAction();
+                base.Die();
+            }
+        }
+
+
         protected void EnableUIActions()
         {
             toggleInventoryAction.started += ToggleCharacterSheet;

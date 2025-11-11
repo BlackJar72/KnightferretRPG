@@ -23,6 +23,7 @@ namespace kfutils.rpg {
         [SerializeField] SaveLoadUI saveLoadPanel;
         [SerializeField] PauseMenuUI pauseMenuUI;
         [SerializeField] GameObject loadingScreen;
+        [SerializeField] DeathPopup deathPanel;
 
 
         public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
@@ -79,8 +80,16 @@ namespace kfutils.rpg {
         }
 
 
-        public void ShowSpellToolTip(Spell spell) {
-            if(!itemStackManipulator.IsVisible) itemToolTipUI.ShowSpellToolTip(spell);            
+        public void ShowSpellToolTip(Spell spell)
+        {
+            if (!itemStackManipulator.IsVisible) itemToolTipUI.ShowSpellToolTip(spell);
+        }
+
+
+        public void ShowDeathMessage()
+        {
+            deathPanel.SetVisible();
+            OpenGUI();
         }
 
 

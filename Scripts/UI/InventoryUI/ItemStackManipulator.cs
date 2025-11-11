@@ -76,7 +76,7 @@ namespace kfutils.rpg.ui {
 
         public void DropItem() {
             PCActing pc = EntityManagement.playerCharacter;
-            stack.DropItemInWorld(pc.playerCam.transform, 0.5f);
+            stack.DropItemInWorld(pc.PlayerCam.transform, 0.5f);
             inventory.RemoveFromSlot(stack.slot, 1);
             UpdateSplittable();
             if(stack.stackSize < 1) Close();
@@ -85,7 +85,7 @@ namespace kfutils.rpg.ui {
 
         public void ThrowItem() {
             PCActing pc = EntityManagement.playerCharacter;
-            stack.DropItemInWorld(pc.playerCam.transform, 0.5f, 5.0f * (1  + pc.attributes.jumpForce) * Mathf.Sqrt(stack.item.Weight));
+            stack.DropItemInWorld(pc.PlayerCam.transform, 0.5f, 5.0f * (1  + pc.attributes.jumpForce) * Mathf.Sqrt(stack.item.Weight));
             inventory.RemoveFromSlot(stack.slot, 1);
             UpdateSplittable();
             if(stack.stackSize < 1) Close();
