@@ -112,7 +112,7 @@ namespace kfutils.rpg {
 
         public void ConitnueLoading(string saveToLoad)
         {
-            LoadingScreen.SetActive(true);
+            LoadingScreen.SetActive(true);            
             StartCoroutine(ConitnueLoadHelper(saveToLoad));
             SceneManager.UnloadSceneAsync("StartScreen");
         }
@@ -143,7 +143,6 @@ namespace kfutils.rpg {
             UIManager.HideLoadingScreen();
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
-            //EntityManagement.playerCharacter.LoadStatusEffects();
             GameManager.Instance.UIManager.CloseCharacterSheet();
             GameManager.Instance.UIManager.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);

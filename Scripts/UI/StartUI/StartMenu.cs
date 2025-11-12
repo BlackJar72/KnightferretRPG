@@ -232,7 +232,6 @@ namespace kfutils.rpg.ui
 
         private IEnumerator ConitnueLoading()
         {
-            Time.timeScale = 0.0f;
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
             while (!asyncLoad.isDone)
             {

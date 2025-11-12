@@ -177,7 +177,7 @@ namespace kfutils.rpg.ui
             if (!string.IsNullOrWhiteSpace(fileToLoad))
             {
                 loadingScreen.SetActive(true);
-                Time.timeScale = 0.0f; // FIXME: The pause should happen when the GUI is activated
+                Time.timeScale = 0.0f; 
                 EntityManagement.playerCharacter.Inventory.Clear();
                 StartCoroutine(LoadHelper());
             }
