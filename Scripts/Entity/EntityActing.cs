@@ -414,7 +414,7 @@ namespace kfutils.rpg {
             // This will almost certainly need to be tweaked through testing
             if(alertness > Alertness.Unconscious)
             {
-                howMuch *= 1.0f + ((float)alertness * 0.25f);
+                howMuch *= 2.0f + (float)alertness;
                 howMuch += (float)alertness;
                 alertness = (Alertness)Mathf.Clamp(Mathf.FloorToInt(howMuch), (int)Alertness.Oblivious, (int)Alertness.Alerted);
             }
