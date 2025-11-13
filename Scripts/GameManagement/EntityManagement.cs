@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 
@@ -62,6 +63,19 @@ namespace kfutils.rpg {
 
 
         public static void NewGame() => Initialize();
+
+
+        public static string ToString(List<EntityLiving> values)
+        {
+            StringBuilder builder = new(" [");
+            for(int i = 0; i < values.Count; i++)
+            {
+                builder.Append(values[i].ID);
+                if(i < values.Count - 1) builder.Append(", ");
+            }
+            builder.Append("] ");
+            return builder.ToString();
+        }
 
 
         /// <summary>

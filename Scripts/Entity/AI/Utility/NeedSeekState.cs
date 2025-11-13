@@ -96,6 +96,7 @@ namespace kfutils.rpg
 
         public void ChooseActivity()
         {
+            if(WorldManagement.WorldLogic == null) return;
             if (!activityQueue.IsEmpty) SetCurrentActivity(activityQueue.PopFront());
             else
             {

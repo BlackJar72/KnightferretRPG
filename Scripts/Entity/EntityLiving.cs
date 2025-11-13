@@ -4,6 +4,17 @@ using Animancer;
 
 namespace kfutils.rpg {
 
+    public enum Alertness
+    {
+        Comatose = -2,
+        Unconscious = -1,
+        Oblivious = 0,
+        Noticing = 1,
+        Suspicious = 2,
+        Alerted = 3
+    }
+
+
     public abstract class EntityLiving : MonoBehaviour, IHaveName, IHaveStringID, IDamageable, IInWorld 
     {
 
@@ -16,6 +27,7 @@ namespace kfutils.rpg {
         [SerializeField] public EntityAttributes attributes;
         [SerializeField] public StatusEffects statusEffects;
         [SerializeField] protected bool alive = true;
+        [SerializeField] protected Alertness alertness = Alertness.Oblivious;
 
         [SerializeField] protected EntityHitbox hitbox;
 
@@ -23,12 +35,14 @@ namespace kfutils.rpg {
 
         [SerializeField] protected AbstractAction deathAnimation;
 
-        protected EntityData data;
+        protected EntityData data; 
 
-        [ES3Serializable] protected float enviroCooldown;
+
+        protected float enviroCooldown; // I might still use this to determine something like pain sounds
 
         public AnimancerComponent anim { get => animancer; }
         public bool Alive => alive;
+        public Alertness Awareness => alertness;
         public EntityHitbox Hitbox => hitbox;
         public EntityLiving GetEntity => this;
 
@@ -95,11 +109,13 @@ namespace kfutils.rpg {
                 LoadData();
             }
             if (!alive && this is not EntityMoving) Die();
+            if (alive) EntityManagement.activeEntities.Add(this);
         }
 
 
         protected virtual void OnDisable()
         {
+            EntityManagement.activeEntities.Remove(this);
             StoreData();
         }
 
@@ -263,6 +279,37 @@ namespace kfutils.rpg {
 
 
         public virtual bool IsSurprised(ICombatant attacker) => false;
+
+
+        public bool CanHear(WorldSound sound, out float howMuch)
+        {
+            // First, check the Euclidean distance, as this is cheap and will weed out a lot
+            float distance =  (transform.position - sound.Location).magnitude;
+            howMuch = sound.Loudness - distance;
+            if(howMuch > 0)
+            {
+                // TODO: More advanced check after quick check (euclidean distance)
+                //       We need to check if there is a path from the sound to here 
+                //       that has a length less than the loudness. This should use 
+                //       a special nav mesh for sounds, which should update for things
+                //       like opening doors.  However, we may(?) limit this to dungeon 
+                //       world spaces, and just use distance in the open world. 
+                //
+                //       It may also be a good idea to have an awareness variable set 
+                //       which the AI scripts can reference and choose how (or if) 
+                //       to react.  This will likely be called from the SoundManagement 
+                //       which may have some other checks of its own.  Keep as much
+                //       sound out of the living entities' code as possible. 
+                howMuch /= distance; 
+                howMuch *= howMuch; 
+                return true; // FIXME!
+            }
+            howMuch = 0;
+            return false;
+        }
+
+
+        public virtual void HearSound(WorldSound sound, float howMuch) {}
 
 
 

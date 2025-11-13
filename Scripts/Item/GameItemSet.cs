@@ -15,11 +15,12 @@ namespace kfutils.rpg
 
         public ItemPrototype[] Items => items;
 
-
+#if UNITY_EDITOR
         public void Awake()
         {
             for (int i = 0; i < items.Length; i++) Debug.Log(items[i]);
         }
+#endif
 
     }
 

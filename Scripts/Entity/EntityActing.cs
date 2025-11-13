@@ -407,6 +407,18 @@ namespace kfutils.rpg {
         public bool CanSeeTransform(Transform other) => CanSeePosition(other.position);
         public bool CanSeeCollider(Collider other) => CanSeePosition(other.bounds.center);
         public bool CanSeeEntity(EntityLiving other) => other.CanBeSeenFrom(eyes, VRANGESQR);
+
+
+        public override void HearSound(WorldSound sound, float howMuch)
+        {
+            // This will almost certainly need to be tweaked through testing
+            if(alertness > Alertness.Unconscious)
+            {
+                howMuch *= 1.0f + ((float)alertness * 0.25f);
+                howMuch += (float)alertness;
+                alertness = (Alertness)Mathf.Clamp(Mathf.FloorToInt(howMuch), (int)Alertness.Oblivious, (int)Alertness.Alerted);
+            }
+        }
         
 
 
