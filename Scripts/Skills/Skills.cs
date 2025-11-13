@@ -44,7 +44,7 @@ namespace kfutils.rpg
         /*
         // Skill ideas not listed or listed in comments above and possible but not yet decided upon:
         //
-        // Intidation: Standard use, but to base it on strength (tough / muscular appearance) or spirit (creating presence)?
+        // Intimidation: Standard use, but to base it on strength (tough / muscular appearance) or spirit (creating presence)?
         //             Not considering Charisma (also presence in a different way) because that already has persuasion. 
         // Entertaining, Performance, or Song: Produce a minor charm-like effect, increasing relationship at modest range without talking 
         //             (and/or possibly a chance to pacify enemies) 
