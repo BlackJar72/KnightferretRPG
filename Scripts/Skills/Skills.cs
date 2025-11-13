@@ -32,7 +32,7 @@ namespace kfutils.rpg
         [SerializeField] Skill spellcraft; // Effects the mana cost to cast spells
         [SerializeField] Skill security; 
 
-        // Charisma skills (possible additions: entertaining, leadership)
+        // Charisma skills (possible additions: entertaining / performance / song, and leadership)
         [SerializeField] Skill charm; // Effects relationshp increases and general reactions 
         [SerializeField] Skill persuasion; 
 
@@ -41,10 +41,40 @@ namespace kfutils.rpg
         [SerializeField] Skill faith; // May not last, probably also related to miracles, if they exist (as a skill) 
 
 
+        /*
+        // Skill ideas not listed or listed in comments above and possible but not yet decided upon:
+        //
+        // Intidation: Standard use, but to base it on strength (tough / muscular appearance) or spirit (creating presence)?
+        //             Not considering Charisma (also presence in a different way) because that already has persuasion. 
+        // Entertaining, Performance, or Song: Produce a minor charm-like effect, increasing relationship at modest range without talking 
+        //             (and/or possibly a chance to pacify enemies) 
+        // Leadership: Determines max number of followers (number being (Leadership + 5) / 10 rounded down to integeer); below 5, no followers! 
+        //             This will probably not be used as I'm not sure I'll even have a follower system, or a big enough game to contain many 
+        //             potential followers anyway.
+        // Crafting and/or Smithing: Not listed above, but use is obvious; based on intelligence 
+        */
+
+        /*
+        // Likely / expected relation to skill and common classes / architypes:
+        //
+        // Melee + Missile: Fighter / Warrior 
+        // Thaumaturgy + Spellcraft: Mage
+        // Stealth + Secrutiy: Thief / Rogue
+        // Acrobatics + Atheletics: Acrobat, or Adventurer (especially one who like raiding tombs) 
+        // Faith + Theurgy + Melee: Cleric (or Paladin if melee is the main focus)
+        // Performance + combat, magic, or social skill: Some version of a Bard 
+        // Charm + Persuasion: Diplomatic / Negotiator / "Talky" character 
+        // Stealth + Melee and/or Missile: Assassin or Ranger
+        //
+        // This is not intended to be a class based game, but these seems like obvious ways som common  
+        // character classes and similar architypes could be represented.  The play should be able to 
+        // create the character they want, with or without closely mirroring and exist trope. Characters 
+        // will not have a defined class (but including optional archetypes as short-cut in character 
+        // creation could work?).
+        */
+
+
         // Accessor form
-
-        // Strength Skills (???)
-
 
         public Skill Melee => melee;
         public Skill Missile => missile;
