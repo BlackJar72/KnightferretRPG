@@ -56,7 +56,7 @@ namespace kfutils.rpg.ui
         public void CancelButtonClicked()
         {
             PlayClick();
-            GameManager.Instance.UIManager.HidePauseMenu();
+            GameManager.Instance.UI.HidePauseMenu();
         }
 
         public void OptionsButtonClicked()

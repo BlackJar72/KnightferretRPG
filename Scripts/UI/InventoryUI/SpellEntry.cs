@@ -46,8 +46,8 @@ namespace kfutils.rpg.ui {
                 }
                 else dragged.gameObject.SetActive(true);
                 dragged.transform.position = Input.mousePosition;
-                GameManager.Instance.UIManager.HideItemToolTip();
-                GameManager.Instance.UIManager.HideItemStackManipulator();
+                GameManager.Instance.UI.HideItemToolTip();
+                GameManager.Instance.UI.HideItemStackManipulator();
             }
         }
 
@@ -63,12 +63,12 @@ namespace kfutils.rpg.ui {
 
 
         public void OnPointerEnter(PointerEventData eventData) {
-            if(spell != null) GameManager.Instance.UIManager.ShowSpellToolTip(spell);
+            if(spell != null) GameManager.Instance.UI.ShowSpellToolTip(spell);
         }
 
 
         public void OnPointerExit(PointerEventData eventData) {
-            GameManager.Instance.UIManager.HideItemToolTip();
+            GameManager.Instance.UI.HideItemToolTip();
         }
 
 

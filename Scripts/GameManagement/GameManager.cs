@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using kfutils.rpg.ui;
 
 
 namespace kfutils.rpg {
@@ -12,7 +13,7 @@ namespace kfutils.rpg {
 
 
         [SerializeField] UIManager ui;
-        public UIManager UIManager { get => ui; }
+        public UIManager UI => ui;
 
         [SerializeField] GameItemSet itemsInGame;
         public GameItemSet ItemsInGame => itemsInGame;
@@ -39,14 +40,7 @@ namespace kfutils.rpg {
             // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
             // Makeing this a true singleton, and warning with an error message if extra copies were made
-            if (instacnce == null) instacnce = this;
-            else if (instacnce != this)
-            {
-                Debug.LogError("WARNING! GameManager was placed in scenes more than once, at "
-                            + instacnce.gameObject.name + " and then at " + gameObject.name + "!");
-                Destroy(instacnce);
-                instacnce = this;
-            }
+            instacnce = this;
             // FIXME: This should ultimately be run at start-up, not entry into gameplay, once a start screen is added
             ItemPrototype[] itemPrototypes = itemsInGame.Items;
             for (int i = 0; i < itemPrototypes.Length; i++)
@@ -62,8 +56,7 @@ namespace kfutils.rpg {
         {
             startingWorldspace.LoadAsSpawn();
             StartCoroutine(DoPostInitialLoad());
-            if (ui == null) ui = GetComponent<UIManager>();
-            if (ui == null) Debug.LogError("No UI Manager provided for game manager!");
+            ui = GetComponent<UIManager>();
         }
 
 
@@ -129,7 +122,7 @@ namespace kfutils.rpg {
             Time.timeScale = 0.0f;
             yield return null;
             yield return new WaitForEndOfFrame();
-            UIManager.ShowLoadingScreen();
+            UI.ShowLoadingScreen();
             SavedGame savedGame = new();
             savedGame.LoadWorld(saveToLoad);
             PCData pcData = savedGame.LoadPlayer(saveToLoad, EntityManagement.playerCharacter.GetPCData());
@@ -140,11 +133,11 @@ namespace kfutils.rpg {
             EntityManagement.playerCharacter.Spells.OnEnable();
             InventoryManagement.SignalLoadNPCInventoryData();
             WorldManagement.SignalGameReloaded();
-            UIManager.HideLoadingScreen();
+            UI.HideLoadingScreen();
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
-            GameManager.Instance.UIManager.CloseCharacterSheet();
-            GameManager.Instance.UIManager.HidePauseMenu();
+            GameManager.Instance.UI.CloseCharacterSheet();
+            GameManager.Instance.UI.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);
         }
 

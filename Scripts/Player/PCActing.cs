@@ -314,13 +314,13 @@ namespace kfutils.rpg {
 
         protected void TogglePauseMenu(InputAction.CallbackContext context)
         {
-            gameManager.UIManager.TooglePauseMenu();
+            gameManager.UI.TooglePauseMenu();
         }
 
 
         protected void ApplyPauseButton(InputAction.CallbackContext context)
         {
-            gameManager.UIManager.PauseButtonHit();
+            gameManager.UI.PauseButtonHit();
         }
 
 
@@ -458,7 +458,7 @@ namespace kfutils.rpg {
         // FIXME??? Should this be in PCTalking, so as to also disable character interaction (probably)
         public virtual void ToggleCharacterSheet()
         {
-            AllowActions(!(gameManager.UIManager.ToggleCharacterSheet() || GameManager.Instance.UIManager.PauseMenuVisible));
+            AllowActions(!(gameManager.UI.ToggleCharacterSheet() || GameManager.Instance.UI.PauseMenuVisible));
         }
 
 

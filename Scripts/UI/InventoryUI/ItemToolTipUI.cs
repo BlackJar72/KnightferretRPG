@@ -84,7 +84,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        private void SetFieldsForGeneral(ItemPrototype item) { 
+        private void SetFieldsForGeneral(ItemPrototype item) {             
             itemName.SetText(item.Name);
 
             itemWeight.SetInfo(item.Weight.ToString());

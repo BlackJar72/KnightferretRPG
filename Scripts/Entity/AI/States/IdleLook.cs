@@ -49,6 +49,12 @@ namespace kfutils.rpg
             {
                 owner.targetEnemy = EntityManagement.playerCharacter;
                 owner.BasicStates.SetState(AIStateID.aggro);
+                owner.MakeSound(7, SoundType.Alert);
+            }
+            else if (owner.Awareness == Alertness.Alerted)
+            {
+                owner.targetEnemy = EntityManagement.playerCharacter;
+                owner.BasicStates.SetState(AIStateID.aggro);                
             }
         }
 

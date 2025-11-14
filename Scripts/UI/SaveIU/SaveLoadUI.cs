@@ -116,13 +116,13 @@ namespace kfutils.rpg.ui
 
         public void PlayButtonSound()
         {
-            GameManager.Instance.UIManager.PlayButtonClick();
+            GameManager.Instance.UI.PlayButtonClick();
         }
 
 
         public void SelectAsSave(SaveButtonUI saveButton)
         {
-            GameManager.Instance.UIManager.PlayShortClick();
+            GameManager.Instance.UI.PlayShortClick();
             for (int i = 0; i < saveButtons.Count; i++)
             {
                 saveButtons[i].SetSelected(saveButtons[i] == saveButton);
@@ -133,7 +133,7 @@ namespace kfutils.rpg.ui
 
         public void SelectAsLoad(LoadButtonUI loadButton)
         {
-            GameManager.Instance.UIManager.PlayShortClick();
+            GameManager.Instance.UI.PlayShortClick();
             for (int i = 0; i < loadButtons.Count; i++)
             {
                 loadButtons[i].SetSelected(loadButtons[i] == loadButton);
@@ -200,8 +200,8 @@ namespace kfutils.rpg.ui
             loadingScreen.SetActive(false);
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
-            GameManager.Instance.UIManager.CloseCharacterSheet();
-            GameManager.Instance.UIManager.HidePauseMenu();
+            GameManager.Instance.UI.CloseCharacterSheet();
+            GameManager.Instance.UI.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);
         }
 
@@ -220,7 +220,7 @@ namespace kfutils.rpg.ui
             if (show) Time.timeScale = 1.0f;
             else Time.timeScale = 0.0f;
             Time.timeScale = 0.0f;
-            bool canMove = !(show || GameManager.Instance.UIManager.CharacterSheetVisible);
+            bool canMove = !(show || GameManager.Instance.UI.CharacterSheetVisible);
             EntityManagement.playerCharacter.AllowActions(canMove);
             if (canMove) Cursor.lockState = CursorLockMode.Locked;
             else Cursor.lockState = CursorLockMode.None;
@@ -230,10 +230,10 @@ namespace kfutils.rpg.ui
 
         public void SetHidden()
         {
-            if (!GameManager.Instance.UIManager.PauseMenuVisible)
+            if (!GameManager.Instance.UI.PauseMenuVisible)
             {
                 Time.timeScale = 1.0f;
-                bool canMove = !GameManager.Instance.UIManager.CharacterSheetVisible;
+                bool canMove = !GameManager.Instance.UI.CharacterSheetVisible;
                 EntityManagement.playerCharacter.AllowActions(canMove);
                 if (canMove) Cursor.lockState = CursorLockMode.Locked;
                 else Cursor.lockState = CursorLockMode.None;
@@ -245,7 +245,7 @@ namespace kfutils.rpg.ui
         public void Toggle()
         {
             shower.Toggle();
-            bool canMove = !(shower.IsVisible || GameManager.Instance.UIManager.CharacterSheetVisible);
+            bool canMove = !(shower.IsVisible || GameManager.Instance.UI.CharacterSheetVisible);
             EntityManagement.playerCharacter.AllowActions(canMove);
             if (canMove) Cursor.lockState = CursorLockMode.Locked;
             else Cursor.lockState = CursorLockMode.None;

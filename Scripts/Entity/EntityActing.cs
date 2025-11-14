@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class EntityActing : EntityMoving, ICombatantAI
+    public class EntityActing : EntityMoving, ICombatantAI, ISoundSource 
     {
         public const float VRANGESQR = 64 * 64;
 
@@ -419,11 +419,11 @@ namespace kfutils.rpg {
                 alertness = (Alertness)Mathf.Clamp(Mathf.FloorToInt(howMuch), (int)Alertness.Oblivious, (int)Alertness.Alerted);
             }
         }
-        
 
-
-
-
+        public void MakeSound(float loudness, SoundType soundType = SoundType.General)
+        {
+            SoundManagement.SoundMadeAtBy(new WorldSound(transform.position, loudness, soundType, this), this);
+        }
     }
 
 

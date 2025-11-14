@@ -49,7 +49,7 @@ namespace kfutils.rpg.ui {
                     if((otherHand != null) && (otherHand.item != null) && (otherHand.item.EquiptType != EEquiptSlot.HANDS)) {
                         other.inventory.AddToFirstEmptySlot(otherHand);
                     }
-                    GameManager.Instance.UIManager.HideItemToolTip();
+                    GameManager.Instance.UI.HideItemToolTip();
                 } 
             }
             inventory.SignalUpdate(); 
@@ -124,8 +124,8 @@ namespace kfutils.rpg.ui {
             //Debug.Log("Starting Drag");
             if(icon.sprite != null) {
                 icon.transform.SetParent(GetComponentInParent<Canvas>().rootCanvas.transform);
-                GameManager.Instance.UIManager.HideItemToolTip();
-                GameManager.Instance.UIManager.HideItemStackManipulator();
+                GameManager.Instance.UI.HideItemToolTip();
+                GameManager.Instance.UI.HideItemStackManipulator();
             }
         }
 
@@ -154,40 +154,40 @@ namespace kfutils.rpg.ui {
 
         public void OnPointerEnter(PointerEventData eventData) {
             if((item != null) && (item.item != null)) {
-                GameManager.Instance.UIManager.ShowItemToolTip(item.item);
+                GameManager.Instance.UI.ShowItemToolTip(item.item);
             }
         }
 
 
         public void OnPointerExit(PointerEventData eventData) {
-            GameManager.Instance.UIManager.HideItemToolTip();
+            GameManager.Instance.UI.HideItemToolTip();
         }
 
 
         public virtual void OnPointerClick(PointerEventData eventData) {
             if(eventData.button == PointerEventData.InputButton.Left) {
-                GameManager.Instance.UIManager.HideItemToolTip();
-                GameManager.Instance.UIManager.HideItemStackManipulator();
+                GameManager.Instance.UI.HideItemToolTip();
+                GameManager.Instance.UI.HideItemStackManipulator();
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
                 if (inventory == InventoryManagement.currentContainerInventory) {
                     EntityManagement.playerCharacter.AddToMainInventory(item);
                     inventory.RemoveItem(item);
                 } else if(eventData.clickCount == 2) {
 #pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
-                    if (GameManager.Instance.UIManager.IsContainerUIVisible) {
+                    if (GameManager.Instance.UI.IsContainerUIVisible) {
                         InventoryManagement.currentContainerInventory.AddToFirstEmptySlot(item);
                         inventory.RemoveItem(item);
                     } else {
                         EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);
-                        GameManager.Instance.UIManager.HideItemToolTip();
+                        GameManager.Instance.UI.HideItemToolTip();
                         if(destination != null) {
                             destination.SwapWith(this);
                         }
                     }
                 }
             } else if(eventData.button == PointerEventData.InputButton.Right) {
-                GameManager.Instance.UIManager.HideItemToolTip();
-                GameManager.Instance.UIManager.ShowItemStackManipulator(this);
+                GameManager.Instance.UI.HideItemToolTip();
+                GameManager.Instance.UI.ShowItemStackManipulator(this);
             }
         }
 

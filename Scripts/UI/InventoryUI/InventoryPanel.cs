@@ -53,7 +53,7 @@ namespace kfutils.rpg.ui {
 
 
         public void ToggleCharacterSheet() {
-            GameManager.Instance.UIManager.PlayButtonClick();
+            GameManager.Instance.UI.PlayButtonClick();
             //InventoryManagement.SignalToggleCharacterSheet();
             EntityManagement.playerCharacter.ToggleCharacterSheet();
         }

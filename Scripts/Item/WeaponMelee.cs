@@ -19,6 +19,7 @@ namespace kfutils.rpg {
         [SerializeField] bool parriable = true;
         [SerializeField] float minRange = 0.1f;
         [SerializeField] float maxRange = 1.5f;
+        [SerializeField] float noise = 4.0f; 
 
         private ICombatant holder;
         private Collider hitCollider;
@@ -108,7 +109,7 @@ namespace kfutils.rpg {
                 if (damageable.InParriedState() && (damageFactor > 1.1f)) damageFactor += 1.0f;
                 if (damageable.IsSurprised(holder)) damageFactor += 1.5f;
                 damage.DoDamage(holder, this, damageable, damageFactor);
-                attacking = false;
+                //attacking = false;
                 OnAttackEnd();
             }
 #pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
@@ -190,7 +191,7 @@ namespace kfutils.rpg {
         public void OnUseAnimationEnd()
         {
             busy = false;
-            attacking = false;
+            //attacking = false;
             if (queued && (hitCollider != null))
             {
                 queued = false;
@@ -227,6 +228,9 @@ namespace kfutils.rpg {
         public void OnAttackEnd()
         {
             if(hitCollider != null) hitCollider.enabled = false;
+            // This must be done at the end of the attack, otherwise stealth/surprise attack would be impossible 
+            if(attacking && (holder is ISoundSource soundSource)) soundSource.MakeSound(noise, SoundType.General);
+            attacking = false;
         }
 
 
@@ -280,7 +284,7 @@ namespace kfutils.rpg {
                 DamageData dmg = damage.GetDamage(holder, this, blocker);
                 blocker.BlockDamage(dmg, blockArea);
                 //if (holder is EntityActing actor) actor.DelayFurtherAction(1.0f, false);
-                attacking = false;
+                //attacking = false;
                 OnAttackEnd();
                 PlayEquipAnimation(holder);
             }

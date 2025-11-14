@@ -8,7 +8,7 @@ namespace kfutils.rpg {
 
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(CharacterController))]
-    public class PCMoving : EntityLiving, IMover
+    public class PCMoving : EntityLiving, IMover, ISoundSource 
     {
 
         public enum MoveType
@@ -182,7 +182,7 @@ namespace kfutils.rpg {
         private IEnumerator DeathHelper()
         {
             yield return new WaitForSeconds(1.5f);
-            GameManager.Instance.UIManager.ShowDeathMessage();
+            GameManager.Instance.UI.ShowDeathMessage();
         }
 
 
@@ -208,6 +208,12 @@ namespace kfutils.rpg {
             playerCam.enabled = false; 
             playerCam.gameObject.GetComponent<AudioListener>().enabled = false;
             followCam.SetActive(true);
+        }
+
+
+        public void MakeSound(float loudness, SoundType soundType = SoundType.General)
+        {
+            SoundManagement.SoundMadeAtByPlayer(new WorldSound(transform.position, loudness, soundType, this), this as PCTalking);
         }
 
 
@@ -609,6 +615,9 @@ namespace kfutils.rpg {
                     {
                         stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
                     }
+                    float noise = (float)moveType + 1;
+                    noise = noise * noise; // TODO: Factor in stealth skill and armor worn
+                    MakeSound(noise);
                 }
 
                 DirectionalMixerState dms = moveMixer.State as DirectionalMixerState;
@@ -746,7 +755,7 @@ namespace kfutils.rpg {
 
 
 
-#endregion
+        #endregion
 
 
 

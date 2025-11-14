@@ -43,13 +43,25 @@ namespace kfutils.rpg {
 
         public static void SoundMadeAtBy(WorldSound sound, EntityLiving entity)
         {
-            
+            List<(EntityLiving, float)> hearers = FindHearers(sound);
+            for(int i = 0; i < hearers.Count; i++)
+            {
+                hearers[i].Item1.HearSound(sound, hearers[i].Item2);
+                // Do more here?
+            }
+            //Do more here?
         }
 
 
         public static void SoundMadeAtByPlayer(WorldSound sound, PCTalking entity)
         {
-            
+            List<(EntityLiving, float)> hearers = FindHearers(sound);
+            for(int i = 0; i < hearers.Count; i++)
+            {
+                hearers[i].Item1.HearSound(sound, hearers[i].Item2);
+                // Do more here?
+            }
+            //Do more here?
         }
 
         

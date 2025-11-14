@@ -43,12 +43,12 @@ namespace kfutils.rpg.ui {
 
         public override void OnPointerClick(PointerEventData eventData) {
             if(eventData.button == PointerEventData.InputButton.Left) {
-                GameManager.Instance.UIManager.HideItemToolTip();
-                GameManager.Instance.UIManager.HideItemStackManipulator();
+                GameManager.Instance.UI.HideItemToolTip();
+                GameManager.Instance.UI.HideItemStackManipulator();
                 if(eventData.clickCount == 2) {
                     InventorySlotUI other = equiptPanel.MainInventoryPanel.GetFirstEmptrySlot();
                     if(other != null) {
-                        GameManager.Instance.UIManager.HideItemToolTip();
+                        GameManager.Instance.UI.HideItemToolTip();
                         if(other != null) {
                             other.SwapWith(this);
                         }

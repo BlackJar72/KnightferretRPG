@@ -80,6 +80,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void SetToolTipUI(ItemToolTipUI newToolTip)
+        {
+            itemToolTipUI = newToolTip;
+        }
+
+
         public void ShowSpellToolTip(Spell spell)
         {
             if (!itemStackManipulator.IsVisible) itemToolTipUI.ShowSpellToolTip(spell);

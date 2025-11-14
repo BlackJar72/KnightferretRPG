@@ -27,7 +27,7 @@ namespace kfutils.rpg
         /// </summary>
         public void MainMenu()
         {
-            GameManager.Instance.UIManager.PlayButtonClick();
+            GameManager.Instance.UI.PlayButtonClick();
             SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Single);
         }
 
@@ -39,10 +39,10 @@ namespace kfutils.rpg
         /// </summary>
         public void Reload()
         {
-            GameManager.Instance.UIManager.PlayButtonClick();
+            GameManager.Instance.UI.PlayButtonClick();
             if (!string.IsNullOrWhiteSpace(SavedGame.LastSave) && SavedGame.HasSave(SavedGame.LastSave))
             {
-                GameManager.Instance.UIManager.ShowLoadingScreen();
+                GameManager.Instance.UI.ShowLoadingScreen();
                 Time.timeScale = 0.0f; // FIXME: The pause should happen when the GUI is activated
                 EntityManagement.playerCharacter.Inventory.Clear();
                 StartCoroutine(LoadHelper());
@@ -64,12 +64,12 @@ namespace kfutils.rpg
             EntityManagement.playerCharacter.Spells.OnEnable();
             InventoryManagement.SignalLoadNPCInventoryData();
             WorldManagement.SignalGameReloaded();
-            GameManager.Instance.UIManager.HideLoadingScreen();
+            GameManager.Instance.UI.HideLoadingScreen();
             SetHidden();
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
-            GameManager.Instance.UIManager.CloseCharacterSheet();
-            GameManager.Instance.UIManager.HidePauseMenu();
+            GameManager.Instance.UI.CloseCharacterSheet();
+            GameManager.Instance.UI.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);
         }
 

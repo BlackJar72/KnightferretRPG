@@ -18,7 +18,7 @@ namespace kfutils.rpg {
 
     public interface ISoundSource
     {
-        public void MakeSound(float loudness, SoundType soundType);
+        public void MakeSound(float loudness, SoundType soundType = SoundType.General);
     }
 
 

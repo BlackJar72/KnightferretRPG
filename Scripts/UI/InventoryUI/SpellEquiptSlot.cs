@@ -50,19 +50,19 @@ namespace kfutils.rpg.ui {
 
 
         public void OnPointerEnter(PointerEventData eventData) {
-            if(currentSpell != null) GameManager.Instance.UIManager.ShowSpellToolTip(currentSpell);
+            if(currentSpell != null) GameManager.Instance.UI.ShowSpellToolTip(currentSpell);
         }
 
 
         public void OnPointerExit(PointerEventData eventData) {
-            GameManager.Instance.UIManager.HideItemToolTip();
+            GameManager.Instance.UI.HideItemToolTip();
         }
 
 
         public void OnPointerClick(PointerEventData eventData) {
             if(eventData.button == PointerEventData.InputButton.Left) {
-                GameManager.Instance.UIManager.HideItemToolTip();
-                GameManager.Instance.UIManager.HideItemStackManipulator();
+                GameManager.Instance.UI.HideItemToolTip();
+                GameManager.Instance.UI.HideItemStackManipulator();
                 currentSpell = null;
                 icon.gameObject.SetActive(false);
                 InventoryManagement.SigalHotbarUpdate();

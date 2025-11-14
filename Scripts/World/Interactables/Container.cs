@@ -10,7 +10,7 @@ namespace kfutils.rpg {
 
 
         public void Use(GameObject from) {
-            GameManager.Instance.UIManager.ToggleContainerUI(inventory, this, from);
+            GameManager.Instance.UI.ToggleContainerUI(inventory, this, from);
         }
 
 

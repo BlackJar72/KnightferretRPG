@@ -24,6 +24,7 @@ namespace kfutils.rpg {
         [SerializeField] int manaCost;
         [SerializeField] float range;
         [SerializeField] float castTime;
+        [SerializeField] int difficulty;
         [SerializeField] GameObject castParticles;
         [SerializeField] Sound castSound;
 
