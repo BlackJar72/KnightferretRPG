@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using kfutils.rpg.ui;
 
 
 namespace kfutils.rpg {
@@ -17,6 +16,9 @@ namespace kfutils.rpg {
 
         [SerializeField] GameItemSet itemsInGame;
         public GameItemSet ItemsInGame => itemsInGame;
+
+        [SerializeField] GameObject playerCharacter;
+        [SerializeField] GameObject weather;
 
         private static GameManager instacnce;
         public static GameManager Instance { get => instacnce; }
@@ -37,11 +39,7 @@ namespace kfutils.rpg {
             #if UNITY_EDITOR
             itemsInGame.Awake();
             #endif
-            // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
-            WorldManagement.SetupWorldspaceRegistry(worldspaces);
-            // Makeing this a true singleton, and warning with an error message if extra copies were made
             instacnce = this;
-            // FIXME: This should ultimately be run at start-up, not entry into gameplay, once a start screen is added
             ItemPrototype[] itemPrototypes = itemsInGame.Items;
             for (int i = 0; i < itemPrototypes.Length; i++)
             {
@@ -54,8 +52,6 @@ namespace kfutils.rpg {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            startingWorldspace.LoadAsSpawn();
-            StartCoroutine(DoPostInitialLoad());
             ui = GetComponent<UIManager>();
         }
 
@@ -70,7 +66,28 @@ namespace kfutils.rpg {
             {
                 if (specialUpdates[i]()) specialUpdates.RemoveAt(i);
             }
+        }
 
+
+        public void EnterPlayMode()
+        {
+            WorldManagement.SetupWorldspaceRegistry(worldspaces);
+            NewGame();
+            ui.ShowInGameUI();
+            weather.SetActive(false);
+            playerCharacter.SetActive(false);
+            startingWorldspace.LoadAsSpawn();
+            StartCoroutine(DoPostInitialLoad());            
+        }
+
+
+        public void EnterStartMenu()
+        {
+            ui.ShowStartUI();
+            weather.SetActive(true);
+            playerCharacter.SetActive(true);
+            startingWorldspace.LoadAsSpawn();
+            SceneManager.UnloadSceneAsync(WorldManagement.CurWorldspace.ScenePath);        
         }
 
 

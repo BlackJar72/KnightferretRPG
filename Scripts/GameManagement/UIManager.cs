@@ -11,6 +11,9 @@ namespace kfutils.rpg {
         [SerializeField] AudioSource audioSource;
         [SerializeField] AudioClip click;
         [SerializeField] AudioClip shortClick;
+        [SerializeField] Canvas gameUI;
+        [SerializeField] Canvas pauseUI;
+        [SerializeField] Canvas startScreen;
         [SerializeField] ShowOrHide characterPanelToggler;
         [SerializeField] Canvas mainCanvas;
         [SerializeField] ShowOrHide crossHairs;
@@ -36,6 +39,22 @@ namespace kfutils.rpg {
 
 
         public bool PauseMenuVisible => pauseMenuVisible;
+
+
+        public void ShowInGameUI()
+        {
+            gameUI.gameObject.SetActive(true);
+            pauseUI.gameObject.SetActive(true);
+            startScreen.gameObject.SetActive(false);
+        }
+
+
+        public void ShowStartUI()
+        {
+            gameUI.gameObject.SetActive(false);
+            pauseUI.gameObject.SetActive(false);
+            startScreen.gameObject.SetActive(true);
+        }
 
 
         /// <summary>

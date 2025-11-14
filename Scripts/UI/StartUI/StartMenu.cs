@@ -37,6 +37,7 @@ namespace kfutils.rpg.ui
             loadPanel.SetActive(false);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            HideLoadPanel();
         }
 
 
@@ -108,6 +109,9 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void NewGame()
         {
+            // FIXME: Will need a source of new game data to use in place of a save, 
+            //        since we will no longer be (re-)loading the SceneLoader as a 
+            //        separate scene. 
             PlayUIClick();
             SavedGame.ClearLastSave();
             //FIXME: Don't do this, go to character creation instead
