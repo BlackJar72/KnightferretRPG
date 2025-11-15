@@ -32,6 +32,12 @@ namespace kfutils.rpg
         }
 
 
+        public void Quit()
+        {
+            Application.Quit();
+        }
+
+
         /// <summary>
         /// Reload the last save.  If the player has loaded a save and not 
         /// loaded since, it will reload that save.  If this is a new game 
