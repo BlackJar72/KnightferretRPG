@@ -29,6 +29,13 @@ namespace kfutils.rpg.ui {
                 slots[i].equiptPanel = this;
             }
         }
+
+
+        public void InitSetInventory(PlayerInventory playerInventory)
+        {
+            mainInventory = playerInventory;
+            inventory = playerInventory.Equipt;
+        }
         
         
         // private void Start() {}

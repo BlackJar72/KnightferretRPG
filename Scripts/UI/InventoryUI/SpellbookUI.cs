@@ -13,6 +13,12 @@ namespace kfutils.rpg.ui {
         private List<SpellRowUI> rows =  new();
 
 
+        public void InitSetInventory(Spellbook pcSpells)
+        {
+            spellbook = pcSpells;
+        }
+
+
 
         protected virtual void OnEnable() {
             InventoryManagement.spellbookUpdated += UpdateInventory;

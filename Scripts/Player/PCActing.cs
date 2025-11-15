@@ -142,6 +142,20 @@ namespace kfutils.rpg {
         }
 
 
+        protected PCData GetActingData(PCData data)
+        {
+            // TODO
+
+            return data;
+        }
+
+
+        protected void StoreInitialActingData(PCData result)
+        {
+            // TODO 
+        }
+
+
         #region Input
 
         private void InitInput()
@@ -304,6 +318,21 @@ namespace kfutils.rpg {
 
 
         #region Saving / Loading
+
+
+        protected override void StoreData()
+        {
+            base.StoreData();
+            StoreActingData(data);
+        }
+
+
+        protected void StoreActingData(EntityData data)
+        {
+            data.actingData ??= new();
+            data.actingData.disposition = Disposition.neutral; // Not valid for PC
+            data.actingData.targetEnemy = "";                  // Not valid for PC
+        }
 
 
         protected PCData GetActionData(PCData data)

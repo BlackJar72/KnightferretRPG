@@ -24,6 +24,12 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void SetPlayerTransform(Transform pcTransform)
+        {
+            player = pcTransform;
+        }
+
+
     }
 
 

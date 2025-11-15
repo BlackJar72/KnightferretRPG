@@ -105,6 +105,12 @@ namespace kfutils.rpg {
         protected override void StoreData()
         {
             base.StoreData();
+            StoreMovingData(data);
+        }
+
+
+        protected void StoreMovingData(EntityData data)
+        {
             data.movingData ??= new();
             data.movingData.movement = movement;
             data.movingData.heading = heading;

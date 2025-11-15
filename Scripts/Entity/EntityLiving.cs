@@ -100,7 +100,6 @@ namespace kfutils.rpg {
             if (data == null)
             {
                 data = new(id);
-                //ExtraInit();
                 StoreData();
                 EntityManagement.AddToRegistry(data);
             }
@@ -123,7 +122,8 @@ namespace kfutils.rpg {
         //protected virtual void ExtraInit() {}
 
         public void StoreDataForSave() => StoreData();
-        protected virtual void StoreData()
+        protected virtual void StoreData() => StoreLivingData(data);
+        protected void StoreLivingData(EntityData data)
         {
             data.livingData ??= new();
             data.livingData.entityName = entityName;

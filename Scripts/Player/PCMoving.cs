@@ -142,6 +142,7 @@ namespace kfutils.rpg {
         public virtual void NewCharacterInit()
         {
             FirstPerson();
+            
             // First, we need to handle the derived attribute (may be moved to more derived class later)
             attributes.baseStats.GenRandomHumanStats();
             attributes.DeriveAttributesForHuman(health, stamina, mana);
@@ -319,6 +320,12 @@ namespace kfutils.rpg {
         protected override void StoreData()
         {
             base.StoreData();
+            StoreMovingData(data);   
+        }
+
+
+        protected void StoreMovingData(EntityData data)
+        {
             data.movingData ??= new();
             data.movingData.movement = velocity;
             data.movingData.heading = movement;
@@ -488,30 +495,6 @@ namespace kfutils.rpg {
         }
 
 
-        public MoveMethod GetMoveMethod()
-        {
-            if (Move == WaterMove) return MoveMethod.WATER;
-            return MoveMethod.LAND;
-        }
-
-
-        public void SetMoveMethod(MoveMethod method)
-        {
-            switch (method)
-            {
-                case MoveMethod.LAND:
-                    Move = LandMove;
-                    return;
-                case MoveMethod.WATER:
-                    Move = WaterMove;
-                    return;
-                default:
-                    Move = LandMove;
-                    return;
-            }
-        }
-
-
         /// <summary>
         /// This sets Living and Moving data during loads; living is included since 
         /// there is no PCLiving but instead entity living is inherited directly.
@@ -551,6 +534,53 @@ namespace kfutils.rpg {
             looky = data.looky;
             characterController.enabled = true;
             MakeAlive();
+        }
+
+
+        protected void StoreInitialMovingData(PCData data)
+        {
+            data.location = gameObject.transform.GetGlobalData();
+            data.moveMethod = GetMoveMethod();
+            data.movement = movement;
+            data.moveType = moveType;
+            data.baseSpeed = baseSpeed;
+            data.hVelocity = hVelocity;
+            data.vSpeed = vSpeed;
+            data.velocity = velocity;
+            data.falling = falling;
+            data.onGround = onGround;
+            data.shouldJump = shouldJump;
+            data.hasJumped = hasJumped;
+            data.shouldSprint = shouldSprint;
+            data.shouldCrouch = shouldCrouch;
+            data.weightMovementFactor = weightMovementFactor;
+            data.weightBoyancyFactor = weightBoyancyFactor;
+            data.looky = looky;
+        }
+        
+
+
+        public MoveMethod GetMoveMethod()
+        {
+            if (Move == WaterMove) return MoveMethod.WATER;
+            return MoveMethod.LAND;
+        }
+
+
+        public void SetMoveMethod(MoveMethod method)
+        {
+            switch (method)
+            {
+                case MoveMethod.LAND:
+                    Move = LandMove;
+                    return;
+                case MoveMethod.WATER:
+                    Move = WaterMove;
+                    return;
+                default:
+                    Move = LandMove;
+                    return;
+            }
         }
 
 

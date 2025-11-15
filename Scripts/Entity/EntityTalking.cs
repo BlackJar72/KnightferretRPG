@@ -119,6 +119,12 @@ namespace kfutils.rpg
         protected override void StoreData()
         {
             base.StoreData();
+            StoreTalkingData(data);
+        }
+
+
+        protected void StoreTalkingData(EntityData data)
+        {
             // TODO: Store Data
         }
 

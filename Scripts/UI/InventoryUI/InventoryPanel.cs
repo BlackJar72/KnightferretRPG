@@ -21,8 +21,11 @@ namespace kfutils.rpg.ui {
         public EquiptmentPanel EquiptPanel => equiptPanel;
 
 
-        //private void Awake() {}
-        //private void Start() {}
+        public void InitSetInventory(PlayerInventory playerInventory)
+        {
+            inventory = playerInventory;
+            equiptPanel.InitSetInventory(playerInventory);
+        }
 
 
         public void InitHotbarActions()

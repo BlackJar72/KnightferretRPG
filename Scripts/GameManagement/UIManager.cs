@@ -27,6 +27,9 @@ namespace kfutils.rpg {
         [SerializeField] PauseMenuUI pauseMenuUI;
         [SerializeField] GameObject loadingScreen;
         [SerializeField] DeathPopup deathPanel;
+        [SerializeField] ui.Compass compass;
+        [SerializeField] InventoryPanel inventoryPanel;
+        [SerializeField] SpellbookUI spellbookUI;
 
 
         public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
@@ -39,6 +42,15 @@ namespace kfutils.rpg {
 
 
         public bool PauseMenuVisible => pauseMenuVisible;
+
+
+        public void InitUI(PCTalking pc)
+        {
+            compass.SetPlayerTransform(pc.transform);
+            inventoryPanel.InitSetInventory(pc.Inventory);
+            spellbookUI.InitSetInventory(pc.Spells);
+
+        }
 
 
         public void ShowInGameUI()

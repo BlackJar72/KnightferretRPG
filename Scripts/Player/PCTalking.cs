@@ -14,8 +14,6 @@ namespace kfutils.rpg {
         protected InputAction questJournalAction;
 
 
-
-
         protected override void Awake()
         {
             EntityManagement.playerCharacter = this;
@@ -28,6 +26,19 @@ namespace kfutils.rpg {
         protected override void Start()
         {
             base.Start();
+        }
+
+
+        protected override void StoreData()
+        {
+            base.StoreData();
+            StoreTalkingData(data);
+        }
+
+
+        protected void StoreTalkingData(EntityData data)
+        {
+            // TODO: Store Data
         }
 
 

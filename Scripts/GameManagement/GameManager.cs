@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using kfutils.rpg.ui;
 
 
@@ -18,7 +17,10 @@ namespace kfutils.rpg {
         [SerializeField] GameItemSet itemsInGame;
         public GameItemSet ItemsInGame => itemsInGame;
 
-        [SerializeField] GameObject playerCharacter;
+        [SerializeField] GameObject playerCharacterPrefab;
+        [SerializeField] Vector3 pcSpawnPosition;
+        [SerializeField] Quaternion pcSpawnRotation;
+        [SerializeField] PCTalking playerCharacter;
         [SerializeField] GameObject weather;
 
         [SerializeField] StartMenu startLogic;
@@ -75,11 +77,12 @@ namespace kfutils.rpg {
 
         public void EnterPlayMode()
         {
+            InitializeNewCharacter();
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
             NewGame();
             ui.ShowInGameUI();
             weather.SetActive(true);
-            playerCharacter.SetActive(true);
+            playerCharacter.gameObject.SetActive(true);
             startingWorldspace.LoadAsSpawn();
             StartCoroutine(DoPostInitialLoad());            
         }
@@ -90,7 +93,7 @@ namespace kfutils.rpg {
             ui.ShowStartUI();
             startLogic.EnterStartMenu();
             weather.SetActive(false);
-            playerCharacter.SetActive(false);      
+            Destroy(playerCharacter.gameObject);      
         }
 
 
@@ -105,6 +108,20 @@ namespace kfutils.rpg {
             ItemManagement.NewGame();
             ObjectManagement.NewGame();
             WorldManagement.NewGame();
+        }
+
+
+        public void SetPCActive(bool value)
+        {
+            playerCharacter.gameObject.SetActive(value);
+        }
+
+
+        public void InitializeNewCharacter()
+        {
+            GameObject pcgo = Instantiate(playerCharacterPrefab, pcSpawnPosition, pcSpawnRotation, transform.root);
+            playerCharacter = pcgo.GetComponent<PCTalking>();
+            ui.InitUI(playerCharacter);
         }
 
 

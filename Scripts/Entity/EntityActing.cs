@@ -61,6 +61,12 @@ namespace kfutils.rpg {
         protected override void StoreData()
         {
             base.StoreData();
+            StoreActingData(data);
+        }
+
+
+        protected void StoreActingData(EntityData data)
+        {
             data.actingData ??= new();
             data.actingData.disposition = disposition;
             if (targetEnemy == null) data.actingData.targetEnemy = "";

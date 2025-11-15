@@ -31,6 +31,12 @@ namespace kfutils.rpg.ui
 
         void Start()
         {
+            Restart();
+        }
+
+
+        private void Restart()
+        {
             ShowHideContinue();
             InitSaveFiles();
             blockerPanel.SetActive(false);
@@ -59,10 +65,8 @@ namespace kfutils.rpg.ui
         {      
             Start();
             HideLoadPanel();
-            Scene content = SceneManager.GetSceneByPath(WorldManagement.CurWorldspace.ScenePath);
-            Debug.Log(content.name + " at " + content.path +  " is loaded? " + content.isLoaded);            
+            Scene content = SceneManager.GetSceneByPath(WorldManagement.CurWorldspace.ScenePath);            
             SceneManager.UnloadSceneAsync(content);
-            Debug.Log(content.name + " at " + content.path +  " is loaded? " + content.isLoaded);  
         }
 
 
@@ -120,9 +124,6 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void NewGame()
         {
-            // FIXME: Will need a source of new game data to use in place of a save, 
-            //        since we will no longer be (re-)loading the SceneLoader as a 
-            //        separate scene. 
             PlayUIClick();
             SavedGame.ClearLastSave();
             //FIXME: Don't do this, go to character creation instead
@@ -136,11 +137,7 @@ namespace kfutils.rpg.ui
         //FIXME: Remove this and all references once a propper chracter creation system is in place
         private IEnumerator StartGameBAD()
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
+            //EntityManagement.playerCharacter.NewCharacterInit(); // The BAD part; stand-in until there is chracter creation 
             yield return null;
             GameManager.Instance.CloseStartScreen();
         }
