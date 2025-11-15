@@ -616,7 +616,7 @@ namespace kfutils.rpg {
                         stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
                     }
                     float noise = (float)moveType + 1;
-                    noise = noise * noise; // TODO: Factor in stealth skill and armor worn
+                    noise = (noise * noise) + 1; // TODO: Factor in stealth skill and armor worn
                     MakeSound(noise);
                 }
 

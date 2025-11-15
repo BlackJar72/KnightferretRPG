@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using kfutils.rpg.ui;
 
 
 namespace kfutils.rpg {
@@ -19,6 +20,9 @@ namespace kfutils.rpg {
 
         [SerializeField] GameObject playerCharacter;
         [SerializeField] GameObject weather;
+
+        [SerializeField] StartMenu startLogic;
+        public StartMenu StartLogic => startLogic;
 
         private static GameManager instacnce;
         public static GameManager Instance { get => instacnce; }
@@ -74,8 +78,8 @@ namespace kfutils.rpg {
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
             NewGame();
             ui.ShowInGameUI();
-            weather.SetActive(false);
-            playerCharacter.SetActive(false);
+            weather.SetActive(true);
+            playerCharacter.SetActive(true);
             startingWorldspace.LoadAsSpawn();
             StartCoroutine(DoPostInitialLoad());            
         }
@@ -84,10 +88,9 @@ namespace kfutils.rpg {
         public void EnterStartMenu()
         {
             ui.ShowStartUI();
-            weather.SetActive(true);
-            playerCharacter.SetActive(true);
-            startingWorldspace.LoadAsSpawn();
-            SceneManager.UnloadSceneAsync(WorldManagement.CurWorldspace.ScenePath);        
+            startLogic.EnterStartMenu();
+            weather.SetActive(false);
+            playerCharacter.SetActive(false);      
         }
 
 
@@ -124,13 +127,12 @@ namespace kfutils.rpg {
         {
             LoadingScreen.SetActive(true);            
             StartCoroutine(ConitnueLoadHelper(saveToLoad));
-            SceneManager.UnloadSceneAsync("StartScreen");
         }
 
 
         public void CloseStartScreen()
         {
-            SceneManager.UnloadSceneAsync("StartScreen");
+            EnterPlayMode();
         }
 
 

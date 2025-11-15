@@ -11,7 +11,8 @@ namespace kfutils.rpg {
 
 
         void OnEnable() {
-            WorldManagement.teleportMarkers.Add(id, this);
+            if(!WorldManagement.teleportMarkers.ContainsKey(id)) 
+                    WorldManagement.teleportMarkers.Add(id, this);
         }
 
 

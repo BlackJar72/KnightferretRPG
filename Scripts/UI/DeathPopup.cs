@@ -27,8 +27,9 @@ namespace kfutils.rpg
         /// </summary>
         public void MainMenu()
         {
+            SetHidden();
             GameManager.Instance.UI.PlayButtonClick();
-            SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Single);
+            GameManager.Instance.EnterStartMenu();
         }
 
 

@@ -55,6 +55,17 @@ namespace kfutils.rpg.ui
         }
 
 
+        public void EnterStartMenu()
+        {      
+            Start();
+            HideLoadPanel();
+            Scene content = SceneManager.GetSceneByPath(WorldManagement.CurWorldspace.ScenePath);
+            Debug.Log(content.name + " at " + content.path +  " is loaded? " + content.isLoaded);            
+            SceneManager.UnloadSceneAsync(content);
+            Debug.Log(content.name + " at " + content.path +  " is loaded? " + content.isLoaded);  
+        }
+
+
         /// <summary>
         /// Called by Start() to determine if the Continue button should be visible 
         /// based on if there is a legitimade previous save to load. 
@@ -236,6 +247,14 @@ namespace kfutils.rpg.ui
 
         private IEnumerator ConitnueLoading()
         {
+            yield return null;
+            GameManager.Instance.EnterPlayMode();
+            GameManager.Instance.ConitnueLoading(saveToLoad);
+        }
+
+
+        /*private IEnumerator ConitnueLoadingOLD()
+        {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
             while (!asyncLoad.isDone)
             {
@@ -244,7 +263,7 @@ namespace kfutils.rpg.ui
             }
             yield return null;
             GameManager.Instance.ConitnueLoading(saveToLoad);
-        }
+        }*/
 
 
         /// <summary>

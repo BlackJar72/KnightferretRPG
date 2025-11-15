@@ -35,6 +35,7 @@ namespace kfutils.rpg {
         public static void NewGame()
         {
             chunkData = new();
+            teleportMarkers.Clear();
         }
 
 
