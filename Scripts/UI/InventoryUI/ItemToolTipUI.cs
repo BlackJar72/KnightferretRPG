@@ -65,6 +65,7 @@ namespace kfutils.rpg.ui {
 
 
         public void ShowToolTip(ItemPrototype item) {
+            //gameObject.SetActive(true); // Having this here demostrates this is the one in the hierarchy, not dangling somehow
             SetDataForItem(item);
             gameObject.SetActive(true);
         }
