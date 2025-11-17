@@ -67,6 +67,12 @@ namespace kfutils.rpg
         }
 
 
+        public void AddedStartingGear(InitialPCData initialData)
+        {
+            initialData.AddSpellsToBook(this);
+        }
+
+
         public bool AddItemToSlot(int slot, Spell spell)
         {
             for (int i = 0; i < spells.Count; i++)

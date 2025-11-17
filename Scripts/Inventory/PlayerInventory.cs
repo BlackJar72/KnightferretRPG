@@ -40,6 +40,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void AddedStartingGear(InitialPCData initialData)
+        {
+            initialData.AddGearToInventory(this);
+        }
+
+
         public int UpdateWeight()
         {
             float weight = Mathf.RoundToInt(CalculateWeight() + equipt.CalculateWeight());
