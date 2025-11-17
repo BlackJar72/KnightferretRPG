@@ -134,6 +134,29 @@ namespace kfutils.rpg {
         }
 
 
+        public virtual void ResetCharacter()
+        {
+            data = new(PC);
+            MakeAlive();
+            alertness = Alertness.Alerted;
+            movement = Vector3.zero;
+            moveType = MoveType.NORMAL;
+            UpdateMoveType();
+            hVelocity = Vector3.zero;
+            vSpeed = 0.0f;
+            velocity = Vector3.zero;
+            falling = false;
+            onGround = true;
+            shouldJump = false;
+            hasJumped = false;
+            shouldSprint = false;
+            shouldCrouch = false;
+            EnableMovement();
+            weightMovementFactor = 1.0f;
+            weightBoyancyFactor = 1.0f;            
+        }
+
+
         /// <summary>
         /// Initialize a new character, to be called after character creation but before 
         /// the start of the game.

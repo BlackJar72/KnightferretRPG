@@ -90,6 +90,17 @@ namespace kfutils.rpg {
         }
 
 
+        public void Clear()
+        {
+            for(int i = 0; i < slots.Length; i++)
+            {                
+                slots[i].inventory = InvType.NONE;
+                slots[i].invSlot = -1;
+                slots[i].filled = false;
+            }
+        }
+
+
         public void UnequipSpell()
         {
             for (int i = 0; i < slots.Length; i++)

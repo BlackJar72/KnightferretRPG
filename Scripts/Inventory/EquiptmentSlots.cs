@@ -220,6 +220,14 @@ namespace kfutils.rpg {
         }
 
 
+        public void Clear()
+        {
+            for(int i = 0; i < slots.Length; i++) {
+                RemoveAllFromSlot(i);
+            }
+        }
+
+
         // Mostly the same as remove item, but slightly changed to update hotbar correctly.
         // Other ways, that avoid code duplication, would complicate things greatly in other ways.
         public void ConsumeItem(int slot, int number)

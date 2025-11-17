@@ -168,6 +168,12 @@ namespace kfutils.rpg
         }
 
 
+        public void Clear()
+        {
+            spells.Clear();
+        }
+
+
         public virtual void SignalUpdate()
         {
             InventoryManagement.SignalSpellbookUpdate(this);

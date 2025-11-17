@@ -39,6 +39,13 @@ namespace kfutils.rpg {
         }
 
 
+        public override void ResetCharacter()
+        {
+            base.ResetCharacter();
+            // TODO (once there is more here to modify)
+        }
+
+
         #region Input
 
         private void InitInput()

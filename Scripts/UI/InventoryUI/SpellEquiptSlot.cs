@@ -61,12 +61,18 @@ namespace kfutils.rpg.ui {
 
         public void OnPointerClick(PointerEventData eventData) {
             if(eventData.button == PointerEventData.InputButton.Left) {
-                GameManager.Instance.UI.HideItemToolTip();
-                GameManager.Instance.UI.HideItemStackManipulator();
-                currentSpell = null;
-                icon.gameObject.SetActive(false);
-                InventoryManagement.SigalHotbarUpdate();
+                UnequiptSpell();
             } 
+        }
+
+
+        public void UnequiptSpell()
+        {
+            GameManager.Instance.UI.HideItemToolTip();
+            GameManager.Instance.UI.HideItemStackManipulator();
+            currentSpell = null;
+            icon.gameObject.SetActive(false);
+            InventoryManagement.SigalHotbarUpdate();
         }
 
 

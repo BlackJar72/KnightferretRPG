@@ -89,6 +89,13 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void Clear()
+        {
+            hotBar.Clear();
+            Redraw(); 
+        }
+
+
         private void RespondToHotbar(SlotData slotData) => RespondToChanges();
 
 

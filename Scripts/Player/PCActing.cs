@@ -117,6 +117,24 @@ namespace kfutils.rpg {
         }
 
 
+        public override void ResetCharacter()
+        {
+            base.ResetCharacter();
+            equiptSpell.UnequiptSpell();
+            inventory.Clear();
+            spellbook.Clear();
+            inventory.Equipt.Clear();
+            inventory.Hotbar.Clear(); 
+            blockArea.LowerBlock();
+            SetArmsPos(ArmsPos.high);
+            blocking = false;
+            chargingAction = false;
+            chargeTimer = 0.0f;
+            castTimer = 0.0f;
+            isCasting =  false;
+        }
+
+
         // Update is called once per frame
         protected override void Update()
         {
