@@ -424,6 +424,19 @@ namespace kfutils.rpg {
         {
             SoundManagement.SoundMadeAtBy(new WorldSound(transform.position, loudness, soundType, this), this);
         }
+
+
+        /*
+        // Idea for visual detection: Create kind of build-up bar the that increases to current exposure over a second;
+        // this starts going down if exposure is decreased.  If it reaches 1 or greater the alertness increments and bar
+        // resets (this is not a literal UI bar, but a number, similar to what might be behind something like a status
+        // effect build up bar in Dark Souls).  Incrementing alertness every frame just won't work, too fast.
+        // (Should / could continuous sounds like walking also do / contribute to this?)
+        */
+
+
+
+
     }
 
 
