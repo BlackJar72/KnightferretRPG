@@ -20,6 +20,7 @@ namespace kfutils.rpg.ui {
         [SerializeField] TMP_Text vitTxt;
         [SerializeField] TMP_Text endTxt;
         [SerializeField] TMP_Text intTxt;
+        [SerializeField] TMP_Text wllTxt;
         [SerializeField] TMP_Text chrTxt;
         [SerializeField] TMP_Text sprTxt;
 
@@ -65,6 +66,7 @@ namespace kfutils.rpg.ui {
             vitTxt.SetText("Vitality: " + pc.attributes.baseStats.Vitality);
             endTxt.SetText("Endurance: " + pc.attributes.baseStats.Endurance);
             intTxt.SetText("Intelligence: " + pc.attributes.baseStats.Intelligence);
+            wllTxt.SetText("Willpower: " + pc.attributes.baseStats.Willpower);
             chrTxt.SetText("Charisma: " + pc.attributes.baseStats.Charisma);
             sprTxt.SetText("Spirit: " + pc.attributes.baseStats.Spirit);
 

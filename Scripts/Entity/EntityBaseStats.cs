@@ -11,8 +11,9 @@ namespace kfutils.rpg {
         Vitality = 2,
         Endurance = 3,
         Intelligence = 4,
-        Charisma = 5,
-        Spirit = 6 
+        Willpower = 5,
+        Charisma = 6,
+        Spirit = 7 
     }
 
 
@@ -28,6 +29,7 @@ namespace kfutils.rpg {
         [SerializeField] int vitality = DEFAULT_SCORE;
         [SerializeField] int endurance = DEFAULT_SCORE;
         [SerializeField] int intelligence = DEFAULT_SCORE;
+        [SerializeField] int willpower = DEFAULT_SCORE;
         [SerializeField] int charisma = DEFAULT_SCORE;
         [SerializeField] int spirit = DEFAULT_SCORE;
 
@@ -35,7 +37,8 @@ namespace kfutils.rpg {
         public int Agility { get => agility; set => agility = value; }
         public int Vitality { get => vitality; set => vitality = value; }
         public int Endurance { get => endurance; set => endurance = value; }    
-        public int Intelligence { get => intelligence; set => intelligence = value; }
+        public int Intelligence { get => intelligence; set => intelligence = value; }  
+        public int Willpower { get => willpower; set => willpower = value; }
         public int Charisma { get => charisma; set => charisma = value; }
         public int Spirit { get => spirit; set => spirit = value; }
 
@@ -56,6 +59,7 @@ namespace kfutils.rpg {
                     EBaseStats.Vitality => vitality,
                     EBaseStats.Endurance => endurance,
                     EBaseStats.Intelligence => intelligence,
+                    EBaseStats.Willpower => willpower,
                     EBaseStats.Charisma => charisma,
                     EBaseStats.Spirit => spirit,
                     _ => throw new System.IndexOutOfRangeException("Non-existent index passed to indexer."),
@@ -68,7 +72,8 @@ namespace kfutils.rpg {
                    case EBaseStats.Agility: agility = value; return;
                    case EBaseStats.Vitality: vitality = value; return; 
                    case EBaseStats.Endurance: endurance = value; return;
-                   case EBaseStats.Intelligence: intelligence = value; return; 
+                   case EBaseStats.Intelligence: intelligence = value; return;
+                   case EBaseStats.Willpower: willpower = value; return;  
                    case EBaseStats.Charisma: charisma = value; return;
                    case EBaseStats.Spirit: spirit = value; return; 
                    default: throw new System.IndexOutOfRangeException("Non-existent index passed to indexer.");
@@ -83,6 +88,7 @@ namespace kfutils.rpg {
             vitality = RollStat();
             endurance = RollStat();
             intelligence = RollStat();
+            willpower = RollStat();
             charisma = RollStat();
             spirit = RollStat();
         }
@@ -102,6 +108,7 @@ namespace kfutils.rpg {
             copy.vitality = vitality;
             copy.endurance = endurance;
             copy.intelligence = intelligence;
+            copy.willpower = willpower;
             copy.charisma = charisma;
             copy.spirit = spirit;
             return copy;
@@ -115,6 +122,7 @@ namespace kfutils.rpg {
             vitality = other.vitality;
             endurance = other.endurance;
             intelligence = other.intelligence;
+            willpower = other.willpower;
             charisma = other.charisma;
             spirit = other.spirit;
         }

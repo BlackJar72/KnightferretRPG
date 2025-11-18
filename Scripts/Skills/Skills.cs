@@ -29,8 +29,10 @@ namespace kfutils.rpg
         // Vitality Skills (???) (May end up with no skills, but still determines health / hit points)
         // Intelligence Skills (possible additions: crafting and/or smithng)
         [SerializeField] Skill thaumaturgy; // "Magical Theory," effect what spells can be learned (more?)
-        [SerializeField] Skill spellcraft; // Effects the mana cost to cast spells
         [SerializeField] Skill security; 
+
+        // Willpower Skills 
+        [SerializeField] Skill spellcraft; // Effects the mana cost to cast spells
 
         // Charisma skills (possible additions: entertaining / performance / song, and leadership)
         [SerializeField] Skill charm; // Effects relationshp increases and general reactions 
