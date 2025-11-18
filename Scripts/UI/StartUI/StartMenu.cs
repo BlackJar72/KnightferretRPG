@@ -128,6 +128,7 @@ namespace kfutils.rpg.ui
             }
             yield return null;
             GameManager.Instance.CloseStartScreen();
+            GameManager.Instance.InitializeNewPC();
         }
 
 

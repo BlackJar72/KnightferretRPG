@@ -31,6 +31,14 @@ namespace kfutils.rpg {
         }
 
 
+        public void InitializeNewPC(InitialPCData initialData)
+        {
+            initialData.AddGearToInventory(inventory);
+            initialData.AddSpellsToBook(spellbook);
+            initialData.SetInitialLocation(this);
+        }
+
+
         // Update is called once per frame
         protected override void Update()
         {

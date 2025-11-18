@@ -24,6 +24,8 @@ namespace kfutils.rpg {
         [SerializeField] Worldspace startingWorldspace;
         // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
         [SerializeField] Worldspace[] worldspaces;
+        [SerializeField] PCTalking playerCharacter;
+        [SerializeField] InitialPCData initialPCData;
 
         public delegate bool SpecialMethod();
         public List<SpecialMethod> specialUpdates = new();
@@ -85,6 +87,13 @@ namespace kfutils.rpg {
             ItemManagement.NewGame();
             ObjectManagement.NewGame();
             WorldManagement.NewGame();
+        }
+
+
+        public void InitializeNewPC()
+        {
+            playerCharacter.ResetCharacter();
+            playerCharacter.InitializeNewPC(initialPCData);
         }
 
 

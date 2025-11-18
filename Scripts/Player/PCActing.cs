@@ -10,13 +10,13 @@ namespace kfutils.rpg {
     public class PCActing : PCMoving, ICombatant
     {
 
-        [SerializeField] PlayerInventory inventory;
-        [SerializeField] Spellbook spellbook;
-        [SerializeField] SpellEquiptSlot equiptSpell;
+        [SerializeField] protected PlayerInventory inventory;
+        [SerializeField] protected Spellbook spellbook;
+        [SerializeField] protected SpellEquiptSlot equiptSpell;
         [SerializeField] ParticleSystem magicSparkles;
 
-        [SerializeField] CharacterEquipt itemLocations;
-        [SerializeField] BlockArea blockArea;
+        [SerializeField] protected CharacterEquipt itemLocations;
+        [SerializeField] protected BlockArea blockArea;
 
         [Tooltip("There need to be three of these, for high, mid, and low (in that order)")]
         [SerializeField] Transform[] armsPositions;
