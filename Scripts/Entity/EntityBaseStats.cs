@@ -61,6 +61,20 @@ namespace kfutils.rpg {
                     _ => throw new System.IndexOutOfRangeException("Non-existent index passed to indexer."),
                 };
             }
+            set
+            {
+                switch(index) {
+                   case EBaseStats.Strength: strength = value; return;
+                   case EBaseStats.Agility: agility = value; return;
+                   case EBaseStats.Vitality: vitality = value; return; 
+                   case EBaseStats.Endurance: endurance = value; return;
+                   case EBaseStats.Intelligence: intelligence = value; return; 
+                   case EBaseStats.Charisma: charisma = value; return;
+                   case EBaseStats.Spirit: spirit = value; return; 
+                   default: throw new System.IndexOutOfRangeException("Non-existent index passed to indexer.");
+                }
+            }
+        
         }
 
         public void GenRandomHumanStats() {

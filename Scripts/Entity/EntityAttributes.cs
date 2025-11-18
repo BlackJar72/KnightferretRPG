@@ -17,6 +17,7 @@ namespace kfutils.rpg {
         [SerializeField] public float jumpForce = 1.0f; //TODO / FIXME: Implement jumping, then determine what this should be:
         [SerializeField] public int naturalArmor = 0; // Natural, not derived from worn armor
         [SerializeField] public int meleeDamageBonus = 0; // Bonus damage for melee attacks
+        [SerializeField] public float meleeDamageFactor = 1.0f;
         [SerializeField] public float maxEncumbrance = 120f;
         [SerializeField] public float halfEncumbrance = 60f;
         [SerializeField] public float runningCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, not all stamina use
@@ -73,9 +74,10 @@ namespace kfutils.rpg {
                 walkSpeed = 1.1f + (baseStats.Agility * 0.05f);
                 runSpeed = walkSpeed + ((baseStats.Agility + (skills.Athletics.Adds *0.5f)) * 0.25f);
             #endif
-            jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (skills.Acrobatics * 0.05f), 0.25f, 3.0f);
-            naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5);
+            jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f) + (skills.Acrobatics.Adds * 0.1f), 0.25f, 3.0f);
+            naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5); 
             meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);
+            meleeDamageFactor = skills.Melee.Total / (float)EntityBaseStats.DEFAULT_SCORE;
             maxEncumbrance = 20 + (10 * baseStats.Strength);
             halfEncumbrance = maxEncumbrance / 2f; 
             runningCostFactor = 2.0f - ((float)skills.Athletics / EntityBaseStats.MAX_SCORE);
