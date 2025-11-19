@@ -22,6 +22,7 @@ namespace kfutils.rpg {
         [SerializeField] public float halfEncumbrance = 60f;
         [SerializeField] public float runningCostFactor = 1.0f; // Mostly used for running, and perhaps other movement, not all stamina use
         [SerializeField] public float manaCostFactor = 1.0f; // Modifies the cost of casting spells
+        [SerializeField] public int maxSpellDifficulty = 0;
 
         [SerializeField] public DamageAdjustType damageAdjuster = DamageAdjustType.NONE; // The type of natural damage adjuster this entity has
         [SerializeField] public DamageModifiers damageModifiers = new DamageModifiers(); // The damage modifiers the entity currently has (due to status effects)
@@ -49,6 +50,7 @@ namespace kfutils.rpg {
             meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);
             maxEncumbrance = (float)(20 + (10 * baseStats.Strength));
             halfEncumbrance = maxEncumbrance / 2f;
+            maxSpellDifficulty = baseStats.Intelligence;
             runningCostFactor = 2.0f - ((float)baseStats.Endurance / (float)EntityBaseStats.MAX_SCORE);
             manaCostFactor = 1.5f - ((float)baseStats.Intelligence / (float)EntityBaseStats.MAX_SCORE);
             health.ChangeBaseHealth((20 + (baseStats.Vitality * 5)) * (0.9f + ((float)level * 0.1f)));
@@ -66,20 +68,22 @@ namespace kfutils.rpg {
         /// <param name="mana">Should be the EntityMana field of the entity</param>
         public void DeriveAttributesForHuman(Skills skills, EntityHealth health, EntityStamina stamina, EntityMana mana) {
             #if FAST_ACTION
-                crouchSpeed = 1.0f + (baseStats.Agility * 0.1f);
                 walkSpeed = 4.5f + (baseStats.Agility * 0.05f);
-                runSpeed  = walkSpeed + ((baseStats.Agility + (skills.Athletics.Adds *0.5f)) * 0.25f);
+                runSpeed  = walkSpeed + ((baseStats.Agility + (skills.Athletics.Adds * 0.5f)) * 0.25f);
+                crouchSpeed = Mathf.Min(1.0f + (skills.Stealth * 0.1f, walkSpeed);
             # else
-                crouchSpeed = 0.1f + (baseStats.Agility * 0.1f);
                 walkSpeed = 1.1f + (baseStats.Agility * 0.05f);
-                runSpeed = walkSpeed + ((baseStats.Agility + (skills.Athletics.Adds *0.5f)) * 0.25f);
+                runSpeed = walkSpeed + ((baseStats.Agility + (skills.Athletics.Adds * 0.5f)) * 0.25f);
+                crouchSpeed = Mathf.Min(0.1f + (skills.Stealth * 0.1f), walkSpeed);
             #endif
-            jumpForce = Mathf.Clamp((baseStats.Strength * 0.05f) + (baseStats.Agility * 0.05f) + (skills.Acrobatics.Adds * 0.1f), 0.25f, 3.0f);
+            jumpForce = Mathf.Clamp((baseStats.Strength * 0.04f) + (baseStats.Agility * 0.04f) + (skills.Acrobatics.Adds * 0.08f), 0.25f, 2.5f);
             naturalArmor = Mathf.Max(0, (baseStats.Agility / 2) - 5); 
             meleeDamageBonus = Mathf.Max(0, (baseStats.Strength / 2) - 5);
             meleeDamageFactor = skills.Melee.Total / (float)EntityBaseStats.DEFAULT_SCORE;
             maxEncumbrance = 20 + (10 * baseStats.Strength);
             halfEncumbrance = maxEncumbrance / 2f; 
+            if(skills.Thaumaturgy.Adds > 0) maxSpellDifficulty = skills.Thaumaturgy; 
+            else maxSpellDifficulty = 0;
             runningCostFactor = 2.0f - ((float)skills.Athletics / EntityBaseStats.MAX_SCORE);
             manaCostFactor = 1.5f - ((float)skills.Spellcraft / (EntityBaseStats.MAX_SCORE + Skill.MAX_SCORE));
             health.ChangeBaseHealth((20 + (baseStats.Vitality * 5)) * (0.9f + (level * 0.1f)));

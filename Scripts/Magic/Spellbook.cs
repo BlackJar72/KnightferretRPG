@@ -73,6 +73,13 @@ namespace kfutils.rpg
         }
 
 
+        public bool LearnSpell(Spell spell, EntityAttributes attributes)
+        {
+            if(spell.Difficulty <= attributes.maxSpellDifficulty) return AddItemToSlot(spells.Count, spell);
+            else return false;  
+        }
+
+
         public bool AddItemToSlot(int slot, Spell spell)
         {
             for (int i = 0; i < spells.Count; i++)

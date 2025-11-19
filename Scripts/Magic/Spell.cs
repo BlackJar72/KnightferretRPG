@@ -36,6 +36,7 @@ namespace kfutils.rpg {
         public Sprite Icon {get => icon; } 
         public string Description { get => description; }
         public ESpellTypes CastType => castType;
+        public int Difficulty => difficulty; 
         public ISpellCast SpellEffect => spellEffect;
         public int ManaCost => manaCost;
         public float Range => range;

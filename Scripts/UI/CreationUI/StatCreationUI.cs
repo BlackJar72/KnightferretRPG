@@ -57,6 +57,13 @@ namespace kfutils.rpg {
         }
 
 
+        public void ApplyToCharacter(PCTalking pc, Skills skills)
+        {
+            pc.attributes.baseStats.CopyInto(stats);
+            pc.attributes.DeriveAttributesForHuman(skills, pc.health, pc.stamina, pc.mana);
+        }
+
+
 
 
 

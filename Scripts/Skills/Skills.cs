@@ -13,11 +13,18 @@ namespace kfutils.rpg
         //
         // This whole system might need to overhauled or re-written, but it seemed like a good 
         // idea to start getting some ideas into a more concrete form.  (This is quasi-brainstorming.)
+        //
+        // FOR NOW THIS WILL BE UNUSED, THE GAME WILL USE STATS ONLY. THIS WILL BE KEPT FOR POSSIBLE 
+        // FUTURE EXPANSION (I.E., FUTURE GAMES).  With skill, each level would get 5 skill points, 
+        // with each new add costing a number of points equal to that add, while a stat could be increased 
+        // every three levels and the maximum level would be relatively high.  However, in the current 
+        // plan there will be no skills, a stat will be able to be increased with each level, and the
+        // maximum expected level to be typically obtained will be relatively low (sady 10 or 12, or less). 
         */
 
-        // Strength Skills (???) (possible addition: intimidation; may end up with no skills?!)
+        // Strength Skills (???) (possible additions: climbing, intimidation; may end up with no skills?!)
 
-        // Agility Skills
+        // Agility Skills  (possible additions: dodge/defence)
         [SerializeField] Skill melee;
         [SerializeField] Skill missile;
         [SerializeField] Skill acrobatics;
@@ -27,7 +34,7 @@ namespace kfutils.rpg
         [SerializeField] Skill athletics;
 
         // Vitality Skills (???) (May end up with no skills, but still determines health / hit points)
-        // Intelligence Skills (possible additions: crafting and/or smithng)
+        // Intelligence Skills (possible additions: crafting skills (crafting? smithng? alchemy?)
         [SerializeField] Skill thaumaturgy; // "Magical Theory," effect what spells can be learned (more?)
         [SerializeField] Skill security; 
 
@@ -40,7 +47,7 @@ namespace kfutils.rpg
 
         // Spirit Skills (may end up with no skills, but still determines mana pool; possible addition: intimidation)
         [SerializeField] Skill theurgy; // Miracles, if I include them as distinct from magic (else, remove this)
-        [SerializeField] Skill faith; // May not last, probably also related to miracles, if they exist (as a skill) 
+        [SerializeField] Skill faith;  // May not last, probably also related to miracles, if they exist (as a skill) 
 
 
         /*
