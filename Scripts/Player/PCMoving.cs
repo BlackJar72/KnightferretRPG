@@ -117,13 +117,8 @@ namespace kfutils.rpg {
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Start()
-        {
-            // Temporary for Testing; TODO: Remove this! (It should be called elsewhere.)
-            NewCharacterInit();
-
-            // Normal stuff below      
+        {    
             Cursor.lockState = CursorLockMode.Locked;
-
             movementSet = Instantiate(movementSet);
             moveMixer = movementSet.Walk;
             moveLayer = animancer.Layers[0];
@@ -165,15 +160,9 @@ namespace kfutils.rpg {
         public virtual void NewCharacterInit()
         {
             FirstPerson();
-            // First, we need to handle the derived attribute (may be moved to more derived class later)
-            attributes.baseStats.GenRandomHumanStats();
-            attributes.DeriveAttributesForHuman(health, stamina, mana);
-
-            // Make sure all the bars are full.
             health.HealFully();
             stamina.HealFully();
             mana.HealFully();
-            // TODO ...?
         }
 
 

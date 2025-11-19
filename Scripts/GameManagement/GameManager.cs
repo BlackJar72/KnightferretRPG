@@ -124,7 +124,7 @@ namespace kfutils.rpg {
             playerCharacter.attributes.DeriveAttributesForHuman(playerCharacter.health, 
                                                                 playerCharacter.stamina, 
                                                                 playerCharacter.mana);
-            Debug.Log("Character stats set");
+            playerCharacter.NewCharacterInit();
         }
 
 
