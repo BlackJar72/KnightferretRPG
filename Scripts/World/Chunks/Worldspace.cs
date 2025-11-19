@@ -50,6 +50,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void Unload()
+        {
+            SceneManager.UnloadSceneAsync(scenePath);
+        }
+
+
         /// <summary>
         /// Loads the world space, unloading the previous world space.
         /// This pauses time while loading syncronously (not asynchronously) so that the scene 

@@ -27,8 +27,9 @@ namespace kfutils.rpg
         /// </summary>
         public void MainMenu()
         {
+            SetHidden();
             GameManager.Instance.UI.PlayButtonClick();
-            SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Single);
+            GameManager.Instance.EnterStartMenu();
         }
 
 
@@ -45,6 +46,7 @@ namespace kfutils.rpg
         /// </summary>
         public void Reload()
         {
+            SetHidden();
             GameManager.Instance.UI.PlayButtonClick();
             if (!string.IsNullOrWhiteSpace(SavedGame.LastSave) && SavedGame.HasSave(SavedGame.LastSave))
             {

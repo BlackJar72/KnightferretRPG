@@ -69,7 +69,8 @@ namespace kfutils.rpg.ui
         public void MainMenuButtonClicked()
         {
             PlayClick();
-            SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Single);
+            GameManager.Instance.UI.HidePauseMenu();
+            GameManager.Instance.EnterStartMenu();
         }
 
 

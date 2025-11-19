@@ -32,7 +32,7 @@ namespace kfutils.rpg.ui
         public List<string> SaveNames => saveNames;
 
 
-        void Start()
+        public void Start()
         {
             ShowHideContinue();
             InitSaveFiles();
@@ -40,6 +40,12 @@ namespace kfutils.rpg.ui
             loadPanel.SetActive(false);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+
+
+        public void OnEnable()
+        {
+            Start();
         }
 
 

@@ -69,7 +69,6 @@ namespace kfutils.rpg {
             {
                 if (specialUpdates[i]()) specialUpdates.RemoveAt(i);
             }
-
         }
 
 
@@ -82,6 +81,7 @@ namespace kfutils.rpg {
 
         public void EnterStartMenu()
         {
+            WorldManagement.UnloadWorld();
             playerCharacter.gameObject.SetActive(false);
             weather.SetActive(false);
             ui.EnterStartMenu();

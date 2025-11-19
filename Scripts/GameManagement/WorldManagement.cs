@@ -187,6 +187,14 @@ namespace kfutils.rpg {
         }
 
 
+        public static void UnloadWorld()
+        {
+            if(worldspace != null) worldspace.Unload();
+            worldspace = null;
+            worldspaceLogic = null;
+        }
+
+
     }
 
 

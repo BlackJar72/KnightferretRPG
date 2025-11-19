@@ -23,6 +23,11 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void HideNow() {
+            text.gameObject.SetActive(false);
+        }
+
+
         public void Show(string toast) {
             text.SetText(toast);
             text.gameObject.SetActive(true);

@@ -41,7 +41,6 @@ namespace kfutils.rpg {
 
         public void EnterStartMenu()
         {
-            CloseGUI();
             mainCanvas.SetActive(false);
             pauseCanvas.SetActive(false);
             characterCreationCanvas.SetActive(false);
@@ -56,7 +55,7 @@ namespace kfutils.rpg {
             characterCreationCanvas.SetActive(false);
             mainCanvas.SetActive(true);
             pauseCanvas.SetActive(true);
-            CloseGUI();
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
 
