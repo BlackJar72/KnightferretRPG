@@ -12,7 +12,6 @@ namespace kfutils.rpg {
         [SerializeField] AudioClip click;
         [SerializeField] AudioClip shortClick;
         [SerializeField] ShowOrHide characterPanelToggler;
-        [SerializeField] Canvas mainCanvas;
         [SerializeField] ShowOrHide crossHairs;
         [SerializeField] Toast toast;
         [SerializeField] ShowOrHide containerUI;
@@ -25,17 +24,40 @@ namespace kfutils.rpg {
         [SerializeField] GameObject loadingScreen;
         [SerializeField] DeathPopup deathPanel;
 
+        // Canvases
+        [SerializeField] GameObject mainCanvas;
+        [SerializeField] GameObject pauseCanvas;
+        [SerializeField] GameObject startCanvas;
+        [SerializeField] GameObject characterCreationCanvas;
+
 
         public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
-
-
-        public Canvas MainCanvas { get => mainCanvas; }
+        public GameObject MainCanvas { get => mainCanvas; }
 
 
         private bool pauseMenuVisible = false;
-
-
         public bool PauseMenuVisible => pauseMenuVisible;
+
+
+        public void EnterStartMenu()
+        {
+            CloseGUI();
+            mainCanvas.SetActive(false);
+            pauseCanvas.SetActive(false);
+            characterCreationCanvas.SetActive(false);
+            startCanvas.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+
+        public void EnterPlayMode()
+        {
+            startCanvas.SetActive(false);
+            characterCreationCanvas.SetActive(false);
+            mainCanvas.SetActive(true);
+            pauseCanvas.SetActive(true);
+            CloseGUI();
+        }
 
 
         /// <summary>

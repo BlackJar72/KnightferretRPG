@@ -22,10 +22,12 @@ namespace kfutils.rpg {
         public static GameManager Instance { get => instacnce; }
 
         [SerializeField] Worldspace startingWorldspace;
-        // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
+        public Worldspace StartingWorldspace => startingWorldspace; 
         [SerializeField] Worldspace[] worldspaces;
         [SerializeField] PCTalking playerCharacter;
         [SerializeField] InitialPCData initialPCData;
+
+        [SerializeField] GameObject weather;
 
         public delegate bool SpecialMethod();
         public List<SpecialMethod> specialUpdates = new();
@@ -36,14 +38,11 @@ namespace kfutils.rpg {
 
         void Awake()
         {
+            instacnce = this;
             #if UNITY_EDITOR
             itemsInGame.Awake();
             #endif
-            // FIXME/TODO: This needs to be moved to a pre-play system to be loaded at start (once there is a start screen)
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
-            // Makeing this a true singleton, and warning with an error message if extra copies were made
-            instacnce = this;
-            // FIXME: This should ultimately be run at start-up, not entry into gameplay, once a start screen is added
             ItemPrototype[] itemPrototypes = itemsInGame.Items;
             for (int i = 0; i < itemPrototypes.Length; i++)
             {
@@ -56,8 +55,6 @@ namespace kfutils.rpg {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            startingWorldspace.LoadAsSpawn();
-            StartCoroutine(DoPostInitialLoad());
             ui = GetComponent<UIManager>();
         }
 
@@ -73,6 +70,29 @@ namespace kfutils.rpg {
                 if (specialUpdates[i]()) specialUpdates.RemoveAt(i);
             }
 
+        }
+
+
+        public void LoadStartingWorld()
+        {            
+            startingWorldspace.LoadAsSpawn();
+            StartCoroutine(DoPostInitialLoad());
+        }
+
+
+        public void EnterStartMenu()
+        {
+            playerCharacter.gameObject.SetActive(false);
+            weather.SetActive(false);
+            ui.EnterStartMenu();
+        }
+
+
+        public void EnterPlayMode()
+        {
+            playerCharacter.gameObject.SetActive(true);
+            weather.SetActive(true); // FIXME: Remove this once world spaces can turn this on and off
+            ui.EnterPlayMode();
         }
 
 
@@ -125,15 +145,15 @@ namespace kfutils.rpg {
 
         public void ConitnueLoading(string saveToLoad)
         {
+            EnterPlayMode();
             LoadingScreen.SetActive(true);            
             StartCoroutine(ConitnueLoadHelper(saveToLoad));
-            SceneManager.UnloadSceneAsync("StartScreen");
         }
 
 
         public void CloseStartScreen()
         {
-            SceneManager.UnloadSceneAsync("StartScreen");
+            EnterPlayMode();
         }
 
 

@@ -216,19 +216,7 @@ namespace kfutils.rpg.ui
                 throw new System.Exception("Trying to load save game from invalid path or non-existant file (saveToLoad)!  (public void DoLoadGame())");
 #endif
             }
-            StartCoroutine(ConitnueLoading());
-        }
-
-
-        private IEnumerator ConitnueLoading()
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
-            while (!asyncLoad.isDone)
-            {
-                //PercentageDoneText.text = ((int)(100f*asyncLoad.progress/.9f)).ToString() + "%";
-                yield return null;
-            }
-            yield return null;
+            GameManager.Instance.EnterPlayMode();
             GameManager.Instance.ConitnueLoading(saveToLoad);
         }
 

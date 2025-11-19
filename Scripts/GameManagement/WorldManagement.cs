@@ -167,7 +167,8 @@ namespace kfutils.rpg {
 
         public static string GetCurrentWorldspaceID()
         {
-            return worldspace.ID;
+            if(worldspace != null) return worldspace.ID;
+            else return GameManager.Instance.StartingWorldspace.ID;
         }
 
 

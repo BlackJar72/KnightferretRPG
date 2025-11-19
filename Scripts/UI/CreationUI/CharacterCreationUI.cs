@@ -27,7 +27,6 @@ namespace kfutils.rpg {
 
         public void ConfirmCharacter()
         {
-            Debug.Log(charcterName.text);
             if(string.IsNullOrWhiteSpace(charcterName.text))
             {
                 DemandName();
@@ -35,23 +34,18 @@ namespace kfutils.rpg {
             }
             else 
             {
-                StartCoroutine(StartGame());
+                StartGame();
             }
         }
 
 
         //FIXME: Remove this and all references once a propper chracter creation system is in place
-        private System.Collections.IEnumerator StartGame()
+        private void StartGame()
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-            yield return null;
+            GameManager.Instance.CloseStartScreen();
             GameManager.Instance.InitializeNewPC();
             GameManager.Instance.CustomizeNewPC(charcterName.text, statCreationUI.Stats);
-            GameManager.Instance.CloseStartScreen();
+            GameManager.Instance.LoadStartingWorld();
         }
 
 
