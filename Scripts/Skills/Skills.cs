@@ -34,14 +34,15 @@ namespace kfutils.rpg
         [SerializeField] Skill athletics;
 
         // Vitality Skills (???) (May end up with no skills, but still determines health / hit points)
-        // Intelligence Skills (possible additions: crafting skills (crafting? smithng? alchemy?)
+
+        // Intelligence Skills (possible additions: crafting skills (Crafting? Smithng? Alchemy?), Linguistics
         [SerializeField] Skill thaumaturgy; // "Magical Theory," effect what spells can be learned (more?)
         [SerializeField] Skill security; 
 
         // Willpower Skills 
         [SerializeField] Skill spellcraft; // Effects the mana cost to cast spells
 
-        // Charisma skills (possible additions: entertaining / performance / song, and leadership)
+        // Charisma skills (possible additions: Entertaining/Performance/Song, Leadership)
         [SerializeField] Skill charm; // Effects relationshp increases and general reactions 
         [SerializeField] Skill persuasion; 
 
@@ -60,7 +61,10 @@ namespace kfutils.rpg
         // Leadership: Determines max number of followers (number being (Leadership + 5) / 10 rounded down to integeer); below 5, no followers! 
         //             This will probably not be used as I'm not sure I'll even have a follower system, or a big enough game to contain many 
         //             potential followers anyway.
-        // Crafting and/or Smithing: Not listed above, but use is obvious; based on intelligence 
+        // Crafting, Smithing, and/or Alchemy: Use to create some items like in many existing games
+        // Climbing: Scale shear surfaces such as walls, like in Daggerfall (or like a thief in early D&D)
+        // Defence: Dodging and keeping gaps in any armor safe (improves armor rating, like agility without skills butt better)
+        // Linugistics: Read ancient or obscure languages (like the thief skill in early D&D)
         */
 
         /*
@@ -69,7 +73,7 @@ namespace kfutils.rpg
         // Melee + Missile: Fighter / Warrior 
         // Thaumaturgy + Spellcraft: Mage
         // Stealth + Secrutiy: Thief / Rogue
-        // Acrobatics + Atheletics: Acrobat, or Adventurer (especially one who like raiding tombs) 
+        // Acrobatics + Atheletics: Acrobat, or Adventurer/Explorer (especially one who like raiding tombs)
         // Faith + Theurgy + Melee: Cleric (or Paladin if melee is the main focus)
         // Performance + combat, magic, or social skill: Some version of a Bard 
         // Charm + Persuasion: Diplomatic / Negotiator / "Talky" character 
