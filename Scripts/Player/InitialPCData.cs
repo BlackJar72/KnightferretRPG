@@ -11,7 +11,9 @@ namespace kfutils.rpg {
         [Tooltip("Items that all player characters start the game with (not based on character creation)")]
         [SerializeField] ItemStack.ProtoStack[] startingItems;
         [Tooltip("Spells that all player characters start the game with (not based on character creation)")]
-        [SerializeField] Spell[] startingSpells; 
+        [SerializeField] Spell[] startingSpells;
+        [Tooltip("The amount of money, in copper pieces, the player character starts with")] 
+        [SerializeField] int startingMoney;
 
 
         public void SetInitialLocation(PCMoving pc)
@@ -31,7 +33,8 @@ namespace kfutils.rpg {
                     if (!inventory.Equipt.AddItemNoSlot(item)) inventory.AddToFirstEmptySlot(stack.MakeStack());
                 }
                 else inventory.AddToFirstEmptySlot(stack.MakeStack());
-            }            
+            }     
+            inventory.SetMoney(startingMoney);     
         } 
 
 

@@ -114,6 +114,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void SetMoney(int amount)
+        {
+            money = amount;
+        }
+
+
         public void OnAfterDeserialize() { }
 
 
