@@ -62,10 +62,10 @@ namespace kfutils.rpg {
                     EBaseStats.Willpower => willpower,
                     EBaseStats.Charisma => charisma,
                     EBaseStats.Spirit => spirit,
-                    _ => throw new System.IndexOutOfRangeException("Non-existent index passed to indexer."),
+                    _ => throw new System.IndexOutOfRangeException("Non-existent index passed to EntityBaseStats indexer."),
                 };
             }
-            set
+            set // Set is needed for character creation, but should not normally be used
             {
                 switch(index) {
                    case EBaseStats.Strength: strength = value; return;
@@ -76,11 +76,11 @@ namespace kfutils.rpg {
                    case EBaseStats.Willpower: willpower = value; return;  
                    case EBaseStats.Charisma: charisma = value; return;
                    case EBaseStats.Spirit: spirit = value; return; 
-                   default: throw new System.IndexOutOfRangeException("Non-existent index passed to indexer.");
+                   default: throw new System.IndexOutOfRangeException("Non-existent index passed to EntityBaseStats indexer.");
                 }
-            }
-        
+            }        
         }
+
 
         public void GenRandomHumanStats() {
             strength = RollStat();
@@ -95,9 +95,7 @@ namespace kfutils.rpg {
 
 
         private int RollStat() {
-            return Random.Range(1, 7) + Random.Range(1, 7) + Random.Range(1, 7) + 2; 
-            //return Random.Range(1, 7) + Random.Range(1, 7) + 9;
-            //return 20;
+            return Random.Range(1, 7) + Random.Range(1, 7) + Random.Range(1, 7) + Random.Range(0, 3); 
         }
 
 

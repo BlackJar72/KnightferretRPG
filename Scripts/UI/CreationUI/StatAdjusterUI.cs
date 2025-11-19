@@ -31,6 +31,13 @@ namespace kfutils.rpg {
             valueText.text = value.ToString();
         }
 
+
+        public void UpdateText()
+        {
+            value = parent.Stats[stat];
+            valueText.text = value.ToString();
+        }
+
         
         public void Increment()
         {

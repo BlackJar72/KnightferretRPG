@@ -54,6 +54,13 @@ namespace kfutils.rpg {
         }
 
 
+        public override void SetName(string name)
+        {
+            entityName = name;
+            characterName = name;
+        }
+
+
         #region Input
 
         private void InitInput()

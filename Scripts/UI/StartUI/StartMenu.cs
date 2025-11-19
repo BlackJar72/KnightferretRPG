@@ -20,6 +20,9 @@ namespace kfutils.rpg.ui
         [SerializeField] GameObject loadPanel;
         [SerializeField] LoadMenu loadMenu;
 
+        [SerializeField] GameObject mainStartCanvas;
+        [SerializeField] GameObject characterCreationCanvas; 
+
         private string lastSave = null;
         private string saveToLoad = null;
         private string[] files;
@@ -112,25 +115,11 @@ namespace kfutils.rpg.ui
             SavedGame.ClearLastSave();
             //FIXME: Don't do this, go to character creation instead
             GameManager.NewGame();
-            StartCoroutine(StartGameBAD());
+            //StartCoroutine(StartNewGame());
             //TODO: Go to character creation screen, once there is one
-
+            characterCreationCanvas.SetActive(true);
+            mainStartCanvas.SetActive(false);
         }
-
-
-        //FIXME: Remove this and all references once a propper chracter creation system is in place
-        private IEnumerator StartGameBAD()
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneLoader", LoadSceneMode.Additive);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-            yield return null;
-            GameManager.Instance.CloseStartScreen();
-            GameManager.Instance.InitializeNewPC();
-        }
-
 
 
         /// <summary>

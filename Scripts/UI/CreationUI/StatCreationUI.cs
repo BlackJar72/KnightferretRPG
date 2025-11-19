@@ -50,17 +50,26 @@ namespace kfutils.rpg {
         }
 
 
-        public void ApplyToCharacter(PCTalking pc)
+        public void Randomize()
         {
-            pc.attributes.baseStats.CopyInto(stats);
-            pc.attributes.DeriveAttributesForHuman(pc.health, pc.stamina, pc.mana);
+            stats.GenRandomHumanStats();
+            foreach(StatAdjusterUI adjuster in statAdjusters) {
+                adjuster.UpdateText();
+                adjuster.HideIncrementButton();
+                adjuster.HideDecrementButton();
+            }
+            additions = 0;
+            pointsText.text = "0";
         }
 
 
-        public void ApplyToCharacter(PCTalking pc, Skills skills)
+        public void ResetStats()
         {
-            pc.attributes.baseStats.CopyInto(stats);
-            pc.attributes.DeriveAttributesForHuman(skills, pc.health, pc.stamina, pc.mana);
+            StartNewCharacter();
+            foreach(StatAdjusterUI adjuster in statAdjusters) {
+                adjuster.ShowIncrementButton();
+                adjuster.ShowDecrementButton();
+            }
         }
 
 

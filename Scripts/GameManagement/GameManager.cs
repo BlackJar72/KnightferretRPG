@@ -97,6 +97,17 @@ namespace kfutils.rpg {
         }
 
 
+        public void CustomizeNewPC(string name, EntityBaseStats stats)
+        {
+            playerCharacter.SetName(name);
+            playerCharacter.attributes.baseStats.CopyInto(stats);
+            playerCharacter.attributes.DeriveAttributesForHuman(playerCharacter.health, 
+                                                                playerCharacter.stamina, 
+                                                                playerCharacter.mana);
+            Debug.Log("Character stats set");
+        }
+
+
         public static void DoPostLoadForOther()
         {            
             Instance.StartCoroutine(DoPostInitialLoad());

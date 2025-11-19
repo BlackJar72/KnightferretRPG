@@ -177,6 +177,12 @@ namespace kfutils.rpg {
         }
 
 
+        public virtual void SetName(string name)
+        {
+            entityName = name;
+        }
+
+
         // Update is called once per frame
         protected override void Update()
         {
