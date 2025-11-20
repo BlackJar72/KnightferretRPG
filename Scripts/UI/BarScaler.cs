@@ -45,6 +45,8 @@ namespace kfutils.rpg.ui {
                     gameObject.transform.localScale.y,
                     gameObject.transform.localScale.z);
         }
+
+        
     }
 
 }

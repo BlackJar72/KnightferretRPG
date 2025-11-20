@@ -91,7 +91,22 @@ namespace kfutils.rpg {
         public void EnterPlayMode()
         {
             playerCharacter.gameObject.SetActive(true);
-            weather.SetActive(true); // FIXME: Remove this once world spaces can turn this on and off
+            weather.SetActive(true); 
+            ui.EnterPlayMode();
+        }
+
+
+        public void EnterPlayModeStaged()
+        {
+            playerCharacter.gameObject.SetActive(true);
+            StartCoroutine(EnterPlayModeNext());
+        }
+
+
+        private IEnumerator EnterPlayModeNext()
+        {
+            yield return null;
+            weather.SetActive(true); 
             ui.EnterPlayMode();
         }
 

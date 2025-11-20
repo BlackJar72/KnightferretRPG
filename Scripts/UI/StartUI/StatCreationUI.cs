@@ -31,6 +31,10 @@ namespace kfutils.rpg {
             foreach(StatAdjusterUI adjuster in statAdjusters) adjuster.SetParent(this);
             additions =  startingAdditions;
             pointsText.text = additions.ToString();
+            foreach(StatAdjusterUI adjuster in statAdjusters) {
+                adjuster.ShowIncrementButton();
+                adjuster.ShowDecrementButton();
+            }
         }
 
 
@@ -60,16 +64,6 @@ namespace kfutils.rpg {
             }
             additions = 0;
             pointsText.text = "0";
-        }
-
-
-        public void ResetStats()
-        {
-            StartNewCharacter();
-            foreach(StatAdjusterUI adjuster in statAdjusters) {
-                adjuster.ShowIncrementButton();
-                adjuster.ShowDecrementButton();
-            }
         }
 
 

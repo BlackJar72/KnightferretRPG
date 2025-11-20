@@ -19,6 +19,7 @@ namespace kfutils.rpg.ui
         [SerializeField] GameObject blockerPanel;
         [SerializeField] GameObject loadPanel;
         [SerializeField] LoadMenu loadMenu;
+        [SerializeField] CharacterCreationUI characterCreator;
 
         [SerializeField] GameObject mainStartCanvas;
         [SerializeField] GameObject characterCreationCanvas; 
@@ -124,6 +125,7 @@ namespace kfutils.rpg.ui
             //StartCoroutine(StartNewGame());
             //TODO: Go to character creation screen, once there is one
             characterCreationCanvas.SetActive(true);
+            characterCreator.StartNewCharacter();
             mainStartCanvas.SetActive(false);
         }
 
@@ -161,7 +163,6 @@ namespace kfutils.rpg.ui
             PlayUIClick();
             blockerPanel.SetActive(true);
             loadPanel.SetActive(true);
-
         }
 
 
@@ -222,6 +223,7 @@ namespace kfutils.rpg.ui
                 throw new System.Exception("Trying to load save game from invalid path or non-existant file (saveToLoad)!  (public void DoLoadGame())");
 #endif
             }
+            GameManager.NewGame();
             GameManager.Instance.EnterPlayMode();
             GameManager.Instance.ConitnueLoading(saveToLoad);
         }

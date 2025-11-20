@@ -15,6 +15,12 @@ namespace kfutils.rpg {
 
         private void OnEnable()
         {
+            StartNewCharacter();
+        }
+
+
+        public void StartNewCharacter()
+        {
             Time.timeScale = 0.0f;
             statCreationUI.StartNewCharacter();
             charcterName.text = "";
