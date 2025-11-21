@@ -82,7 +82,7 @@ namespace kfutils.rpg {
             meleeDamageFactor = skills.Melee.Total / (float)EntityBaseStats.DEFAULT_SCORE;
             maxEncumbrance = 20 + (10 * baseStats.Strength);
             halfEncumbrance = maxEncumbrance / 2f; 
-            if(skills.Thaumaturgy.Adds > 0) maxSpellDifficulty = skills.Thaumaturgy; 
+            if((skills.Thaumaturgy.Adds > 0) || (skills.Spellcraft.Adds > 0)) maxSpellDifficulty = skills.Thaumaturgy;
             else maxSpellDifficulty = 0;
             runningCostFactor = 2.0f - ((float)skills.Athletics / EntityBaseStats.MAX_SCORE);
             manaCostFactor = 1.5f - ((float)skills.Spellcraft / (EntityBaseStats.MAX_SCORE + Skill.MAX_SCORE));

@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace kfutils.rpg {
 
@@ -11,6 +10,7 @@ namespace kfutils.rpg {
         [SerializeField] TMP_InputField charcterName;
         [SerializeField] StatCreationUI statCreationUI;
         [SerializeField] Button confrimButton;
+        [SerializeField] GameObject nameWarning;
 
 
         private void OnEnable()
@@ -50,6 +50,7 @@ namespace kfutils.rpg {
         //FIXME: Remove this and all references once a propper chracter creation system is in place
         private void StartGame()
         {
+            GameManager.Instance.UI.PlayButtonClick();
             GameManager.Instance.CloseStartScreen();
             GameManager.Instance.InitializeNewPC();
             GameManager.Instance.CustomizeNewPC(charcterName.text, statCreationUI.Stats);
@@ -59,7 +60,15 @@ namespace kfutils.rpg {
 
         public void DemandName()
         {
-            
+            nameWarning.SetActive(true);
+            charcterName.Select();
+        }
+
+
+        public void BackToStartScreen()
+        {
+            GameManager.Instance.UI.PlayButtonClick();
+            GameManager.Instance.EnterStartMenu();
         }
 
 

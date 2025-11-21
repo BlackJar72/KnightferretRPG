@@ -48,6 +48,7 @@ namespace kfutils.rpg {
             parent.UpdateAdditions(-1);
             if(value >= EntityBaseStats.MAX_SCORE) HideIncrementButton();
             if(value > 1) ShowDecrementButton();
+            GameManager.Instance.UI.PlayShortClick();
         }
 
         
@@ -60,6 +61,7 @@ namespace kfutils.rpg {
             parent.UpdateAdditions(1);
             if(value < 2) HideDecrementButton();
             if(value < EntityBaseStats.MAX_SCORE) ShowIncrementButton();
+            GameManager.Instance.UI.PlayShortClick();
         }
 
 

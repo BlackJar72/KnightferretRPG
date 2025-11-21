@@ -64,6 +64,14 @@ namespace kfutils.rpg {
             }
             additions = 0;
             pointsText.text = "0";
+            GameManager.Instance.UI.PlayButtonClick();
+        }
+
+
+        public void RestCharacter()
+        {
+            StartNewCharacter();
+            GameManager.Instance.UI.PlayButtonClick();
         }
 
 
