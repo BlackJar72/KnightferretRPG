@@ -1,9 +1,13 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 
 namespace kfutils.rpg {
     
-    public class ItemPlaceholder : MonoBehaviour, ISerializationCallbackReceiver {
+    public class ItemPlaceholder : MonoBehaviour, IAutoAssignID 
+    {
 
         [SerializeField] string id;
         [SerializeField] ItemPrototype prototype;
@@ -18,12 +22,15 @@ namespace kfutils.rpg {
 
 
         public ItemData GetData() => new ItemData(this);
+        
 
-
-        public void OnAfterDeserialize() {
-            if((prototype != null) && string.IsNullOrEmpty(id)) id = prototype.ID + System.Guid.NewGuid();
+        public void BeAssignedID()
+        {
+            #if UNITY_EDITOR
+            id = prototype.ID + "_" + System.Guid.NewGuid().ToString();
+            EditorUtility.SetDirty(this);
+            #endif
         }
-        public void OnBeforeSerialize()  {/*Do Nothing*/}
 
 
     }   

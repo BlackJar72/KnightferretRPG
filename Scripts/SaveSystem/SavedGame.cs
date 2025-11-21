@@ -29,6 +29,8 @@ namespace kfutils.rpg {
         [SerializeField] Dictionary<string, Money> moneyData;
         [SerializeField] Dictionary<string, EntityData> entityRegistry;
         [SerializeField] Dictionary<string, ChunkData> chunkData;
+        [SerializeField] Dictionary<string, GData> worldObjectData;
+        [SerializeField] Dictionary<string, GDataExpiring> worldTimedData;
 
         [SerializeField] string currentWorldspace;
         [SerializeField] HotBar hotbar;
@@ -55,6 +57,8 @@ namespace kfutils.rpg {
             moneyData = InventoryManagement.moneyData;
             hotbar = InventoryManagement.hotBar;
             entityRegistry = EntityManagement.EntityRegistry;
+            worldObjectData = ObjectManagement.WorldObjectData;
+            worldTimedData = ObjectManagement.WorldTimedData;
             chunkData = WorldManagement.ChunkDataRegistry;
             currentWorldspace = WorldManagement.GetCurrentWorldspaceID();
 
@@ -113,6 +117,8 @@ namespace kfutils.rpg {
             ES3.Save("MoneyData", moneyData, fileName);
             ES3.Save("HotBar", hotbar, fileName);
             ES3.Save("EntityRegistry", entityRegistry, fileName);
+            ES3.Save("WorldObjectData", worldObjectData, fileName);
+            ES3.Save("WorldTimedData", worldTimedData, fileName);
             ES3.Save("ChunkData", chunkData, fileName);
             ES3.Save("CurrentWorldspace", currentWorldspace, fileName);
             // TODO: More, much, much more...
@@ -142,6 +148,10 @@ namespace kfutils.rpg {
             moneyData = ES3.Load("MoneyData", fileName, moneyData);
             hotbar = ES3.Load("HotBar", fileName, hotbar);
             entityRegistry = ES3.Load("EntityRegistry", fileName, entityRegistry);
+            if(ES3.KeyExists("WorldObjectData", fileName)) worldObjectData 
+                    = ES3.Load("WorldObjectData", fileName, worldObjectData);
+            if(ES3.KeyExists("WorldTimedData", fileName)) worldTimedData 
+                    = ES3.Load("WorldTimedData", fileName, worldTimedData);
             chunkData = ES3.Load("ChunkData", fileName, chunkData);
             currentWorldspace = ES3.Load("CurrentWorldspace", fileName, currentWorldspace);
 
@@ -155,6 +165,7 @@ namespace kfutils.rpg {
             InventoryManagement.SetMoneyData(moneyData);
             InventoryManagement.hotBar.CopyInto(hotbar);
             EntityManagement.SetEntityRegistry(entityRegistry);
+            ObjectManagement.LoadData(worldObjectData, worldTimedData);
             WorldManagement.SetChunkData(chunkData);
             WorldManagement.LoadWSFromSave(currentWorldspace);
 

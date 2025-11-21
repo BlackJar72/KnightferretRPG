@@ -108,6 +108,17 @@ namespace kfutils.rpg {
         }
 
 
+        [ContextMenu("Assign Unique IDs")]
+        public void AssignUniqueISs()
+        {
+            IAutoAssignID[] idNeeders = transform.root.GetComponentsInChildren<IAutoAssignID>();
+            for (int i = 0; i < idNeeders.Length; i++)
+            {
+                idNeeders[i].BeAssignedID();
+            }
+        }
+
+
         /// <summary>
         /// Look up a chunk with its chunk coordinates (*NOT* world space coordinates).
         /// </summary>
