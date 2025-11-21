@@ -146,7 +146,7 @@ namespace kfutils.rpg {
         /// <param name="data"></param>
         protected void SetFromTalkingData(PCData data)
         {
-            // TODO
+            SetName(data.entityData.livingData.entityName);
         }
 
 
