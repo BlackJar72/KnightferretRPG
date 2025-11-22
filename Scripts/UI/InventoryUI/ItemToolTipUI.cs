@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -14,6 +13,9 @@ namespace kfutils.rpg.ui {
         [SerializeField] TooltipLine itemValue;
         [SerializeField] TooltipLine itemDamage;
         [SerializeField] TooltipLine itemSpeed;
+        [SerializeField] TooltipLine castTime;
+        [SerializeField] TooltipLine manaCost;
+        [SerializeField] TooltipLine range;
         [SerializeField] TooltipMultiline  itemDmgType;
         [SerializeField] TooltipLine itemAP;
         [SerializeField] TooltipLine itemBlock;
@@ -102,6 +104,10 @@ namespace kfutils.rpg.ui {
             itemParry.SetInfo(null);
             itemAR.SetInfo(null);
 
+            castTime.SetInfo(null);
+            manaCost.SetInfo(null);
+            range.SetInfo(null);
+
             finalSpace.gameObject.SetActive(false);
         }
 
@@ -136,6 +142,10 @@ namespace kfutils.rpg.ui {
                 itemParry.SetInfo(null);
                 itemAR.SetInfo(null);
             }
+
+            castTime.SetInfo(null);
+            manaCost.SetInfo(null);
+            range.SetInfo(null);
 
             finalSpace.gameObject.SetActive(false);
         }
@@ -172,6 +182,10 @@ namespace kfutils.rpg.ui {
                 itemParry.SetInfo(null);
                 itemAR.SetInfo(null);
             }
+
+            castTime.SetInfo(null);
+            manaCost.SetInfo(null);
+            range.SetInfo(null);
 
             finalSpace.gameObject.SetActive(false);
         }
@@ -230,9 +244,28 @@ namespace kfutils.rpg.ui {
             itemParry.SetInfo(null);
             itemAR.SetInfo(null);
 
+            castTime.SetInfo(spell.CastTime.ToString());
+            manaCost.SetInfo(spell.ManaCost.ToString());
+            range.SetInfo(GetSpellRangeString(spell));
+
             finalSpace.gameObject.SetActive(false); 
 
             gameObject.SetActive(true);
+        }
+
+
+        private string GetSpellRangeString(Spell spell)
+        {
+            switch(spell.CastType)
+            {
+                case ESpellTypes.SELF: return "Self";
+                case ESpellTypes.TOUCH: return "Touch";
+                case ESpellTypes.PROJECTILE: return spell.Range.ToString();
+                case ESpellTypes.RANGED: return spell.Range.ToString();
+                case ESpellTypes.CONTIUOUS_SELF: return "Self";
+                case ESpellTypes.CONTIUOUS_RANGED: return spell.Range.ToString();
+                default: return spell.Range.ToString();
+            }
         }
 
 

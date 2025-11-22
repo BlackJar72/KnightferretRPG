@@ -18,8 +18,10 @@ namespace kfutils.rpg {
         // would use this is a short-range teleport (planned name, translocation) where the caster 
         // would teleport to the location. 
         RANGED,
-        // A Spell that produces an effect as long as the spell is held down
-        CONTIUOUS  
+        // A Spell that produces an effect on the caster as long as the cast key is held down
+        CONTIUOUS_SELF,
+        // A spell the produces cojures or projecs someting as long and the cast key is held down
+        CONTIUOUS_RANGED
 
     }
 
