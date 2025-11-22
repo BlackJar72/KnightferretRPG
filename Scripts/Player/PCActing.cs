@@ -432,6 +432,7 @@ namespace kfutils.rpg {
 
         protected void CastSpell()
         {
+            ObjectManagement.TimedDataStringDEBUG();
             if (equiptSpell.currentSpell != null)
             {
                 float cost = equiptSpell.currentSpell.ManaCost * attributes.manaCostFactor;

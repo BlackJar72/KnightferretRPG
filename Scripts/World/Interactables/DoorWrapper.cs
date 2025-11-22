@@ -32,6 +32,7 @@ namespace kfutils.rpg
             state = !state;
             door.Activate();
             dirty = true; 
+            OnDisable();
         }
 
 

@@ -179,30 +179,8 @@ namespace kfutils.rpg.ui
                 loadingScreen.SetActive(true);
                 Time.timeScale = 0.0f; 
                 EntityManagement.playerCharacter.Inventory.Clear();
-                StartCoroutine(LoadHelper());
+                GameManager.Instance.ConitnueLoading(fileToLoad);
             }
-        }
-
-
-        private IEnumerator LoadHelper()
-        {
-            yield return new WaitForEndOfFrame();
-            SavedGame savedGame = new();
-            savedGame.LoadWorld(fileToLoad);
-            PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
-            EntityManagement.playerCharacter.SetPCData(pcData);
-            yield return new WaitForEndOfFrame();
-            EntityManagement.playerCharacter.SetPCData(pcData);
-            EntityManagement.playerCharacter.Inventory.OnEnable();
-            EntityManagement.playerCharacter.Spells.OnEnable();
-            InventoryManagement.SignalLoadNPCInventoryData();
-            WorldManagement.SignalGameReloaded();
-            loadingScreen.SetActive(false);
-            Time.timeScale = 1.0f;
-            InventoryManagement.SignalCloseUIs();
-            GameManager.Instance.UI.CloseCharacterSheet();
-            GameManager.Instance.UI.HidePauseMenu();
-            EntityManagement.playerCharacter.AllowActions(true);
         }
 
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -137,23 +138,24 @@ namespace kfutils.rpg {
         public void LoadWorld(string saveName)
         {
             lastSave = saveName;
-            string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+            string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;  
+
+            worldObjectData.Clear();
+            worldTimedData.Clear();          
             
             // TODO: Load the game data
-            time = ES3.Load("Time", fileName, time);
-            itemRegistry = ES3.Load("ItemRegistry", fileName, itemRegistry);
-            inventoryData = ES3.Load("InventoryData", fileName, inventoryData);
-            spellbookData = ES3.Load("SpellbookData", fileName, spellbookData);
-            equiptData = ES3.Load("EquiptData", fileName, equiptData);
-            moneyData = ES3.Load("MoneyData", fileName, moneyData);
-            hotbar = ES3.Load("HotBar", fileName, hotbar);
-            entityRegistry = ES3.Load("EntityRegistry", fileName, entityRegistry);
-            if(ES3.KeyExists("WorldObjectData", fileName)) worldObjectData 
-                    = ES3.Load("WorldObjectData", fileName, worldObjectData);
-            if(ES3.KeyExists("WorldTimedData", fileName)) worldTimedData 
-                    = ES3.Load("WorldTimedData", fileName, worldTimedData);
-            chunkData = ES3.Load("ChunkData", fileName, chunkData);
-            currentWorldspace = ES3.Load("CurrentWorldspace", fileName, currentWorldspace);
+            time = ES3.Load<double>("Time", fileName);
+            itemRegistry = ES3.Load<Dictionary<string, ItemData>>("ItemRegistry", fileName);
+            inventoryData = ES3.Load<Dictionary<string, InventoryData>>("InventoryData", fileName);
+            spellbookData = ES3.Load<Dictionary<string, SpellbookData>>("SpellbookData", fileName);
+            equiptData = ES3.Load<Dictionary<string, EquiptmentSlots>>("EquiptData", fileName);
+            moneyData = ES3.Load<Dictionary<string, Money>>("MoneyData", fileName);
+            hotbar = ES3.Load<HotBar>("HotBar", fileName);
+            entityRegistry = ES3.Load<Dictionary<string, EntityData>>("EntityRegistry", fileName);
+            worldObjectData = ES3.Load<Dictionary<string, GData>>("WorldObjectData", fileName);
+            worldTimedData  = ES3.Load<Dictionary<string, GDataExpiring>>("WorldTimedData", fileName);
+            chunkData = ES3.Load<Dictionary<string, ChunkData>>("ChunkData", fileName);
+            currentWorldspace = ES3.Load<string>("CurrentWorldspace", fileName);
 
             // Set runtime data
             GameManager.NewGame();

@@ -105,6 +105,9 @@ namespace kfutils.rpg
         private static Dictionary<string, GData> worldObjectData;
         private static Dictionary<string, GDataExpiring> worldTimedData;
 
+        private static Dictionary<string, GData> tmpWorldObjectData;
+        private static Dictionary<string, GDataExpiring> tmpWorldTimedData;
+
         public static Dictionary<string, GData> WorldObjectData => worldObjectData;
         public static Dictionary<string, GDataExpiring> WorldTimedData => worldTimedData;
 
@@ -149,8 +152,15 @@ namespace kfutils.rpg
 #if UNITY_EDITOR
         public static void TimedDataStringDEBUG()
         {
-            StringBuilder sb = new("WorldTimedData [" + Environment.NewLine);
+            StringBuilder sb = new("WorldTimedData (" + worldTimedData.GetHashCode() + ") [" + Environment.NewLine);
             foreach (KeyValuePair<string, GDataExpiring> entry in worldTimedData) sb.Append(" \t " + entry.Key + ":  " + entry.Value.ToString() + Environment.NewLine);
+            sb.Append("]" + Environment.NewLine);
+            Debug.Log(sb.ToString());
+        }
+        public static void TimedDataStringDEBUG(Dictionary<string, GDataExpiring> FUCK  )
+        {
+            StringBuilder sb = new("WorldTimedData (" + FUCK.GetHashCode() + ") [" + Environment.NewLine);
+            foreach (KeyValuePair<string, GDataExpiring> entry in FUCK) sb.Append(" \t " + entry.Key + ":  " + entry.Value.ToString() + Environment.NewLine);
             sb.Append("]" + Environment.NewLine);
             Debug.Log(sb.ToString());
         }
@@ -166,8 +176,15 @@ namespace kfutils.rpg
 
         public static void LoadData(Dictionary<string, GData> data, Dictionary<string, GDataExpiring> timedData)
         {
-            worldObjectData = data;
-            worldTimedData = timedData;
+            tmpWorldObjectData = data;
+            tmpWorldTimedData = timedData;
+        }
+
+
+        public static void FinishLoadData()
+        {
+            worldObjectData = tmpWorldObjectData;
+            worldTimedData = tmpWorldTimedData;
         }
 
 

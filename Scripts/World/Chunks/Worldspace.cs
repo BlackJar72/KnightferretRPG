@@ -72,7 +72,7 @@ namespace kfutils.rpg {
         }
 
 
-        private IEnumerator SpawnPlayerOnLoad()
+        public IEnumerator SpawnPlayerOnLoad()
         {
             yield return new WaitForSecondsRealtime(0.05f);
             yield return new WaitForEndOfFrame();
@@ -82,16 +82,10 @@ namespace kfutils.rpg {
         }
 
 
-        public void LoadForSave(Worldspace old = null)
-        {
-            if (old != null) SceneManager.UnloadSceneAsync(old.scenePath);
-            SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
-            WorldManagement.SetWorldspace(this);
-            GameManager.Instance.StartCoroutine(HelpSetupWorldspace());
-        }
+        public void LoadForSave(Worldspace old = null) => GameManager.Instance.LoadForSave(this, old);
 
 
-        private IEnumerator HelpSetupWorldspace()
+        public IEnumerator HelpSetupWorldspace()
         {
             yield return new WaitForSecondsRealtime(0.05f);
             yield return new WaitForEndOfFrame();

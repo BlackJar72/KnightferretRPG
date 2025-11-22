@@ -223,8 +223,6 @@ namespace kfutils.rpg.ui
                 throw new System.Exception("Trying to load save game from invalid path or non-existant file (saveToLoad)!  (public void DoLoadGame())");
 #endif
             }
-            GameManager.NewGame();
-            GameManager.Instance.EnterPlayMode();
             GameManager.Instance.ConitnueLoading(saveToLoad);
         }
 

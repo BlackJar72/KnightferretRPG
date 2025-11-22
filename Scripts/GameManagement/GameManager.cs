@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using kfutils.rpg.ui;
 
 
 namespace kfutils.rpg {
@@ -160,6 +159,7 @@ namespace kfutils.rpg {
 
         public void ConitnueLoading(string saveToLoad)
         {
+            NewGame();
             EnterPlayMode();
             LoadingScreen.SetActive(true);            
             StartCoroutine(ConitnueLoadHelper(saveToLoad));
@@ -176,14 +176,12 @@ namespace kfutils.rpg {
         {
             Time.timeScale = 0.0f;
             yield return null;
-            yield return new WaitForEndOfFrame();
             UI.ShowLoadingScreen();
             SavedGame savedGame = new();
             savedGame.LoadWorld(saveToLoad);
             PCData pcData = savedGame.LoadPlayer(saveToLoad, EntityManagement.playerCharacter.GetPCData());
             EntityManagement.playerCharacter.SetPCData(pcData);
             yield return null;
-            yield return new WaitForEndOfFrame();
             EntityManagement.playerCharacter.Inventory.OnEnable();
             EntityManagement.playerCharacter.Spells.OnEnable();
             InventoryManagement.SignalLoadNPCInventoryData();
@@ -191,10 +189,56 @@ namespace kfutils.rpg {
             UI.HideLoadingScreen();
             Time.timeScale = 1.0f;
             InventoryManagement.SignalCloseUIs();
-            GameManager.Instance.UI.CloseCharacterSheet();
-            GameManager.Instance.UI.HidePauseMenu();
+            UI.CloseCharacterSheet();
+            Instance.UI.HidePauseMenu();
             EntityManagement.playerCharacter.AllowActions(true);
         }
+
+
+        public void LoadForSave(Worldspace world, Worldspace old = null)
+        {
+            StartCoroutine(DoLoadForSave(world, old));
+        }
+
+
+        private IEnumerator DoLoadForSave(Worldspace world, Worldspace old = null)
+        {
+            float timeScale = Time.timeScale;
+            Time.timeScale = 0.0f;
+            if (old != null) {
+                AsyncOperation unloading = SceneManager.UnloadSceneAsync(old.ScenePath);
+                while(!unloading.isDone) yield return null;
+                yield return null;
+            }
+            ObjectManagement.FinishLoadData();
+            SceneManager.LoadScene(world.ScenePath, LoadSceneMode.Additive);
+            WorldManagement.SetWorldspace(world);
+            StartCoroutine(world.HelpSetupWorldspace());
+            Time.timeScale = timeScale;
+        }
+
+
+        public void LoadAsSpawn(Worldspace world, Worldspace old = null)
+        {
+            StartCoroutine(DoLoadAsSpawn(world, old));
+        }
+
+
+        private IEnumerator DoLoadAsSpawn(Worldspace world, Worldspace old = null)
+        {
+            Time.timeScale = 0.0f;
+            if (old != null) {
+                AsyncOperation unloading = SceneManager.UnloadSceneAsync(old.ScenePath);
+                while(!unloading.isDone) yield return null;
+                yield return null;
+            }
+            ObjectManagement.NewGame();
+            SceneManager.LoadScene(world.ScenePath, LoadSceneMode.Additive);
+            WorldManagement.SetWorldspace(world);
+            StartCoroutine(world.SpawnPlayerOnLoad());
+        }
+
+
 
         
 
