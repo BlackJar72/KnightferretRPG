@@ -9,6 +9,7 @@ namespace kfutils.rpg {
         [SerializeField] int startingAdditions;
         [SerializeField] StatAdjusterUI[] statAdjusters;
         [SerializeField] TMP_Text pointsText;
+        [SerializeField] StatTooltip tooltip;
 
         private EntityBaseStats stats;
         private int additions;
@@ -73,6 +74,15 @@ namespace kfutils.rpg {
             StartNewCharacter();
             GameManager.Instance.UI.PlayButtonClick();
         }
+
+
+        public void ShowTooltip(string text, RectTransform statTransfrom)
+        {
+            tooltip.Show(text, statTransfrom);
+        }
+
+
+        public void HideTooltop() => tooltip.Hide();
 
 
 

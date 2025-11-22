@@ -129,14 +129,14 @@ namespace kfutils.rpg {
         #region Descriptions
 
         private static readonly string[] descriptions = new string[]{
-            "How physically strong your character is; mostly effects jumping how much you can carry. ", 
+            "How physically strong your character is; effects jump height carry weight. ", 
             "How quick and coordinated your chracter is; effects movement speed and jump height. ", 
-            "How healthy full of life your character is; This determines how much damage can take before dying. ",
-            "Your chracter's energy and ability to keep going; Determines how much stamina you have, allowing. ",
-            "A mix of cleverness, reasoning, and understanding; Determines the difficulty of spells you can learn. ", 
-            "Concentation, focus, will, and self control; Effects the mana cost for casting spells. ",
+            "How healthy full of life your character is; this determines how much damage can take before dying. ",
+            "Your chracter's energy and ability to keep going; determines how much stamina you have, and the stamina cost of running. ",
+            "A mix of cleverness, reasoning, memory and comprehension; determines the maximum difficulty of spells you can learn. ", 
+            "Concentation, focus, will, and self control; effects the mana cost for casting spells. ",
             "Social presence and general likeability; effects social reactions, relatiohsip building, and persuasiveness. ",
-            "Innate spiritual energey, the strength of the metaphysical soul. Effects how much mana you have. "
+            "Innate spiritual energey, the strength of the metaphysical soul; this determines the size of your mana pool. "
         };
 
 

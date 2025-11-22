@@ -1,11 +1,12 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace kfutils.rpg {
 
 
-    public class StatAdjusterUI : MonoBehaviour
+    public class StatAdjusterUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] EBaseStats stat; 
         [SerializeField] TMP_Text label;
@@ -96,6 +97,16 @@ namespace kfutils.rpg {
         public void PossiblyShowIncrementButton()
         {
             if(value < EntityBaseStats.MAX_SCORE) ShowIncrementButton();
+        }
+
+
+        public void OnPointerEnter(PointerEventData eventData) {
+            parent.ShowTooltip(EntityBaseStats.GetDescription(stat), transform as RectTransform);
+        }
+
+
+        public void OnPointerExit(PointerEventData eventData) {
+            parent.HideTooltop();
         }
 
 
