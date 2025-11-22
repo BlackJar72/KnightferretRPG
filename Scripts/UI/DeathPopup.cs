@@ -46,40 +46,16 @@ namespace kfutils.rpg
         /// </summary>
         public void Reload()
         {
-            SetHidden();
             GameManager.Instance.UI.PlayButtonClick();
             if (!string.IsNullOrWhiteSpace(SavedGame.LastSave) && SavedGame.HasSave(SavedGame.LastSave))
             {
                 GameManager.Instance.UI.ShowLoadingScreen();
-                Time.timeScale = 0.0f; // FIXME: The pause should happen when the GUI is activated
                 EntityManagement.playerCharacter.Inventory.Clear();
-                StartCoroutine(LoadHelper());
+                GameManager.Instance.ConitnueLoading(SavedGame.LastSave);
+                SetHidden();
             }
         }
-
-
-        private IEnumerator LoadHelper()
-        {
-            yield return null;
-            string fileToLoad = SavedGame.LastSave;
-            SavedGame savedGame = new();
-            savedGame.LoadWorld(fileToLoad);
-            PCData pcData = savedGame.LoadPlayer(fileToLoad, EntityManagement.playerCharacter.GetPCData());
-            EntityManagement.playerCharacter.SetPCData(pcData);
-            yield return null;
-            EntityManagement.playerCharacter.SetPCData(pcData);
-            EntityManagement.playerCharacter.Inventory.OnEnable();
-            EntityManagement.playerCharacter.Spells.OnEnable();
-            InventoryManagement.SignalLoadNPCInventoryData();
-            WorldManagement.SignalGameReloaded();
-            GameManager.Instance.UI.HideLoadingScreen();
-            SetHidden();
-            Time.timeScale = 1.0f;
-            InventoryManagement.SignalCloseUIs();
-            GameManager.Instance.UI.CloseCharacterSheet();
-            GameManager.Instance.UI.HidePauseMenu();
-            EntityManagement.playerCharacter.AllowActions(true);
-        }
+        
 
 
     }
