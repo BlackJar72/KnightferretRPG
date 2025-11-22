@@ -129,7 +129,7 @@ namespace kfutils.rpg {
         #region Descriptions
 
         private static readonly string[] descriptions = new string[]{
-            "How physically strong your character is; effects jump height carry weight. ", 
+            "How physically strong your character is; effects jump height and carry weight. ",
             "How quick and coordinated your chracter is; effects movement speed and jump height. ", 
             "How healthy full of life your character is; this determines how much damage can take before dying. ",
             "Your chracter's energy and ability to keep going; determines how much stamina you have, and the stamina cost of running. ",
