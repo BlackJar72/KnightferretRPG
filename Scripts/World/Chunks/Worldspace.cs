@@ -79,6 +79,7 @@ namespace kfutils.rpg {
             WorldManagement.SetupWorldspace();
             EntityManagement.playerCharacter.Teleport(defaultStartLocation);
             Time.timeScale = 1.0f;
+            GameManager.Instance.UI.ShowToast("");
         }
 
 
