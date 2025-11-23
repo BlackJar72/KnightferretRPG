@@ -43,8 +43,8 @@ namespace kfutils.rpg
 
         public GData(byte dat) => data = dat; 
         public GData(short dat) => data = dat;
-        public GData(int dat) => data = (short)dat;
-        public GData(long dat) => data = (short)dat;   
+        public GData(int dat) => data = dat;
+        public GData(long dat) => data = (int)dat;   
         public GData(bool dat)
         {
             if(dat) data = 0x1;
@@ -86,7 +86,7 @@ namespace kfutils.rpg
 
         public GDataExpiring(byte dat, double timeOut) { data = dat; expiration = timeOut; }
         public GDataExpiring(short dat, double timeOut) { data = dat; expiration = timeOut; }
-        public GDataExpiring(int dat, double timeOut) { data = (short)dat; expiration = timeOut; }
+        public GDataExpiring(int dat, double timeOut) { data = dat; expiration = timeOut; }
         public GDataExpiring(bool dat, double timeOut)
         {
             if(dat) data = 0x1;
