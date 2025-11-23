@@ -19,7 +19,7 @@ namespace kfutils.rpg {
         [SerializeField] protected BlockArea blockArea;
 
         [Tooltip("There need to be three of these, for high, mid, and low (in that order)")]
-        [SerializeField] Transform[] armsPositions;
+        [SerializeField] Vector3[] armsPositions;
 
 
         protected AnimancerLayer actionLayer;
@@ -76,7 +76,7 @@ namespace kfutils.rpg {
         public AnimancerState ActionState => actionState;
         public AnimancerState ArmsActionState => armsActionState;
 
-        public Transform[] ArmsPositions => armsPositions;
+        public Vector3[] ArmsPositions => armsPositions;
         public bool IsBlocking => blocking;
 
 
@@ -205,6 +205,7 @@ namespace kfutils.rpg {
         {
             if (alive)
             {
+                StopAction();
                 DisableAction();
                 DisableUIActions();
                 StopAction();
@@ -640,7 +641,7 @@ namespace kfutils.rpg {
 
         public void SetArmsPos(ArmsPos armsPos)
         {
-            arms.transform.localPosition = armsPositions[(int)armsPos].localPosition;
+            arms.transform.localPosition = armsPositions[(int)armsPos];
         }
 
 

@@ -187,9 +187,8 @@ namespace kfutils.rpg {
                 alive = false;
                 if (hitbox != null) hitbox.gameObject.SetActive(false);
                 EntityManagement.RemoveDead(this);
-                DisableMovement();
-                moveLayer.SetMask(deathAnimation.mask);
                 moveState = moveLayer.Play(deathAnimation.anim);
+                DisableMovement();
                 Move = LieDead;
                 ThirdPerson();
                 StartCoroutine(DeathHelper());
@@ -210,6 +209,7 @@ namespace kfutils.rpg {
             if (hitbox != null) hitbox.gameObject.SetActive(true);
             EnableMovement();
             FirstPerson();
+            Start();
         }
 
 
