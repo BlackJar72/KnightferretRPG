@@ -53,7 +53,6 @@ namespace kfutils.rpg {
 
         public void EnterPlayMode()
         {
-            toast.Show("");
             startCanvas.SetActive(false);
             characterCreationCanvas.SetActive(false);
             mainCanvas.SetActive(true);
