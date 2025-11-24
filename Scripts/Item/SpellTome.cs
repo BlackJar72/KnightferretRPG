@@ -15,7 +15,7 @@ namespace kfutils.rpg
         public int PowerAttackCost => 0;
 
 
-        public void OnEquipt(IActor actor) {}
+        public void OnEquipt(IActor actor) => OnUse(actor);
 
 
         public void OnUnequipt() {}
