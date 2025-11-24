@@ -29,6 +29,7 @@ namespace kfutils.rpg {
         [SerializeField] GameObject pauseCanvas;
         [SerializeField] GameObject startCanvas;
         [SerializeField] GameObject characterCreationCanvas;
+        [SerializeField] GameObject infoSettingsCanvas;
 
 
         public EquiptmentPanel PlayerEquiptPanel => pcEquiptPanel;
@@ -52,12 +53,32 @@ namespace kfutils.rpg {
 
         public void EnterPlayMode()
         {
-            toast.HideNow();
+            toast.Show("");
             startCanvas.SetActive(false);
             characterCreationCanvas.SetActive(false);
             mainCanvas.SetActive(true);
             pauseCanvas.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
+        }
+
+
+        public void ReturnFromSpecialCanvas(bool inGame)
+        {
+            characterCreationCanvas.SetActive(false);
+            infoSettingsCanvas.SetActive(false);
+            if(inGame)
+            {
+                MainCanvas.SetActive(true);
+                pauseCanvas.SetActive(true);
+                startCanvas.SetActive(false);
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                MainCanvas.SetActive(false);
+                pauseCanvas.SetActive(false);
+                startCanvas.SetActive(true);
+            }
         }
 
 

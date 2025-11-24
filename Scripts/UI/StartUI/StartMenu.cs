@@ -23,6 +23,9 @@ namespace kfutils.rpg.ui
 
         [SerializeField] GameObject mainStartCanvas;
         [SerializeField] GameObject characterCreationCanvas; 
+        [SerializeField] GameObject infoSettingsCanvas;
+        [SerializeField] GameObject infoPanel;
+        [SerializeField] GameObject optionsPanel;
 
         private string lastSave = null;
         private string saveToLoad = null;
@@ -187,9 +190,11 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void OpenSettings()
         {
-            Debug.Log("public void NewGame()");
             PlayUIClick();
-
+            infoPanel.SetActive(false);
+            optionsPanel.SetActive(true);
+            infoSettingsCanvas.SetActive(true);
+            mainStartCanvas.SetActive(false);
         }
 
 
@@ -203,9 +208,11 @@ namespace kfutils.rpg.ui
         /// </summary>
         public void OpenHelpInfo()
         {
-            Debug.Log("public void NewGame()");
             PlayUIClick();
-
+            infoPanel.SetActive(true);
+            optionsPanel.SetActive(false);
+            infoSettingsCanvas.SetActive(true);
+            mainStartCanvas.SetActive(false);
         }
 
 

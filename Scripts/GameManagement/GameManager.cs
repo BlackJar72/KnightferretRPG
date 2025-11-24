@@ -34,6 +34,9 @@ namespace kfutils.rpg {
         [SerializeField] GameObject loadingScreen;
         public GameObject LoadingScreen => loadingScreen;
 
+        private bool inGame = false;
+        public bool InGame => inGame;
+
 
         void Awake()
         {
@@ -80,6 +83,7 @@ namespace kfutils.rpg {
 
         public void EnterStartMenu()
         {
+            inGame = false;
             WorldManagement.UnloadWorld();
             playerCharacter.gameObject.SetActive(false);
             weather.SetActive(false);
@@ -89,9 +93,16 @@ namespace kfutils.rpg {
 
         public void EnterPlayMode()
         {
+            inGame = true;
             playerCharacter.gameObject.SetActive(true);
             weather.SetActive(true); 
             ui.EnterPlayMode();
+        }
+
+
+        public static void ReturnFromSpecialCanvas()
+        {
+            instacnce.ui.ReturnFromSpecialCanvas(Instance.inGame);
         }
 
 

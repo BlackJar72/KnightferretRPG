@@ -27,23 +27,33 @@ namespace kfutils.rpg.ui {
 
 
         private void Init()
-        {
-            subpanelMap = new();
-            tabButtons = new TabButton[subpanels.Length];
-            for(int i = 0; i < subpanels.Length; i++)
+        { 
+            if(subpanels.Length > 1) {
+                subpanelMap = new();
+                tabButtons = new TabButton[subpanels.Length];
+                for(int i = 0; i < subpanels.Length; i++)
+                {
+                    tabButtons[i] = Instantiate(tabButtonPrefab, buttonPanel.transform).GetComponent<TabButton>();
+                    tabButtons[i].ButtonText.text = subpanels[i].TabName;
+                    tabButtons[i].SetController(this);
+                    subpanels[i].SetController(this);
+                    subpanelMap.Add(subpanels[i].TabName, subpanels[i]);
+                }
+            }
+            else
             {
-                tabButtons[i] = Instantiate(tabButtonPrefab, buttonPanel.transform).GetComponent<TabButton>();
-                tabButtons[i].ButtonText.text = subpanels[i].TabName;
-                tabButtons[i].SetController(this);
-                subpanels[i].SetController(this);
-                subpanelMap.Add(subpanels[i].TabName, subpanels[i]);
+                subpanelMap = new();
+                for(int i = 0; i < subpanels.Length; i++)
+                {
+                    subpanels[i].SetController(this);
+                    subpanelMap.Add(subpanels[i].TabName, subpanels[i]);
+                }
             }
         }
 
 
         private void ShowSubpanel(TabbedSubpanel subpanel)
         {
-            GameManager.Instance.UI.PlayShortClick();
             RectTransform subRect = subpanel.GetComponent<RectTransform>();
             subRect.anchorMin = new Vector2(0, 0);
             subRect.anchorMax = new Vector2(1, 1);
@@ -56,6 +66,7 @@ namespace kfutils.rpg.ui {
 
         public void ShowSubpanel(string tabName)
         {
+            GameManager.Instance.UI.PlayShortClick();
             for(int i = 0; i < subpanels.Length; i++) subpanels[i].gameObject.SetActive(false);
             ShowSubpanel(subpanelMap[tabName]);
         }
