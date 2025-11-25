@@ -106,7 +106,7 @@ namespace kfutils.rpg {
 #pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
             {
-                if (damageable.InParriedState() && (damageFactor > 1.1f)) damageFactor += 1.0f;
+                if (damageable.InParriedState()) damageFactor += 1.0f;
                 if (damageable.IsSurprised(holder)) damageFactor += 1.5f;
                 damage.DoDamage(holder, this, damageable, damageFactor);
                 //attacking = false;
