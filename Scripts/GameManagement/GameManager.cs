@@ -17,8 +17,8 @@ namespace kfutils.rpg {
         [SerializeField] GameItemSet itemsInGame;
         public GameItemSet ItemsInGame => itemsInGame;
 
-        private static GameManager instacnce;
-        public static GameManager Instance { get => instacnce; }
+        private static GameManager instance;
+        public static GameManager Instance { get => instance; }
 
         [SerializeField] Worldspace startingWorldspace;
         public Worldspace StartingWorldspace => startingWorldspace; 
@@ -40,7 +40,7 @@ namespace kfutils.rpg {
 
         void Awake()
         {
-            instacnce = this;
+            instance = this;
             #if UNITY_EDITOR
             itemsInGame.Awake();
             #endif
@@ -102,7 +102,7 @@ namespace kfutils.rpg {
 
         public static void ReturnFromSpecialCanvas()
         {
-            instacnce.ui.ReturnFromSpecialCanvas(Instance.inGame);
+            instance.ui.ReturnFromSpecialCanvas(Instance.inGame);
         }
 
 
