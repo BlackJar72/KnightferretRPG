@@ -8,10 +8,10 @@ namespace kfutils.rpg {
     public class MaterialShifter : MonoBehaviour
     {
         [SerializeField] int matToChange;
-        [SerializeField] Renderer theRenderer;
         [SerializeField] ColorManager.ColorType colorType;
 
         private List<Material> mats;
+        private Renderer theRenderer;
 
 
         // int current = 0;
@@ -28,14 +28,15 @@ namespace kfutils.rpg {
 
 
         private void Awake()
-        {            
+        {   
+            theRenderer = GetComponent<Renderer>();         
             mats = new(theRenderer.materials);
         }
 
 
         public void SetMaterial(Material mat)
         {
-            mats[matToChange] = mat;
+            mats[matToChange] = mat;            
             theRenderer.SetMaterials(mats);
         }
 
