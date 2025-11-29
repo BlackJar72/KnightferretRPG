@@ -9,6 +9,7 @@ namespace kfutils.rpg {
                     + " This could also be an empty attached to the bone.")]
         [SerializeField] Transform bone; // The bone in the animation rig the item should be parented too
         [SerializeField] Layers layer = Layers.unityDefault;
+        
 
         ItemEquipt  equiptItem;
 
