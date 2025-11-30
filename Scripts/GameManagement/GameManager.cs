@@ -97,6 +97,8 @@ namespace kfutils.rpg {
             playerCharacter.gameObject.SetActive(true);
             weather.SetActive(true); 
             ui.EnterPlayMode();
+            // Test
+            SetAmbient(new(0.10f, 0.10f, 0.15f, 1.0f));
         }
 
 
@@ -118,6 +120,12 @@ namespace kfutils.rpg {
             yield return null;
             weather.SetActive(true); 
             ui.EnterPlayMode();
+        }
+
+
+        private void SetAmbient(Color color)
+        {
+            Shader.SetGlobalColor("_Ambient", color);
         }
 
 
