@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HumanHair-09
-  m_Shader: {fileID: -6465566751694194690, guid: 0d1b0b20efcd6896eb11e366bd3b28e8, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 958596037663a5771b60433efb74add8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -123,14 +123,18 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Grid_Size: 4
+    - _Lighting_Cutoff: 0
     - _Metalicity: 0.25
     - _Metallic: 0
+    - _Oblique_Cutoff: -0.9
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Row: 2
+    - _Self_Cutoff: 0.1
+    - _Shadow_Dark: 0.25
     - _Smoothness: 0.65
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

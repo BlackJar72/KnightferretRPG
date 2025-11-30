@@ -14,17 +14,17 @@ namespace kfutils.rpg {
         private Renderer theRenderer;
 
 
-        // int current = 0;
-        // float timer = 1.0f;
-        // public void Update()
-        // {
-        //     if(timer < Time.time)
-        //     {
-        //         timer = (timer + 1.0f);
-        //         SetMaterial(current);
-        //         current = (++current) % 16;
-        //     }
-        // }
+        int current = 0;
+        float timer = 1.0f;
+        public void Update()
+        {
+            if(timer < Time.time)
+            {
+                timer = (timer + 1.0f);
+                SetMaterial(current);
+                current = (++current) % 16;
+            }
+        }
 
 
         private void Awake()
