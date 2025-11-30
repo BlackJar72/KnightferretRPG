@@ -161,9 +161,6 @@
         },
         {
             "m_Id": "7a088d57fa614dfdb4d33c1f5591a536"
-        },
-        {
-            "m_Id": "0134e7f84566445c9efcedab640b443b"
         }
     ],
     "m_GroupDatas": [],
@@ -564,20 +561,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "778a91c0827e4bb0b4e1187dbf416f71"
-                },
-                "m_SlotId": 7
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "0134e7f84566445c9efcedab640b443b"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "782db4f71249426187d281084d99bfd4"
                 },
                 "m_SlotId": 0
@@ -895,9 +878,6 @@
         "m_Blocks": [
             {
                 "m_Id": "348b8ee369bc4b9d8fd589375e927334"
-            },
-            {
-                "m_Id": "0134e7f84566445c9efcedab640b443b"
             }
         ]
     },
@@ -920,40 +900,6 @@
             "m_Id": "a1c9861426ff4881acb4b62c73635c32"
         }
     ]
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
-    "m_ObjectId": "0134e7f84566445c9efcedab640b443b",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "SurfaceDescription.Alpha",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "5da8108a0c2641f28091ee88fcb310cf"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedDescriptor": "SurfaceDescription.Alpha"
 }
 
 {
@@ -2854,21 +2800,6 @@
         "z": 0.0,
         "w": 0.0
     },
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "5da8108a0c2641f28091ee88fcb310cf",
-    "m_Id": 0,
-    "m_DisplayName": "Alpha",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Alpha",
-    "m_StageCapability": 2,
-    "m_Value": 1.0,
-    "m_DefaultValue": 1.0,
     "m_Labels": []
 }
 
