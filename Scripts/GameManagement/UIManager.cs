@@ -23,6 +23,7 @@ namespace kfutils.rpg {
         [SerializeField] PauseMenuUI pauseMenuUI;
         [SerializeField] GameObject loadingScreen;
         [SerializeField] DeathPopup deathPanel;
+        [SerializeField] Camera CharacterCam;
 
         // Canvases
         [SerializeField] GameObject mainCanvas;
@@ -187,6 +188,7 @@ namespace kfutils.rpg {
                 HidePauseMenu();
             }
             else ShowPauseMenu();
+            CharacterCam.enabled = characterPanelToggler.IsVisible;
         }
 
 
@@ -232,6 +234,7 @@ namespace kfutils.rpg {
                 HideItemToolTip();
                 HideItemStackManipulator();
             }
+            CharacterCam.enabled = characterPanelToggler.IsVisible;
             return characterPanelToggler.IsVisible;
         }
 
@@ -254,6 +257,7 @@ namespace kfutils.rpg {
             CloseContainerUI();
             HideItemToolTip();
             HideItemStackManipulator();
+            CharacterCam.enabled = false;
         }
 
 
@@ -281,6 +285,7 @@ namespace kfutils.rpg {
                     EntityManagement.playerCharacter.AllowActions(false);
                 }
             }
+            CharacterCam.enabled = characterPanelToggler.IsVisible;
         }
 
         
