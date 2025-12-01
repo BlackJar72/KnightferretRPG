@@ -34,17 +34,22 @@ namespace kfutils.rpg
         public static implicit operator short(GData dat) => (short)dat.data;
         public static implicit operator int(GData dat) => dat.data;
         public static implicit operator long(GData dat) => dat.data;
+        public static explicit operator float(GData dat) => dat.Float;
 
         public static implicit operator GData(bool dat) => new(dat);
         public static implicit operator GData(byte dat) => new(dat);
         public static implicit operator GData(short dat) => new(dat);
         public static implicit operator GData(int dat) => new(dat);
         public static implicit operator GData(long dat) => new(dat);
+        public static explicit operator GData(float dat) => new(dat);
 
         public GData(byte dat) => data = dat; 
         public GData(short dat) => data = dat;
         public GData(int dat) => data = dat;
         public GData(long dat) => data = (int)dat;   
+        // Using fixed point repressentation; simplicity at the cost of precision;
+        // May try converting the bits later.
+        public GData(float dat) => data = (int)(dat * ObjectManagement.MUL);  
         public GData(bool dat)
         {
             if(dat) data = 0x1;
@@ -52,6 +57,7 @@ namespace kfutils.rpg
         }
 
         public override readonly string ToString() => data.ToString();
+        public readonly float Float => data * ObjectManagement.DIV;
     }
 
 
@@ -81,12 +87,16 @@ namespace kfutils.rpg
         public static implicit operator short(GDataExpiring dat) => (short)dat.data;
         public static implicit operator int(GDataExpiring dat) => dat.data;
         public static implicit operator long(GDataExpiring dat) => dat.data;
+        public static explicit operator float(GDataExpiring dat) => dat.Float;
 
         public bool Expired => WorldTime.time > expiration;
 
         public GDataExpiring(byte dat, double timeOut) { data = dat; expiration = timeOut; }
         public GDataExpiring(short dat, double timeOut) { data = dat; expiration = timeOut; }
-        public GDataExpiring(int dat, double timeOut) { data = dat; expiration = timeOut; }
+        public GDataExpiring(int dat, double timeOut) { data = dat; expiration = timeOut; }  
+        // Using fixed point repressentation; simplicity at the cost of precision;
+        // May try converting the bits later.
+        public GDataExpiring(float dat, double timeOut) { data = (int)(dat * ObjectManagement.MUL); expiration = timeOut; }
         public GDataExpiring(bool dat, double timeOut)
         {
             if(dat) data = 0x1;
@@ -95,12 +105,15 @@ namespace kfutils.rpg
         }
 
         public override readonly string ToString() => "(data: " + data.ToString() + ", experiation: " + expiration + ")";
+        public readonly float Float => data * ObjectManagement.DIV;
     }
 #endregion Small Data Packets for Storage
 
 
     public static class ObjectManagement
     {
+        public const float MUL = 656636.0f;
+        public const float DIV = 1.0f / MUL;
 
         private static Dictionary<string, GData> worldObjectData;
         private static Dictionary<string, GDataExpiring> worldTimedData;
