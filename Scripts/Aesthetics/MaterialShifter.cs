@@ -13,6 +13,8 @@ namespace kfutils.rpg {
         private List<Material> mats;
         private Renderer theRenderer;
 
+        public ColorManager.ColorType ColorType => colorType;
+
 
         // int current = 0;
         // float timer = 1.0f;
