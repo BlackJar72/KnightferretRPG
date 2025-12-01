@@ -25,7 +25,7 @@ namespace kfutils.rpg
     /// may not be needed. 
     /// </summary>
     [Serializable]
-    public struct GData
+    public readonly struct GData
     {
         [ES3Serializable] readonly int data; 
 
@@ -75,7 +75,7 @@ namespace kfutils.rpg
     /// "live" in an updating registry (list) as is done with health/stamina/mana. 
     /// </summary>
     [Serializable]
-    public struct GDataExpiring
+    public readonly struct GDataExpiring
     {
         public static readonly GDataExpiring Null = new(0, double.NaN);
 
@@ -89,7 +89,7 @@ namespace kfutils.rpg
         public static implicit operator long(GDataExpiring dat) => dat.data;
         public static explicit operator float(GDataExpiring dat) => dat.Float;
 
-        public bool Expired => WorldTime.time > expiration;
+        public readonly bool Expired => WorldTime.time > expiration;
 
         public GDataExpiring(byte dat, double timeOut) { data = dat; expiration = timeOut; }
         public GDataExpiring(short dat, double timeOut) { data = dat; expiration = timeOut; }
