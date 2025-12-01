@@ -339,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -367,8 +367,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d087af3114c0d374a1d732e23615bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showAtStart: 0
+  showAtStart: 1
   saveLoadUI: {fileID: 0}
+  audioSource: {fileID: 0}
+  click: {fileID: 0}
 --- !u!1 &2841996336191288236
 GameObject:
   m_ObjectHideFlags: 0

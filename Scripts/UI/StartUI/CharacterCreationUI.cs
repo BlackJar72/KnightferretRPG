@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.Transforms;
+using Unity.VisualScripting;
 
 namespace kfutils.rpg {
 
@@ -11,11 +13,15 @@ namespace kfutils.rpg {
         [SerializeField] StatCreationUI statCreationUI;
         [SerializeField] Button confrimButton;
         [SerializeField] GameObject nameWarning;
+        [SerializeField] GameObject avatarCreationPrefab;
+        [SerializeField] GameObject avatarCreationPanel;
 
+ 
 
         private void OnEnable()
         {
             StartNewCharacter();
+            SpawnAvatarCreation();
         }
 
 
@@ -45,6 +51,31 @@ namespace kfutils.rpg {
                 StartGame();
             }
         }
+
+
+        public void SpawnAvatarCreation()
+        {
+            if((avatarCreationPrefab != null) && (avatarCreationPanel.transform.childCount < 1)) 
+            {
+                GameObject Child = Instantiate(avatarCreationPrefab, avatarCreationPanel.transform);
+                avatarCreationPanel.SetActive(true);
+                RectTransform rect = transform as RectTransform;
+                RectTransform childRect = Child.transform as RectTransform;
+                if((rect == null) || (childRect == null))
+                {
+                    Destroy(Child);
+                    return;
+                }
+                childRect.anchoredPosition = Vector2.zero;
+                childRect.anchorMax.Set(1, 1);
+                childRect.anchorMin.Set(0, 0);
+                childRect.offsetMin.Set(0, 0);
+                childRect.offsetMax.Set(0, 0);
+                //childRect.sizeDelta = Vector2.zero;
+            }
+            else if(avatarCreationPanel.transform.childCount < 1) avatarCreationPanel.SetActive(false);
+        }
+
 
 
         //FIXME: Remove this and all references once a propper chracter creation system is in place
