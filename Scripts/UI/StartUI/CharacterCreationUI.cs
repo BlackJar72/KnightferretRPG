@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.Transforms;
-using Unity.VisualScripting;
 
 namespace kfutils.rpg {
 
