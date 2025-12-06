@@ -128,6 +128,9 @@ namespace kfutils.rpg {
             ES3.Save("RecoveringEntities", EntityManagement.GetIDList(recoveringEntities.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("WaitingToRecover", EntityManagement.GetIDList(waitingToRecover.Cast<IHaveStringID>().ToList()), fileName);
             ES3.Save("RecoveringMana", EntityManagement.GetIDList(recoveringMana.Cast<IHaveStringID>().ToList()), fileName);
+
+            // Handle Extentions
+            GameManager.Instance.SaveExtention?.Save(fileName);
         }
 
 
@@ -177,6 +180,9 @@ namespace kfutils.rpg {
             recoveringEntities = EntityManagement.RestoreRecoving(LoadStringIDList("RecoveringEntities", fileName));
             waitingToRecover = EntityManagement.RestoreWaitingToRecover(LoadStringIDList("WaitingToRecover", fileName));
             recoveringMana = EntityManagement.RestoreRecovingMana(LoadStringIDList("RecoveringMana", fileName));
+
+            // Handle Extentions
+            GameManager.Instance.SaveExtention?.LoadWorld(fileName);
         }
 
 
@@ -192,12 +198,14 @@ namespace kfutils.rpg {
         public PCData LoadPlayer(string saveName, PCData oldData)
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
+            // Handle Extentions
+            GameManager.Instance.SaveExtention?.LoadPlayer(fileName);        
             pcData = ES3.Load("PCData", fileName, oldData);
             return pcData;
         }
 
 
-        public List<string> LoadStringIDList(string saveKey, string filePath)
+        public static List<string> LoadStringIDList(string saveKey, string filePath)
         {
             object tmp = ES3.Load(saveKey, filePath);
             List<string> tmplist = tmp as List<string>;

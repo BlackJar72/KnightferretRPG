@@ -10,7 +10,8 @@ namespace kfutils.rpg {
     public class GameManager : MonoBehaviour
     {
 
-
+        // FIXME?  This should probably be formatted like other classes in the project, 
+        //         not is this weird, idiosyncratic way (even if it makes its on kind of sense).
         [SerializeField] UIManager ui;
         public UIManager UI => ui;
 
@@ -33,6 +34,10 @@ namespace kfutils.rpg {
 
         [SerializeField] GameObject loadingScreen;
         public GameObject LoadingScreen => loadingScreen;
+
+        [SerializeField] ASaveExtention saveExtention;
+        public ASaveExtention SaveExtention => saveExtention;
+
 
         private bool inGame = false;
         public bool InGame => inGame;
