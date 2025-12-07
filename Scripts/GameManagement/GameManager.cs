@@ -63,6 +63,7 @@ namespace kfutils.rpg {
         void Start()
         {
             ui = GetComponent<UIManager>();
+            EntityManagement.playerCharacter = playerCharacter;
         }
 
 

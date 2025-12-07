@@ -81,6 +81,7 @@ namespace kfutils.rpg {
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             ES3.DeleteFile(fileName);
+            if(GameManager.Instance.SaveExtention != null) GameManager.Instance.SaveExtention.DeleteSave(fileName);
         }
 
 
@@ -130,7 +131,7 @@ namespace kfutils.rpg {
             ES3.Save("RecoveringMana", EntityManagement.GetIDList(recoveringMana.Cast<IHaveStringID>().ToList()), fileName);
 
             // Handle Extentions
-            GameManager.Instance.SaveExtention?.Save(fileName);
+            if(GameManager.Instance.SaveExtention != null) GameManager.Instance.SaveExtention.Save(fileName);
         }
 
 
@@ -182,7 +183,8 @@ namespace kfutils.rpg {
             recoveringMana = EntityManagement.RestoreRecovingMana(LoadStringIDList("RecoveringMana", fileName));
 
             // Handle Extentions
-            GameManager.Instance.SaveExtention?.LoadWorld(fileName);
+
+            if(GameManager.Instance.SaveExtention != null) GameManager.Instance.SaveExtention.LoadWorld(fileName);
         }
 
 
@@ -199,7 +201,7 @@ namespace kfutils.rpg {
         {
             string fileName = saveSubdir + Path.DirectorySeparatorChar + saveName + saveFileExtension;
             // Handle Extentions
-            GameManager.Instance.SaveExtention?.LoadPlayer(fileName);        
+            if(GameManager.Instance.SaveExtention != null) GameManager.Instance.SaveExtention.LoadPlayer(fileName);        
             pcData = ES3.Load("PCData", fileName, oldData);
             return pcData;
         }
