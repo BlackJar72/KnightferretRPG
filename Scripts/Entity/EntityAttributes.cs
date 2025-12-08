@@ -106,6 +106,7 @@ namespace kfutils.rpg {
             copy.halfEncumbrance = halfEncumbrance;
             copy.runningCostFactor = runningCostFactor; // Mostly used for running, and perhaps other movement, not all stamina use
             copy.manaCostFactor = manaCostFactor; // Modifies the cost of casting spells
+            copy.maxSpellDifficulty = maxSpellDifficulty;
             copy.damageAdjuster = damageAdjuster; // The type of natural damage adjuster this entity has
             copy.damageModifiers = damageModifiers.Copy();
             return copy;
@@ -125,6 +126,7 @@ namespace kfutils.rpg {
             halfEncumbrance = other.halfEncumbrance;
             runningCostFactor = other.runningCostFactor; // Mostly used for running, and perhaps other movement, not all stamina use
             manaCostFactor = other.manaCostFactor; // Modifies the cost of casting spells
+            maxSpellDifficulty = other.maxSpellDifficulty;
             damageAdjuster = other.damageAdjuster; // The type of natural damage adjuster this entity has
             damageModifiers = other.damageModifiers.Copy();
         }

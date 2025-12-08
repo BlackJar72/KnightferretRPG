@@ -54,6 +54,10 @@ namespace kfutils.rpg.ui {
 
         private void ShowSubpanel(TabbedSubpanel subpanel)
         {
+            foreach(TabbedSubpanel sub in subpanels)
+            {
+                sub.gameObject.SetActive(false);
+            }
             RectTransform subRect = subpanel.GetComponent<RectTransform>();
             subRect.anchorMin = new Vector2(0, 0);
             subRect.anchorMax = new Vector2(1, 1);
