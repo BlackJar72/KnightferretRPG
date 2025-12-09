@@ -9,39 +9,39 @@ namespace kfutils.rpg {
 
         // Weapon Fields
 
-        [SerializeField] float attackTime;
-        [SerializeField] DamageSource damage;
+        [SerializeField] protected float attackTime;
+        [SerializeField] protected DamageSource damage;
 
-        [SerializeField] ItemActions useAnimation;
-        [SerializeField] ItemActions blockAnimation;
-        [SerializeField] int attackCost;
-        [SerializeField] int powerAttackCost;
-        [SerializeField] bool parriable = true;
-        [SerializeField] float minRange = 0.1f;
-        [SerializeField] float maxRange = 1.5f;
-        [SerializeField] float noise = 4.0f; 
+        [SerializeField] protected ItemActions useAnimation;
+        [SerializeField] protected ItemActions blockAnimation;
+        [SerializeField] protected int attackCost;
+        [SerializeField] protected int powerAttackCost;
+        [SerializeField] protected bool parriable = true;
+        [SerializeField] protected float minRange = 0.1f;
+        [SerializeField] protected float maxRange = 1.5f;
+        [SerializeField] protected float noise = 4.0f; 
 
-        private ICombatant holder;
-        private Collider hitCollider;
+        protected ICombatant holder;
+        protected Collider hitCollider;
 
-        private bool busy = false;
-        private bool attacking = false;
-        private bool queued = false;
-        private int attack = 0;
-        private AnimancerState attackState;
+        protected bool busy = false;
+        protected bool attacking = false;
+        protected bool queued = false;
+        protected int attack = 0;
+        protected AnimancerState attackState;
 
         // Blocking Fields
 
-        [SerializeField] float blockAmount;
-        [SerializeField] float stability;
-        [SerializeField] float parryWindow;
-        [SerializeField] AudioSource audioSource;
+        [SerializeField] protected float blockAmount;
+        [SerializeField] protected float stability;
+        [SerializeField] protected float parryWindow;
+        [SerializeField] protected AudioSource audioSource;
 
-        private BlockArea blockArea;
+        private protected BlockArea blockArea;
 
-        private bool blocking = false;
+        private protected bool blocking = false;
 
-        private float damageFactor; // For normal vs power attacks
+        private protected float damageFactor; // For normal vs power attacks
 
 
         public delegate void EventAction();
@@ -65,7 +65,7 @@ namespace kfutils.rpg {
         /*******************************************************************************************************************************/
 
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             useAnimation = Instantiate(useAnimation);
         }
@@ -137,7 +137,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void OnUseCharged(IActor actor)
+        public virtual void OnUseCharged(IActor actor)
         {
             damageFactor = 1.5f;
             ICombatant attacker = actor as ICombatant;
