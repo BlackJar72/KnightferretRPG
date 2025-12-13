@@ -1,15 +1,25 @@
 using UnityEngine;
 
 
-namespace kfutils.rpg
-{
+namespace kfutils.rpg {
 
     public class WorldTime : MonoBehaviour
     {
+        public const float TIME_SCALE = 60f; // How many times faster time runs in game; 60 gives a 24 minute day
+
+        // Time Units in In-Game World Time
         public const double MINUTE = 60.0;
         public const double HOUR = MINUTE * 60.0f;
         public const double DAY = HOUR * 24.0;
         public const double WEEK = DAY * 7.0;
+        public const double MONTH = WEEK * 4.0;
+
+        // In-Game Time Units in Real Time
+        public const double RT_MINUTE = MINUTE / TIME_SCALE;
+        public const double RT_HOUR = HOUR / TIME_SCALE;
+        public const double RT_DAY = DAY / TIME_SCALE;
+        public const double RT_WEEK = WEEK / TIME_SCALE;
+        public const double RT_MONTH = MONTH / TIME_SCALE;
 
 
         private static WorldTime instance;
@@ -19,10 +29,25 @@ namespace kfutils.rpg
         public static double time => seconds;
         public static float ftime => (float)seconds;
 
+        public static int Day => Mathf.FloorToInt((float)(seconds / RT_DAY));
+        public static int Week => Mathf.FloorToInt((float)(seconds / RT_WEEK));
+        public static int Month => Mathf.FloorToInt((float)(seconds / RT_MONTH));
+        public static int DayOfWeek => Day % 7;
+        public static float TimeInDay => (float)(seconds / RT_DAY) - Day;
+        public static int DayOfMonth => Day % 28;
+        public static float TimeInMonth => (float)(seconds / RT_MONTH) - Month;
+
+
 #if UNITY_EDITOR
         [SerializeField] double worldTime;
         private static long frame = 0;
         public static long Frame => frame;
+
+        [SerializeField] float unityTime;
+        [SerializeField] float minute;
+        [SerializeField] float hour;
+        [SerializeField] float day;
+        [SerializeField] float timeInDay;
 #endif
 
 
@@ -39,6 +64,10 @@ namespace kfutils.rpg
                     Destroy(instance.gameObject);
             }
             instance = this;
+            Debug.Log("Minute = " + MINUTE + " => " + RT_MINUTE);
+            Debug.Log("Hour = " + HOUR + " => " + RT_HOUR);
+            Debug.Log("Day = " + DAY + " => " + RT_DAY);
+            Debug.Log("Week = " + WEEK + " => " + RT_WEEK);
         }
 
 
@@ -54,6 +83,12 @@ namespace kfutils.rpg
 #if UNITY_EDITOR
             worldTime = seconds;
             frame++;
+
+            unityTime = Time.time;
+            minute = (float)(seconds / RT_MINUTE);
+            hour = (float)(seconds / RT_HOUR);
+            day = (float)(seconds / RT_DAY);
+            timeInDay = TimeInDay;
 #endif
         }
 
