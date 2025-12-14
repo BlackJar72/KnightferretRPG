@@ -17,6 +17,10 @@ namespace kfutils.rpg {
 #region External Control
         public delegate void CreatedCharacter();
         public static event CreatedCharacter CharacterCreationEvent;
+        public delegate void BackToStart();
+        public static event BackToStart BackToStartEvent;
+        public delegate void NewCharacter();
+        public static event NewCharacter NewCharacterEvent;
         
         private static bool characterCreated;
         public static bool CharacterCreated => characterCreated;
@@ -41,6 +45,7 @@ namespace kfutils.rpg {
 
         public void StartNewCharacter()
         {
+            NewCharacterEvent?.Invoke();
             Time.timeScale = 0.0f;
             characterCreated = false;
             statCreationUI.StartNewCharacter();
@@ -101,6 +106,7 @@ namespace kfutils.rpg {
         {
             GameManager.Instance.UI.PlayButtonClick();
             GameManager.Instance.EnterStartMenu();
+            BackToStartEvent?.Invoke();
         }
 
 

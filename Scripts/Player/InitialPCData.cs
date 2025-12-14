@@ -14,6 +14,7 @@ namespace kfutils.rpg {
         [SerializeField] Spell[] startingSpells;
         [Tooltip("The amount of money, in copper pieces, the player character starts with")] 
         [SerializeField] int startingMoney;
+        [SerializeField] HumanTime gameStartTime;
 
 
         public void SetInitialLocation(PCMoving pc)
@@ -42,6 +43,12 @@ namespace kfutils.rpg {
         {
             foreach (Spell spell in startingSpells) spellbook.AddToFirstEmptySlot(spell);
         }  
+
+
+        public void SetWorldTime()
+        {
+            WorldTime.SetTime(gameStartTime.ToGameTime());
+        }
 
 
 

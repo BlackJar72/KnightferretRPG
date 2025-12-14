@@ -11,7 +11,7 @@ namespace kfutils.rpg {
     {
 
         // FIXME?  This should probably be formatted like other classes in the project, 
-        //         not is this weird, idiosyncratic way (even if it makes its on kind of sense).
+        //         not in this weird, idiosyncratic way (even if it makes its on kind of sense).
         [SerializeField] UIManager ui;
         public UIManager UI => ui;
 

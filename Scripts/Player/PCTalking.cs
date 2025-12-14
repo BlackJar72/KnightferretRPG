@@ -36,6 +36,7 @@ namespace kfutils.rpg {
             initialData.AddGearToInventory(inventory);
             initialData.AddSpellsToBook(spellbook);
             initialData.SetInitialLocation(this);
+            initialData.SetWorldTime();
         }
 
 
