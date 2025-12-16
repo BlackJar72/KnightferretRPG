@@ -11,6 +11,7 @@ namespace kfutils.rpg {
         [Tooltip("The item's thrown form; its impactPrefab should \nbe a non-tangible version of it's item in world.")] 
         [SerializeField] Projectile projectile;
         [SerializeField] ItemActions throwAnimation;
+        [SerializeField] float releaseTime = 0.18f;
 
 
         private AimParams aim;
@@ -64,7 +65,7 @@ namespace kfutils.rpg {
 
         private IEnumerator DelayedLaunch()
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(releaseTime);
             LaunchWeapon();
         }
 
@@ -72,16 +73,17 @@ namespace kfutils.rpg {
         private void LaunchWeapon()
         {
             Vector3 direction = aim.toward;
-            if(Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, 64, GameConstants.attackableLayer))
-            {
-                direction = hitInfo.point - transform.position;
-            }
             Projectile thrown = Instantiate(projectile, transform);
             GameObject thrownObject = thrown.gameObject;
             if(thrown is SpellProjectile spell) spell.SetRange(50, transform.position);
             if(thrown is ThrownWeapon weapon) weapon.SetItem(prototype);
-            thrownObject.transform.parent = transform.root.transform;
-            thrown.Launch(holder, direction);
+            if(Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, 64, GameConstants.attackableLayer))
+            {
+                direction = hitInfo.point - thrown.transform.position;
+            }     
+            thrownObject.transform.parent = WorldManagement.WorldLogic.GetChunk(transform.position).gameObject.transform;
+            thrownObject.transform.LookAt(transform.position - direction);
+            thrown.Launch(holder, direction.normalized);
             holder.CharInventory.Equipt.ConsumeItem(ItemUtils.GetEquiptSlotForType(prototype.EquiptType), 1);
             attackState.Events.Clear();
         }

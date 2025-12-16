@@ -51,6 +51,8 @@ namespace kfutils.rpg {
         protected delegate void Movement();
         protected Movement DoMove;
         protected Movement DefaultMove;
+        
+        public bool OnGround => onGround;
 
 
         // This is to make sure this is never overriden into something harmful.

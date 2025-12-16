@@ -6,16 +6,18 @@ namespace kfutils.rpg {
     public class ThrownWeapon : Projectile
     {
         [SerializeField] ItemPrototype item;
-        [SerializeField] Vector3 spin;
+        
 
         private bool hasDropped = false;
 
-        public virtual void Launch(ICombatant sender, Vector3 direction) {
+        public override void Launch(ICombatant sender, Vector3 direction) {
             this.sender = sender;
-            Vector3 pos = rb.transform.position;
-            rb.transform.position.Set(spin.x, spin.y, spin.z);
-            rb.angularVelocity = new(speed, 0, 0);
-            rb.linearVelocity = (direction * speed) + (Vector3.up * speed * 0.1f);
+            if(sender is EntityLiving living)
+            {            
+                Physics.IgnoreCollision(GetComponent<Collider>(), living.GetComponent<Collider>());
+                rb.linearVelocity = direction * (speed - 10 + living.attributes.baseStats.Strength);
+            }
+            else rb.linearVelocity = direction * speed;
         }
 
 

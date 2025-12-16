@@ -94,6 +94,7 @@ namespace kfutils.rpg {
         public Camera PlayerCam => playerCam;
         public GameObject FollowCam => followCam;
         public Transform Swimpoint => swimpoint;
+        public bool OnGround => onGround;
 
 
 
