@@ -574,6 +574,10 @@ namespace kfutils.rpg {
                     shield.OnUse(this);
                 }
             }
+            else if (blocking && (shield != null) && stamina.UseStamina(shield.StaminaCost))
+            {
+                shield.OnUse(this);
+            }
             chargingAction = false;
         }
 

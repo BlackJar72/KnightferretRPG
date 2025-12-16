@@ -31,6 +31,7 @@ namespace kfutils.rpg
         public EntityLiving GetEntity { get; }
         public Damages ApplyDamageAdjustment(Damages damage);
         public void HealDamage(float amount);
+        public bool IsSpecifiedIdentity(IDamageable hit);
 
 
         /// <summary>

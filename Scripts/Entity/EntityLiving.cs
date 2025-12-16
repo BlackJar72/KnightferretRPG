@@ -221,6 +221,8 @@ namespace kfutils.rpg {
             return attributes.damageModifiers.Apply(DamageAdjustList.Adjust(damage, attributes.damageAdjuster));
         }
 
+        public bool IsSpecifiedIdentity(IDamageable hit) => hit == this;
+
 
         protected virtual void Die()
         {

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -54,20 +56,36 @@ namespace kfutils.rpg {
 
                 PCActing pc = attacker as PCActing;
                 if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
-                attackState.Events.SetCallback(0, LaunchWeapon);
                 busy = true;
+                StartCoroutine(DelayedLaunch());
             }
+        }
+
+
+        private IEnumerator DelayedLaunch()
+        {
+            yield return new WaitForSeconds(0.1f);
+            LaunchWeapon();
         }
 
 
         private void LaunchWeapon()
         {
+            Vector3 direction = aim.toward;
+            if(Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, 64, GameConstants.attackableLayer))
+            {
+                direction = hitInfo.point - transform.position;
+            }
             Projectile thrown = Instantiate(projectile, transform);
             GameObject thrownObject = thrown.gameObject;
+            if(thrown is SpellProjectile spell) spell.SetRange(50, transform.position);
+            if(thrown is ThrownWeapon weapon) weapon.SetItem(prototype);
             thrownObject.transform.parent = transform.root.transform;
-            thrown.Launch(holder, aim.toward);
+            thrown.Launch(holder, direction);
             holder.CharInventory.Equipt.ConsumeItem(ItemUtils.GetEquiptSlotForType(prototype.EquiptType), 1);
+            attackState.Events.Clear();
         }
+    
 
 
 

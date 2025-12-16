@@ -254,6 +254,21 @@ namespace kfutils.rpg {
         }
 
 
+        public void UnStagger()
+        {            
+            actionUpdate = NormalUpdate;
+            isParried = false;
+            RestoreWalk();
+        }
+
+
+        public void ToggleStagger(float delay)
+        {
+            if(actionUpdate == DelayedUpdate) UnStagger();
+            else Stagger(delay);
+        }
+
+
         public IEnumerator DoPostActionCode(System.Action onEnd, float delay = 1.0f)
         {
             yield return new WaitForSeconds(delay);

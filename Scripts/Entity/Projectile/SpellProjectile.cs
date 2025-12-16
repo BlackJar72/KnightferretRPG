@@ -31,6 +31,14 @@ namespace kfutils.rpg {
         }
 
 
+        protected override void OnCollisionEnter(Collision collision) {
+            Debug.Log(collision.gameObject.name + " was hit!");
+            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+            if((damageable != null) && damageable.IsSpecifiedIdentity(sender)) return;
+            base.OnCollisionEnter(collision);
+        }
+
+
 
 
     }

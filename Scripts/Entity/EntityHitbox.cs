@@ -28,6 +28,7 @@ namespace kfutils.rpg
         public bool IsSurprised(ICombatant attacker) => owner.IsSurprised(attacker);
         public Damages ApplyDamageAdjustment(Damages damage) => owner.ApplyDamageAdjustment(damage);
         public void HealDamage(float amount) => owner.HealDamage(amount);
+        public bool IsSpecifiedIdentity(IDamageable hit) => owner.IsSpecifiedIdentity(hit);
         
      }
 

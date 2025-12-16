@@ -9,9 +9,9 @@ namespace kfutils.rpg {
         [SerializeField] protected DamageSource damage;
         [SerializeField] protected float speed;
         [SerializeField] protected Rigidbody rb;
-        [SerializeField] bool stickyImpact;
+        [SerializeField] protected bool stickyImpact;
 
-        private ICombatant sender;
+        private protected ICombatant sender;
 
 
         protected virtual void Awake() {
