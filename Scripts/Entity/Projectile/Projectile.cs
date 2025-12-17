@@ -40,7 +40,7 @@ namespace kfutils.rpg {
                                 WorldManagement.GetChunkFromTransform(transform).transform);
                 }
             }
-            if(damageable != null) {
+            if((damageable != null) && (damage.BaseDamage > 0)) {
                 damage.DoDamage(sender, null, damageable);
             }
             Destroy(gameObject);

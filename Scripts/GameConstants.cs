@@ -18,6 +18,8 @@ namespace kfutils.rpg {
         damageable = 11,
         attack = 12,
         block = 13,
+        smallObject = 14,
+        smallItem = 15, 
         door = 16,
         sky = 20
     }
@@ -53,6 +55,8 @@ namespace kfutils.rpg {
         public const int damageableLayer = 0x1 << (int)Layers.damageable;
         public const int attackableLayer = damageableLayer | (0x1 << (int)Layers.block);
         public const int attackLayer = 0x1 << (int)Layers.attack;
+        public const int smallObjectLayer = 0x1 << (int)Layers.smallObject;
+        public const int smallItemLayer = 0x1 << (int)Layers.smallItem;
         public const int doorLayer = 0x1 << (int)Layers.door;
         public const int skyLayer = 0x1 << (int)Layers.sky;
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    public class ThrownWeapon : Projectile
+    public class ThrownItem : Projectile
     {
         [SerializeField] ItemPrototype item;
         
@@ -15,7 +15,7 @@ namespace kfutils.rpg {
             if(sender is EntityLiving living)
             {            
                 Physics.IgnoreCollision(GetComponent<Collider>(), living.GetComponent<Collider>());
-                rb.linearVelocity = direction * (speed - 10 + living.attributes.baseStats.Strength);
+                rb.linearVelocity = direction * Mathf.Max((speed - 10 + living.attributes.baseStats.Strength), speed / 2);
             }
             else rb.linearVelocity = direction * speed;
         }
@@ -28,9 +28,7 @@ namespace kfutils.rpg {
 
 
         protected override void OnCollisionEnter(Collision collision) {
-            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-            if((damageable != null) && damageable.IsSpecifiedIdentity(sender)) return;
-            if(!hasDropped) item.DropItemInWorld(transform, 0);
+            if((!hasDropped) && (item != null)) item.DropItemInWorld(transform, 0);
             hasDropped = true;
             base.OnCollisionEnter(collision);
         }
