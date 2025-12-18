@@ -50,10 +50,9 @@ namespace kfutils.rpg {
             itemsInGame.Awake();
             #endif
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
-            ItemPrototype[] itemPrototypes = itemsInGame.Items;
-            for (int i = 0; i < itemPrototypes.Length; i++)
+            for (int i = 0; i < itemsInGame.Length; i++)
             {
-                ItemManagement.AddItemPrototype(itemPrototypes[i]);
+                ItemManagement.AddItemPrototype(itemsInGame[i]);
             }
             EntityManagement.Initialize();
         }
