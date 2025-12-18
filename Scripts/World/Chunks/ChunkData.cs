@@ -26,11 +26,21 @@ namespace kfutils.rpg {
         [SerializeField] List<ActivityProp> activityProps;
         public List<ActivityProp> ActivityProps => activityProps;
 
+        [SerializeField] List<string> effectsInChunk = new();
+        public List<string> EffectsInChunkList => effectsInChunk;
+
 
         public void AddItem(string id)
         {
             if (!itemsInChunk.Contains(id)) itemsInChunk.Add(id);
         }
+
+
+        public void AddEffect(string id)
+        {
+            if (!itemsInChunk.Contains(id)) itemsInChunk.Add(id);
+        }
+
 
         /*
         No matter how I try to fanagle it, no form of real item persistence is going to 

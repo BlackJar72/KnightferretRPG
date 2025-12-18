@@ -124,7 +124,20 @@ namespace kfutils.rpg
         public static Dictionary<string, GData> WorldObjectData => worldObjectData;
         public static Dictionary<string, GDataExpiring> WorldTimedData => worldTimedData;
 
+        private static readonly Dictionary<string, EffectPrototype> effectprotoRegistry = new();
 
+        public static Dictionary<string, WorldEffect.Data> effectRegistry = new();
+
+
+        public static void NewGame()
+        {
+            worldObjectData = new();
+            worldTimedData = new();
+            effectRegistry = new();
+        }
+
+
+#region Small Data
         public static void SetData(string id, GData state)
         {
             if (worldObjectData.ContainsKey(id)) worldObjectData[id] = state;
@@ -180,13 +193,6 @@ namespace kfutils.rpg
 // #endif
 
 
-        public static void NewGame()
-        {
-            worldObjectData = new();
-            worldTimedData = new();
-        }
-
-
         public static void LoadData(Dictionary<string, GData> data, Dictionary<string, GDataExpiring> timedData)
         {
             tmpWorldObjectData = data;
@@ -199,7 +205,32 @@ namespace kfutils.rpg
             worldObjectData = tmpWorldObjectData;
             worldTimedData = tmpWorldTimedData;
         }
+#endregion Small Data
 
+#region Effect Management
+        public static void AddEffectPrototype(EffectPrototype prototype) {
+            if(!effectprotoRegistry.ContainsKey(prototype.ID)) effectprotoRegistry.Add(prototype.ID, prototype);
+        }
+
+
+        public static bool AddEffect(WorldEffect.Data effect)
+        {
+            if (effectRegistry.ContainsKey(effect.id)) return false;
+            effectRegistry.Add(effect.id, effect);
+            return true;
+        }
+
+
+        public static WorldEffect.Data GetItem(string id) => effectRegistry.ContainsKey(id) ? effectRegistry[id] : null;
+
+
+        public static EffectPrototype GetPrototype(string id) => effectprotoRegistry.ContainsKey(id) ? effectprotoRegistry[id] : null;
+
+
+        public static void SetItemData(Dictionary<string, WorldEffect.Data> loaded) {
+            effectRegistry = loaded;
+        }
+#endregion Effect Management
 
 
 

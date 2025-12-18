@@ -60,7 +60,7 @@ namespace kfutils.rpg {
         public const int doorLayer = 0x1 << (int)Layers.door;
         public const int skyLayer = 0x1 << (int)Layers.sky;
 
-        public const int interactable = interactableLayer | doorLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
+        public const int interactable = interactableLayer | smallItemLayer | doorLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
         public const int LevelMask = defaultLayer | interactableLayer;
         #endregion
 
