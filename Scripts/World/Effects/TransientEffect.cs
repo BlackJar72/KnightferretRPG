@@ -10,13 +10,15 @@ namespace kfutils.rpg {
 
         private double timeToDie;
 
+        public override double TimeToDie => timeToDie;
+        public override bool ShouldDie => timeToDie < WorldTime.time;
+
 
         private void Update()
         {
             if(WorldTime.time > timeToDie)
             {
-                // TODO: De-register
-                Destroy(gameObject);
+               EndEffect();
             }
         }
 
@@ -31,6 +33,7 @@ namespace kfutils.rpg {
         public override void StoreData()
         {
             Data data = new(typeID, id, timeToDie, transform);
+            ObjectManagement.AddEffect(data);
         }
 
 

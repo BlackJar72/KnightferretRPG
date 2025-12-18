@@ -10,7 +10,7 @@ namespace kfutils.rpg {
         [SerializeField] WorldEffect effectPrototype;
 
         public string ID => id;
-        public WorldEffect EffectProto => effectPrototype;
+        public WorldEffect Effect => effectPrototype;
         public GameObject ObjProto => effectPrototype.gameObject;
     }
 

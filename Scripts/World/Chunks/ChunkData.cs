@@ -74,6 +74,16 @@ namespace kfutils.rpg {
         }
 
 
+        public string ListEffectsInChunk() {
+            System.Text.StringBuilder sb = new(" [");
+            for(int i = 0; i < itemsInChunk.Count; i++) {
+                sb.Append(effectsInChunk[i]).Append(", ");
+            }
+            sb.Append("] ");
+            return sb.ToString();
+        }
+
+
         /// <summary>
         /// Unlike the typical use of a dirty flag, here we are more concerned about the reverse, 
         /// doing things specific for first load.  Therefore, making this "dirty" is premenant;

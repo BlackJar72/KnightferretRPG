@@ -90,6 +90,9 @@ namespace kfutils.rpg {
                 spawned.chunk = this;
                 if (items[i].StartWithPhysics) spawned.EnablePhysics();
             }
+            // Should not need to deal with effects here, as almost by definition these are added later;
+            // if an effect is needed in advance, a paceholder could simply spawn it, as it will register
+            // itself when spawned.
         }
 
 
@@ -105,6 +108,14 @@ namespace kfutils.rpg {
                 spawned.SetID(itemData.ID);
                 spawned.chunk = this;
                 if(itemData.physics) spawned.EnablePhysics(); 
+            }
+            for(int i = 0; i < data.EffectsInChunkList.Count; i++) {
+                WorldEffect.Data effectData = ObjectManagement.GetEffect(data.EffectsInChunkList[i]);
+                WorldEffect effect = ObjectManagement.GetPrototype(effectData.typeID).Effect;
+                WorldEffect spawned = Instantiate(effect, looseItems);
+                spawned.transform.SetDataGlobal(effectData.transform);
+                spawned.SetData(effectData);
+                spawned.SetChunkDirect(this);
             }
         }
 

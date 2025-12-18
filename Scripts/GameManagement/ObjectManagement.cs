@@ -124,9 +124,11 @@ namespace kfutils.rpg
         public static Dictionary<string, GData> WorldObjectData => worldObjectData;
         public static Dictionary<string, GDataExpiring> WorldTimedData => worldTimedData;
 
-        private static readonly Dictionary<string, EffectPrototype> effectprotoRegistry = new();
+        private static readonly Dictionary<string, EffectPrototype> effectProtoRegistry = new();
+        public static Dictionary<string, EffectPrototype> EffectProtoRegistry => effectProtoRegistry;
 
         public static Dictionary<string, WorldEffect.Data> effectRegistry = new();
+        public static Dictionary<string, WorldEffect.Data> EffectRegistry => effectRegistry;
 
 
         public static void NewGame()
@@ -209,7 +211,7 @@ namespace kfutils.rpg
 
 #region Effect Management
         public static void AddEffectPrototype(EffectPrototype prototype) {
-            if(!effectprotoRegistry.ContainsKey(prototype.ID)) effectprotoRegistry.Add(prototype.ID, prototype);
+            if(!effectProtoRegistry.ContainsKey(prototype.ID)) effectProtoRegistry.Add(prototype.ID, prototype);
         }
 
 
@@ -221,14 +223,26 @@ namespace kfutils.rpg
         }
 
 
-        public static WorldEffect.Data GetItem(string id) => effectRegistry.ContainsKey(id) ? effectRegistry[id] : null;
+        public static WorldEffect.Data GetEffect(string id) => effectRegistry.ContainsKey(id) ? effectRegistry[id] : null;
 
 
-        public static EffectPrototype GetPrototype(string id) => effectprotoRegistry.ContainsKey(id) ? effectprotoRegistry[id] : null;
+        public static EffectPrototype GetPrototype(string id) => effectProtoRegistry.ContainsKey(id) ? effectProtoRegistry[id] : null;
 
 
-        public static void SetItemData(Dictionary<string, WorldEffect.Data> loaded) {
+        public static void SetEffectData(Dictionary<string, WorldEffect.Data> loaded) {
             effectRegistry = loaded;
+        }
+
+
+        public static void RemoveEffect(WorldEffect.Data effect) 
+        {
+            if(effectRegistry.ContainsKey(effect.id)) effectRegistry.Remove(effect.id);
+        }
+
+
+        public static void RemoveEffect(string id) 
+        {
+            if(effectRegistry.ContainsKey(id)) effectRegistry.Remove(id);
         }
 #endregion Effect Management
 

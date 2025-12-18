@@ -6,18 +6,19 @@ namespace kfutils.rpg {
 
     public class WorldEffect : MonoBehaviour, IHaveStringID
     {
+        [System.Serializable]
         public sealed class Data
         {
             public readonly string typeID;
             public readonly string id;
             public readonly double timeToDie;
-            public readonly TransformData trans;
+            public readonly TransformData transform;
             public Data(string typeID, string id, double timeToDie, Transform transform)
             {
                 this.typeID = typeID;
                 this.id = id;
                 this.timeToDie = timeToDie;
-                this.trans = new(transform);
+                this.transform = new(transform);
             }
         }
 
@@ -30,18 +31,14 @@ namespace kfutils.rpg {
 
         public string ID => id;
         public string TypeID => typeID;
+        public virtual double TimeToDie => double.PositiveInfinity;
+        public virtual bool ShouldDie => false;
 
 
         public virtual void Create()
         {
-            id = System.Guid.NewGuid().ToString();
-            // TODO: Register
-        }
-
-
-        public virtual void ReInit()
-        {
-            
+            id = System.Guid.NewGuid().ToString();            
+            SendToCorrectChunk();
         }
 
 
@@ -51,16 +48,18 @@ namespace kfutils.rpg {
             if(chunk != newchunk) {
                 if(chunk != null) chunk.Data.EffectsInChunkList.Remove(id);
                 chunk = newchunk;
-                chunk.Data.AddItem(id);
+                chunk.Data.AddEffect(id);
             }
-            ItemData data = ItemManagement.GetItem(id);
-            if(data != null) data.transformData = transform.GetGlobalData();
+            Data data = ObjectManagement.GetEffect(id);
+            if(data != null) data.transform.SetDataFrom(transform);
+            else StoreData();
         }
 
 
         public virtual void StoreData()
         {
             Data data = new(typeID, id, double.PositiveInfinity, transform);
+            ObjectManagement.AddEffect(data);
         }
 
 
@@ -68,6 +67,26 @@ namespace kfutils.rpg {
         {
             typeID = data.typeID;
             id = data.id;
+        }
+
+
+        public void SetChunkDirect(ChunkManager chunkManager)
+        {
+            chunk = chunkManager;
+        }
+
+
+        public void EndEffect()
+        {
+            chunk.Data.EffectsInChunkList.Remove(id);
+            ObjectManagement.RemoveEffect(id);
+            Destroy(gameObject);
+        }
+
+
+        public override string ToString()
+        {
+            return typeID + "[" + id + "]";
         }
         
 
