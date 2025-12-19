@@ -217,8 +217,8 @@ namespace kfutils.rpg
 
         public static bool AddEffect(WorldEffect.Data effect)
         {
-            if (effectRegistry.ContainsKey(effect.id)) return false;
-            effectRegistry.Add(effect.id, effect);
+            if (effectRegistry.ContainsKey(effect.ID)) return false;
+            effectRegistry.Add(effect.ID, effect);
             return true;
         }
 
@@ -236,7 +236,7 @@ namespace kfutils.rpg
 
         public static void RemoveEffect(WorldEffect.Data effect) 
         {
-            if(effectRegistry.ContainsKey(effect.id)) effectRegistry.Remove(effect.id);
+            if(effectRegistry.ContainsKey(effect.ID)) effectRegistry.Remove(effect.ID);
         }
 
 

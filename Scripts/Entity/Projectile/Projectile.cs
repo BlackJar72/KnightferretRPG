@@ -12,6 +12,10 @@ namespace kfutils.rpg {
         [SerializeField] protected bool stickyImpact;
 
         private protected ICombatant sender;
+        private bool impactSpawned = false;
+
+        public float Speed => speed;
+        public bool StickyImpact => stickyImpact;
 
 
         protected virtual void Awake() {
@@ -28,17 +32,21 @@ namespace kfutils.rpg {
         protected virtual void OnCollisionEnter(Collision collision) {
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if (damageable == sender) return;
-            if(impactPrefab != null) {
+            if((impactPrefab != null) && !impactSpawned) {
+                impactSpawned = true;
+                GameObject impact;
                 if (stickyImpact)
                 {
-                    Instantiate(impactPrefab, transform.position, transform.rotation,
+                    impact = Instantiate(impactPrefab, transform.position, transform.rotation,
                                 collision.gameObject.transform);
                 }
                 else
                 {
-                    Instantiate(impactPrefab, transform.position, transform.rotation,
+                    impact = Instantiate(impactPrefab, transform.position, transform.rotation,
                                 WorldManagement.GetChunkFromTransform(transform).transform);
                 }
+                WorldEffect effect = impact.GetComponent<WorldEffect>();
+                if(effect != null) effect.Create();
             }
             if((damageable != null) && (damage.BaseDamage > 0)) {
                 damage.DoDamage(sender, null, damageable);

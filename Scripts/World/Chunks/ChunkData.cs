@@ -38,7 +38,7 @@ namespace kfutils.rpg {
 
         public void AddEffect(string id)
         {
-            if (!itemsInChunk.Contains(id)) itemsInChunk.Add(id);
+            if (!effectsInChunk.Contains(id)) effectsInChunk.Add(id);
         }
 
 

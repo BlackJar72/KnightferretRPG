@@ -39,9 +39,9 @@ namespace kfutils.rpg {
 
         public override void SetData(Data data)
         {
-            typeID = data.typeID;
-            id = data.id;
-            timeToDie = data.timeToDie;
+            typeID = data.TypeID;
+            id = data.ID;
+            timeToDie = data.TimeToDie;
         }
 
     }

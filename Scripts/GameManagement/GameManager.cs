@@ -52,6 +52,7 @@ namespace kfutils.rpg {
             #if UNITY_EDITOR
             itemsInGame.Awake();
             #endif
+            EntityManagement.playerCharacter = playerCharacter;
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
             for (int i = 0; i < itemsInGame.Length; i++)
             {

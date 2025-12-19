@@ -8,7 +8,7 @@ namespace kfutils.rpg {
     public class WeaponThrowableMelee : WeaponMelee
     {
         [Tooltip("The item's thrown form; its hould usually a ThrownWeapon\n but other projectiles are allower for special cases.")] 
-        [SerializeField] Projectile projectile;
+        [SerializeField] ThrownItem projectile;
         [SerializeField] ItemActions throwAnimation;
         [SerializeField] float releaseTime = 0.18f;
 
@@ -48,10 +48,12 @@ namespace kfutils.rpg {
                 if (attacker is PCActing)
                 {
                     attackState = attacker.PlayAction(useAnimation.Primary.mask, action.GetSequential(attack), OnUseAnimationEnd, 0, attackTime);
+                    useAnimation.PrimarySound.Play(audioSource);
                 }
                 else
                 {
                     attackState = attacker.PlayAction(useAnimation.Primary.mask, action.GetRandom(attack), OnUseAnimationEnd, 0, attackTime);
+                    useAnimation.PrimarySound.Play(audioSource);
                 }
 
                 PCActing pc = attacker as PCActing;
@@ -72,10 +74,9 @@ namespace kfutils.rpg {
         private void LaunchWeapon()
         {
             Vector3 direction = aim.toward;
-            Projectile thrown = Instantiate(projectile, transform);
+            ThrownItem thrown = Instantiate(projectile, transform);
             GameObject thrownObject = thrown.gameObject;
-            if(thrown is SpellProjectile spell) spell.SetRange(50, transform.position);
-            if(thrown is ThrownItem weapon) weapon.SetItem(prototype);
+            thrown.SetItem(prototype);
             if(Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, 64, GameConstants.attackableLayer))
             {
                 direction = hitInfo.point - thrown.transform.position;

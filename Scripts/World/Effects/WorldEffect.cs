@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -7,12 +8,18 @@ namespace kfutils.rpg {
     public class WorldEffect : MonoBehaviour, IHaveStringID
     {
         [System.Serializable]
-        public sealed class Data
+        public class Data
         {
-            public readonly string typeID;
-            public readonly string id;
-            public readonly double timeToDie;
-            public readonly TransformData transform;
+            [SerializeField] string typeID;
+            [SerializeField] string id;
+            [SerializeField] double timeToDie;
+            [SerializeField] TransformData transform;
+        
+            public string TypeID => typeID;
+            public string ID => id;
+            public double TimeToDie => timeToDie;
+            public TransformData TransData => transform;
+
             public Data(string typeID, string id, double timeToDie, Transform transform)
             {
                 this.typeID = typeID;
@@ -24,6 +31,7 @@ namespace kfutils.rpg {
 
 
         [SerializeField] protected string typeID; 
+        [SerializeField] bool alwaysUpright = true;
 
         protected string id;
 
@@ -34,10 +42,11 @@ namespace kfutils.rpg {
         public virtual double TimeToDie => double.PositiveInfinity;
         public virtual bool ShouldDie => false;
 
-
         public virtual void Create()
         {
-            id = System.Guid.NewGuid().ToString();            
+            id = System.Guid.NewGuid().ToString(); 
+            if(alwaysUpright) transform.eulerAngles = Vector3.zero;
+            StoreData();           
             SendToCorrectChunk();
         }
 
@@ -51,7 +60,7 @@ namespace kfutils.rpg {
                 chunk.Data.AddEffect(id);
             }
             Data data = ObjectManagement.GetEffect(id);
-            if(data != null) data.transform.SetDataFrom(transform);
+            if(data != null) data.TransData.SetDataFrom(transform);
             else StoreData();
         }
 
@@ -65,8 +74,8 @@ namespace kfutils.rpg {
 
         public virtual void SetData(Data data)
         {
-            typeID = data.typeID;
-            id = data.id;
+            typeID = data.TypeID;
+            id = data.ID;
         }
 
 
