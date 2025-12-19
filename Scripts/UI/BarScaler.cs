@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,18 @@ namespace kfutils.rpg.ui {
 
         public void SetBar(float value)
         {
+            try {
             image.rectTransform.localScale = 
                 new Vector3(Mathf.Clamp(value, 0, 1), 
                     gameObject.transform.localScale.y, 
                     gameObject.transform.localScale.z);
+            }
+            catch (Exception e)
+            {                
+                Debug.Log("image = " + image);
+                Debug.Log("gameObject = " + gameObject);
+                Debug.LogException(e);
+            }
         }
 
 

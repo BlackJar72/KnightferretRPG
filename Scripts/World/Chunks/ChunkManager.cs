@@ -111,12 +111,6 @@ namespace kfutils.rpg {
             }
             for(int i = 0; i < data.EffectsInChunkList.Count; i++) {
                 WorldEffect.Data effectData = ObjectManagement.GetEffect(data.EffectsInChunkList[i]);
-                Debug.Log("");
-                Debug.Log("data.EffectsInChunkList[i] " + data.EffectsInChunkList[i]);
-                Debug.Log("effectData " + effectData);
-                Debug.Log("itemData.Prototype " + effectData.TypeID);
-                Debug.Log("ObjectManagement.GetPrototype(effectData.typeID) " + ObjectManagement.GetPrototype(effectData.TypeID));
-                Debug.Log("ObjectManagement.GetPrototype(effectData.typeID).Effect " + ObjectManagement.GetPrototype(effectData.TypeID).Effect);
                 WorldEffect effect = ObjectManagement.GetPrototype(effectData.TypeID).Effect;
                 WorldEffect spawned = Instantiate(effect, looseItems);
                 spawned.transform.SetDataGlobal(effectData.TransData);

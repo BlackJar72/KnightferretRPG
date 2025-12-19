@@ -21,7 +21,7 @@ namespace kfutils.rpg {
         [SerializeField] protected MovementSet movementSetPrototype;
         [SerializeField] protected Transform eyes;
         [SerializeField] protected NavSeeker navSeeker;
-        [SerializeField] protected GameObject destMaker;  // Temp, debugging
+        //[SerializeField] protected GameObject destMaker;  // Temp, debugging
 
         protected MovementSet movementSet;
 
@@ -201,7 +201,7 @@ namespace kfutils.rpg {
             navSeeker.Agent.SetDestination(destination);
             navSeeker.Agent.stoppingDistance = stopDist;
             navSeeker.stopped = false;
-            if (destMaker != null) destMaker.transform.position = destination; // Temp, debugging
+            //if (destMaker != null) destMaker.transform.position = destination; // Temp, debugging
         }
 
 

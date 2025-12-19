@@ -20,8 +20,8 @@ namespace kfutils.rpg {
 
         public void SetOwner(IActor actor)
         {
-            // Do not allow this to be changed once set
-            if (owner == null) owner = actor;
+            owner ??= actor;
+            OnEnable();
         }
 
 
@@ -71,6 +71,7 @@ namespace kfutils.rpg {
 
         public virtual void Register()
         {
+            if(owner == null) return;
             EquiptmentSlots data = InventoryManagement.GetEquiptData(owner.ID);
             if (data == null)
             {
