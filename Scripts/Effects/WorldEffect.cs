@@ -72,6 +72,13 @@ namespace kfutils.rpg {
         }
 
 
+        public virtual void UpdateData()
+        {
+            Data data = new(typeID, id, double.PositiveInfinity, transform);
+            ObjectManagement.UpdateEffect(data);
+        }
+
+
         public virtual void SetData(Data data)
         {
             typeID = data.TypeID;

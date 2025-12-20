@@ -4,6 +4,21 @@ using UnityEngine;
 
 namespace kfutils.rpg
 {
+    /// <summary>
+    /// Represents status effects.  Allows new effects to easily be added by 
+    /// modifying this file. 
+    /// 
+    /// Unfortunately, this is not well designed for being devided between 
+    /// frame work and game, as it forces all new effects to be here (rather
+    /// than with the game specific content) and requires references to game 
+    /// specific content to do some things (such as add visuals).
+    /// 
+    /// If this were re-made / a new alternative made, this would need to be 
+    /// done differently to allow the specific effects to be separated.  
+    /// Perhaps this could be done using a dictionary and ID system, which 
+    /// has worked well for many other game systems 
+    /// </summary>
+
 
     [System.Serializable]
     public class StatusEffects
@@ -163,12 +178,14 @@ namespace kfutils.rpg
         [System.Serializable]
         public enum EEffectType
         {
-            FIRE_RESIT = 0
+            FIRE_RESIT = 0,
+            BURNING = 1
         }
 
 
         private static readonly IEffect[] implementations = new IEffect[] {
             new FireResist(),
+            new Burning()
         };
 
 
@@ -185,6 +202,20 @@ namespace kfutils.rpg
             {
                 entity.attributes.damageModifiers.RemoveModifer(effect.MakeID);
             }
+        }
+
+
+        public class Burning: IEffect
+        {
+            public void BeginEffect(EntityLiving entity, Effect effect) {}
+
+            public void ContinueEffect(EntityLiving entity, Effect effect)
+            { 
+                entity.TakeDamageOverTime(DamageUtils.CalcFixedDamage((int)(effect.Magnitude * GameConstants.ENVIRO_DMG_FACTOR),
+                                            entity.GetArmor(), 0.5f, DamageType.fire));
+            }
+
+            public void EndEffect(EntityLiving entity, Effect effect) {}
         }
 
 

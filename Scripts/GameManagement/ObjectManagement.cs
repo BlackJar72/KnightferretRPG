@@ -223,6 +223,16 @@ namespace kfutils.rpg
         }
 
 
+        public static void UpdateEffect(WorldEffect.Data effect)
+        {
+            if (effectRegistry.ContainsKey(effect.ID))
+            {
+                effectRegistry[effect.ID] = effect;
+            }
+            else AddEffect(effect);
+        }
+
+
         public static WorldEffect.Data GetEffect(string id) => effectRegistry.ContainsKey(id) ? effectRegistry[id] : null;
 
 

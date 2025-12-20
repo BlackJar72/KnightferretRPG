@@ -5,7 +5,7 @@ namespace kfutils.rpg {
 
     public class ThrownItem : Projectile
     {
-        [SerializeField] ItemPrototype item;
+        [SerializeField] protected ItemPrototype item;
         
 
         private bool hasDropped = false;

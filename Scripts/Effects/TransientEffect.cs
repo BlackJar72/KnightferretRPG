@@ -37,6 +37,13 @@ namespace kfutils.rpg {
         }
 
 
+        public override void UpdateData()
+        {
+            Data data = new(typeID, id, timeToDie, transform);
+            ObjectManagement.UpdateEffect(data);
+        }
+
+
         public override void SetData(Data data)
         {
             typeID = data.TypeID;
