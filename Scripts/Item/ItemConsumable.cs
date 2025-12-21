@@ -20,6 +20,8 @@ namespace kfutils.rpg
         public virtual int StaminaCost => 0;
         public int PowerAttackCost => 0;
 
+        public override bool IsReal => holder != null;
+
 
         public void DecrimentSlot()
         {
@@ -42,13 +44,13 @@ namespace kfutils.rpg
 
 
         public void OnUnequipt()
-        {
+        {/*
             ready = false;
             if (equiptAnim != null)
             {
                 holder.RemoveEquiptAnimation();
             }
-        }
+        */}
 
 
         public void PlayEquipAnimation(IActor user)

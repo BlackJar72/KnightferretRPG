@@ -16,6 +16,7 @@ namespace kfutils.rpg {
         [SerializeField] ParticleSystem magicSparkles;
 
         [SerializeField] protected CharacterEquipt itemLocations;
+        [SerializeField] protected CharacterEquipt itemBodyLocations;
         [SerializeField] protected BlockArea blockArea;
 
         [Tooltip("There need to be three of these, for high, mid, and low (in that order)")]
@@ -515,9 +516,10 @@ namespace kfutils.rpg {
         {
             if (item != null)
             {
+
+                itemBodyLocations.EquipItem(item);
                 ItemEquipt equipt = itemLocations.EquipItem(item);
-                IUsable usable = equipt as IUsable;
-                if (usable != null)
+                if (equipt is IUsable usable)
                 {
                     usable.OnEquipt(this);
                 }
@@ -536,6 +538,7 @@ namespace kfutils.rpg {
             if (item != null)
             {
                 itemLocations.UnequipItem(item);
+                itemBodyLocations.UnequipItem(item);
             }
         }
 
@@ -543,6 +546,7 @@ namespace kfutils.rpg {
         public virtual void UnequiptItemFromBody(EEquiptSlot slot)
         {
             itemLocations.UnequipItem(slot);
+            itemBodyLocations.UnequipItem(slot);
         }
 
 

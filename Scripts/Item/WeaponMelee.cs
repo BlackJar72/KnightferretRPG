@@ -30,6 +30,8 @@ namespace kfutils.rpg {
         protected int attack = 0;
         protected AnimancerState attackState;
 
+        public override bool IsReal => holder != null;
+
         // Blocking Fields
 
         [SerializeField] protected float blockAmount;

@@ -16,11 +16,14 @@ namespace kfutils.rpg {
         [SerializeField] protected GameObject renderedObject;
 
         public ClipTransition EquiptAnim => equiptAnim;
+        public virtual bool IsReal => true;
 
 
         public void SetRenderLayer(Layers mask)
         {
             renderedObject.layer = (int)mask;
+            Transform[] kids = renderedObject.GetComponentsInChildren<Transform>();
+            foreach(Transform t in kids) t.gameObject.layer = (int)mask;
         }
 
 
