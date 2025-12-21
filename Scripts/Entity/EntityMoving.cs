@@ -185,6 +185,7 @@ namespace kfutils.rpg {
         protected override void Die()
         {
             base.Die();
+            DoMove = LieDead;
             navSeeker.Agent.enabled = false;
             navSeeker.gameObject.SetActive(false);
             controller.enabled = false;
@@ -373,6 +374,24 @@ namespace kfutils.rpg {
             velocity.Set(0, vSpeed, 0);
             controller.Move(velocity * Time.deltaTime);
             //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
+        }
+
+
+        protected void LieDead()
+        {
+            onGround = controller.isGrounded;
+            if (onGround)
+            {
+                vSpeed = -GameConstants.GRAVITY3;
+            }
+            else
+            {
+                vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
+                vSpeed = Mathf.Max(vSpeed, GameConstants.TERMINAL_VELOCITY);
+            }
+            velocity.Set(0, vSpeed, 0);
+            controller.Move(velocity * Time.deltaTime);
+            //shouldJump = false;
         }
         
 

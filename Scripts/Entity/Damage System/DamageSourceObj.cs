@@ -13,30 +13,52 @@ namespace kfutils.rpg {
         public DamageType Type => damageType;
         public float AP => armorPenetration;
 
+
+        public DamageSource Combine(DamageSource other)
+        {
+            return new DamageSource()
+            {
+                baseDamage = baseDamage + other.baseDamage,
+                damageType = damageType | other.damageType,
+                armorPenetration = Mathf.Max(armorPenetration, other.armorPenetration)
+            };        
+            // DamageSource result = new();
+            // result.baseDamage = baseDamage + other.baseDamage;
+            // result.damageType = damageType | other.damageType;
+            // result.armorPenetration = Mathf.Max(armorPenetration, other.armorPenetration);
+            // return result;
+        }
+
+
         public Damages GetDamage(int armor)
         {
             return DamageUtils.CalcDamage(baseDamage, armor, damageType, armorPenetration);
         }
+
 
         public void DoDamage(IDamageable victim, float factor = 1.0f)
         {
             victim.TakeDamage(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), victim.GetArmor(), damageType, armorPenetration));
         }
 
+
         public DamageData GetDamage(ICombatant attacker, IWeapon weapon, int armor, float factor = 1.0f)
         {
             return new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), armor, damageType, armorPenetration), attacker, weapon);
         }
+
 
         public DamageData GetDamage(ICombatant attacker, IWeapon weapon, IDamageable victim, float factor = 1.0f)
         {
             return new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), victim.GetArmor(), damageType, armorPenetration), attacker, weapon);
         }
 
+
         public void DoDamage(ICombatant attacker, IWeapon weapon, IDamageable victim, float factor = 1.0f)
         {
             victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), victim.GetArmor(), damageType, armorPenetration), attacker, weapon));
         }
+
 
         /// <summary>
         /// Used by AI system to determine the best attack.
