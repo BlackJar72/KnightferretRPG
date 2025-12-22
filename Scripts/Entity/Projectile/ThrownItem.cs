@@ -6,6 +6,7 @@ namespace kfutils.rpg {
     public class ThrownItem : Projectile
     {
         [SerializeField] protected ItemPrototype item;
+        [SerializeField] protected float strengthFactor = 1.0f;
         
 
         private bool hasDropped = false;
@@ -15,7 +16,8 @@ namespace kfutils.rpg {
             if(sender is EntityLiving living)
             {            
                 Physics.IgnoreCollision(GetComponent<Collider>(), living.GetComponent<Collider>());
-                rb.linearVelocity = direction * Mathf.Max((speed - 10 + living.attributes.baseStats.Strength), speed / 2);
+                rb.linearVelocity = direction * Mathf.Max((speed 
+                        + ((living.attributes.baseStats.Strength - EntityBaseStats.DEFAULT_SCORE) * strengthFactor)), speed / 2.0f);
             }
             else rb.linearVelocity = direction * speed;
         }
