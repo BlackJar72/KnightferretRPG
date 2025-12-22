@@ -242,6 +242,9 @@ namespace kfutils.rpg {
         }
 
 
+        public ItemAmmo GetAmmoItem() => itemLocations.GetAmmoItem();
+
+
         public void Stagger(float delay)
         {
             if (alive)

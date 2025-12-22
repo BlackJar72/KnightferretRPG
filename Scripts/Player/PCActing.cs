@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 
 namespace kfutils.rpg {
-
+    [RequireComponent(typeof(AudioSource))]
     public class PCActing : PCMoving, ICombatant
     {
 
@@ -391,6 +391,9 @@ namespace kfutils.rpg {
             yield return new WaitForSeconds(delay);
             onEnd();
         }
+
+
+        public ItemAmmo GetAmmoItem() => itemLocations.GetAmmoItem();
 
 
         protected virtual void Interact(InputAction.CallbackContext context)

@@ -6,22 +6,51 @@ namespace kfutils.rpg {
 
     public class WeaponBow : ItemEquipt, IWeapon
     {
+        /// <summary>
+        /// Stages for archery if the player is allowed to hold; also include a full complete 
+        /// shooting animation as the last entry.  Holding would cost stamina, but I'd prefer 
+        /// it be possible.  However, I may start using only implementing a complete shot 
+        /// as a single action, as this is simpler to start with.  Perhaps I could add 
+        /// more control (holding a shot later).
+        /// 
+        /// How doable, and how complex, a draw, hold (potentially), shoot system with the 
+        /// systems I currently have is.  I may end up with a click to shoot system and no 
+        /// holding.  Holding for long periods is realistic, but gamers like being able to
+        /// hold to better aim.  However, this may not be a realistic goal with the current 
+        /// systems, or at the very least not a good starting point.  
+        /// </summary>
+        public enum Stages
+        {
+            ready = 0,
+            draw = 1,
+            hold = 2,
+            loose = 3,
+            fullShoot = 4
+        }
 
         // Weapon Fields
         [SerializeField] protected float attackTime;
         [SerializeField] protected DamageSource damage;
 
-        [SerializeField] protected ItemActions useAnimation; 
+        [Tooltip ("This needs to be an ActionSequence with 5 actions keyed to the stages enum. \n"
+                 + " (ready = 0, draw = 1, hold = 2, loose = 3, full shoot sequence = 4)")]
+        [SerializeField] protected ItemActions useAnimations; 
+        [SerializeField] protected ActionSequence bowAnimations; 
+        [SerializeField] protected Transform projectileSpawn;
+        [SerializeField] string ammoTypeID;
         [SerializeField] protected int drawCost;
         [SerializeField] protected int holdCost;
-        [SerializeField] protected float lauchSpeed;
+        [SerializeField] protected float lauchSpeed = 48.0f;
 
         [SerializeField] protected float noise = 4.0f; 
+
+        protected bool busy = false;
+        protected bool queued = false; 
 
         public bool Parriable => false;
         public float MaxRange => lauchSpeed;
         public float MinRange => 3.0f;
-        public AbstractAction UseAnimation => useAnimation.Primary;
+        public AbstractAction UseAnimation => useAnimations.Primary;
         public int StaminaCost => drawCost;
         public int PowerAttackCost => holdCost;
 
@@ -69,7 +98,34 @@ namespace kfutils.rpg {
 
         public void OnUse(IActor actor)
         {
-            throw new System.NotImplementedException();
+            if(actor is ICombatant shooter)
+            {   
+                ItemAmmo ammo = shooter.GetAmmoItem();
+                if(busy) queued = true;
+                // I'd rather just use an ennum for efficient comparison; the cost of separate open and closed source parts.
+                else if((ammo != null) && (string.CompareOrdinal(ammo.ID, ammoTypeID) == 0)) 
+                {
+                    shooter.GetAimParams(out AimParams aim);
+                    Vector3 direction = aim.toward;
+                    // If there is a target close enough to make flat-shooting plausible, try that.
+                    if (Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, lauchSpeed * 0.25f, GameConstants.attackableLayer | GameConstants.LevelMask))
+                    {
+                        direction = hitInfo.point - projectileSpawn.position;
+                    }
+                    // Otherwise, allow arched shooting while correcting the horizontal aim toward a target directing in front of the shooter.
+                    // I am not sure how to handle shooting at other angles. This is apparently this can be done by using 2D colliders, 
+                    // but would require all coordinates to be transformed so that the xy plane could represent the worlds xz plane.
+                    // For now, we are assuming the long range tartet is directly in from of the player.
+                    //
+                    // Alternately, the arrow could be spawned directly in front of the player, like a spell (from the spell projectile spawn),
+                    // which would eliminate this problem but might not look convincing.
+                    else if (Physics.Raycast(aim.from, shooter.GetTransform.forward, out hitInfo, lauchSpeed, GameConstants.attackableLayer | GameConstants.LevelMask))
+                    {
+                        direction.Set(hitInfo.point.x - projectileSpawn.position.x, direction.y, hitInfo.point.z - projectileSpawn.position.z);
+                    }
+                    AttackRanged(shooter, direction);
+                }
+            }
         }
 
 
@@ -87,7 +143,7 @@ namespace kfutils.rpg {
 
         public void PlayUseAnimation(IActor actor)
         {
-            throw new System.NotImplementedException();
+            
         }
 
 

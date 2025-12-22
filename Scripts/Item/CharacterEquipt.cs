@@ -21,7 +21,7 @@ namespace kfutils.rpg {
         [SerializeField] ItemEquiptLocation RRING;
         [SerializeField] ItemEquiptLocation LRING;
         [SerializeField] ItemEquiptLocation NECK;
-        [SerializeField] ItemEquiptLocation BELT;
+        [SerializeField] ItemEquiptLocation AMMO;
 
 
         public ItemEquipt EquipItem(ItemStack item) {
@@ -54,8 +54,8 @@ namespace kfutils.rpg {
                         }
                     case EEquiptSlot.NECK:
                         return NECK.EquiptArmor(item);
-                    case EEquiptSlot.BELT:
-                        return BELT.EquiptArmor(item);
+                    case EEquiptSlot.AMMO:
+                        return AMMO.EquiptArmor(item);
                     default: return null;
                 }
             }
@@ -92,8 +92,8 @@ namespace kfutils.rpg {
                     }
                 case EEquiptSlot.NECK:
                     return NECK.CurrentItem;
-                case EEquiptSlot.BELT:
-                    return BELT.CurrentItem;
+                case EEquiptSlot.AMMO:
+                    return AMMO.CurrentItem;
                 default: return null;
             }
         }
@@ -106,6 +106,11 @@ namespace kfutils.rpg {
 
         public ItemEquipt GetLHandItem() {
             return LHAND.CurrentItem;
+        }
+
+
+        public ItemAmmo GetAmmoItem() {
+            return AMMO.CurrentItem as ItemAmmo;
         }
 
 
@@ -143,7 +148,7 @@ namespace kfutils.rpg {
                         break;
                     case EEquiptSlot.NECK:
                         break;
-                    case EEquiptSlot.BELT:
+                    case EEquiptSlot.AMMO:
                         break;
                     default: break;
                 }
@@ -182,7 +187,7 @@ namespace kfutils.rpg {
                     break;
                 case EEquiptSlot.NECK:
                     break;
-                case EEquiptSlot.BELT:
+                case EEquiptSlot.AMMO:
                     break;
                 default: break;
             }

@@ -108,6 +108,7 @@ namespace kfutils.rpg {
 #pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
             {
+                damageFactor += (0.1f * attack);
                 if (holder.OnGround) damageFactor += 0.5f;
                 if (damageable.InParriedState()) damageFactor += 1.0f;
                 if (damageable.IsSurprised(holder)) damageFactor += 2.0f;
@@ -127,8 +128,7 @@ namespace kfutils.rpg {
         public void OnUse(IActor actor)
         {
             damageFactor = 1.0f;
-            ICombatant attacker = actor as ICombatant;
-            if (attacker != null)
+            if (actor is ICombatant attacker)
             {
                 if (busy) queued = true;
                 else
@@ -142,7 +142,7 @@ namespace kfutils.rpg {
 
         public virtual void OnUseCharged(IActor actor)
         {
-            damageFactor = 1.5f;
+            damageFactor = 2.0f;
             ICombatant attacker = actor as ICombatant;
             if (attacker != null)
             {
@@ -152,6 +152,7 @@ namespace kfutils.rpg {
                     AttackMelee(attacker);
                     PlayUseAnimation(actor);
                 }
+                attack = 0;
             }
         }
 

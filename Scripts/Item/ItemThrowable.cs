@@ -64,15 +64,14 @@ namespace kfutils.rpg {
                 Vector3 direction = aim.toward;
                 ThrownItem thrown = Instantiate(projectile, transform);
                 GameObject thrownObject = thrown.gameObject;
-                RaycastHit hitInfo;
-                if(Physics.Raycast(aim.from, aim.toward, out hitInfo, thrown.Speed + 10, GameConstants.attackableLayer))
+                if (Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, thrown.Speed + 10, GameConstants.attackableLayer))
                 {
                     direction = hitInfo.point - thrown.transform.position;
-                } 
-                else if(Physics.Raycast(aim.from, aim.toward, out hitInfo, thrown.Speed + 10, GameConstants.LevelMask))
+                }
+                else if (Physics.Raycast(aim.from, aim.toward, out hitInfo, thrown.Speed + 10, GameConstants.LevelMask))
                 {
                     direction = hitInfo.point - thrown.transform.position;
-                }    
+                }
                 thrownObject.transform.parent = WorldManagement.WorldLogic.GetChunk(transform.position).gameObject.transform;
                 thrownObject.transform.LookAt(transform.position - direction);
                 thrown.Launch(thrower, direction.normalized);

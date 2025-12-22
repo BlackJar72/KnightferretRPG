@@ -50,6 +50,17 @@ namespace kfutils.rpg
         /// </summary>
         public bool IsBlocking { get;  }
 
+        /// <summary>
+        /// Get the item currently in the ammo slot; if this contains 
+        /// and items not assignable as ItemAmmo this will return null.
+        /// (That should never happen; if it does something has been 
+        /// setup incorrectly.) Null is also returned if the item slot 
+        /// is empty, and ammo using items will treat null as no ammo, 
+        /// in addition to checking the ammon type. 
+        /// </summary>
+        /// <returns></returns>
+        public ItemAmmo GetAmmoItem();
+
     }
 
 }

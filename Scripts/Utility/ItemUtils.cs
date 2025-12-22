@@ -24,7 +24,7 @@ namespace kfutils.rpg
                 case EEquiptSlot.RING: return 6;
                 case EEquiptSlot.NECK: return 10;
                 case EEquiptSlot.CLOTH: return 0;
-                case EEquiptSlot.BELT: return 7;
+                case EEquiptSlot.AMMO: return 7;
                 default: return -1;
             }
         }
