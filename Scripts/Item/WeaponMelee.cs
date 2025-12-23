@@ -40,14 +40,10 @@ namespace kfutils.rpg {
         [SerializeField] protected AudioSource audioSource;
 
         private protected BlockArea blockArea;
-
         private protected bool blocking = false;
-
         private protected float damageFactor; // For normal vs power attacks
 
-
         public delegate void EventAction();
-
 
         public AbstractAction UseAnimation => useAnimation.Primary;
 
@@ -60,6 +56,9 @@ namespace kfutils.rpg {
         public float Stability => stability;
         public float ParryWindow => parryWindow;
         public DamageSource DamagerSrc => damage;
+
+        public float GetAttackSpeed() => 1.0f / attackTime;
+        public int GetDamage() => damage.BaseDamage;
 
 
         /*******************************************************************************************************************************/
@@ -81,22 +80,12 @@ namespace kfutils.rpg {
 
         public void AttackRanged(ICombatant attacker, Vector3 direction)
         {
+            #if UNITY_EDITOR
             Debug.LogError("Trying to perform raged attack with melee weapon " + prototype.Name);
             throw new System.NotImplementedException();
+            #endif
         }
-
-
-        public float GetAttackSpeed()
-        {
-            return attackTime;
-        }
-
-
-        public int GetDamage()
-        {
-            return damage.BaseDamage;
-        }
-
+        
 
         void OnTriggerEnter(Collider other)
         {
@@ -219,7 +208,7 @@ namespace kfutils.rpg {
             hitCollider.enabled = false;
             if (actor.ActionState != null) PlayEquipAnimation(actor);
             PCActing pc = actor as PCActing;
-            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
+            if ((pc != null) && !pc.IsBlocking) pc.SetArmsPos(PCActing.ArmsPos.high);
         }
 
 

@@ -46,6 +46,11 @@ namespace kfutils.rpg {
 
         protected bool busy = false;
         protected bool queued = false; 
+        protected ICombatant holder;
+
+        public float GetAttackSpeed() => 1.0f / attackTime;
+        public float EstimateDamage(IDamageable victem) => damage.EstimateDamage(victem);
+        public int GetDamage() => damage.BaseDamage;
 
         public bool Parriable => false;
         public float MaxRange => lauchSpeed;
@@ -53,9 +58,17 @@ namespace kfutils.rpg {
         public AbstractAction UseAnimation => useAnimations.Primary;
         public int StaminaCost => drawCost;
         public int PowerAttackCost => holdCost;
+        public float AttackTime => attackTime;
+        public override bool IsReal => holder != null;
 
 
-        public void AttackMelee(ICombatant attacker) {}
+        public void AttackMelee(ICombatant attacker)
+        {
+            #if UNITY_EDITOR
+            Debug.LogError("Trying to perform melee attack with ranged weapon " + prototype.Name);
+            throw new System.NotImplementedException();
+            #endif
+        }
         public void BeBlocked(ICombatant blocker, BlockArea blockArea) {}
 
 
@@ -66,33 +79,18 @@ namespace kfutils.rpg {
         }
 
 
-        public float EstimateDamage(IDamageable victem)
-        {
-            throw new System.NotImplementedException();
-        }
-
-
-        public float GetAttackSpeed()
-        {
-            throw new System.NotImplementedException();
-        }
-
-
-        public int GetDamage()
-        {
-            throw new System.NotImplementedException();
-        }
-
-
         public void OnEquipt(IActor actor)
         {
-            throw new System.NotImplementedException();
+            holder = actor as ICombatant;
+            if (actor.ActionState != null) PlayEquipAnimation(actor);
+            PCActing pc = actor as PCActing;
+            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
         }
 
 
         public void OnUnequipt()
         {
-            throw new System.NotImplementedException();
+            holder.RemoveEquiptAnimation();
         }
 
 
@@ -131,7 +129,9 @@ namespace kfutils.rpg {
 
         public void OnUseCharged(IActor actor)
         {
-            throw new System.NotImplementedException();
+            // FIXME: Should be able to hold (though at a cost)
+            //        Should deginitely *NOT* autofire after half a second!!!
+            OnUse(actor);
         }
 
 
