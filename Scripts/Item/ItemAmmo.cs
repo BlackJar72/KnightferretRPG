@@ -10,8 +10,10 @@ namespace kfutils.rpg
         [SerializeField] string ammoTypeID;
         [SerializeField] protected DamageSource damage;
         [SerializeField][Min(0.0f)] protected float rangePentalty = 0.0f;
+        [SerializeField] Projectile projectilePrototype;
 
         public float RangePentalty => rangePentalty;
+        public Projectile ShotProjectile => projectilePrototype;
 
 
         public DamageSource Damage => damage;

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
@@ -36,7 +37,9 @@ namespace kfutils.rpg {
                  + " (ready = 0, draw = 1, hold = 2, loose = 3, full shoot sequence = 4)")]
         [SerializeField] protected ItemActions useAnimations; 
         [SerializeField] protected ActionSequence bowAnimations; 
-        [SerializeField] protected Transform projectileSpawn;
+        [SerializeField] protected Transform projectileSpawn; // Should I use this? Or AimParams.from?
+        [Tooltip ("Where the arrow should attach and what the \nleft hand fingers should stickt to while drawing.")]
+        [SerializeField] protected Transform nock;
         [SerializeField] string ammoTypeID;
         [SerializeField] protected int drawCost;
         [SerializeField] protected int holdCost;
@@ -74,8 +77,19 @@ namespace kfutils.rpg {
 
         public void AttackRanged(ICombatant attacker, Vector3 direction)
         {
-            // TODO!
-            throw new System.NotImplementedException();
+            
+        }
+
+
+        // FIXME / TODO: Should this be used as a delegate with animator/animancer events?  Or turned into a coroutine and timed?
+        public void LauchProjectile(ICombatant attacker, Vector3 direction)
+        {
+            ItemAmmo ammo = attacker.GetAmmoItem();
+            Projectile shot = Instantiate(ammo.ShotProjectile, projectileSpawn); // It might be better to use AimParams.from (or might not)                
+            shot.transform.parent = WorldManagement.WorldLogic.GetChunk(transform.position).gameObject.transform;
+            shot.transform.LookAt(transform.position + direction); // We will see if this should be plus or minus
+            shot.Launch(attacker, direction.normalized);
+            holder.CharInventory.Equipt.ConsumeItem(ItemUtils.GetEquiptSlotForType(EEquiptSlot.AMMO), 1);
         }
 
 

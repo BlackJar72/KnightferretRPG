@@ -81,13 +81,19 @@ namespace kfutils.rpg {
 
         public bool AddItemToSlot(int slot, ItemStack item)
         {
-            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
+            if ((item != null) && (item.item != null) && IsTwoHanded(item)) return AddTwoHandedItem(item);
             slots[slot] = item;
             item.slot = slot;
             if (mainInventory.Owner == null) EquipItemDelayed(item);
             else mainInventory.Owner.EquiptItemToBody(item);
             SignalUpdate();
             return true;
+        }
+
+
+        private bool IsTwoHanded(ItemStack item)
+        {
+            return (item.item.EquiptType == EEquiptSlot.HANDS) || (item.item.EquiptType == EEquiptSlot.BOW);
         }
 
 
@@ -140,7 +146,7 @@ namespace kfutils.rpg {
         public float CalculateWeight() {
             weight = 0f;
             for(int i = 0; i < slots.Length; i++) {
-                if((slots[i].item != null) && !((i == lhand) && (slots[i].item.EquiptType == EEquiptSlot.HANDS))) {
+                if((slots[i].item != null) && !((i == lhand) && IsTwoHanded(slots[i]))) {
                     weight += slots[i].stackSize * slots[i].item.Weight;
                 }
             }
@@ -209,7 +215,7 @@ namespace kfutils.rpg {
 
         public void RemoveAllFromSlot(int slot) {
                 if(((slot == rhand) || (slot == lhand)) && (slots[slot] != null) && (slots[slot].item != null) 
-                            && (slots[slot].item.EquiptType == EEquiptSlot.HANDS)) {
+                            && IsTwoHanded(slots[slot])) {
                     ClearTwoHandedItem(slots[slot]);
                 } else {
                     mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
@@ -263,7 +269,7 @@ namespace kfutils.rpg {
 
         public void RemoveItem(ItemStack item)
         {
-            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) ClearTwoHandedItem(item);
+            if ((item != null) && (item.item != null) && IsTwoHanded(item)) ClearTwoHandedItem(item);
             else for (int i = 0; i < slots.Length; i++)
                 {
                     if (slots[i] == item)
@@ -307,6 +313,9 @@ namespace kfutils.rpg {
             if (slotID == EEquiptSlot.HANDS)
             {
                 return slots[rhand];
+            } else if (slotID == EEquiptSlot.BOW)
+            {
+                return slots[lhand];
             }
             for (int i = 0; i < slots.Length; i++)
             {

@@ -32,13 +32,13 @@ namespace kfutils.rpg {
         RING = 0x1 << EEquiptSlot.RING,
         NECK  = 0x1 << EEquiptSlot.NECK, // For necklace / pendant / amulatet / talisman
         CLOTH  = 0x1 << EEquiptSlot.CLOTH,
-        BELT  = 0x1 << EEquiptSlot.AMMO,
+        AMMO  = 0x1 << EEquiptSlot.AMMO,
 
         // Special slots for non-items (e.g., spells, abilities, etc.)
         SPELL = 0x1 << EEquiptSlot.SPELL, // For currently selected (equipt) spell
 
         // Items (etc.) that can be placed in the hot bar
-        HOTBAR = 0x1 << EEquiptSlot.HOTBAR
+        BOW = 0x1 << EEquiptSlot.BOW
         
     }
 
@@ -72,7 +72,7 @@ namespace kfutils.rpg {
         SPELL = 12, // For currently selected (equipt) spell
 
         // Items that can be placed in the hot bar
-        HOTBAR = 13
+        BOW = 13
         
     }
 

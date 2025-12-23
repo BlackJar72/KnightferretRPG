@@ -15,7 +15,6 @@ namespace kfutils.rpg {
         // Slots for weapons, shields, and items that are equipt to be used (whether optionally or required)
         [SerializeField] ItemEquiptLocation RHAND;
         [SerializeField] ItemEquiptLocation LHAND;
-        [SerializeField] ItemEquiptLocation HANDS;
 
         // Special worn items, especially those which may be worn for magical or similar effects
         [SerializeField] ItemEquiptLocation RRING;
@@ -44,6 +43,8 @@ namespace kfutils.rpg {
                     case EEquiptSlot.HANDS:
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.LHAND:
+                        return LHAND.EquipItem(item);
+                    case EEquiptSlot.BOW:
                         return LHAND.EquipItem(item);
                     // Accessories
                     case EEquiptSlot.RING:
@@ -82,6 +83,8 @@ namespace kfutils.rpg {
                 case EEquiptSlot.HANDS:
                     return RHAND.CurrentItem;
                 case EEquiptSlot.LHAND:
+                    return LHAND.CurrentItem;
+                case EEquiptSlot.BOW:
                     return LHAND.CurrentItem;
                 // Accessories
                 case EEquiptSlot.RING:
@@ -138,6 +141,9 @@ namespace kfutils.rpg {
                     case EEquiptSlot.LHAND:
                         LHAND.UnequiptCurrentItem();
                         break;
+                    case EEquiptSlot.BOW:
+                        LHAND.UnequiptCurrentItem();
+                        break;
                     // Accessories
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
@@ -177,6 +183,9 @@ namespace kfutils.rpg {
                     RHAND.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.LHAND:
+                    LHAND.UnequiptCurrentItem();
+                    break;
+                case EEquiptSlot.BOW:
                     LHAND.UnequiptCurrentItem();
                     break;
                 // Accessories
