@@ -31,6 +31,7 @@ namespace kfutils.rpg {
 
         // Weapon Fields
         [SerializeField] protected float attackTime;
+        [Tooltip ("Defines damage type; the actual damage damage will actually \nbe a bonus and should be low (or zero).")]
         [SerializeField] protected DamageSource damage;
 
         [Tooltip ("This needs to be an ActionSequence with 5 actions keyed to the stages enum. \n"
@@ -85,11 +86,17 @@ namespace kfutils.rpg {
         public void LauchProjectile(ICombatant attacker, Vector3 direction)
         {
             ItemAmmo ammo = attacker.GetAmmoItem();
-            Projectile shot = Instantiate(ammo.ShotProjectile, projectileSpawn); // It might be better to use AimParams.from (or might not)                
+            Projectile shot = Instantiate(ammo.ShotProjectile, projectileSpawn); // It might be better to use AimParams.from (or might not)  
+            if(shot is ArrowProjectile arrow) 
+            {
+                arrow.SetSpeed(lauchSpeed);
+                arrow.GetDamage().SetBaseDamage(CombineDamage(ammo).BaseDamage);  
+            }           
             shot.transform.parent = WorldManagement.WorldLogic.GetChunk(transform.position).gameObject.transform;
             shot.transform.LookAt(transform.position + direction); // We will see if this should be plus or minus
             shot.Launch(attacker, direction.normalized);
             holder.CharInventory.Equipt.ConsumeItem(ItemUtils.GetEquiptSlotForType(EEquiptSlot.AMMO), 1);
+            ammo.DecrimentSlot();
         }
 
 

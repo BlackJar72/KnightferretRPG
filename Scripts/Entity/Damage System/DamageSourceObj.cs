@@ -30,6 +30,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void SetBaseDamage(int baseDamage)
+        {
+            this.baseDamage = baseDamage;
+        }
+
+
         public Damages GetDamage(int armor)
         {
             return DamageUtils.CalcDamage(baseDamage, armor, damageType, armorPenetration);
@@ -38,25 +44,29 @@ namespace kfutils.rpg {
 
         public void DoDamage(IDamageable victim, float factor = 1.0f)
         {
-            victim.TakeDamage(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), victim.GetArmor(), damageType, armorPenetration));
+            victim.TakeDamage(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), victim.GetArmor(), 
+                              damageType, armorPenetration));
         }
 
 
         public DamageData GetDamage(ICombatant attacker, IWeapon weapon, int armor, float factor = 1.0f)
         {
-            return new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), armor, damageType, armorPenetration), attacker, weapon);
+            return new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), armor, 
+                                  damageType, armorPenetration), attacker, weapon);
         }
 
 
         public DamageData GetDamage(ICombatant attacker, IWeapon weapon, IDamageable victim, float factor = 1.0f)
         {
-            return new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), victim.GetArmor(), damageType, armorPenetration), attacker, weapon);
+            return new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), 
+                                  victim.GetArmor(), damageType, armorPenetration), attacker, weapon);
         }
 
 
         public void DoDamage(ICombatant attacker, IWeapon weapon, IDamageable victim, float factor = 1.0f)
         {
-            victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), victim.GetArmor(), damageType, armorPenetration), attacker, weapon));
+            victim.TakeDamage(new DamageData(DamageUtils.CalcDamage(Mathf.RoundToInt(baseDamage * factor), 
+                              victim.GetArmor(), damageType, armorPenetration), attacker, weapon));
         }
 
 

@@ -15,22 +15,19 @@ namespace kfutils.rpg
         public float RangePentalty => rangePentalty;
         public Projectile ShotProjectile => projectilePrototype;
 
-
         public DamageSource Damage => damage;
         public string ID => ammoTypeID;
 
+        public ref DamageSource GetDamageRef() => ref damage;
 
-        public override void OnUse(IActor actor)
+
+        public override void OnUse(IActor actor) {}
+        public override void PlayUseAnimation(IActor actor) {}
+
+
+        public virtual void OnUseAsAmmo(IActor user)
         {
-            // TODO!
-            throw new System.NotImplementedException();
-        }
-
-
-        public override void PlayUseAnimation(IActor actor)
-        {
-            // TODO!
-            throw new System.NotImplementedException();
+            DecrimentSlot();
         }
 
 

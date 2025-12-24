@@ -2,34 +2,31 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
-    [RequireComponent(typeof(Rigidbody))]
-    public class Projectile : MonoBehaviour {
-
-        [SerializeField] protected GameObject impactPrefab;
-        [SerializeField] protected DamageSource damage;
-        [SerializeField] protected float speed;
-        [SerializeField] protected Rigidbody rb;
-        [SerializeField] protected bool stickyImpact;
-
-        protected ICombatant sender;
-        protected bool impactSpawned = false;
-
-        public float Speed => speed;
-        public bool StickyImpact => stickyImpact;
+    public class ArrowProjectile : Projectile
+    {
+        [Tooltip ("Multiplied by speed to determine impact damage; "
+                 + "If arrows are slow (less than 30.0) this should be 1.0f. "
+                 + "If arrows are fast (greater than 40.0f) this should be 0.5f (or similar). "
+                 + "(This refers to what is typical for the game. )")]
+        [SerializeField] float speedDamageFactor = 0.5f; 
 
 
-        protected virtual void Awake() {
-            if(rb == null) rb = gameObject.GetComponent<Rigidbody>();
+        public void SetSpeed(float speed)
+        {
+            this.speed = speed;
         }
 
 
-        public virtual void Launch(ICombatant sender, Vector3 direction) {
-            this.sender = sender;
-            rb.linearVelocity = direction * speed;
+        public ref DamageSource GetDamage() => ref damage;
+
+
+        public void ApplyBowDamage(DamageSource bowDamage)
+        {
+            damage = bowDamage;
         }
 
 
-        protected virtual void OnCollisionEnter(Collision collision) {
+        protected override void OnCollisionEnter(Collision collision) {
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if (damageable == sender) return;
             if((impactPrefab != null) && !impactSpawned) {
@@ -49,14 +46,11 @@ namespace kfutils.rpg {
                 if(effect != null) effect.Create();
             }
             if((damageable != null) && (damage.BaseDamage > 0)) {
+                damage.SetBaseDamage(damage.BaseDamage + Mathf.RoundToInt(rb.linearVelocity.magnitude * speedDamageFactor));
                 damage.DoDamage(sender, null, damageable);
             }
             Destroy(gameObject);
         }
-
-
-
-   }
-
+    }
 
 }
