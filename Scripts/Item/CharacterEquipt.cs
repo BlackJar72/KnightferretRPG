@@ -41,13 +41,11 @@ namespace kfutils.rpg {
                     case EEquiptSlot.RHAND:
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.HANDS:
-                        LHAND.UnequiptCurrentItem();
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.LHAND:
                         return LHAND.EquipItem(item);
                     case EEquiptSlot.BOW:
-                        RHAND.UnequiptCurrentItem();
-                        return RHAND.EquipItem(item);
+                        return LHAND.EquipItem(item);
                     // Accessories
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
@@ -116,6 +114,18 @@ namespace kfutils.rpg {
 
         public ItemAmmo GetAmmoItem() {
             return AMMO.CurrentItem as ItemAmmo;
+        }
+
+
+        public void LoadArrow(ItemAmmo ammo)
+        {
+            RHAND.EquipItem(ammo);
+        }
+
+
+        public void RemoveArrow(ItemAmmo ammo)
+        {
+            if(RHAND.CurrentItem is ItemAmmo) RHAND.UnequiptCurrentItem();
         }
 
 

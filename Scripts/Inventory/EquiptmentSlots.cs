@@ -81,7 +81,8 @@ namespace kfutils.rpg {
 
         public bool AddItemToSlot(int slot, ItemStack item)
         {
-            if ((item != null) && (item.item != null) && IsTwoHanded(item)) return AddTwoHandedItem(item);
+            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
+            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.BOW)) return AddBowItem(item);
             slots[slot] = item;
             item.slot = slot;
             if (mainInventory.Owner == null) EquipItemDelayed(item);
@@ -124,6 +125,22 @@ namespace kfutils.rpg {
                 slots[lhand].slot = lhand;
                 mainInventory.Owner.EquiptItemToBody(item);
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
+                SignalUpdate();
+                return true;
+            }
+            return false;
+        }
+
+
+        public bool AddBowItem(ItemStack item) {
+            if(item.slot == rhand) item.slot = lhand;
+            if(item.slot == lhand) {
+                item.slot = lhand;
+                slots[lhand] = item;
+                slots[rhand] = item.Copy();
+                slots[rhand].slot = rhand;
+                mainInventory.Owner.EquiptItemToBody(item);
+                mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
                 SignalUpdate();
                 return true;
             }
@@ -313,7 +330,8 @@ namespace kfutils.rpg {
             if (slotID == EEquiptSlot.HANDS)
             {
                 return slots[rhand];
-            } else if (slotID == EEquiptSlot.BOW)
+            } 
+            else if (slotID == EEquiptSlot.BOW)
             {
                 return slots[lhand];
             }

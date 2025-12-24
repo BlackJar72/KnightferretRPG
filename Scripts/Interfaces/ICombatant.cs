@@ -60,6 +60,7 @@ namespace kfutils.rpg
         /// </summary>
         /// <returns></returns>
         public ItemAmmo GetAmmoItem();
+        
 
     }
 
