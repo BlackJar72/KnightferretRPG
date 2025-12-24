@@ -41,11 +41,13 @@ namespace kfutils.rpg {
                     case EEquiptSlot.RHAND:
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.HANDS:
+                        LHAND.UnequiptCurrentItem();
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.LHAND:
                         return LHAND.EquipItem(item);
                     case EEquiptSlot.BOW:
-                        return LHAND.EquipItem(item);
+                        RHAND.UnequiptCurrentItem();
+                        return RHAND.EquipItem(item);
                     // Accessories
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
@@ -56,7 +58,7 @@ namespace kfutils.rpg {
                     case EEquiptSlot.NECK:
                         return NECK.EquiptArmor(item);
                     case EEquiptSlot.AMMO:
-                        return AMMO.EquiptArmor(item);
+                        return AMMO.EquipItem(item);
                     default: return null;
                 }
             }
@@ -136,12 +138,14 @@ namespace kfutils.rpg {
                         RHAND.UnequiptCurrentItem();
                         break;
                     case EEquiptSlot.HANDS:
+                        LHAND.UnequiptCurrentItem();
                         RHAND.UnequiptCurrentItem();
                         break;
                     case EEquiptSlot.LHAND:
                         LHAND.UnequiptCurrentItem();
                         break;
                     case EEquiptSlot.BOW:
+                        RHAND.UnequiptCurrentItem();
                         LHAND.UnequiptCurrentItem();
                         break;
                     // Accessories
@@ -155,6 +159,7 @@ namespace kfutils.rpg {
                     case EEquiptSlot.NECK:
                         break;
                     case EEquiptSlot.AMMO:
+                        AMMO.UnequiptCurrentItem();
                         break;
                     default: break;
                 }
@@ -180,12 +185,14 @@ namespace kfutils.rpg {
                     RHAND.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.HANDS:
+                    LHAND.UnequiptCurrentItem();
                     RHAND.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.LHAND:
                     LHAND.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.BOW:
+                    RHAND.UnequiptCurrentItem();
                     LHAND.UnequiptCurrentItem();
                     break;
                 // Accessories
@@ -197,6 +204,7 @@ namespace kfutils.rpg {
                 case EEquiptSlot.NECK:
                     break;
                 case EEquiptSlot.AMMO:
+                    AMMO.UnequiptCurrentItem();
                     break;
                 default: break;
             }

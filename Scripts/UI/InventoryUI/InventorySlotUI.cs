@@ -38,7 +38,7 @@ namespace kfutils.rpg.ui {
                     ItemStack localItem = item;
                     ItemStack otherItem = other.item;
                     ItemStack otherHand = null;
-                    if((other.item.item.EquiptType == EEquiptSlot.HANDS) && (inventory is EquiptmentSlots)) {
+                    if(NeedsTwoHands(other.item.item.EquiptType) && (inventory is EquiptmentSlots)) {
                         EquiptmentSlots eqiptSlots = inventory as EquiptmentSlots;
                         otherHand = eqiptSlots.GetOtherHandItem(slotNumber);
                     }
@@ -46,7 +46,7 @@ namespace kfutils.rpg.ui {
                     other.inventory.RemoveItem(other.item);
                     other.inventory.AddItemToSlot(item.slot, localItem);
                     inventory.AddItemToSlot(other.item.slot, otherItem);
-                    if((otherHand != null) && (otherHand.item != null) && (otherHand.item.EquiptType != EEquiptSlot.HANDS)) {
+                    if((otherHand != null) && (otherHand.item != null) && !NeedsTwoHands(otherHand.item.EquiptType)) {
                         other.inventory.AddToFirstEmptySlot(otherHand);
                     }
                     GameManager.Instance.UI.HideItemToolTip();
@@ -55,6 +55,12 @@ namespace kfutils.rpg.ui {
             inventory.SignalUpdate(); 
             InventoryManagement.SigalHotbarUpdate();
             return true;          
+        }
+
+
+        private bool NeedsTwoHands(EEquiptSlot equiptType)
+        {
+            return (equiptType == EEquiptSlot.HANDS) || (equiptType == EEquiptSlot.BOW);
         }
 
 

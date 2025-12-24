@@ -51,6 +51,7 @@ namespace kfutils.rpg {
         protected bool busy = false;
         protected bool queued = false; 
         protected ICombatant holder;
+        protected AimParams aim;
 
         public float GetAttackSpeed() => 1.0f / attackTime;
         public float EstimateDamage(IDamageable victem) => damage.EstimateDamage(victem);
@@ -78,7 +79,7 @@ namespace kfutils.rpg {
 
         public void AttackRanged(ICombatant attacker, Vector3 direction)
         {
-            
+            LauchProjectile(attacker, direction);
         }
 
 
@@ -87,13 +88,15 @@ namespace kfutils.rpg {
         {
             ItemAmmo ammo = attacker.GetAmmoItem();
             Projectile shot = Instantiate(ammo.ShotProjectile, projectileSpawn); // It might be better to use AimParams.from (or might not)  
+            shot.transform.position = aim.from;
+            direction = aim.toward;
             if(shot is ArrowProjectile arrow) 
             {
-                arrow.SetSpeed(lauchSpeed);
+                arrow.SetSpeed(lauchSpeed - ammo.RangePentalty);
                 arrow.GetDamage().SetBaseDamage(CombineDamage(ammo).BaseDamage);  
             }           
             shot.transform.parent = WorldManagement.WorldLogic.GetChunk(transform.position).gameObject.transform;
-            shot.transform.LookAt(transform.position + direction); // We will see if this should be plus or minus
+            shot.transform.LookAt(shot.transform.position + direction); // We will see if this should be plus or minus
             shot.Launch(attacker, direction.normalized);
             holder.CharInventory.Equipt.ConsumeItem(ItemUtils.GetEquiptSlotForType(EEquiptSlot.AMMO), 1);
             ammo.DecrimentSlot();
@@ -103,7 +106,7 @@ namespace kfutils.rpg {
         public void OnEquipt(IActor actor)
         {
             holder = actor as ICombatant;
-            if (actor.ActionState != null) PlayEquipAnimation(actor);
+            //if (actor.ActionState != null) PlayEquipAnimation(actor);
             PCActing pc = actor as PCActing;
             if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
         }
@@ -124,7 +127,7 @@ namespace kfutils.rpg {
                 // I'd rather just use an ennum for efficient comparison; the cost of separate open and closed source parts.
                 else if((ammo != null) && (string.CompareOrdinal(ammo.ID, ammoTypeID) == 0)) 
                 {
-                    shooter.GetAimParams(out AimParams aim);
+                    shooter.GetAimParams(out aim);
                     Vector3 direction = aim.toward;
                     // If there is a target close enough to make flat-shooting plausible, try that.
                     if (Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, lauchSpeed * 0.25f, GameConstants.attackableLayer | GameConstants.LevelMask))

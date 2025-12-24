@@ -25,6 +25,10 @@ namespace kfutils.rpg {
 
         public virtual void Launch(ICombatant sender, Vector3 direction) {
             this.sender = sender;
+            if(sender is EntityLiving living)
+            {            
+                Physics.IgnoreCollision(GetComponent<Collider>(), living.GetComponent<Collider>());
+            }            
             rb.linearVelocity = direction * speed;
         }
 

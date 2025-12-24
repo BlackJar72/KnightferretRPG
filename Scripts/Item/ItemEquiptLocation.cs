@@ -46,6 +46,7 @@ namespace kfutils.rpg {
         }
 
 
+
         public ItemEquipt EquiptArmor(ItemEquipt prefab) {
             // TODO: Equip as armor (i.e., attach to armature as skinned mesh)
             Debug.LogWarning("Using incomplete method; skinned mesh will be attached as non-skinned mesh.");

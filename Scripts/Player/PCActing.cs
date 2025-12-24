@@ -566,6 +566,12 @@ namespace kfutils.rpg {
             if (isCasting) return;
             ItemEquipt requipt = itemLocations.GetRHandItem();
             ItemShield shield = itemLocations.GetLHandItem() as ItemShield;
+            WeaponBow bow = itemLocations.GetLHandItem() as WeaponBow;
+            if((bow != null) && (stamina.UseStamina(bow.StaminaCost)))
+            {
+                bow.OnUse(this);
+                return;
+            }
             if (chargingAction && (requipt != null))
             {
                 IUsable usable = requipt as IUsable;
@@ -594,6 +600,12 @@ namespace kfutils.rpg {
             chargingAction = false;
             ItemEquipt requipt = itemLocations.GetRHandItem();
             ItemShield shield = itemLocations.GetLHandItem() as ItemShield;
+            WeaponBow bow = itemLocations.GetLHandItem() as WeaponBow;
+            if((bow != null) && (stamina.UseStamina(bow.StaminaCost)))
+            {
+                bow.OnUse(this);
+                return;
+            }
             if (requipt)
             {
                 IUsable usable = requipt as IUsable;

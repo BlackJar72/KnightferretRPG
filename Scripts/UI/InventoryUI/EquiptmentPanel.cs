@@ -116,6 +116,7 @@ namespace kfutils.rpg.ui {
                 }
                 case EEquiptSlot.NECK: return slots[10];
                 case EEquiptSlot.AMMO: return slots[7];
+                case EEquiptSlot.BOW: return slots[3];
                 default: return null;
             }
         }
