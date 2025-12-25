@@ -105,8 +105,16 @@ namespace kfutils.rpg {
         {
             ItemAmmo ammo = attacker.GetAmmoItem();
             Projectile shot = Instantiate(ammo.ShotProjectile, projectileSpawn); // It might be better to use AimParams.from (or might not)  
-            shot.transform.position = aim.from;
+            shot.transform.position = projectileSpawn.position;
             direction = aim.toward;
+                if (Physics.Raycast(aim.from, aim.toward, out RaycastHit hitInfo, shot.Speed, GameConstants.attackableLayer))
+                {
+                    direction = hitInfo.point - projectileSpawn.transform.position;
+                }
+                else if (Physics.Raycast(aim.from, aim.toward, out hitInfo, shot.Speed, GameConstants.LevelMask))
+                {
+                    direction = hitInfo.point - projectileSpawn.transform.position;
+                }
             if(shot is ArrowProjectile arrow) 
             {
                 arrow.SetSpeed(lauchSpeed - ammo.RangePentalty);

@@ -148,14 +148,12 @@ namespace kfutils.rpg {
                         RHAND.UnequiptCurrentItem();
                         break;
                     case EEquiptSlot.HANDS:
-                        LHAND.UnequiptCurrentItem();
                         RHAND.UnequiptCurrentItem();
                         break;
                     case EEquiptSlot.LHAND:
                         LHAND.UnequiptCurrentItem();
                         break;
                     case EEquiptSlot.BOW:
-                        RHAND.UnequiptCurrentItem();
                         LHAND.UnequiptCurrentItem();
                         break;
                     // Accessories
@@ -195,14 +193,12 @@ namespace kfutils.rpg {
                     RHAND.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.HANDS:
-                    LHAND.UnequiptCurrentItem();
                     RHAND.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.LHAND:
                     LHAND.UnequiptCurrentItem();
                     break;
                 case EEquiptSlot.BOW:
-                    RHAND.UnequiptCurrentItem();
                     LHAND.UnequiptCurrentItem();
                     break;
                 // Accessories

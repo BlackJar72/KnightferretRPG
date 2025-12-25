@@ -1,6 +1,8 @@
 using UnityEngine;
 using kfutils.rpg.ui;
 using System;
+using NUnit.Framework;
+using Character;
 
 
 namespace kfutils.rpg {
@@ -21,7 +23,6 @@ namespace kfutils.rpg {
         public void SetOwner(IActor actor)
         {
             owner ??= actor;
-            OnEnable();
         }
 
 
@@ -69,6 +70,7 @@ namespace kfutils.rpg {
         }
 
 
+        private int registrations = 0;
         public virtual void Register()
         {
             if(owner == null) return;
