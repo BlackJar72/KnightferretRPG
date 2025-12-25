@@ -20,6 +20,15 @@ Small Additions & Fixes:
 
 ...anything more should be cut from systems.
 
+Fixing the hotbar is essential.  Apparently I didn't break it recently, it was bugged all along.  Its good
+as long as you aren't switching between one and two handed items; the problem was not obvious before adding
+the bow because there were no two handed items.  Trying to band-aid it did work.  What probably needs to be
+done is two separate uneqipping of previous items from equipping of new.  Everything works to equip/unequip
+and item on its own.  What I should probably do is, when equipping an item first search the hotbar for
+anything sharing at least one hand that is already equipped; if any are found, activate them as though
+their hotkeys were pressed to unequip them.  Once all items sharing a hand have been equipped then continue
+with equipping the selected item.  Hopefully this will fix the problem.
+
 Beyond that is creating an actual game, at least a demo or “vertical slice.”  For this I need to: Make items,
 make properly done containers, make spells, write AI for specific actions / creatures / characters, build a
 village, make villagers and other friendly NPCs, make monsters and enemies, furnish and add encounters to
