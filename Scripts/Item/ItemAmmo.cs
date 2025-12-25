@@ -10,10 +10,12 @@ namespace kfutils.rpg
         [SerializeField] string ammoTypeID;
         [SerializeField] protected DamageSource damage;
         [SerializeField][Min(0.0f)] protected float rangePentalty = 0.0f;
-        [SerializeField] Projectile projectilePrototype;
+        [SerializeField] Projectile projectilePrefab;
+        [SerializeField] GameObject imagePrefab;
 
+        public GameObject ImagePrefab => imagePrefab;
         public float RangePentalty => rangePentalty;
-        public Projectile ShotProjectile => projectilePrototype;
+        public Projectile ShotProjectile => projectilePrefab;
 
         public DamageSource Damage => damage;
         public string ID => ammoTypeID;

@@ -28,6 +28,7 @@ namespace kfutils.rpg.ui {
             if(!CanSwapSlotTypes(other)) return false;
             if(inventory.OwnedByPC) InventoryManagement.SignalSlotsSwapped(SlotDataFromSlot(), other.SlotDataFromSlot());
             else InventoryManagement.SignalSlotEmptied(other.SlotDataFromSlot());
+            //if((other == null) || (other.item == null) || (item == null)) return false;
             if((other.item.item == item.item) && item.item.IsStackable) {
                 item.stackSize += other.item.stackSize;
                 other.inventory.RemoveItem(other.item);
@@ -72,6 +73,7 @@ namespace kfutils.rpg.ui {
 
 
         public virtual SlotData SlotDataFromSlot() {
+            if(item.dummy) return null;
             SlotData result = new SlotData();
             result.inventory = InvType.MAIN;
             result.invSlot = slotNumber;

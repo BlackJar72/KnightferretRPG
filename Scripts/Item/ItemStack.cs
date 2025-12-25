@@ -22,6 +22,7 @@ namespace kfutils.rpg {
         [SerializeField] string id;
         public int stackSize;
         public int slot; 
+        public bool dummy = false;
         
         public string ID => id;
 

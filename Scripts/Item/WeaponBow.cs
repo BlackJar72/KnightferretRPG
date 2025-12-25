@@ -58,6 +58,7 @@ namespace kfutils.rpg {
         protected AnimancerState userState;
         protected AnimancerLayer actionLayer;
         protected AnimancerState actionState;
+        protected GameObject ammoImage;
 
         public float GetAttackSpeed() => 1.0f / attackTime;
         public float EstimateDamage(IDamageable victem) => damage.EstimateDamage(victem);
@@ -103,6 +104,7 @@ namespace kfutils.rpg {
         // FIXME / TODO: Should this be used as a delegate with animator/animancer events?  Or turned into a coroutine and timed?
         public void LauchProjectile(ICombatant attacker, Vector3 direction)
         {
+            if(ammoImage != null) Destroy(ammoImage);
             ItemAmmo ammo = attacker.GetAmmoItem();
             Projectile shot = Instantiate(ammo.ShotProjectile, projectileSpawn); // It might be better to use AimParams.from (or might not)  
             shot.transform.position = projectileSpawn.position;
@@ -214,12 +216,21 @@ namespace kfutils.rpg {
 
         public void PlayUseAnimation(IActor actor)
         {
-            AbstractAction action = useAnimations.Primary;
+            AbstractAction action;
+            if(actor is PCActing) action = useAnimations.Primary;
+            else action = useAnimations.Secondary;
             useAnimations.PrimarySound.Play(audioSource);
             userState = actor.PlayAction(useAnimations.Primary.mask, action.GetSequential((int)Stages.fullShoot), OnUseAnimationEnd, 0, attackTime);
 
             PCActing pc = actor as PCActing;
-            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
+            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.mid);
+
+            GameObject imagePrefab = holder.GetAmmoItem().ImagePrefab;
+            if(imagePrefab != null)
+            {
+                ammoImage = Instantiate(imagePrefab, nock);
+                ammoImage.layer = gameObject.layer;
+            }
             
             StartCoroutine(DoShootSequence());
             busy = true;

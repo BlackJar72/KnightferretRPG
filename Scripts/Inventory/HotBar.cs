@@ -29,6 +29,7 @@ namespace kfutils.rpg {
         public void OnSlotsSwapped(SlotData slot1, SlotData slot2)
         {
             //Debug.Log("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)");
+            if((slot1 is null) || (slot2 is null)) return;
             bool tmp = slot1.filled;
             slot1.filled = slot2.filled;
             slot2.filled = tmp;
@@ -46,6 +47,7 @@ namespace kfutils.rpg {
         public bool OnSlotEmptied(SlotData slot)
         {
             //Debug.Log("public bool OnSlotEmptied(SlotData slot)");
+            if(slot is null) return false;
             for (int i = 0; i < slots.Length; i++)
             {
                 if (slots[i] == slot)
@@ -70,6 +72,9 @@ namespace kfutils.rpg {
                 }
             }
         }
+
+
+
 
 
         public bool RemoveEquiptSlot(int slot)

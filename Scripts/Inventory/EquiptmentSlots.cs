@@ -123,6 +123,7 @@ namespace kfutils.rpg {
                 slots[rhand] = item;
                 slots[lhand] = item.Copy();
                 slots[lhand].slot = lhand;
+                slots[lhand].dummy = true;
                 mainInventory.Owner.EquiptItemToBody(item);
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
                 SignalUpdate();
@@ -139,6 +140,7 @@ namespace kfutils.rpg {
                 slots[lhand] = item;
                 slots[rhand] = item.Copy();
                 slots[rhand].slot = rhand;
+                slots[rhand].dummy = true;
                 mainInventory.Owner.EquiptItemToBody(item);
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
                 SignalUpdate();
@@ -184,8 +186,8 @@ namespace kfutils.rpg {
         private void ClearTwoHandedItem(ItemStack stack) {
             slots[rhand] = new ItemStack(null, 0, rhand);
             slots[lhand] = new ItemStack(null, 0, lhand); 
-            mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
-            mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
+            if(stack.item.EquiptType == EEquiptSlot.HANDS) mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
+            if(stack.item.EquiptType == EEquiptSlot.BOW) mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
             SignalUpdate();           
         }
 

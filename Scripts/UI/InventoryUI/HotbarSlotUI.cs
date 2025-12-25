@@ -58,8 +58,12 @@ namespace kfutils.rpg.ui {
                         image.sprite = unselectedImage;
                         break;
                     case InvType.EQUIPT:
-                        icon.sprite = EntityManagement.playerCharacter.Inventory.Equipt.GetItemInSlot(sd.invSlot).item.Icon;
-                        image.sprite = selectedImage;
+                        ItemStack stack = EntityManagement.playerCharacter.Inventory.Equipt.GetItemInSlot(sd.invSlot);
+                        //if((stack == null) || (stack.item == null)) image.sprite = unselectedImage;
+                        //else {
+                            icon.sprite = stack.item.Icon;
+                            image.sprite = selectedImage;
+                        //}
                         break;
                     case InvType.SPELLS:
                         PCActing pc = EntityManagement.playerCharacter;
