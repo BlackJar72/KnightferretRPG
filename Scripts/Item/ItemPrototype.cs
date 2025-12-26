@@ -64,6 +64,36 @@ namespace kfutils.rpg {
         }
 
 
+        public int GetSlotMask()
+        {
+            switch(equiptType)
+            {
+                case EEquiptSlot.NONE: return 0;
+                case EEquiptSlot.AMMO: return (int)EEquiptSlotFlags.AMMO;
+                case EEquiptSlot.ARMS: return (int)EEquiptSlotFlags.ARMS;
+                case EEquiptSlot.BODY: return (int)EEquiptSlotFlags.BODY;
+                case EEquiptSlot.BOW: return (int)(EEquiptSlotFlags.BOW | EEquiptSlotFlags.HANDS | EEquiptSlotFlags.RHAND | EEquiptSlotFlags.LHAND);
+                case EEquiptSlot.CLOTH: return (int)EEquiptSlotFlags.CLOTH;
+                case EEquiptSlot.FEET: return (int)EEquiptSlotFlags.FEET;
+                case EEquiptSlot.HANDS: return (int)(EEquiptSlotFlags.BOW | EEquiptSlotFlags.HANDS | EEquiptSlotFlags.RHAND | EEquiptSlotFlags.LHAND);
+                case EEquiptSlot.HEAD: return (int)EEquiptSlotFlags.HEAD;
+                case EEquiptSlot.LEGS: return (int)EEquiptSlotFlags.LEGS;
+                case EEquiptSlot.LHAND: return (int)(EEquiptSlotFlags.BOW | EEquiptSlotFlags.HANDS | EEquiptSlotFlags.LHAND);
+                case EEquiptSlot.NECK: return (int)EEquiptSlotFlags.NECK;
+                case EEquiptSlot.RHAND: return (int)(EEquiptSlotFlags.BOW | EEquiptSlotFlags.HANDS | EEquiptSlotFlags.RHAND);
+                case EEquiptSlot.RING: return (int)EEquiptSlotFlags.RING;
+                case EEquiptSlot.SPELL: return (int)EEquiptSlotFlags.SPELL;
+                default: return 0;
+            }
+        }
+
+
+        public int GetSlotFlag()
+        {
+            return 0x1 << (int)equiptType;
+        }
+
+
 
         //-----------------------------------------------------------------------------------------------------------//
         //                                       INSTANCE FACTORIES                                                  //

@@ -22,12 +22,28 @@ Small Additions & Fixes:
 
 Fixing the hotbar is essential.  Apparently I didn't break it recently, it was bugged all along.  Its good
 as long as you aren't switching between one and two handed items; the problem was not obvious before adding
-the bow because there were no two handed items.  Trying to band-aid it did work.  What probably needs to be
-done is to separate uneqipping of previous items from equipping of new.  Everything works to equip/unequip
-an item on its own.  What I should probably do is, when equipping an item first search the hotbar for
-anything sharing at least one hand that is already equipped; if any are found, activate them as though
-their hotkeys were pressed to unequip them.  Once all items sharing a hand have been equipped then continue
-with equipping the selected item.  Hopefully this will fix the problem.
+the bow because there were no two handed items. It seems the problem happens any time a two-handed item
+attached to one hand is replaced by an item attached to the other hand; when this happens the hotbar slots
+are not modified to match the item change. This desynchonization causes them to hold incorrect data. It
+doesn't matter wether the hotbar is used to move the item or not. Switching back to the previous item deletes
+it.  More over, it seems there are several problems with two handed items:
+
+    1. Replacing a two handed item with an item attached to a different hand does not update hotbar data.
+
+    2. Replacing an item with a two handed item attached a attached to the other hand it deletes
+       the items isntead of properly unequipping it.  The hot bar for original item is not change but then
+       points toward the equipt item (in secondary hand where the other item once was).
+
+    3. If a two handed item is unequipped by clicking on / dragging from the hand it is not primarily attached
+       to, the item is unequipped but its hotbar data possition does not change but it is instead marked as
+       not filled (as it no longer points to where the item is) so that it is removed from the hot bar.
+
+Thus is looks like there are two different core problems: (1) Items replaced by a two handed a two handed
+item which is attached to the second hand instead are simply overwritten without being properly moved back
+to the main inventory, resulteding in bug #2; and (2) Two handed items do not handle the hand they are
+not directly attached to correctly, thus removing it base othe that hand does not update hotbar data resulting
+in bugs #1 and #3.
+
 
 Beyond that is creating an actual game, at least a demo or “vertical slice.”  For this I need to: Make items,
 make properly done containers, make spells, write AI for specific actions / creatures / characters, build a

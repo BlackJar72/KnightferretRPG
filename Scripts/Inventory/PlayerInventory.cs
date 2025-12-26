@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using kfutils.rpg.ui;
 using TMPro;
 using UnityEngine;
@@ -49,8 +50,7 @@ namespace kfutils.rpg {
         public int UpdateWeight()
         {
             float weight = Mathf.RoundToInt(CalculateWeight() + equipt.CalculateWeight());
-            PCMoving pc = GetComponent<PCMoving>();
-            if (pc != null)
+            if (TryGetComponent<PCMoving>(out PCMoving pc))
             {
                 pc.SetWeightForMovement(weight);
             }
@@ -79,6 +79,11 @@ namespace kfutils.rpg {
             SlotData slot = hotbarUI.GetSlot(slotNumber);
             if (slot.filled && !pc.IsCasting)
             {
+                // List<SlotData> overlap = hotbarUI.GetEquiptSlotsOverlapping(slot);
+                // if(overlap != null) foreach(SlotData overlapping in overlap) 
+                // {
+                //     GameManager.Instance.UI.Inventory.RespondToHotbar(overlapping);
+                // }
                 InventoryManagement.SigalHotbarActivated(slot);
             }
         }

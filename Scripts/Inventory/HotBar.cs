@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -14,6 +15,30 @@ namespace kfutils.rpg {
         public SlotData GetSlot(int index) => slots[index];
 
 
+        public List<SlotData> GetEquiptSlotsOverlapping(SlotData next)
+        {
+            ItemStack itemi;
+            List<SlotData> equipt = new();
+            List<(int, SlotData)> debugging = new();
+            EquiptmentSlots pcslots = EntityManagement.playerCharacter.Inventory.Equipt;
+            int nextMask = EntityManagement.playerCharacter.Inventory.GetItemInSlot(next.invSlot).item.GetSlotMask();
+            Debug.Log("nextMask = " + nextMask);
+            for(int i = 0; i < slots.Length; i++)
+            {
+                SlotData sloti = slots[i];
+                if((sloti == next) || (!sloti.filled) || (sloti.inventory != InvType.EQUIPT)) continue;
+                itemi = pcslots.GetItemInSlot(sloti.invSlot);
+                if((itemi != null) && (itemi.item != null) && (itemi.item.GetSlotFlag() & nextMask) > 0) equipt.Add(sloti);
+                // DEBUG BELOW
+                if((itemi != null) && (itemi.item != null) && (itemi.item.GetSlotFlag() & nextMask) > 0) debugging.Add((i + 1, sloti));
+                if((itemi != null) && (itemi.item != null) && (itemi.item.GetSlotFlag() & nextMask) > 0) Debug.Log("itemi.item.GetSlotFlag() = " + itemi.item.GetSlotFlag());
+            }
+            Debug.Log(debugging.ToMultiString());
+            return equipt; 
+        }
+
+
+
         public void CopyInto(HotBar other)
         {
             for (int i = 0; i < slots.Length; i++) slots[i] = other.slots[i];
@@ -28,7 +53,7 @@ namespace kfutils.rpg {
         /// <param name="slot2"></param>
         public void OnSlotsSwapped(SlotData slot1, SlotData slot2)
         {
-            //Debug.Log("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)");
+            Debug.Log("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)");
             if((slot1 is null) || (slot2 is null)) return;
             bool tmp = slot1.filled;
             slot1.filled = slot2.filled;
@@ -46,7 +71,7 @@ namespace kfutils.rpg {
 
         public bool OnSlotEmptied(SlotData slot)
         {
-            //Debug.Log("public bool OnSlotEmptied(SlotData slot)");
+            Debug.Log("public bool OnSlotEmptied(SlotData slot)");
             if(slot is null) return false;
             for (int i = 0; i < slots.Length; i++)
             {

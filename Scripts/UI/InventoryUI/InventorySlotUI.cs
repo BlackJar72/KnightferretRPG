@@ -47,7 +47,7 @@ namespace kfutils.rpg.ui {
                     other.inventory.RemoveItem(other.item);
                     other.inventory.AddItemToSlot(item.slot, localItem);
                     inventory.AddItemToSlot(other.item.slot, otherItem);
-                    if((otherHand != null) && (otherHand.item != null) && !NeedsTwoHands(otherHand.item.EquiptType)) {
+                    if((otherHand != null) && (otherHand.item != null) && NeedsTwoHands(otherHand.item.EquiptType)) {
                         other.inventory.AddToFirstEmptySlot(otherHand);
                     }
                     GameManager.Instance.UI.HideItemToolTip();
