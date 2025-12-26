@@ -121,9 +121,11 @@ namespace kfutils.rpg {
             if(item.slot == rhand) {
                 item.slot = rhand;
                 slots[rhand] = item;
+                ItemStack tmp = slots[lhand].Copy();
                 slots[lhand] = item.Copy();
                 slots[lhand].slot = lhand;
                 slots[lhand].dummy = true;
+                mainInventory.AddToFirstEmptySlot(tmp);
                 mainInventory.Owner.EquiptItemToBody(item);
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
                 SignalUpdate();
@@ -138,9 +140,11 @@ namespace kfutils.rpg {
             if(item.slot == lhand) {
                 item.slot = lhand;
                 slots[lhand] = item;
+                ItemStack tmp = slots[rhand].Copy();
                 slots[rhand] = item.Copy();
                 slots[rhand].slot = rhand;
                 slots[rhand].dummy = true;
+                mainInventory.AddToFirstEmptySlot(tmp);
                 mainInventory.Owner.EquiptItemToBody(item);
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
                 SignalUpdate();

@@ -30,7 +30,7 @@ it.  More over, it seems there are several problems with two handed items:
 
     1. Replacing a two handed item with an item attached to a different hand does not update hotbar data.
 
-    2. Replacing an item with a two handed item attached a attached to the other hand it deletes
+    2. [FIXED!] Replacing an item with a two handed item attached a attached to the other hand it deletes
        the items isntead of properly unequipping it.  The hot bar for original item is not change but then
        points toward the equipt item (in secondary hand where the other item once was).
 
@@ -38,11 +38,9 @@ it.  More over, it seems there are several problems with two handed items:
        to, the item is unequipped but its hotbar data possition does not change but it is instead marked as
        not filled (as it no longer points to where the item is) so that it is removed from the hot bar.
 
-Thus is looks like there are two different core problems: (1) Items replaced by a two handed a two handed
-item which is attached to the second hand instead are simply overwritten without being properly moved back
-to the main inventory, resulteding in bug #2; and (2) Two handed items do not handle the hand they are
-not directly attached to correctly, thus removing it base othe that hand does not update hotbar data resulting
-in bugs #1 and #3.
+The core problems now seems to be that when a two handed items do not handle the hand they are not directly
+attached to correctly, thus removing it base othe that hand does not update hotbar data resulting in bugs #1
+and #3.
 
 
 Beyond that is creating an actual game, at least a demo or “vertical slice.”  For this I need to: Make items,
