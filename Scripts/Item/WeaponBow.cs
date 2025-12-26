@@ -5,6 +5,60 @@ using UnityEngine;
 
 namespace kfutils.rpg {
 
+
+    /// <summary>
+    /// Repressent bows, long or short, self or composit. 
+    /// 
+    /// Bows are the most complex weapon by far, as they require two items, the bow itself 
+    /// and the arrow it shoots; the same would apply to other ammo using items, though bows 
+    /// are the only such weapon incuded here.  Bows also involve a lot of design decisions.
+    /// 
+    /// Aim and arching can be handle in several obviouse ways, all of which have been done 
+    /// before, probably many times:
+    /// 
+    /// * Purely physical arrows relying on player skill to aim high enough to hit distant 
+    ///   targets (example, Minecraft).  Easy for the dev, requires more player skill.
+    /// 
+    /// * Partial auto-aim on the vertical so that the player aims directly at the target 
+    ///   but the game calculates the angle to needed to hit the target with a physically 
+    ///   based arrow (example, Skyrim).  Easy for the player, more challenging for the 
+    ///   developer, though there are several exist code assets that can do this for you 
+    ///   (something that the previous method needs for NPCs unless they are allowed to 
+    ///   cheat).
+    /// 
+    /// * Weightless arrows that travel in straight line (example, Dark Souls).  This is 
+    ///   the easiest for everyone.
+    /// 
+    /// Then there is the speed of the arrow, for some comparisons Arrow speeds in games (and reality):
+    /// 
+    ///  * Minecraft: 20 m/s
+    ///  * Skyrim: ~24 m/s
+    ///  * Caverns of Evil: 54 m/s (fired by goblin enemies)
+    ///  * D&D (based on max outdoor range and physics): ~48 m/s for long bow, ~42 m/s for short bow
+    ///  * Real medieval war bows: usually between 45 and 61 m/s
+    /// 
+    /// (Note, arrow speeds for Dark Souls are unkown outside FromSoftware, but guestimated at 5 m/s to 
+    /// 10 m/s depending on type; very slow.)
+    ///
+    /// There is a cost / some problems with the higher speeds.  Special physics settings are needed
+    /// to make sure they don't jump past a target between frames (the "bullet through paper" problem). 
+    /// Fast arrows are less visible to the player.  Determining hit locations is often inaccurate (I removed 
+    /// arrows shown stuck in objects after hitting from Caverns of Evil for that reason, they would end up 
+    /// floating in the air far from where they should have hit).
+    /// 
+    /// Also, many games allow the player to draw the bow, hold, and release when ready; this is a 
+    /// layer of complexity most other weapons (basically no melee weapons) have.  This would be 
+    /// ideal, though I'd probably want to apply a stamina cost after a few seconds to prevent the 
+    /// silliness of walking down the road with a fully drawn bow while still allowing the player to 
+    /// adjust their aim before releasing if wanted.  However, not all games allow this and some do
+    /// just shoot when the bow is used; I will likely take this approach, and as my arrows are fast 
+    /// and aimed directly at whatever is under the crosshairs this seems to work well.  
+    /// 
+    /// For my game, arrows will likely be fast, comparable to D&D and real life, and travel weightlessly 
+    /// in a straight line.  This is different from the slower, thrown weapons and items.  Bows will 
+    /// probably fire when used; at least for the first demo game made with hold a bow drawn will not 
+    /// be supported.
+    /// </summary>
     public class WeaponBow : ItemEquipt, IWeapon
     {
         /// <summary>
