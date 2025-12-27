@@ -79,11 +79,6 @@ namespace kfutils.rpg {
             SlotData slot = hotbarUI.GetSlot(slotNumber);
             if (slot.filled && !pc.IsCasting)
             {
-                // List<SlotData> overlap = hotbarUI.GetEquiptSlotsOverlapping(slot);
-                // if(overlap != null) foreach(SlotData overlapping in overlap) 
-                // {
-                //     GameManager.Instance.UI.Inventory.RespondToHotbar(overlapping);
-                // }
                 InventoryManagement.SigalHotbarActivated(slot);
             }
         }

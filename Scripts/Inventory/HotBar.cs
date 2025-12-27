@@ -59,8 +59,8 @@ namespace kfutils.rpg {
             int cur1 = -1, cur2 = -1;
             for (int i = 0; i < slots.Length; i++)
             {
-                if (slots[i] == slot1) { cur1 = i; Debug.Log("cur1 = " + i + ";  " + slot1); }
-                if (slots[i] == slot2) { cur2 = i; Debug.Log("cur2 = " + i + ";  " + slot2); }
+                if (slots[i] == slot1) { cur1 = i; }
+                if (slots[i] == slot2) { cur2 = i; }
             }
             if (cur1 > -1) slots[cur1] = slot2;
             if (cur2 > -1) slots[cur2] = slot1;
