@@ -26,6 +26,12 @@ namespace kfutils.rpg {
         }
 
 
+        private void FixedUpdate()
+        {
+            transform.LookAt(transform.position + rb.linearVelocity);
+        }
+
+
         protected override void OnCollisionEnter(Collision collision) {
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if (damageable == sender) return;
