@@ -61,6 +61,7 @@ namespace kfutils.rpg {
     /// </summary>
     public class WeaponBow : ItemEquipt, IWeapon
     {
+
         /// <summary>
         /// Stages for archery if the player is allowed to hold; also include a full complete 
         /// shooting animation as the last entry.  Holding would cost stamina, but I'd prefer 
@@ -106,7 +107,10 @@ namespace kfutils.rpg {
         [SerializeField] protected float bowLooseTime;
         [SerializeField] protected float endAnimTime;
 
-        protected bool busy = false;
+        private readonly WaitForSeconds waitForOnSecond = new(1.0f);
+
+        protected bool busy = true;
+        protected bool attacking = true;
         protected ICombatant holder;
         protected AimParams aim;
         protected AnimancerState userState;
@@ -186,9 +190,18 @@ namespace kfutils.rpg {
         public void OnEquipt(IActor actor)
         {
             holder = actor as ICombatant;
+            StartCoroutine(WaitUntilEquipt());
             if (actor.ActionState != null) PlayEquipAnimation(actor);
             PCActing pc = actor as PCActing;
             if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
+        }
+
+
+        private IEnumerator WaitUntilEquipt()
+        {
+            busy = true;
+            yield return waitForOnSecond;
+            busy = false;
         }
 
 
@@ -200,8 +213,9 @@ namespace kfutils.rpg {
 
         public void OnUse(IActor actor)
         {
+            if(busy) return;
             ItemAmmo ammo = holder.GetAmmoItem();
-            if((!busy) && IsRightAmmo(ammo)) {
+            if(IsRightAmmo(ammo)) {
                 busy = true;
                 PlayUseAnimation(actor);
             }
@@ -245,8 +259,7 @@ namespace kfutils.rpg {
 
         public void OnUseCharged(IActor actor)
         {
-            // FIXME: Should be able to hold (though at a cost)
-            //        Should deginitely *NOT* autofire after half a second!!!
+            if(busy) return;
             OnUse(actor);
         }
 
@@ -256,15 +269,13 @@ namespace kfutils.rpg {
             if (actor.ActionState.NormalizedTime >= 1)
             {
                 actor.PlayAction(useAnimations.Primary.mask, equiptAnim, OnEqipAnimationEnd, 0);
-                busy = true;
-                actor.ActionState.Events.OnEnd = OnEqipAnimationEnd;
             }
         }
 
 
         public void OnEqipAnimationEnd()
         {
-            busy = false;
+            //busy = false;
         }
 
 
@@ -299,6 +310,7 @@ namespace kfutils.rpg {
             OnArrowLoosed();
             yield return new WaitForSeconds(endAnimTime - bowLooseTime - bowStartTime);
             OnUseAnimationEnd();
+            busy = false;
         }
 
 
@@ -317,7 +329,7 @@ namespace kfutils.rpg {
 
         protected void OnUseAnimationEnd()
         {
-            busy = false;
+            //busy = false;
         }
 
 
