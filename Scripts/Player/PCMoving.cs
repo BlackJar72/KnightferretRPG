@@ -732,7 +732,11 @@ namespace kfutils.rpg {
                     newVelocity.y = -attributes.crouchSpeed;
                     moved = true;
                 }
-                if (moved) stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
+                if (moved) 
+                {
+                    MakeSound(10);
+                    stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
+                }
             }
 
             if (newVelocity.magnitude > MAX_WATER_V) newVelocity = newVelocity.normalized * MAX_WATER_V;
