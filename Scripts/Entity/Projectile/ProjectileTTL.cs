@@ -22,6 +22,12 @@ namespace kfutils.rpg {
         }
 
 
+        private void FixedUpdate()
+        {
+            transform.LookAt(transform.position + rb.linearVelocity);
+        }
+
+
     }
 
 }
