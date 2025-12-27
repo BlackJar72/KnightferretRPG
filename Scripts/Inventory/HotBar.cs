@@ -38,7 +38,6 @@ namespace kfutils.rpg {
         }
 
 
-
         public void CopyInto(HotBar other)
         {
             for (int i = 0; i < slots.Length; i++) slots[i] = other.slots[i];
@@ -53,16 +52,15 @@ namespace kfutils.rpg {
         /// <param name="slot2"></param>
         public void OnSlotsSwapped(SlotData slot1, SlotData slot2)
         {
-            Debug.Log("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)");
-            if((slot1 is null) || (slot2 is null)) return;
+            //Debug.Log("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)");
             bool tmp = slot1.filled;
             slot1.filled = slot2.filled;
             slot2.filled = tmp;
             int cur1 = -1, cur2 = -1;
             for (int i = 0; i < slots.Length; i++)
             {
-                if (slots[i] == slot1) cur1 = i;
-                if (slots[i] == slot2) cur2 = i;
+                if (slots[i] == slot1) { cur1 = i; Debug.Log("cur1 = " + i + ";  " + slot1); }
+                if (slots[i] == slot2) { cur2 = i; Debug.Log("cur2 = " + i + ";  " + slot2); }
             }
             if (cur1 > -1) slots[cur1] = slot2;
             if (cur2 > -1) slots[cur2] = slot1;
@@ -71,8 +69,7 @@ namespace kfutils.rpg {
 
         public bool OnSlotEmptied(SlotData slot)
         {
-            Debug.Log("public bool OnSlotEmptied(SlotData slot)");
-            if(slot is null) return false;
+            //Debug.Log("public bool OnSlotEmptied(SlotData slot)");
             for (int i = 0; i < slots.Length; i++)
             {
                 if (slots[i] == slot)
@@ -97,9 +94,6 @@ namespace kfutils.rpg {
                 }
             }
         }
-
-
-
 
 
         public bool RemoveEquiptSlot(int slot)

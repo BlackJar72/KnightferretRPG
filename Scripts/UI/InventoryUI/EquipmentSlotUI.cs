@@ -33,10 +33,17 @@ namespace kfutils.rpg.ui {
 
 
         public override SlotData SlotDataFromSlot() {
-            if(item.dummy) return null;
             SlotData result = new SlotData();
             result.inventory = InvType.EQUIPT;
-            result.invSlot = slotNumber;
+            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS))
+            {
+                result.invSlot = EquiptmentSlots.rhand;
+            }
+            else if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.BOW))
+            {
+                result.invSlot = EquiptmentSlots.lhand;
+            }
+            else result.invSlot = slotNumber;
             result.filled = (item != null) && (item.item != null);
             return result;
         }

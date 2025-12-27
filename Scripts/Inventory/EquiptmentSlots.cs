@@ -25,8 +25,8 @@ namespace kfutils.rpg {
         public CharacterInventory mainInventory;
 
 
-        const int rhand = 4;
-        const int lhand = 3;
+        public const int rhand = 4;
+        public const int lhand = 3;
         
         public const int rring = 6;
         public const int lring = 5;
@@ -124,7 +124,6 @@ namespace kfutils.rpg {
                 ItemStack tmp = slots[lhand].Copy();
                 slots[lhand] = item.Copy();
                 slots[lhand].slot = lhand;
-                slots[lhand].dummy = true;
                 mainInventory.AddToFirstEmptySlot(tmp);
                 mainInventory.Owner.EquiptItemToBody(item);
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
@@ -143,7 +142,6 @@ namespace kfutils.rpg {
                 ItemStack tmp = slots[rhand].Copy();
                 slots[rhand] = item.Copy();
                 slots[rhand].slot = rhand;
-                slots[rhand].dummy = true;
                 mainInventory.AddToFirstEmptySlot(tmp);
                 mainInventory.Owner.EquiptItemToBody(item);
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);

@@ -32,6 +32,25 @@ namespace kfutils.rpg {
         public override int GetHashCode() => base.GetHashCode();
 
 
+        public SlotData Copy()
+        {
+            SlotData result = new();
+            result.inventory = inventory;
+            result.invSlot = invSlot;
+            result.filled = filled;
+            return result;
+        }
+
+
+        public SlotData CopyInto(SlotData other)
+        {
+            other.inventory = inventory;
+            other.invSlot = invSlot;
+            other.filled = filled;
+            return other;
+        }
+
+
         public override string ToString() {
             return " [" + inventory.ToString() + ", Slot " + invSlot + "; Filled? " + filled + "] "; 
         }

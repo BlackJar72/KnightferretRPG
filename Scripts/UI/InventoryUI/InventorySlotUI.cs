@@ -73,7 +73,6 @@ namespace kfutils.rpg.ui {
 
 
         public virtual SlotData SlotDataFromSlot() {
-            if(item.dummy) return null;
             SlotData result = new SlotData();
             result.inventory = InvType.MAIN;
             result.invSlot = slotNumber;
