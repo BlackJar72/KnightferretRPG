@@ -2,7 +2,7 @@
 
 Major Systems:
 
-    1. *REMOVE* BROKEN HOTBAR!!!
+    1. *REMOVE* BROKEN HOTBAR!!! (...or, rewrite inventory system, see below)
     2. Dialogue System
     3. Quest System
     4. XP and Leveling
@@ -21,6 +21,7 @@ Small Additions & Fixes:
 ...anything more should be cut from systems.
 
 *************************************************************************************************************
+
 The hotbar is beyond repair, and less essential than other things (two handed weapons) that I could
 give up in order to keep it, at least in relation to my goals and design for this.
 
@@ -52,6 +53,29 @@ this, and if I decide to try to finish some kind of game later on I'll just do i
 THE HOTBAR IS JUST TOO BROKEN AND MUST GO IF THIS GAME IS TO BE FINISHED.
 
 (The real question is, is it worth trying to finish? Worth it to me?)
+
+*************************************************************************************************************
+
+My inventory system is kind of a mess; this being my first inventory system I didn't know what I was doing
+and figuring a lot of it out as I went, as a result things were not really done in the best way and the
+code became overcomplicated.  A lot of my hotbar problems likely stim from this bad design and from further
+complexity required by complexity and poor design of the core inventory system.
+
+Perhaps, instead of moving item stacks (and spells) from inventory slots into equipt slots, the eqipt slots
+should probably hold an interface representing things that can go into them.  Instead of moving item stacks
+I could just copy them into the equpt slot (i.e., copy the language-level reference), them implementing the
+interface (something like "IEquippable").  The real item could remain in the main menu -- perhaps a refernce
+back could be used to fascilitate unequipping if the item is discarded?  The hotbar could hold the same
+IEquippable and work just like the equip slots, just calling different methods.  This would also allow the
+same slot to hold both items and spells, but having both implement the same interface (thus, spell could be
+equipped to the hands instead of require a special spell slot requiring a separate class). An enum could
+also be created to represent equipt types, with a propery returning it as a literal, though simply using
+the "is" or "IsAssignableFrom()" method could also work.
+
+Doing this, however, would be a huge task, as it would be completely overhauling the whole enventory system,
+a system much of the game play depends on. It would defintely need to have its own, branch, like Inv-p3, in
+the git repo.  It is not something I want to deal with right now.  Perhaps its time to take a break, and
+decide if I want to come back to this with such an overhaul.
 
 *************************************************************************************************************
 
