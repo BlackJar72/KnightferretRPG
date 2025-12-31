@@ -30,6 +30,7 @@ namespace kfutils.rpg {
                 Physics.IgnoreCollision(GetComponent<Collider>(), living.GetComponent<Collider>());
             }            
             rb.linearVelocity = direction * speed;
+            transform.LookAt(transform.position + rb.linearVelocity);
         }
 
 
