@@ -81,11 +81,11 @@ namespace kfutils.rpg {
         }
 
 
-        public override void RemoveItem(ItemStack item)
+        public override void RemoveItem(ItemStack item, InvType type = InvType.MAIN)
         {
             inventory.Remove(item);
             SignalUpdate();
-            SignalSlotEmptied(item.slot);
+            if(type == InvType.MAIN) SignalSlotEmptied(item.slot, type);
         }
 
 
@@ -287,11 +287,13 @@ namespace kfutils.rpg {
         }
 
 
-        private void SignalSlotEmptied(int slot)
+        private void SignalSlotEmptied(int slot, InvType type = InvType.MAIN)
         {
-            SlotData result = new SlotData();
-            result.inventory = InvType.MAIN;
-            result.invSlot = slot;
+            SlotData result = new()
+            {
+                inventory = type,
+                invSlot = slot
+            };
             InventoryManagement.SignalSlotEmptied(result);
         }
 

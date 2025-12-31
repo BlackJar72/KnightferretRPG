@@ -288,7 +288,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void RemoveItem(ItemStack item)
+        public void RemoveItem(ItemStack item, InvType type = InvType.EQUIPT)
         {
             if ((item != null) && (item.item != null) && IsTwoHanded(item)) ClearTwoHandedItem(item);
             else for (int i = 0; i < slots.Length; i++)

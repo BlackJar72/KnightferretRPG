@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 
@@ -53,6 +54,7 @@ namespace kfutils.rpg {
         public void OnSlotsSwapped(SlotData slot1, SlotData slot2)
         {
             //Debug.Log("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)");
+            DebugSlots("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)", slot1, slot2);
             bool tmp = slot1.filled;
             slot1.filled = slot2.filled;
             slot2.filled = tmp;
@@ -70,6 +72,7 @@ namespace kfutils.rpg {
         public bool OnSlotEmptied(SlotData slot)
         {
             //Debug.Log("public bool OnSlotEmptied(SlotData slot)");
+            DebugSlots("public bool OnSlotEmptied(SlotData slot)", slot);
             for (int i = 0; i < slots.Length; i++)
             {
                 if (slots[i] == slot)
@@ -79,6 +82,32 @@ namespace kfutils.rpg {
                 }
             }
             return false;
+        }
+
+
+        public void DebugSlots(string method, params SlotData[] slots)
+        {
+            string nl = System.Environment.NewLine;
+            StringBuilder sb = new("*****" + nl + "Slots Data (" + method + "): " + nl);
+            foreach(SlotData slot in slots)
+            {
+                sb.Append(nl + slot.ToString() + nl);
+                if(slot.inventory == InvType.MAIN)
+                {
+                    ItemStack stack = EntityManagement.playerCharacter.Inventory.GetItemInSlot(slot.invSlot);
+                    if(stack != null) sb.Append(stack.ToString() + nl);
+                    if((stack != null) && (stack.item != null)) sb.Append("Equipt Type = " + stack.item.EquiptType + nl);
+                } 
+                else if(slot.inventory == InvType.EQUIPT)
+                {
+                    ItemStack stack = EntityManagement.playerCharacter.Inventory.Equipt.GetItemInSlot(slot.invSlot);
+                    if(stack != null) sb.Append(stack.ToString() + nl);
+                    if((stack != null) && (stack.item != null)) sb.Append("Equipt Type = " + stack.item.EquiptType + nl);
+                }
+                sb.Append(nl);
+            }
+            sb.Append("*****" + nl);
+            Debug.Log(sb.ToString());
         }
 
 

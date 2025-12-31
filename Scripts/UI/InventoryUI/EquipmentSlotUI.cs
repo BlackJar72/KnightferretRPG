@@ -12,8 +12,9 @@ namespace kfutils.rpg.ui {
             if(base.SwapWith(other)) {
                 if((inventory == other.inventory) && (item.slot != slotNumber)) {
                     if((other.item.item == item.item) && item.item.IsStackable) {
+                        InvType otherType = other is EquipmentSlotUI ? InvType.EQUIPT : InvType.MAIN;
                         item.stackSize += other.item.stackSize;
-                        other.inventory.RemoveItem(other.item);
+                        other.inventory.RemoveItem(other.item, otherType);
                     } else {
                         item.slot = other.slotNumber;
                         other.item.slot = slotNumber;

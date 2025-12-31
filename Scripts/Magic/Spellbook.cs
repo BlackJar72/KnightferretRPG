@@ -164,7 +164,7 @@ namespace kfutils.rpg
         }
 
 
-        public void RemoveItem(Spell spell)
+        public void RemoveItem(Spell spell, InvType type = InvType.SPELLS)
         {
             if (unlocked)
             {

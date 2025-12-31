@@ -2,7 +2,7 @@
 
 Major Systems:
 
-    1. FIX BROKEN HOTBAR!!!
+    1. *REMOVE* BROKEN HOTBAR!!!
     2. Dialogue System
     3. Quest System
     4. XP and Leveling
@@ -20,27 +20,40 @@ Small Additions & Fixes:
 
 ...anything more should be cut from systems.
 
-Fixing the hotbar is essential.  Apparently I didn't break it recently, it was bugged all along.  Its good
-as long as you aren't switching between one and two handed items; the problem was not obvious before adding
-the bow because there were no two handed items. It seems the problem happens any time a two-handed item
-attached to one hand is replaced by an item attached to the other hand; when this happens the hotbar slots
-are not modified to match the item change. This desynchonization causes them to hold incorrect data. It
-doesn't matter wether the hotbar is used to move the item or not. Switching back to the previous item deletes
-it.  More over, it seems there are several problems with two handed items:
+*************************************************************************************************************
+The hotbar is beyond repair, and less essential than other things (two handed weapons) that I could
+give up in order to keep it, at least in relation to my goals and design for this.
 
-    1. Replacing a two handed item with an item attached to a different hand does not update hotbar data.
+1. When right-hand item is swapped in replacing bow, its hotbar slot slot is set as left handed (like bow).
+   As a result the hotbar looses track of it, as it is no longer in the slot referenced by the hot bar.
+   If the bow is swapped back in, it is removed from the hot bar entirely, likely related to bug number 2.
 
-    2. [FIXED!] Replacing an item with a two handed item attached a attached to the other hand it deletes
-       the items isntead of properly unequipping it.  The hot bar for original item is not change but then
-       points toward the equipt item (in secondary hand where the other item once was).
+2. When bow is swapped in in replacing right hand item the hot bar is not updated for the right hand but
+   still points to theright hand equipt slot (which now references the bow).  Swapping the item back in
+   reverse this, if it is the same item being swapped back.  If a diffent right hand item is swapped in,
+   it will replace the original item in the hotbar.
 
-    3. If a two handed item is unequipped by clicking on / dragging from the hand it is not primarily attached
-       to, the item is unequipped but its hotbar data possition does not change but it is instead marked as
-       not filled (as it no longer points to where the item is) so that it is removed from the hot bar.
+At this point this seems beyond fixing.  It seems my inexperience with inventory systems (this being my first)
+led to mistakes and to code to complicated to wrap my head around; the breaking point was the hotbar, which
+may not be workable with two handed items in the context of this inventory system.  (If it could be done it
+would likely be so convoluted as to be unmanageable.)  So, I could abandon this, since you can only go so
+far from the intent and say you're still making the game you wanted to, or I could just remove the hotbar
+and force the player to go into the full menu to swap items.  The later I considered before there was a
+hotbar, as a more hardcore, realistic (in a good) way option.  However, being able to switch between some
+items quickly on the fly makes the game far more playable.  If the hotbar were to be removed I'd almost
+certainly need to remove the ability to throw any melee weapons, as this is pretty useless if you cannot
+quickly switch to a new weapon; instead, having the ability to throw a melee weapons becomes purely a
+liability do to the possibility of accidently throwing the weapon.
 
-The core problems now seems to be that when a two handed items do not handle the hand they are not directly
-attached to correctly, thus removing it base othe that hand does not update hotbar data resulting in bugs #1
-and #3.
+I don't think there is any way I'm fixing the hotbar, and not having any two-handed items (weapons) doesn't
+work for what I'm trying to make.  If this is continued the hotbar must be removed.  I'll take a break from
+this, and if I decide to try to finish some kind of game later on I'll just do it without the hotbar.
+
+THE HOTBAR IS JUST TOO BROKEN AND MUST GO IF THIS GAME IS TO BE FINISHED.
+
+(The real question is, is it worth trying to finish? Worth it to me?)
+
+*************************************************************************************************************
 
 
 Beyond that is creating an actual game, at least a demo or “vertical slice.”  For this I need to: Make items,
@@ -49,6 +62,3 @@ village, make villagers and other friendly NPCs, make monsters and enemies, furn
 Castle van Webb, design and build a second dungeon (yes, I want a second, bigger, one on the text village map).
 Unfortunately, while the coding can get frustrating, these tasks are already seeming horribly tedious (and I’ve
 barely started); this is where I start to question if I really want to do this.
-
-
-(Not part of the main framework, probably, but need to save and load weather data.)

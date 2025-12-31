@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 
@@ -48,6 +49,15 @@ namespace kfutils.rpg {
             other.invSlot = invSlot;
             other.filled = filled;
             return other;
+        }
+
+
+        public static SlotData SlotDataFromStack(ItemStack item, int slot, InvType type) {
+            SlotData result = new SlotData();
+            result.inventory = type;
+            result.invSlot = slot;
+            result.filled = (item != null) && (item.item != null);
+            return result;
         }
 
 
