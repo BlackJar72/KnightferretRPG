@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc9e8ccf7e1f314da24a604c1a11094, type: 3}
+  m_Name: Imminent Storm
+  m_EditorClassIdentifier: 
+  minWeatherTime: 0.041666668
+  maxWeatherTime: 0.125
+  likelihood: 1
+  forecastNext:
+  - {fileID: 11400000, guid: 3daad8702a5ccbf418a5370bac12e4c0, type: 2}
+  - {fileID: 11400000, guid: 455ce7df2555ead47afd8bdb324c85ab, type: 2}
+  - {fileID: 11400000, guid: 360273c9c779d1f42a10eee5f070a83a, type: 2}
+  - {fileID: 11400000, guid: de62367a00d8753469a83e1f6f8079d3, type: 2}
+  - {fileID: 11400000, guid: cc15965868141a44cb0997b3674e317a, type: 2}
+  forecastModifierMethod: 0
+  chances: []
+  FX:
+  - {fileID: 11400000, guid: 6c47c4436d17880469b55c6e5ba5a6e9, type: 2}
+  - {fileID: 11400000, guid: 7257577dfb019ed4685ab1e846b98e9e, type: 2}
+  - {fileID: 11400000, guid: 8aa234e65cf012b448367af9914cbe6f, type: 2}
+  - {fileID: 11400000, guid: 002d6597342259046bb52e516c09671a, type: 2}
+  - {fileID: 11400000, guid: 3ca682fa89b9e784087c74f4b948d1d7, type: 2}

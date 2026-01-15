@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 153638831251313445}
   - component: {fileID: 3350907556784871042}
   - component: {fileID: 3515722435224453700}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Outer Gate L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -115,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3345491237526801117}
   - component: {fileID: 3345491237526801116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hinge L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3345491238351643120}
   - component: {fileID: 3345491238351643127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hinge R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +224,7 @@ GameObject:
   - component: {fileID: 663613325220527257}
   - component: {fileID: 1757719497020632818}
   - component: {fileID: 5608426683905726559}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Outer Gate  R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,6 +271,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -324,7 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8944349547137520634}
   - component: {fileID: 4851724318692625029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Giant Gates
   m_TagString: Untagged
   m_Icon: {fileID: 0}

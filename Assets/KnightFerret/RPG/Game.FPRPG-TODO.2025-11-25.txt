@@ -2,83 +2,24 @@
 
 Major Systems:
 
-    1. *REMOVE* BROKEN HOTBAR!!! (...or, rewrite inventory system, see below)
-    2. Dialogue System
-    3. Quest System
-    4. XP and Leveling
-    5. Merchants (Buying / Selling)
+    1. Dialogue System
+    2. Quest System
+    3. XP and Leveling
+    4. Merchants (Buying / Selling)
 
 
 Small Additions & Fixes:
 
-    1. Wands / Staves
-    2. Wearable Armor (becomes major-ish if visible on character)
-    3. Wearable Magic Items (rings, amulets); these work with the status effect system
-    4. Working Settings/Options and Help/Info screens (major importance but should not be hard)
-    5. Beds, sleeping, and down time mechanic
+    1. Archery (and Thrown Weapons?)
+    2. Wands / Staves
+    3. Wearable Armor (becomes major-ish if visible on character)
+    4. Wearable Magic Items (rings, amulets); these work with the status effect system
+    5. Maybe: System to make some (negative) status effects (e.g, poison) not aggressively stack
+    6. Working Settings/Options and Help/Info screens (major importance but should not be hard)
+    7. Beds, sleeping, and down time mechanic
 
 
 ...anything more should be cut from systems.
-
-*************************************************************************************************************
-
-The hotbar is beyond repair, and less essential than other things (two handed weapons) that I could
-give up in order to keep it, at least in relation to my goals and design for this.
-
-1. When right-hand item is swapped in replacing bow, its hotbar slot slot is set as left handed (like bow).
-   As a result the hotbar looses track of it, as it is no longer in the slot referenced by the hot bar.
-   If the bow is swapped back in, it is removed from the hot bar entirely, likely related to bug number 2.
-
-2. When bow is swapped in in replacing right hand item the hot bar is not updated for the right hand but
-   still points to theright hand equipt slot (which now references the bow).  Swapping the item back in
-   reverse this, if it is the same item being swapped back.  If a diffent right hand item is swapped in,
-   it will replace the original item in the hotbar.
-
-At this point this seems beyond fixing.  It seems my inexperience with inventory systems (this being my first)
-led to mistakes and to code to complicated to wrap my head around; the breaking point was the hotbar, which
-may not be workable with two handed items in the context of this inventory system.  (If it could be done it
-would likely be so convoluted as to be unmanageable.)  So, I could abandon this, since you can only go so
-far from the intent and say you're still making the game you wanted to, or I could just remove the hotbar
-and force the player to go into the full menu to swap items.  The later I considered before there was a
-hotbar, as a more hardcore, realistic (in a good) way option.  However, being able to switch between some
-items quickly on the fly makes the game far more playable.  If the hotbar were to be removed I'd almost
-certainly need to remove the ability to throw any melee weapons, as this is pretty useless if you cannot
-quickly switch to a new weapon; instead, having the ability to throw a melee weapons becomes purely a
-liability do to the possibility of accidently throwing the weapon.
-
-I don't think there is any way I'm fixing the hotbar, and not having any two-handed items (weapons) doesn't
-work for what I'm trying to make.  If this is continued the hotbar must be removed.  I'll take a break from
-this, and if I decide to try to finish some kind of game later on I'll just do it without the hotbar.
-
-THE HOTBAR IS JUST TOO BROKEN AND MUST GO IF THIS GAME IS TO BE FINISHED.
-
-(The real question is, is it worth trying to finish? Worth it to me?)
-
-*************************************************************************************************************
-
-My inventory system is kind of a mess; this being my first inventory system I didn't know what I was doing
-and figuring a lot of it out as I went, as a result things were not really done in the best way and the
-code became overcomplicated.  A lot of my hotbar problems likely stim from this bad design and from further
-complexity required by complexity and poor design of the core inventory system.
-
-Perhaps, instead of moving item stacks (and spells) from inventory slots into equipt slots, the eqipt slots
-should probably hold an interface representing things that can go into them.  Instead of moving item stacks
-I could just copy them into the equpt slot (i.e., copy the language-level reference), them implementing the
-interface (something like "IEquippable").  The real item could remain in the main menu -- perhaps a refernce
-back could be used to fascilitate unequipping if the item is discarded?  The hotbar could hold the same
-IEquippable and work just like the equip slots, just calling different methods.  This would also allow the
-same slot to hold both items and spells, but having both implement the same interface (thus, spell could be
-equipped to the hands instead of require a special spell slot requiring a separate class). An enum could
-also be created to represent equipt types, with a propery returning it as a literal, though simply using
-the "is" or "IsAssignableFrom()" method could also work.
-
-Doing this, however, would be a huge task, as it would be completely overhauling the whole enventory system,
-a system much of the game play depends on. It would defintely need to have its own, branch, like Inv-p3, in
-the git repo.  It is not something I want to deal with right now.  Perhaps its time to take a break, and
-decide if I want to come back to this with such an overhaul.
-
-*************************************************************************************************************
-
 
 Beyond that is creating an actual game, at least a demo or “vertical slice.”  For this I need to: Make items,
 make properly done containers, make spells, write AI for specific actions / creatures / characters, build a
@@ -86,3 +27,6 @@ village, make villagers and other friendly NPCs, make monsters and enemies, furn
 Castle van Webb, design and build a second dungeon (yes, I want a second, bigger, one on the text village map).
 Unfortunately, while the coding can get frustrating, these tasks are already seeming horribly tedious (and I’ve
 barely started); this is where I start to question if I really want to do this.
+
+
+(Not part of the main framework, probably, but need to save and load weather data.)

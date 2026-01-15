@@ -12,10 +12,10 @@ namespace kfutils.rpg.ui {
 
         public void SetBar(float value)
         {
-            // image.rectTransform.localScale = 
-            //     new Vector3(Mathf.Clamp(value, 0, 1), 
-            //         gameObject.transform.localScale.y, 
-            //         gameObject.transform.localScale.z);
+            image.rectTransform.localScale = 
+                new Vector3(Mathf.Clamp(value, 0, 1), 
+                    gameObject.transform.localScale.y, 
+                    gameObject.transform.localScale.z);
         }
 
 

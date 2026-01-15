@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:Label tabindex="-1" text="Rendering" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement class="section-bg">
+        <uie:ObjectField label="Prefab" type="UnityEngine.GameObject, UnityEngine.CoreModule" binding-path="satelliteReference" />
+        <ui:FloatField label="Size" value="2" binding-path="size" />
+        <ui:Toggle label="Rescale by Distance" binding-path="autoScaleByDistance" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="Placement" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement class="section-bg">
+        <ui:Slider label="Direction" high-value="360" binding-path="satelliteDirection" show-input-field="true" />
+        <ui:Slider label="Pitch" high-value="90" binding-path="satellitePitch" low-value="-90" show-input-field="true" />
+        <ui:Slider label="Distance" high-value="1" show-input-field="true" binding-path="distance" />
+        <ui:Slider label="Orbit Offset" low-value="-180" high-value="180" binding-path="orbitOffset" show-input-field="true" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="Movement" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement class="section-bg">
+        <ui:Vector3Field label="Satellite Rotate Axis" binding-path="satelliteRotateAxis" />
+        <ui:Toggle label="Link to Day" binding-path="linkToDay" name="link-to-day" />
+        <ui:VisualElement name="day-linked-container" class="pl-4" style="flex-grow: 1;">
+            <ui:Label tabindex="-1" text="Moon Cycle" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h2" />
+            <ui:IntegerField label="Period" value="28" binding-path="rotationPeriod" tooltip="How many days in a full moon cycle" />
+            <ui:IntegerField label="Offset" value="28" binding-path="rotationPeriodOffset" />
+            <ui:Label tabindex="-1" text="Declination" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h2" />
+            <ui:Slider label="Amount" high-value="90" low-value="-90" binding-path="declination" show-input-field="true" />
+            <ui:IntegerField label="Period" value="28" binding-path="declinationPeriod" />
+        </ui:VisualElement>
+        <ui:VisualElement name="day-unlinked-container" class="pl-4" style="flex-grow: 1;">
+            <ui:FloatField label="Rotation Speed" value="42.2" binding-path="satelliteRotateSpeed" />
+            <ui:Vector3Field label="Initial Rotation" binding-path="initialRotation" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

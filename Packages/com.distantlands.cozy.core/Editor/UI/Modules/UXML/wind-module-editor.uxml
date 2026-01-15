@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <Graph>
+        <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+            <ui:VisualElement name="graph-container" style="height: 200px; flex-direction: row; align-items: center; justify-content: center; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; width: 50%;" />
+            <ui:VisualElement name="graph-information-container" style="flex-grow: 1; width: 50%;">
+                <ui:VisualElement class="section-bg" style="flex-grow: 1;">
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: flex-start;">
+                        <ui:VisualElement style="flex-grow: 0; width: 20px; height: 20px; margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px; background-image: resource(&apos;Icons/Modules/Wind&apos;); flex-shrink: 0;" />
+                        <ui:Label tabindex="-1" text="Wind Zone" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h2" />
+                    </ui:VisualElement>
+                    <ui:Label tabindex="-1" text="Direction" parse-escape-sequences="true" display-tooltip-when-elided="true" name="direction" class="p" style="height: 15px;" />
+                    <ui:Label tabindex="-1" text="Main Wind" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-wind" class="p" />
+                    <ui:Label tabindex="-1" text="Pulse Magnitude" parse-escape-sequences="true" display-tooltip-when-elided="true" name="pulse-magnitude" class="p" />
+                    <ui:Label tabindex="-1" text="Pulse Frequency" parse-escape-sequences="true" display-tooltip-when-elided="true" name="pulse-frequency" class="p" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </Graph>
+    <ui:Label tabindex="-1" text="Selection" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="selection-container" class="section-bg" />
+    <ui:Label tabindex="-1" text="Global Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="global-settings-container" class="section-bg" />
+</ui:UXML>

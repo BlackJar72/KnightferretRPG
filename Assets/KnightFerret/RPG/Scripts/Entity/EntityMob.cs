@@ -211,11 +211,6 @@ namespace kfutils.rpg
         {
             throw new NotImplementedException();
         }
-
-        public ItemAmmo GetAmmoItem()
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

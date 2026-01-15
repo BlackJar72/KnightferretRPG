@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4037733154812237440}
   - component: {fileID: 2567011963054887148}
   - component: {fileID: 6890625795905037381}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Outer Gate L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -115,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2576583977639243887}
   - component: {fileID: 7161578239165218921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Giant Gate L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1490502341178349071}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hinge L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

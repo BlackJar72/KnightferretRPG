@@ -20,7 +20,6 @@ namespace kfutils.rpg {
         // For AI
         public float MaxRange { get; }
         public float MinRange { get; }
-        public float AttackTime { get; }
 
         public float EstimateDamage(IDamageable victem);
         

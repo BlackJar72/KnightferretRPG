@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:Label tabindex="-1" text="Modified Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement style="flex-grow: 0; flex-direction: row;" />
+    <ui:VisualElement name="local-settings-container" />
+    <ui:Label tabindex="-1" text="Global Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="global-settings-container" class="section-bg" />
+</ui:UXML>

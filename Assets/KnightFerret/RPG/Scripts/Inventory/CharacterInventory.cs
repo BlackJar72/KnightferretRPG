@@ -1,7 +1,6 @@
 using UnityEngine;
 using kfutils.rpg.ui;
 using System;
-using NUnit.Framework;
 
 
 namespace kfutils.rpg {
@@ -21,7 +20,8 @@ namespace kfutils.rpg {
 
         public void SetOwner(IActor actor)
         {
-            owner ??= actor;
+            // Do not allow this to be changed once set
+            if (owner == null) owner = actor;
         }
 
 
@@ -69,10 +69,8 @@ namespace kfutils.rpg {
         }
 
 
-        private int registrations = 0;
         public virtual void Register()
         {
-            if(owner == null) return;
             EquiptmentSlots data = InventoryManagement.GetEquiptData(owner.ID);
             if (data == null)
             {

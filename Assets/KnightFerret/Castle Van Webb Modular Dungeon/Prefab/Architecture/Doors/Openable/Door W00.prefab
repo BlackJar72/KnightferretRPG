@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1655240836641200765}
   - component: {fileID: 4389132778655429982}
   - component: {fileID: 752475188929013863}
-  m_Layer: 0
+  - component: {fileID: 2766032738046702053}
+  m_Layer: 6
   m_Name: Door W00 3x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +60,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -105,6 +109,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9863677, y: 1.980008, z: 0.2175218}
   m_Center: {x: 0.48794717, y: 0.990004, z: -0.071873926}
+--- !u!114 &2766032738046702053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752475188929013862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1d425c75ce5646f8c5c8a6136919d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door: {fileID: 8252119874254754563}
 --- !u!1 &8252119874169635142
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8252119874169635143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hinge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8252119874254754561}
   - component: {fileID: 8252119874254754563}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door W00
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Template name="moon-phase-graph" src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Components/UXML/moon-phase-graph.uxml?fileID=9197481963319205126&amp;guid=c9f3cc1dbb9168447bde2fc6f04b6fa2&amp;type=3#moon-phase-graph" />
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <Graph>
+        <ui:Instance template="moon-phase-graph" name="moon-phase-graph" />
+        <ui:VisualElement name="satellite-graph-key" style="flex-grow: 0; height: auto;" />
+    </Graph>
+    <ui:Label tabindex="-1" text="Satellite Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="current-satellites-container" class="section-bg" />
+    <Graph>
+        <ui:VisualElement name="orbit-graph" style="flex-grow: 0; height: 250px;" />
+        <ui:VisualElement name="orbit-graph-key" style="flex-grow: 0; height: auto;" />
+    </Graph>
+    <ui:Label tabindex="-1" text="Satellites" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="satellite-inspector-container" />
+</ui:UXML>

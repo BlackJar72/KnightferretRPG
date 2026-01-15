@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement style="flex-grow: 0;">
+        <ui:VisualElement style="flex-grow: 0; flex-direction: row; margin-top: 1px; margin-right: 0; margin-bottom: 1px; margin-left: 3px; align-items: stretch;">
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" style="min-width: 120px; margin-top: 0; margin-right: 2px; margin-bottom: 0; margin-left: 0;" />
+            <ui:Slider high-value="1" show-input-field="true" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-grow: 1;" />
+            <ui:VisualElement name="toggle-curves" class="unity-button" style="flex-grow: 0; width: 25px; margin-left: 3px; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; justify-content: center; align-items: center; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; height: 20px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="curves-container" style="flex-grow: 0; padding-bottom: 15px; margin-left: 120px; padding-top: 0; padding-right: 0; padding-left: 0;" />
+</ui:UXML>

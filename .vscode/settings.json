@@ -56,16 +56,12 @@
         "temp/": true,
         "Temp/": true
     },
-    "files.associations": {
-        "*.asset": "yaml",
-        "*.meta": "yaml",
-        "*.prefab": "yaml",
-        "*.unity": "yaml",
-    },
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.sln": "*.csproj",
-        "*.slnx": "*.csproj"
-    },
-    "dotnet.defaultSolution": "RPG-Test.slnx"
+    "dotnet.defaultSolution": "RPG-Framework02-63.slnx",
+    "files.watcherExclude": {
+        "": true,
+        "**/Assets/0thers/**": true,
+        "**/Assets/Plugins/**": true,
+        "**/Packages/**": true,
+        "**/RealToon/**": true
+    }
 }

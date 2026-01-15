@@ -15,12 +15,13 @@ namespace kfutils.rpg {
         // Slots for weapons, shields, and items that are equipt to be used (whether optionally or required)
         [SerializeField] ItemEquiptLocation RHAND;
         [SerializeField] ItemEquiptLocation LHAND;
+        [SerializeField] ItemEquiptLocation HANDS;
 
         // Special worn items, especially those which may be worn for magical or similar effects
         [SerializeField] ItemEquiptLocation RRING;
         [SerializeField] ItemEquiptLocation LRING;
         [SerializeField] ItemEquiptLocation NECK;
-        [SerializeField] ItemEquiptLocation AMMO;
+        [SerializeField] ItemEquiptLocation BELT;
 
 
         public ItemEquipt EquipItem(ItemStack item) {
@@ -44,8 +45,6 @@ namespace kfutils.rpg {
                         return RHAND.EquipItem(item);
                     case EEquiptSlot.LHAND:
                         return LHAND.EquipItem(item);
-                    case EEquiptSlot.BOW:
-                        return LHAND.EquipItem(item);
                     // Accessories
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
@@ -55,8 +54,8 @@ namespace kfutils.rpg {
                         }
                     case EEquiptSlot.NECK:
                         return NECK.EquiptArmor(item);
-                    case EEquiptSlot.AMMO:
-                        return AMMO.EquipItem(item);
+                    case EEquiptSlot.BELT:
+                        return BELT.EquiptArmor(item);
                     default: return null;
                 }
             }
@@ -84,8 +83,6 @@ namespace kfutils.rpg {
                     return RHAND.CurrentItem;
                 case EEquiptSlot.LHAND:
                     return LHAND.CurrentItem;
-                case EEquiptSlot.BOW:
-                    return LHAND.CurrentItem;
                 // Accessories
                 case EEquiptSlot.RING:
                     if((slotNumber % 2) == 0) {
@@ -95,8 +92,8 @@ namespace kfutils.rpg {
                     }
                 case EEquiptSlot.NECK:
                     return NECK.CurrentItem;
-                case EEquiptSlot.AMMO:
-                    return AMMO.CurrentItem;
+                case EEquiptSlot.BELT:
+                    return BELT.CurrentItem;
                 default: return null;
             }
         }
@@ -109,23 +106,6 @@ namespace kfutils.rpg {
 
         public ItemEquipt GetLHandItem() {
             return LHAND.CurrentItem;
-        }
-
-
-        public ItemAmmo GetAmmoItem() {
-            return AMMO.CurrentItem as ItemAmmo;
-        }
-
-
-        public void LoadArrow(ItemAmmo ammo)
-        {
-            RHAND.EquipItem(ammo);
-        }
-
-
-        public void RemoveArrow(ItemAmmo ammo)
-        {
-            if(RHAND.CurrentItem is ItemAmmo) RHAND.UnequiptCurrentItem();
         }
 
 
@@ -153,9 +133,6 @@ namespace kfutils.rpg {
                     case EEquiptSlot.LHAND:
                         LHAND.UnequiptCurrentItem();
                         break;
-                    case EEquiptSlot.BOW:
-                        LHAND.UnequiptCurrentItem();
-                        break;
                     // Accessories
                     case EEquiptSlot.RING:
                         if(item.slot == EquiptmentSlots.rring) {
@@ -166,8 +143,7 @@ namespace kfutils.rpg {
                         break;
                     case EEquiptSlot.NECK:
                         break;
-                    case EEquiptSlot.AMMO:
-                        AMMO.UnequiptCurrentItem();
+                    case EEquiptSlot.BELT:
                         break;
                     default: break;
                 }
@@ -198,9 +174,6 @@ namespace kfutils.rpg {
                 case EEquiptSlot.LHAND:
                     LHAND.UnequiptCurrentItem();
                     break;
-                case EEquiptSlot.BOW:
-                    LHAND.UnequiptCurrentItem();
-                    break;
                 // Accessories
                 case EEquiptSlot.RING:
                     Debug.LogWarning("UnequipItem(EEquiptSlot slot) being used from RING (all rings removed); this is not intended for rings.");
@@ -209,8 +182,7 @@ namespace kfutils.rpg {
                     break;
                 case EEquiptSlot.NECK:
                     break;
-                case EEquiptSlot.AMMO:
-                    AMMO.UnequiptCurrentItem();
+                case EEquiptSlot.BELT:
                     break;
                 default: break;
             }

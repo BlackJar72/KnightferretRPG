@@ -6,7 +6,7 @@ namespace kfutils.rpg {
     public interface IInventory<T> {
 
 
-        public void RemoveItem(T item, InvType type);
+        public void RemoveItem(T item);
 
         public int GetLastSlot() ;
         public float CalculateWeight();

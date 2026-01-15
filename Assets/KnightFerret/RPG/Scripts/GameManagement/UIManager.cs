@@ -24,7 +24,6 @@ namespace kfutils.rpg {
         [SerializeField] GameObject loadingScreen;
         [SerializeField] DeathPopup deathPanel;
         [SerializeField] Camera CharacterCam;
-        [SerializeField] InventoryPanel inventoryPanel;
 
         // Canvases
         [SerializeField] GameObject mainCanvas;
@@ -40,8 +39,6 @@ namespace kfutils.rpg {
 
         private bool pauseMenuVisible = false;
         public bool PauseMenuVisible => pauseMenuVisible;
-
-        public InventoryPanel Inventory => inventoryPanel;
 
 
         public void EnterStartMenu()

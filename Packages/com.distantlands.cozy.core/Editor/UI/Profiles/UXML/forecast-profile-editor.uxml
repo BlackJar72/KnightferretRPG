@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <Graph>
+        <ui:Label tabindex="-1" text="Weather Likelihood" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+        <ui:EnumField type="DistantLands.Cozy.ChanceEffector+LimitType, DistantLands.Cozy.Runtime" name="chances-by-variable-limit" />
+        <ui:VisualElement name="chances-by-variable-chart" style="height: 170px; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px;" />
+        <ui:VisualElement name="chances-by-variable-key" class="mb-md" style="flex-direction: row; flex-wrap: wrap; max-height: 100px;" />
+    </Graph>
+    <ui:Label tabindex="-1" text="Profiles to Forecast" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="profiles-container" class="mb-md section-bg">
+        <ui:ListView show-alternating-row-backgrounds="ContentOnly" reorderable="true" show-foldout-header="true" show-add-remove-footer="true" show-bound-collection-size="true" virtualization-method="FixedHeight" show-border="true" name="ListView" binding-path="profilesToForecast" reorder-mode="Animated" selection-type="Multiple" header-title="Weather Profiles" class="hide-element-title" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="Forecast Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="forecast-settings-container" class="section-bg">
+        <ui:EnumField label="Start With" type="DistantLands.Cozy.Data.ForecastProfile+StartWeatherWith, DistantLands.Cozy.Runtime" name="start-with" binding-path="startWeatherWith" />
+        <uie:ObjectField label="Initial Weather" type="DistantLands.Cozy.Data.WeatherProfile, DistantLands.Cozy.Runtime" binding-path="initialProfile" name="initial-weather" class="mb-md" />
+        <ui:ListView reorderable="true" show-foldout-header="true" header-title="Initial Forecast" show-add-remove-footer="true" show-border="true" virtualization-method="DynamicHeight" binding-path="initialForecast" name="initial-forecast" class="mb-md" />
+        <ui:IntegerField label="Forecast Ahead" tooltip="How many profiles should be forecast in advance by the weather module." name="forecast-ahead" binding-path="forecastLength" />
+    </ui:VisualElement>
+</ui:UXML>

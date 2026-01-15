@@ -78,7 +78,7 @@ namespace kfutils.rpg {
 
         protected float looky;
         protected Vector2[] moveIn = new Vector2[4];
-        protected Vector2[] lookIn = new Vector2[5];
+        protected Vector2[] lookIn = new Vector2[4];
 
         protected sealed override void MakePC(string id) { base.MakePC(PC); }
 
@@ -94,7 +94,6 @@ namespace kfutils.rpg {
         public Camera PlayerCam => playerCam;
         public GameObject FollowCam => followCam;
         public Transform Swimpoint => swimpoint;
-        public bool OnGround => onGround;
 
 
 
@@ -420,12 +419,7 @@ namespace kfutils.rpg {
             camPivot.transform.position = eyePos;
             lookIn[0] = lookIn[1]; lookIn[1] = lookIn[2];
             lookIn[2] = lookAction.ReadValue<Vector2>(); // * Options.lookSensitivity;
-            lookIn[4].x = lookIn[2].magnitude;
-            // This fixes a problem where the minimum movement to register is too high, making aiming difficult
-            if(lookIn[4].x > 1.0f) lookIn[4].y = Mathf.Max(lookIn[2].magnitude - 1.0f, 0.0f) / lookIn[2].magnitude;
-            else lookIn[4].y = 0.0f;
-            lookIn[2] *= lookIn[4].y;
-            lookIn[3] = (lookIn[0] + lookIn[1] + lookIn[2]) / 3.0f;
+            lookIn[3] = ((lookIn[0] + lookIn[1] + lookIn[2]) / 3f);
         }
 
 
@@ -433,7 +427,7 @@ namespace kfutils.rpg {
         {
             moveIn[0] = moveIn[1]; moveIn[1] = moveIn[2];
             moveIn[2] = moveAction.ReadValue<Vector2>(); // * Options.moveSensitivity;
-            moveIn[3] = (moveIn[0] + moveIn[1] + moveIn[2]) / 3f;
+            moveIn[3] = ((moveIn[0] + moveIn[1] + moveIn[2]) / 3f);
         }
 
 
@@ -650,8 +644,7 @@ namespace kfutils.rpg {
                     dms.Parameter = Vector2.MoveTowards(dms.Parameter, new Vector2(movement.x, movement.z), 10 * Time.deltaTime);
                 }
 
-                float directionFactor =  (Vector3.Dot(transform.forward, newVelocity.normalized) * 0.25f) + 0.75f;
-                hVelocity = newVelocity * directionFactor;
+                hVelocity = newVelocity;
             }
 
             onGround = characterController.isGrounded;
@@ -714,10 +707,6 @@ namespace kfutils.rpg {
                     {
                         newVelocity += transform.rotation * (movement * attributes.crouchSpeed * weightMovementFactor);
                     }
-
-                    float directionFactor =  (Vector3.Dot(transform.forward, newVelocity.normalized) * 0.25f) + 0.75f;
-                    hVelocity = newVelocity * directionFactor;
-
                     moved = true;
                 }
 
@@ -731,11 +720,7 @@ namespace kfutils.rpg {
                     newVelocity.y = -attributes.crouchSpeed;
                     moved = true;
                 }
-                if (moved) 
-                {
-                    MakeSound(10);
-                    stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
-                }
+                if (moved) stamina.UseStamina(Time.deltaTime * attributes.runningCostFactor / weightMovementFactor);
             }
 
             if (newVelocity.magnitude > MAX_WATER_V) newVelocity = newVelocity.normalized * MAX_WATER_V;

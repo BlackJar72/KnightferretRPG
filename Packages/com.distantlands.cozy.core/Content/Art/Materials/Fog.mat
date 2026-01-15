@@ -1,0 +1,386 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Fog
+  m_Shader: {fileID: 4800000, guid: b8eb1e7a69d95e14a9d81cb25af22b2a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - DistortionVectors
+  - MOTIONVECTORS
+  - TransparentBackface
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FogVariationTexture:
+        m_Texture: {fileID: 2800000, guid: c4666b12d12d34d45b89ea8d2fe52b01, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlintTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScreenNoiseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TriplanarTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - CZY_FlareSquish: 1
+    - CZY_FogColorStart1: 1
+    - CZY_FogColorStart2: 3
+    - CZY_FogColorStart3: 3
+    - CZY_FogColorStart4: 4
+    - CZY_FogDepthMultiplier: 1
+    - CZY_FogIntensity: 1
+    - CZY_FogOffset: 1
+    - CZY_FogSmoothness: 0.1
+    - CZY_LightFalloff: 1
+    - CZY_LightIntensity: 0
+    - CZY_VariationAmount: 1
+    - CZY_VariationDistance: 1
+    - CZY_VariationScale: 1
+    - LightIntensity: 1
+    - LightIntensity1: 1
+    - _AddPrecomputedVelocity: 1
+    - _AdditionalLightIntensity: 2
+    - _AdditionalLightRamp: 1
+    - _AlphaCutoff: 0.5
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 10
+    - _AlphaSrcBlend: 1
+    - _BlendMode: 0
+    - _BlendStrength: 0.5
+    - _Blur: 1
+    - _BumpScale: 1
+    - _CZY_HeightFogBase: 67.7
+    - _CZY_HeightFogBaseVariationAmount: 4.4
+    - _CZY_HeightFogBaseVariationScale: 640.5
+    - _CZY_HeightFogDistance: 756.3
+    - _CZY_HeightFogIntensity: 1
+    - _CZY_HeightFogTransition: 48
+    - _ClampAdjustments: 1
+    - _ClipTriplanar: 1
+    - _ColorNumbers: 4
+    - _ColorStart1: 2
+    - _ColorStart2: 5
+    - _ColorStart3: 10
+    - _ColorStart4: 30
+    - _CullMode: 0
+    - _CullModeForward: 0
+    - _Cutoff: 0.5
+    - _DensityMultiplier: 1
+    - _DetailNormalMapScale: 1
+    - _DistortionEnable: 0
+    - _DistortionOnly: 0
+    - _DoubleSidedEnable: 1
+    - _DoubleSidedGIMode: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 10
+    - _EmissionEffectScale: 1
+    - _EmissionLightRatio: 1
+    - _EmissionShadowRatio: 1
+    - _EmissionUVSource: 0
+    - _EnableFogOnTransparent: 0
+    - _EnvironmentReflections: 1
+    - _FlareSquish: 2.800567
+    - _FlutterAmount: 0
+    - _FlutterFramerate: 10
+    - _FlutterNoiseScale: 1
+    - _FlutterOffset: 0
+    - _FlutterSensitivity: 1
+    - _FlutterSource: 3
+    - _FlutterSpeed: 1
+    - _FogColorStart1: 2
+    - _FogColorStart2: 5
+    - _FogColorStart3: 10
+    - _FogColorStart4: 30
+    - _FogDensity: 2
+    - _FogDepthMultiplier: 1
+    - _FogDepthMultiplier1: 1
+    - _FogIntensity: 1
+    - _FogIntensity1: 1
+    - _FogOffset: 0.85
+    - _FogOffset1: 1
+    - _FogSmoothness: 1000
+    - _FogSmoothness1: 100
+    - _GlintScale: 0.4
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GradientOffset: 0
+    - _GradientSensitivity: 1
+    - _GradientSource: 1
+    - _HalftoneMultiplier: 0.7961575
+    - _HalftoneOffset: 0
+    - _HalftoneScale: 1
+    - _HueShift: 0
+    - _HueVariation: 0
+    - _LightFalloff: 2.5727005
+    - _LightFalloff1: 10
+    - _LightIntensity: 1
+    - _LightRamp: 1
+    - _LightRampOffset: 0.5
+    - _LightSteps: 5
+    - _LightingMode: 1
+    - _MaxSteps: 100
+    - _Metallic: 0
+    - _Mode: 0
+    - _MoonlightFalloff: 9.44
+    - _MoonlightIntensity: 1
+    - _MultiplyByLightColor: 1
+    - _MultiplyByLightRatio: 0
+    - _NoiseAmountLight: 0
+    - _NoiseAmountShadow: 0.5
+    - _NoiseFramerate: 8
+    - _NoiseOffset: 0
+    - _NoiseScale: 2
+    - _NoiseUVSource: 0
+    - _NormalMode: 0
+    - _OcclusionStrength: 1
+    - _OpaqueCullMode: 2
+    - _Parallax: 0.02
+    - _PosterizeColors: 0
+    - _PosterizeLight: 0
+    - _PuddleScale: 0.4
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _ReceivesSSR: 1
+    - _ReceivesSSRTransparent: 0
+    - _RenderQueueType: 4
+    - _RequireSplitLighting: 0
+    - _RimLightLitIntensity: 1
+    - _RimLightRampOffset: 0.5
+    - _RimLightShadowIntensity: 1
+    - _RimRamp: 1
+    - _SaturationShift: 0
+    - _SaturationVariation: 0
+    - _ScrollEmission: 0
+    - _Sensitivity: 1
+    - _SmoothnessTextureChannel: 0
+    - _SnowAttraction: 1
+    - _SnowScale: 10
+    - _Space: 1
+    - _SpecularHighlights: 1
+    - _SpecularRamp: 0
+    - _SpecularRampOffset: 0.93
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _StepSize: 0.1
+    - _Strength: 1000
+    - _SupportDecals: 1
+    - _SurfaceType: 1
+    - _SwayAmount: 0
+    - _SwayFramerate: 10
+    - _SwayNoiseScale: 1
+    - _SwayOffset: 0
+    - _SwaySensitivity: 1
+    - _SwaySource: 3
+    - _SwaySpeed: 1
+    - _SwirlAmount: 0
+    - _SwirlFramerate: 10
+    - _SwirlNoiseScale: 1
+    - _SwirlOffset: 0
+    - _SwirlSensitivity: 1
+    - _SwirlSource: 3
+    - _SwirlSpeed: 1
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 1
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _TriplanarMultiplier: 2
+    - _TriplanarOffset: 0
+    - _TriplanarSpace: 1
+    - _UVSec: 0
+    - _UseCOZYPrecipitation: 0
+    - _UseColorAdjustments: 0
+    - _UseEmission: 0
+    - _UseFlutter: 0
+    - _UseGlint: 0
+    - _UseGradientShading: 0
+    - _UseHSVVariation: 0
+    - _UseHalftone: 0
+    - _UseModifiedNormals: 0
+    - _UseRimLighting: 0
+    - _UseScreenNoise: 0
+    - _UseShadowThreshold: 0
+    - _UseShadows: 1
+    - _UseSpecular: 1
+    - _UseSway: 0
+    - _UseSwirl: 0
+    - _UseTriplanar: 0
+    - _UseWave: 0
+    - _ValueShift: 0
+    - _ValueVariation: 0
+    - _VariationAmount: 0.398
+    - _VariationDistance: 34.79
+    - _VariationScale: 5.33
+    - _VariationSource: 0
+    - _WaveAmount: 0
+    - _WaveFramerate: 10
+    - _WaveNoiseScale: 0.5
+    - _WaveOffset: 0
+    - _WaveSensitivity: 1
+    - _WaveSource: 3
+    - _WaveSpeed: 3.004473
+    - _WindNoiseSize: 0.1
+    - _WindStrength: 1
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 0
+    - __dirty: 1
+    m_Colors:
+    - CZY_FogColor1: {r: 1, g: 0, b: 0.8999224, a: 1}
+    - CZY_FogColor2: {r: 1, g: 0, b: 0, a: 1}
+    - CZY_FogColor3: {r: 1, g: 0, b: 0.7469492, a: 1}
+    - CZY_FogColor4: {r: 0, g: 0.8501792, b: 1, a: 1}
+    - CZY_FogColor5: {r: 0.164721, g: 0, b: 1, a: 1}
+    - CZY_HeightFog: {r: 1, g: 1, b: 1, a: 0.21960784}
+    - CZY_SunDirection: {r: 1, g: 1, b: 0, a: 0}
+    - CZY_VariationWindDirection: {r: 1, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CustomNormalDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _CustomNormalEllipseSize: {r: 1, g: 1, b: 1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionScrolling1: {r: 1, g: 1, b: 0, a: 0}
+    - _EmissionScrolling2: {r: 0.1, g: -0.5, b: 0, a: 0}
+    - _FarColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FlutterDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _FlutterMask: {r: 1, g: 0, b: 0, a: 0}
+    - _FogColor1: {r: 0, g: 0, b: 0, a: 0.007843138}
+    - _FogColor2: {r: 0.0078962315, g: 0.06297548, b: 0.10854304, a: 0.13725491}
+    - _FogColor3: {r: 0.03701826, g: 0.108462125, b: 0.18400168, a: 0.5019608}
+    - _FogColor4: {r: 0.012125457, g: 0.09855801, b: 0.2052845, a: 0.75686276}
+    - _FogColor5: {r: 0.18254024, g: 0.31607682, b: 0.47976238, a: 1}
+    - _FogSquish: {r: 1, g: 3.93, b: 0, a: 0}
+    - _GlintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientChannelMask: {r: 0, g: 1, b: 0, a: 0}
+    - _GradientPositionalOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _LightColor: {r: 4.407615, g: 0.724749, b: 0.13854867, a: 1}
+    - _LightColor1: {r: 11.924528, g: 32, b: 29.818542, a: 0}
+    - _LitColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 0, g: 0, b: 0, a: 0}
+    - _MoonDirection: {r: 0, g: 2.3, b: -1, a: 0}
+    - _MoonlightColor: {r: 0.25880182, g: 1.0406188, b: 1.8919301, a: 0.83137256}
+    - _NearColor: {r: 1, g: 1, b: 1, a: 1}
+    - _PuddleColor: {r: 0.19475657, g: 0.34486926, b: 0.43396226, a: 0}
+    - _RimLightColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}
+    - _ShadowColor: {r: 0.34976864, g: 0.454963, b: 0.5660378, a: 1}
+    - _SnowColor: {r: 1, g: 1, b: 1, a: 0}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SunDirection: {r: 0.79138684, g: 0.04081709, b: 0.60995185, a: 0}
+    - _SunDirection1: {r: 0, g: 0, b: 0, a: 0}
+    - _SwayDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _SwayMask: {r: 1, g: 0, b: 0, a: 0}
+    - _SwirlDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _SwirlMask: {r: 1, g: 0, b: 0, a: 0}
+    - _TriplanarColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TriplanarDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _UnlitColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
+    - _VariationWindDirection: {r: 1, g: 0, b: 5, a: 0}
+    - _WaveDirection1: {r: 0, g: 1, b: 0, a: 0}
+    - _WaveDirection2: {r: 0, g: 1, b: 0, a: 0}
+    - _WaveInfluenceDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _WaveMask: {r: 1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement name="moon-phase-graph" style="flex-grow: 0; flex-direction: row; height: 150px;">
+        <ui:VisualElement style="flex-grow: 0; width: 50%;">
+            <ui:VisualElement name="moon-graph" style="flex-grow: 1; background-image: url(&quot;project://database/Packages/com.distantlands.cozy.core/Editor/UI/Components/Shader/Moon%20Phase%20Display.asset?fileID=8600000&amp;guid=e6604eebdb1389c42b1936bfd4014178&amp;type=2#Moon Phase Display&quot;); -unity-background-scale-mode: scale-to-fit; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; width: 50%;">
+            <ui:Label tabindex="-1" text="Crescent" parse-escape-sequences="true" display-tooltip-when-elided="true" name="phase-name" class="h2" />
+            <ui:Label tabindex="-1" text="Crescent" parse-escape-sequences="true" display-tooltip-when-elided="true" name="moon-name" class="mb-md" style="-unity-text-align: upper-left;" />
+            <ui:Label tabindex="-1" text="Crescent" parse-escape-sequences="true" display-tooltip-when-elided="true" name="phase-time" />
+            <ui:Label tabindex="-1" text="Crescent" parse-escape-sequences="true" display-tooltip-when-elided="true" name="illumination" class="mb-md" />
+            <ui:Label tabindex="-1" text="Crescent" parse-escape-sequences="true" display-tooltip-when-elided="true" name="declination" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

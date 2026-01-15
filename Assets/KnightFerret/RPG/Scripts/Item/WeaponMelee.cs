@@ -30,8 +30,6 @@ namespace kfutils.rpg {
         protected int attack = 0;
         protected AnimancerState attackState;
 
-        public override bool IsReal => holder != null;
-
         // Blocking Fields
 
         [SerializeField] protected float blockAmount;
@@ -40,10 +38,14 @@ namespace kfutils.rpg {
         [SerializeField] protected AudioSource audioSource;
 
         private protected BlockArea blockArea;
+
         private protected bool blocking = false;
+
         private protected float damageFactor; // For normal vs power attacks
 
+
         public delegate void EventAction();
+
 
         public AbstractAction UseAnimation => useAnimation.Primary;
 
@@ -56,9 +58,6 @@ namespace kfutils.rpg {
         public float Stability => stability;
         public float ParryWindow => parryWindow;
         public DamageSource DamagerSrc => damage;
-
-        public float GetAttackSpeed() => 1.0f / attackTime;
-        public int GetDamage() => damage.BaseDamage;
 
 
         /*******************************************************************************************************************************/
@@ -80,12 +79,22 @@ namespace kfutils.rpg {
 
         public void AttackRanged(ICombatant attacker, Vector3 direction)
         {
-            #if UNITY_EDITOR
             Debug.LogError("Trying to perform raged attack with melee weapon " + prototype.Name);
             throw new System.NotImplementedException();
-            #endif
         }
-        
+
+
+        public float GetAttackSpeed()
+        {
+            return attackTime;
+        }
+
+
+        public int GetDamage()
+        {
+            return damage.BaseDamage;
+        }
+
 
         void OnTriggerEnter(Collider other)
         {
@@ -97,10 +106,8 @@ namespace kfutils.rpg {
 #pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
             if (attacking && (damageable != null) && (damageable.GetEntity != holder))
             {
-                damageFactor += (0.1f * attack);
-                if (holder.OnGround) damageFactor += 0.5f;
                 if (damageable.InParriedState()) damageFactor += 1.0f;
-                if (damageable.IsSurprised(holder)) damageFactor += 2.0f;
+                if (damageable.IsSurprised(holder)) damageFactor += 1.5f;
                 damage.DoDamage(holder, this, damageable, damageFactor);
                 //attacking = false;
                 OnAttackEnd();
@@ -117,7 +124,8 @@ namespace kfutils.rpg {
         public void OnUse(IActor actor)
         {
             damageFactor = 1.0f;
-            if (actor is ICombatant attacker)
+            ICombatant attacker = actor as ICombatant;
+            if (attacker != null)
             {
                 if (busy) queued = true;
                 else
@@ -131,7 +139,7 @@ namespace kfutils.rpg {
 
         public virtual void OnUseCharged(IActor actor)
         {
-            damageFactor = 2.0f;
+            damageFactor = 1.5f;
             ICombatant attacker = actor as ICombatant;
             if (attacker != null)
             {
@@ -141,7 +149,6 @@ namespace kfutils.rpg {
                     AttackMelee(attacker);
                     PlayUseAnimation(actor);
                 }
-                attack = 0;
             }
         }
 
@@ -208,7 +215,7 @@ namespace kfutils.rpg {
             hitCollider.enabled = false;
             if (actor.ActionState != null) PlayEquipAnimation(actor);
             PCActing pc = actor as PCActing;
-            if ((pc != null) && !pc.IsBlocking) pc.SetArmsPos(PCActing.ArmsPos.high);
+            if (pc != null) pc.SetArmsPos(PCActing.ArmsPos.high);
         }
 
 

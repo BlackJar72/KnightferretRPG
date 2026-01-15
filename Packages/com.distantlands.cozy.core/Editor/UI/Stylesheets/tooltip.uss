@@ -1,0 +1,26 @@
+.tooltip {
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgba(104, 163, 223, 0.47);
+    border-right-color: rgba(104, 163, 223, 0.47);
+    border-top-color: rgba(104, 163, 223, 0.47);
+    border-bottom-color: rgba(104, 163, 223, 0.47);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: rgba(58, 94, 130, 0.47);
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}

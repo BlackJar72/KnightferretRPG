@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 148020561695004295}
   - component: {fileID: 148020561695004294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hinge L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   m_Component:
   - component: {fileID: 148020562405293482}
   - component: {fileID: 148020562405293485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hinge R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 4658016370309487809}
   - component: {fileID: 5395433200258998740}
   - component: {fileID: 6539882109374955463}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door 05 L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +162,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -198,7 +201,7 @@ GameObject:
   - component: {fileID: 2243353678521277958}
   - component: {fileID: 1665613338669572773}
   - component: {fileID: 6648647372757643475}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door 05 R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,6 +248,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -280,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5782898872522215328}
   - component: {fileID: 8013175783989384927}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Outer Gates
   m_TagString: Untagged
   m_Icon: {fileID: 0}

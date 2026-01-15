@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement name="banner-container" class="banner" style="justify-content: center; align-items: center;">
+        <ui:VisualElement name="background-container">
+            <ui:VisualElement name="background-image" style="flex-grow: 1; background-image: resource(&apos;Banners/Ambience&apos;); -unity-background-scale-mode: scale-and-crop;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="banner-content" style="flex-grow: 1; margin-left: 15px;">
+            <ui:VisualElement name="logo" style="width: 48px; height: 48px; flex-shrink: 0; background-image: resource(&apos;Promo/Distant Lands Watermark&apos;);" />
+            <ui:VisualElement name="banner-text-container">
+                <ui:Label tabindex="-1" text="COZY" parse-escape-sequences="true" display-tooltip-when-elided="true" name="title" />
+                <ui:Label tabindex="-1" text="Setup Wizard" parse-escape-sequences="true" display-tooltip-when-elided="true" name="desc" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

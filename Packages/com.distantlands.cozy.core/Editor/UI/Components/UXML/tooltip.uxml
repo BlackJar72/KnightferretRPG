@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Stylesheets/tooltip.uss?fileID=7433441132597879392&amp;guid=398002f3c6f6e224d8d3796ec99dbc03&amp;type=3#tooltip" />
+    <ui:VisualElement class="tooltip" style="flex-shrink: 0;">
+        <ui:VisualElement class="icon" />
+        <ui:Label tabindex="-1" text="This is a helpful tooltip for the user that explains a particular part of the COZY Ecosystem in an easy to digest manner." parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1;" />
+    </ui:VisualElement>
+</ui:UXML>

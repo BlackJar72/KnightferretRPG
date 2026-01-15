@@ -1,0 +1,52 @@
+{
+  "name": "com.distantlands.cozy.core",
+  "displayName": "COZY 3: Stylized Weather",
+  "version": "3.6.2",
+  "author": {
+    "name": "Distant Lands",
+    "email": "contact@distantlands.space",
+    "discord": "https://discord.gg/eZXxGCp9ww",
+    "url": "https://distantlands.space"
+  },
+  "hideInEditor": false,
+  "unity": "2022.3",
+  "description": "FOR RENDER PIPELINE SUPPORT: Please follow the online documentation.\n\nCreate stunning weather patterns for your game worlds! From time-of-day to annual seasons, from puffy clouds to raging storms, from sunny days to dense fog, COZY does it all with ease! Focus on your scene's colors and easily tweak all variables for ultimate customization!\n\nCheck out our extension modules on the Unity Asset Store!",
+  "keywords": [
+    "Cozy Weather 3",
+    "Weather",
+    "Clouds",
+    "Fog",
+    "Sky",
+    "Distant Lands",
+    "Stylized"
+  ],
+  "samples": [
+    {
+      "displayName": "Core Samples",
+      "description": "Collection of demo scenes that showcase the features of the main modules of COZY.",
+      "path": "Samples~/Core Samples"
+    },
+    {
+      "displayName": "Biome Samples",
+      "description": "Collection of demo scenes designed to show off the features of the biome system including global vs local biomes, biome modules, and transitions.",
+      "path": "Samples~/Biome Samples"
+    },
+    {
+      "displayName": "UI Samples",
+      "description": "Simple example UI that displays temperature, the current weather, the current time, and the current date.",
+      "path": "Samples~/UI Samples"
+    },
+    {
+      "displayName": "Fog Cards (URP)",
+      "description": "Shader package that allows for 3D placeable fog cards in  your scene. URP support only.",
+      "path": "Samples~/Fog Cards (URP)"
+    },
+    {
+      "displayName": "Legacy Integrations",
+      "description": "Contains the old shader includes in the old location so that COZY 3 can support older assets that had integrations that are no longer maintained.",
+      "path": "Samples~/Legacy Integrations"
+    }
+  ],
+  "documentationUrl": "https://distant-lands.gitbook.io/cozy-stylized-weather-documentation/welcome/hello",
+  "changelogUrl": "https://distant-lands.gitbook.io/cozy-stylized-weather-documentation/welcome/changelog"
+}

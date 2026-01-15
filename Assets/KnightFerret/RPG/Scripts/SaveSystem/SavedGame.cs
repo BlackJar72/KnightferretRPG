@@ -32,7 +32,6 @@ namespace kfutils.rpg {
         [SerializeField] Dictionary<string, ChunkData> chunkData;
         [SerializeField] Dictionary<string, GData> worldObjectData;
         [SerializeField] Dictionary<string, GDataExpiring> worldTimedData;
-        [SerializeField] Dictionary<string, WorldEffect.Data> effectRegistry;
 
         [SerializeField] string currentWorldspace;
         [SerializeField] HotBar hotbar;
@@ -62,7 +61,6 @@ namespace kfutils.rpg {
             worldObjectData = ObjectManagement.WorldObjectData;
             worldTimedData = ObjectManagement.WorldTimedData;
             chunkData = WorldManagement.ChunkDataRegistry;
-            effectRegistry = ObjectManagement.EffectRegistry;
             currentWorldspace = WorldManagement.GetCurrentWorldspaceID();
 
             // Active Lists
@@ -123,7 +121,6 @@ namespace kfutils.rpg {
             ES3.Save("EntityRegistry", entityRegistry, fileName);
             ES3.Save("WorldObjectData", worldObjectData, fileName);
             ES3.Save("WorldTimedData", worldTimedData, fileName);
-            ES3.Save("EffectRegistry", effectRegistry, fileName);
             ES3.Save("ChunkData", chunkData, fileName);
             ES3.Save("CurrentWorldspace", currentWorldspace, fileName);
             // TODO: More, much, much more...
@@ -161,7 +158,6 @@ namespace kfutils.rpg {
             entityRegistry = ES3.Load<Dictionary<string, EntityData>>("EntityRegistry", fileName);
             worldObjectData = ES3.Load<Dictionary<string, GData>>("WorldObjectData", fileName);
             worldTimedData  = ES3.Load<Dictionary<string, GDataExpiring>>("WorldTimedData", fileName);
-            effectRegistry = ES3.Load<Dictionary<string, WorldEffect.Data>>("EffectRegistry", fileName);
             chunkData = ES3.Load<Dictionary<string, ChunkData>>("ChunkData", fileName);
             currentWorldspace = ES3.Load<string>("CurrentWorldspace", fileName);
 
@@ -176,7 +172,6 @@ namespace kfutils.rpg {
             InventoryManagement.hotBar.CopyInto(hotbar);
             EntityManagement.SetEntityRegistry(entityRegistry);
             ObjectManagement.LoadData(worldObjectData, worldTimedData);
-            ObjectManagement.SetEffectData(effectRegistry);
             WorldManagement.SetChunkData(chunkData);
             WorldManagement.LoadWSFromSave(currentWorldspace);
 

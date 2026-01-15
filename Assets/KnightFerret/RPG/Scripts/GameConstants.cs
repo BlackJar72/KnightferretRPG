@@ -18,11 +18,8 @@ namespace kfutils.rpg {
         damageable = 11,
         attack = 12,
         block = 13,
-        smallObject = 14,
-        smallItem = 15, 
         door = 16,
-        floor = 17,
-        settling = 18
+        sky = 20
     }
 
 
@@ -56,14 +53,11 @@ namespace kfutils.rpg {
         public const int damageableLayer = 0x1 << (int)Layers.damageable;
         public const int attackableLayer = damageableLayer | (0x1 << (int)Layers.block);
         public const int attackLayer = 0x1 << (int)Layers.attack;
-        public const int smallObjectLayer = 0x1 << (int)Layers.smallObject;
-        public const int smallItemLayer = 0x1 << (int)Layers.smallItem;
         public const int doorLayer = 0x1 << (int)Layers.door;
-        public const int floorLayer = 0x1 << (int)Layers.floor;
-        public const int settlingLayer = 0x1 << (int)Layers.settling;
+        public const int skyLayer = 0x1 << (int)Layers.sky;
 
-        public const int interactable = interactableLayer | smallItemLayer | doorLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
-        public const int LevelMask = defaultLayer | interactableLayer | floorLayer;
+        public const int interactable = interactableLayer | doorLayer | npcLayer | defaultLayer; // Includes default so you can't reach through objects
+        public const int LevelMask = defaultLayer | interactableLayer;
         #endregion
 
 

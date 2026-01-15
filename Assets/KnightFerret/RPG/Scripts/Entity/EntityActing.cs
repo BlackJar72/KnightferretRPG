@@ -242,9 +242,6 @@ namespace kfutils.rpg {
         }
 
 
-        public ItemAmmo GetAmmoItem() => itemLocations.GetAmmoItem();
-
-
         public void Stagger(float delay)
         {
             if (alive)
@@ -254,21 +251,6 @@ namespace kfutils.rpg {
                 updateEnd = Time.time + delay;
                 actionUpdate = DelayedUpdate;
             }
-        }
-
-
-        public void UnStagger()
-        {            
-            actionUpdate = NormalUpdate;
-            isParried = false;
-            RestoreWalk();
-        }
-
-
-        public void ToggleStagger(float delay)
-        {
-            if(actionUpdate == DelayedUpdate) UnStagger();
-            else Stagger(delay);
         }
 
 

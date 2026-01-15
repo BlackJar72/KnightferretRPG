@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8263020442531471103}
   - component: {fileID: 7823308405189427298}
   - component: {fileID: 7544071313888313836}
+  - component: {fileID: 1891867829383600022}
   m_Layer: 0
   m_Name: Wand03B
   m_TagString: Untagged
@@ -66,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3db42c6818a60695dbfbe7e13241a533, type: 2}
+  - {fileID: 2100000, guid: 8b3ce5bb880dfce1792af4e4db68d7c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -137,3 +138,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1891867829383600022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803646670710524067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b911ed3b5ea22b31885d223c1730087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prototype: {fileID: 11400000, guid: 27c439a84c464b1569330b241b95bee2, type: 2}
+  physics: {fileID: 0}

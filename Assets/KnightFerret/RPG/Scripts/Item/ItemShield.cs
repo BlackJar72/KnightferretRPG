@@ -187,13 +187,11 @@ namespace kfutils.rpg
                     IDamageable damageable = hitObject.GetComponent<IDamageable>();
                     if (damageable != null)
                     {
-                        if (damageable is EntityActing enemy) enemy.ToggleStagger(1.5f);
+                        if (damageable is EntityActing enemy) enemy.Stagger(1.5f);
                         if (damageable is EntityHitbox hitbox)
                         {
-                            if((hitbox.GetEntity is EntityActing actor) && (!actor.IsStunned()))
-                            {
-                                actor.ToggleStagger(1.5f);
-                            }
+                            if((hitbox.GetEntity is EntityActing actor) && (!actor.IsStunned())){
+                                actor.Stagger(2.0f);}
                         }
                         bashDamage.DoDamage(holder, null, damageable);
                     }

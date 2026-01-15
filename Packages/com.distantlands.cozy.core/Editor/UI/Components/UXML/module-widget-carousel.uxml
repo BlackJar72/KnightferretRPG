@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:Label tabindex="-1" text="Atmosphere" parse-escape-sequences="true" display-tooltip-when-elided="true" name="widget-group-header" class="h1 widget-group-header" />
+        <ui:ScrollView mode="Horizontal" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Auto" nested-interaction-kind="StopScrolling" style="height: auto; align-items: stretch; background-color: rgba(0, 0, 0, 0.43); flex-grow: 1; flex-direction: column; max-height: 135px;">
+            <ui:VisualElement name="tab-group" style="justify-content: flex-start; flex-direction: column; flex-wrap: wrap; align-items: flex-start; flex-grow: 1; max-height: none;" />
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

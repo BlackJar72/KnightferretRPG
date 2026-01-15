@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Template name="banner-simple" src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Components/UXML/banner-simple.uxml?fileID=9197481963319205126&amp;guid=874c8018201cb1a4f85a5f0961f429a3&amp;type=3#banner-simple" />
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(30, 30, 30);">
+        <ui:Instance template="banner-simple" name="banner-simple" />
+        <ui:ScrollView style="flex-grow: 1;">
+            <ui:Label tabindex="-1" text="Render Pipeline Setup" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+            <ui:VisualElement name="render-pipeline-packages" class="pl-4" />
+            <ui:Label tabindex="-1" text="Project Setup" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+            <ui:VisualElement name="project-setup" class="pl-4" />
+        </ui:ScrollView>
+        <ui:VisualElement style="flex-grow: 0; flex-direction: row; height: 40px;">
+            <ui:Button text="Documentation" parse-escape-sequences="true" display-tooltip-when-elided="true" name="documentation" style="flex-grow: 1;" />
+            <ui:Button text="Support" parse-escape-sequences="true" display-tooltip-when-elided="true" name="support" style="flex-grow: 1;" />
+            <ui:Button text="FAQs" parse-escape-sequences="true" display-tooltip-when-elided="true" name="faqs" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

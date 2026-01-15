@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc9e8ccf7e1f314da24a604c1a11094, type: 3}
+  m_Name: Approaching Storm
+  m_EditorClassIdentifier: 
+  minWeatherTime: 0.041666668
+  maxWeatherTime: 0.125
+  likelihood: 1.5
+  forecastNext:
+  - {fileID: 11400000, guid: 5f1173877e77b3b40af72776ce4ae64a, type: 2}
+  forecastModifierMethod: 0
+  chances: []
+  FX:
+  - {fileID: 11400000, guid: f24b149cbeed0b24d831bde13c20f7f2, type: 2}
+  - {fileID: 11400000, guid: 8aa234e65cf012b448367af9914cbe6f, type: 2}
+  - {fileID: 11400000, guid: f984b0c2b2a1b164ab66e7aaa8244ba4, type: 2}

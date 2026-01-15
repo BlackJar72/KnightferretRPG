@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:Label tabindex="-1" text="Management" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement class="section-bg">
+        <ui:EnumField label="Mode" type="DistantLands.Cozy.CozyBiome+BiomeMode, DistantLands.Cozy.Runtime" binding-path="mode" name="mode-selector" />
+        <ui:VisualElement name="local-settings-container" class="pl-4">
+            <uie:ObjectField label="Trigger" type="UnityEngine.Collider, UnityEngine.PhysicsModule" binding-path="trigger" />
+            <ui:EnumField label="Transition Mode" type="DistantLands.Cozy.CozyBiome+TransitionMode, DistantLands.Cozy.Runtime" binding-path="transitionMode" name="transition-selector" />
+            <ui:FloatField label="Transition Distance" value="1" binding-path="transitionDistance" name="distance" />
+            <ui:FloatField label="Transition Time" value="1" binding-path="transitionTime" name="time" />
+        </ui:VisualElement>
+        <ui:Slider label="Weight" high-value="1" binding-path="maxWeight" show-input-field="true" />
+        <ui:IntegerField label="Priority" value="42" binding-path="priority" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="Modules" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="module-container" style="flex-grow: 1;" />
+    <ui:Button text="Add Module" parse-escape-sequences="true" display-tooltip-when-elided="true" name="add-module-button" />
+</ui:UXML>

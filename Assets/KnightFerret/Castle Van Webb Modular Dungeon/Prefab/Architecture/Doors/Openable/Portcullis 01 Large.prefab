@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 277418003201262383}
   - component: {fileID: 7487253647480625885}
   - component: {fileID: 7173792828907798261}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Portcullis 01 Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -115,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6352076243312543291}
   - component: {fileID: 6352076243312543290}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Portcullis 01 Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6352076243453517231}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Closed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6352076243469899386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}

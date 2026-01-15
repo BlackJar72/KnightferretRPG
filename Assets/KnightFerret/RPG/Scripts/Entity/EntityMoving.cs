@@ -21,7 +21,7 @@ namespace kfutils.rpg {
         [SerializeField] protected MovementSet movementSetPrototype;
         [SerializeField] protected Transform eyes;
         [SerializeField] protected NavSeeker navSeeker;
-        //[SerializeField] protected GameObject destMaker;  // Temp, debugging
+        [SerializeField] protected GameObject destMaker;  // Temp, debugging
 
         protected MovementSet movementSet;
 
@@ -51,8 +51,6 @@ namespace kfutils.rpg {
         protected delegate void Movement();
         protected Movement DoMove;
         protected Movement DefaultMove;
-        
-        public bool OnGround => onGround;
 
 
         // This is to make sure this is never overriden into something harmful.
@@ -185,7 +183,6 @@ namespace kfutils.rpg {
         protected override void Die()
         {
             base.Die();
-            DoMove = LieDead;
             navSeeker.Agent.enabled = false;
             navSeeker.gameObject.SetActive(false);
             controller.enabled = false;
@@ -202,7 +199,7 @@ namespace kfutils.rpg {
             navSeeker.Agent.SetDestination(destination);
             navSeeker.Agent.stoppingDistance = stopDist;
             navSeeker.stopped = false;
-            //if (destMaker != null) destMaker.transform.position = destination; // Temp, debugging
+            if (destMaker != null) destMaker.transform.position = destination; // Temp, debugging
         }
 
 
@@ -374,24 +371,6 @@ namespace kfutils.rpg {
             velocity.Set(0, vSpeed, 0);
             controller.Move(velocity * Time.deltaTime);
             //SetSwimming(camPivot.transform.position.y < (WorldManagement.SeaLevel + 0.5f));
-        }
-
-
-        protected void LieDead()
-        {
-            onGround = controller.isGrounded;
-            if (onGround)
-            {
-                vSpeed = -GameConstants.GRAVITY3;
-            }
-            else
-            {
-                vSpeed -= GameConstants.GRAVITY * Time.deltaTime;
-                vSpeed = Mathf.Max(vSpeed, GameConstants.TERMINAL_VELOCITY);
-            }
-            velocity.Set(0, vSpeed, 0);
-            controller.Move(velocity * Time.deltaTime);
-            //shouldJump = false;
         }
         
 

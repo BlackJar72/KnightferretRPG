@@ -12,9 +12,8 @@ namespace kfutils.rpg.ui {
             if(base.SwapWith(other)) {
                 if((inventory == other.inventory) && (item.slot != slotNumber)) {
                     if((other.item.item == item.item) && item.item.IsStackable) {
-                        InvType otherType = other is EquipmentSlotUI ? InvType.EQUIPT : InvType.MAIN;
                         item.stackSize += other.item.stackSize;
-                        other.inventory.RemoveItem(other.item, otherType);
+                        other.inventory.RemoveItem(other.item);
                     } else {
                         item.slot = other.slotNumber;
                         other.item.slot = slotNumber;
@@ -36,15 +35,7 @@ namespace kfutils.rpg.ui {
         public override SlotData SlotDataFromSlot() {
             SlotData result = new SlotData();
             result.inventory = InvType.EQUIPT;
-            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS))
-            {
-                result.invSlot = EquiptmentSlots.rhand;
-            }
-            else if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.BOW))
-            {
-                result.invSlot = EquiptmentSlots.lhand;
-            }
-            else result.invSlot = slotNumber;
+            result.invSlot = slotNumber;
             result.filled = (item != null) && (item.item != null);
             return result;
         }

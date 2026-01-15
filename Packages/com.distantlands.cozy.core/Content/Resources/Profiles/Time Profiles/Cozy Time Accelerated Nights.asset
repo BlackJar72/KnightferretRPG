@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940bc5c08f23e3947a38c262be3e3dfc, type: 3}
+  m_Name: Cozy Time Accelerated Nights
+  m_EditorClassIdentifier: 
+  temperatureOverYear:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  humidityOverYear:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  temperatureOverDay:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  humidityOverDay:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  temperatureFilter: 0
+  humidityFilter: 0
+  dayAndTime: 25.320278
+  pauseTime: 0
+  realisticYear: 0
+  useLeapYear: 0
+  resetTimeOnStart: 0
+  startTime:
+    hours: 9
+    minutes: 0
+  timeMovementSpeed: 1
+  timeSpeedMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.450617
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.15
+      value: 1.450617
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2399109
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7197688
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8628967
+      value: 1.450617
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1.4526739
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  standardYear:
+  - name: January
+    days: 31
+  - name: Febraury
+    days: 28
+  - name: March
+    days: 31
+  - name: April
+    days: 30
+  - name: May
+    days: 31
+  - name: June
+    days: 30
+  - name: July
+    days: 31
+  - name: August
+    days: 31
+  - name: September
+    days: 30
+  - name: October
+    days: 31
+  - name: Novemeber
+    days: 30
+  - name: December
+    days: 31
+  leapYear:
+  - name: January
+    days: 31
+  - name: Febraury
+    days: 29
+  - name: March
+    days: 31
+  - name: April
+    days: 30
+  - name: May
+    days: 31
+  - name: June
+    days: 30
+  - name: July
+    days: 31
+  - name: August
+    days: 31
+  - name: September
+    days: 30
+  - name: October
+    days: 31
+  - name: Novemeber
+    days: 30
+  - name: December
+    days: 31
+  timeCurveSettings: 0
+  daysPerYear: 48

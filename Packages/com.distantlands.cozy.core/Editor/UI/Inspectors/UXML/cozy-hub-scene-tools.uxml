@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:Label tabindex="-1" text="Biomes" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement style="flex-direction: row; height: 50px;">
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="global-biome" style="flex-grow: 1; align-items: center; justify-content: center; flex-direction: row;">
+            <ui:VisualElement name="icon" style="margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px; width: 32px; height: 32px;" />
+            <ui:Label tabindex="-1" text="Global Biome" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="local-biome" style="justify-content: center; align-items: center; flex-direction: row; flex-grow: 1;">
+            <ui:VisualElement name="icon" style="flex-grow: 0; width: 32px; height: 32px; margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px;" />
+            <ui:Label tabindex="-1" text="Local Biome" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="FX Areas" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement class="mb-lg" style="flex-direction: row; height: 50px;">
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="fx-block-zone" style="flex-grow: 1; align-items: center; justify-content: center; flex-direction: row;">
+            <ui:VisualElement name="icon" style="flex-grow: 0; width: 32px; height: 32px; margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px;" />
+            <ui:Label tabindex="-1" text="FX Block Zone" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="fog-culling-zone" style="flex-grow: 1; justify-content: center; align-items: center; flex-direction: row;">
+            <ui:VisualElement name="icon" style="flex-grow: 0; width: 32px; height: 32px; margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px;" />
+            <ui:Label tabindex="-1" text="Fog Culling Zone" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>

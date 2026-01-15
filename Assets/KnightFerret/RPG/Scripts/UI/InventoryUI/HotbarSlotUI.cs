@@ -58,9 +58,7 @@ namespace kfutils.rpg.ui {
                         image.sprite = unselectedImage;
                         break;
                     case InvType.EQUIPT:
-                        ItemStack stack = EntityManagement.playerCharacter.Inventory.Equipt.GetItemInSlot(sd.invSlot);
-                        if((stack == null) || (stack.item == null)) break; // FIXME: I don't think this will be needed if underlying bug is fixed
-                        icon.sprite = stack.item.Icon;
+                        icon.sprite = EntityManagement.playerCharacter.Inventory.Equipt.GetItemInSlot(sd.invSlot).item.Icon;
                         image.sprite = selectedImage;
                         break;
                     case InvType.SPELLS:

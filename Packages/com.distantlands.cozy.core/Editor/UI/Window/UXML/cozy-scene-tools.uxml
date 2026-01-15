@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement>
+        <ui:Label tabindex="-1" text="Biomes" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h2" />
+        <ui:VisualElement class="mb-md">
+            <ui:Button text="New Local Biome" parse-escape-sequences="true" display-tooltip-when-elided="true" name="local-biome" style="flex-grow: 1;" />
+            <ui:Button text="New Global Biome" parse-escape-sequences="true" display-tooltip-when-elided="true" name="global-biome" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement class="mb-md">
+        <ui:Label tabindex="-1" text="FX Culling" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h2" />
+        <ui:VisualElement>
+            <ui:Button text="New Fog Culling Zone" parse-escape-sequences="true" display-tooltip-when-elided="true" name="fog-culling" style="flex-grow: 1;" />
+            <ui:Button text="New FX Block Zone" parse-escape-sequences="true" display-tooltip-when-elided="true" name="fx-block" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement>
+        <ui:Label tabindex="-1" text="Volumes" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h2" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+            <ui:Button text="New COZY Volume" parse-escape-sequences="true" display-tooltip-when-elided="true" name="volume" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

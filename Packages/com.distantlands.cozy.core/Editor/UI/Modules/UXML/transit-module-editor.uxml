@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <Graph>
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; flex-shrink: 0;">
+            <ui:VisualElement name="transit-wheel-graph" style="height: 250px; margin-top: 0; margin-bottom: 0; margin-right: 0; margin-left: 0; flex-grow: 1; width: 50%;" />
+            <ui:VisualElement name="transit-wheel-graph-info" style="height: auto; margin-top: 0; margin-bottom: 0; margin-right: 0; margin-left: 0; flex-grow: 1; width: 50%; justify-content: center; align-items: center;" />
+        </ui:VisualElement>
+        <Tooltip message="Relates the sun angle to a specific time. The left chart shows where in the circle of time we are currently, and the right chart shows what time of day each sun position is." style="flex-shrink: 0;" />
+    </Graph>
+    <ui:Label tabindex="-1" text="Sun Transit" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="sun-transit-container" class="section-bg" />
+    <Graph>
+        <ui:VisualElement name="current-curve-graph" style="height: 150px; margin-top: 15px; margin-bottom: 15px;" />
+        <Tooltip message="Shows the sun&apos;s transit throughout the year. The white line is the current path and the colored paths are the solstices and equinoxes." style="flex-shrink: 0;" />
+    </Graph>
+    <ui:Label tabindex="-1" text="Seasonal Variation" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="seasonal-variation-container" class="section-bg" />
+    <Graph>
+        <ui:VisualElement name="time-blocks-graph-context" style="flex-grow: 0; height: 10px; margin-right: 15px; margin-left: 15px; margin-top: 15px; margin-bottom: 5px; flex-shrink: 1;" />
+        <ui:VisualElement name="time-blocks-graph" style="height: 70px; margin-top: 0; margin-bottom: 15px; flex-direction: row; margin-right: 15px; margin-left: 15px; flex-shrink: 1; flex-grow: 0;">
+            <ui:VisualElement name="night1" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+            <ui:VisualElement name="dawn" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+            <ui:VisualElement name="morning" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+            <ui:VisualElement name="day" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+            <ui:VisualElement name="afternoon" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+            <ui:VisualElement name="evening" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+            <ui:VisualElement name="twilight" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+            <ui:VisualElement name="night2" style="flex-grow: 1; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px;" />
+        </ui:VisualElement>
+        <Tooltip message="Showcases the time blocks. Each colored band represents a different time block. The darker lines are the end point of the transition into each block." style="flex-shrink: 0;" />
+    </Graph>
+    <ui:Label tabindex="-1" text="Time Blocks" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="time-blocks-container" class="section-bg" />
+</ui:UXML>

@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="VisualElement" style="flex-direction: row; align-items: center; justify-content: space-between; margin-top: 1px; margin-right: 3px; margin-bottom: 1px; margin-left: 3px;">
+        <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: center; flex-shrink: 1; white-space: nowrap; margin-top: 0; margin-right: 2px; margin-bottom: 0; margin-left: 0; padding-top: 2px; padding-right: 2px; padding-bottom: 0; padding-left: 1px;">
+            <ui:Toggle style="margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px;" />
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; flex-shrink: 1; text-overflow: clip; max-height: 20px; white-space: nowrap; overflow: hidden; width: auto; min-width: auto; flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement class="unity-base-field__input" style="flex-direction: row; justify-content: flex-start; flex-grow: 1; max-width: 59%;">
+            <ui:VisualElement name="field" style="flex-grow: 1; flex-shrink: 0; flex-direction: column; overflow: hidden; display: flex;" />
+            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="mode-selector" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; width: 20px; height: 20px; flex-grow: 0;">
+                <ui:VisualElement style="flex-grow: 1; margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px; border-left-color: rgba(255, 255, 255, 0.44); border-right-color: rgba(255, 255, 255, 0.44); border-top-color: rgba(255, 255, 255, 0.44); border-bottom-color: rgba(255, 255, 255, 0.44); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border-bottom-left-radius: 100%;" />
+            </ui:Button>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

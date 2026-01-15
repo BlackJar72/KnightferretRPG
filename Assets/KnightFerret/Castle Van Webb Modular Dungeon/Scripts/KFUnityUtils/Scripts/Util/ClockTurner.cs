@@ -20,14 +20,14 @@ public class ClockTurner : MonoBehaviour
         [Tooltip("Leave as null (none) if the clock has no pendulum.")]
         [SerializeField] GameObject pendulum;
         [SerializeField] float maxPendulumSwing = 10;
-        private float startOffset;
+        protected float startOffset;
 
-        private const float realSecondsPerRotation = 60 * 60 * 24;
-        private float secondsPerRotation;
-        private float secondsPerDegree;
+        protected const float realSecondsPerRotation = 60 * 60 * 24;
+        protected float secondsPerRotation;
+        protected float secondsPerDegree;
 
-        private delegate void MoveHands();
-        private MoveHands moveHands;
+        protected delegate void MoveHands();
+        protected MoveHands moveHands;
 
 
         void Awake()
@@ -75,7 +75,7 @@ public class ClockTurner : MonoBehaviour
         }
 
 
-        private void MoveHandsByUnityTime() {
+        protected void MoveHandsByUnityTime() {
             float hourHandAngle = (Time.time + startOffset) / secondsPerDegree;
             float minuteHandAngle = hourHandAngle * 12;
             hourHand.transform.localRotation = Quaternion.Euler(0, 0, hourHandAngle);
@@ -83,7 +83,7 @@ public class ClockTurner : MonoBehaviour
         }
 
 
-        private void MoveHandsByRawTime() {
+        protected void MoveHandsByRawTime() {
             float hourHandAngle = (timeProvider.GetTime() + startOffset) / secondsPerDegree;
             float minuteHandAngle = hourHandAngle * 12;
             hourHand.transform.localRotation = Quaternion.Euler(0, 0, hourHandAngle);
@@ -91,7 +91,7 @@ public class ClockTurner : MonoBehaviour
         }
 
 
-        private void MoveHandsByScaledTime() {
+        protected void MoveHandsByScaledTime() {
             float hourHandAngle = timeProvider.GetTime() / 30;
             float minuteHandAngle = hourHandAngle * 12;
             hourHand.transform.localRotation = Quaternion.Euler(0, 0, hourHandAngle);
@@ -99,19 +99,19 @@ public class ClockTurner : MonoBehaviour
         }
 
 
-        private void MoveHandsByUnityTimePendulum() {
+        protected void MoveHandsByUnityTimePendulum() {
             MoveHandsByUnityTime();
             pendulum.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time % 360) * maxPendulumSwing);
         }
 
 
-        private void MoveHandsByRawTimePendulum() {
+        protected void MoveHandsByRawTimePendulum() {
             MoveHandsByRawTime();
             pendulum.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time % 360) * maxPendulumSwing);
         }
 
 
-        private void MoveHandsByScaledTimePendulum() {
+        protected void MoveHandsByScaledTimePendulum() {
             MoveHandsByScaledTime();
             pendulum.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time % 360) * maxPendulumSwing);
         }

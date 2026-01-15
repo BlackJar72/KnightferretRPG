@@ -124,22 +124,7 @@ namespace kfutils.rpg
         public static Dictionary<string, GData> WorldObjectData => worldObjectData;
         public static Dictionary<string, GDataExpiring> WorldTimedData => worldTimedData;
 
-        private static readonly Dictionary<string, EffectPrototype> effectProtoRegistry = new();
-        public static Dictionary<string, EffectPrototype> EffectProtoRegistry => effectProtoRegistry;
 
-        public static Dictionary<string, WorldEffect.Data> effectRegistry = new();
-        public static Dictionary<string, WorldEffect.Data> EffectRegistry => effectRegistry;
-
-
-        public static void NewGame()
-        {
-            worldObjectData = new();
-            worldTimedData = new();
-            effectRegistry = new();
-        }
-
-
-#region Small Data
         public static void SetData(string id, GData state)
         {
             if (worldObjectData.ContainsKey(id)) worldObjectData[id] = state;
@@ -195,6 +180,13 @@ namespace kfutils.rpg
 // #endif
 
 
+        public static void NewGame()
+        {
+            worldObjectData = new();
+            worldTimedData = new();
+        }
+
+
         public static void LoadData(Dictionary<string, GData> data, Dictionary<string, GDataExpiring> timedData)
         {
             tmpWorldObjectData = data;
@@ -207,54 +199,7 @@ namespace kfutils.rpg
             worldObjectData = tmpWorldObjectData;
             worldTimedData = tmpWorldTimedData;
         }
-#endregion Small Data
 
-#region Effect Management
-        public static void AddEffectPrototype(EffectPrototype prototype) {
-            if(!effectProtoRegistry.ContainsKey(prototype.ID)) effectProtoRegistry.Add(prototype.ID, prototype);
-        }
-
-
-        public static bool AddEffect(WorldEffect.Data effect)
-        {
-            if (effectRegistry.ContainsKey(effect.ID)) return false;
-            effectRegistry.Add(effect.ID, effect);
-            return true;
-        }
-
-
-        public static void UpdateEffect(WorldEffect.Data effect)
-        {
-            if (effectRegistry.ContainsKey(effect.ID))
-            {
-                effectRegistry[effect.ID] = effect;
-            }
-            else AddEffect(effect);
-        }
-
-
-        public static WorldEffect.Data GetEffect(string id) => effectRegistry.ContainsKey(id) ? effectRegistry[id] : null;
-
-
-        public static EffectPrototype GetPrototype(string id) => effectProtoRegistry.ContainsKey(id) ? effectProtoRegistry[id] : null;
-
-
-        public static void SetEffectData(Dictionary<string, WorldEffect.Data> loaded) {
-            effectRegistry = loaded;
-        }
-
-
-        public static void RemoveEffect(WorldEffect.Data effect) 
-        {
-            if(effectRegistry.ContainsKey(effect.ID)) effectRegistry.Remove(effect.ID);
-        }
-
-
-        public static void RemoveEffect(string id) 
-        {
-            if(effectRegistry.ContainsKey(id)) effectRegistry.Remove(id);
-        }
-#endregion Effect Management
 
 
 

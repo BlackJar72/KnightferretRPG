@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1063724437330984159}
   - component: {fileID: 141806199886529058}
   - component: {fileID: 3696105290754464200}
-  - component: {fileID: -764709668937984606}
+  - component: {fileID: 2718335087510066747}
   m_Layer: 0
   m_Name: Parapet 01
   m_TagString: Untagged
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4042767577661386032}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &141806199886529058
 MeshFilter:
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &-764709668937984606
+--- !u!65 &2718335087510066747
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,16 +92,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4042767577661386032}
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 6, y: 1, z: 0.40000054}
-  m_Center: {x: 0, y: 0.5, z: -0.000000029802322}
+  serializedVersion: 2
+  m_Size: {x: 6, y: 1, z: 0.39999998}
+  m_Center: {x: 0, y: 0.5, z: 0}

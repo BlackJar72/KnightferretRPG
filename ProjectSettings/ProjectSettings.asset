@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 04e4aa4bbfbe5c94a9e08c211724ac6f
+  productGUID: 32019f7060436811c9a9fd19c8dd2b64
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: RPG-Test
+  companyName: Knightferret Studios
+  productName: RPG Framework
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -79,7 +79,7 @@ PlayerSettings:
   androidMinimumWindowHeight: 300
   androidFullscreenMode: 1
   androidAutoRotationBehavior: 1
-  androidPredictiveBackSupport: 1
+  androidPredictiveBackSupport: 0
   androidApplicationEntry: 2
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
@@ -134,6 +134,7 @@ PlayerSettings:
   switchNVNMaxPublicSamplerIDCount: 0
   switchMaxWorkerMultiple: 8
   switchNVNGraphicsFirmwareMemory: 32
+  switchGraphicsJobsSyncAfterKick: 1
   vulkanNumSwapchainBuffers: 3
   vulkanEnableSetSRGBWrite: 0
   vulkanEnablePreTransform: 1
@@ -143,7 +144,9 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -944628639613478452, guid: eb0f184fa33c2a7bbbc2d22aa45a05e6, type: 3}
+  - {fileID: 11400000, guid: 8e4f31dffc569ef8ea4bb7f9cec3e52b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -175,9 +178,10 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 23
+  AndroidMinSdkVersion: 25
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
+  AndroidPreferredDataLocation: 1
   aotOptions: 
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
@@ -192,11 +196,11 @@ PlayerSettings:
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
   iOSSimulatorArchitecture: 0
-  iOSTargetOSVersionString: 13.0
+  iOSTargetOSVersionString: 15.0
   tvOSSdkVersion: 0
   tvOSSimulatorArchitecture: 0
   tvOSRequireExtendedGameController: 0
-  tvOSTargetOSVersionString: 13.0
+  tvOSTargetOSVersionString: 15.0
   VisionOSSdkVersion: 0
   VisionOSTargetOSVersionString: 1.0
   uIPrerenderedIcon: 0
@@ -255,7 +259,7 @@ PlayerSettings:
   appleEnableProMotion: 0
   shaderPrecisionModel: 0
   clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a
-  templatePackageId: com.unity.template.urp-blank@17.0.12
+  templatePackageId: com.unity.template.urp-blank@17.0.11
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
@@ -266,6 +270,7 @@ PlayerSettings:
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 2
+  AndroidAllowedArchitectures: -1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -568,7 +573,7 @@ PlayerSettings:
   locationUsageDescription: 
   microphoneUsageDescription: 
   bluetoothUsageDescription: 
-  macOSTargetOSVersion: 11.0
+  macOSTargetOSVersion: 12.0
   switchNMETAOverride: 
   switchNetLibKey: 
   switchSocketMemoryPoolSize: 6144
@@ -816,33 +821,38 @@ PlayerSettings:
   webGLMemoryLinearGrowthStep: 16
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
-  webGLEnableWebGPU: 0
   webGLPowerPreference: 2
   webGLWebAssemblyTable: 0
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
   webWasm2023: 0
+  webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    EmbeddedLinux: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    LinuxHeadlessSimulation: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    Nintendo Switch: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    Nintendo Switch 2: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    PS4: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    PS5: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    QNX: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
+    Android: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;CROSS_PLATFORM_INPUT;MOBILE_INPUT;ENVIRO_3
+    EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    GameCoreScarlett: UNITY_POST_PROCESSING_STACK_V2
+    GameCoreXboxOne: UNITY_POST_PROCESSING_STACK_V2;ENVIRO_3
+    Kepler: UNITY_POST_PROCESSING_STACK_V2
+    LinuxHeadlessSimulation: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;UNITY_POST_PROCESSING_STACK_V2
+    Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    Nintendo Switch 2: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;UNITY_POST_PROCESSING_STACK_V2
+    PS4: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    PS5: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    QNX: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    ReservedCFE: UNITY_POST_PROCESSING_STACK_V2;ENVIRO_3
     Server: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    Standalone: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    VisionOS: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    WebGL: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    Windows Store Apps: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    XboxOne: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    iPhone: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    tvOS: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
+    Standalone: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;GAIA_MESH_PRESENT;CROSS_PLATFORM_INPUT;COZY_WEATHER;COZY_3_AND_UP;COZY_URP;ENVIRO_3;ASSET_INVENTORY
+    VisionOS: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    WebGL: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    Windows Store Apps: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;MOBILE_INPUT
+    XboxOne: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
+    iPhone: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    tvOS: UNITY_POST_PROCESSING_STACK_V2;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;ENVIRO_3
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   il2cppStacktraceInformation: {}
@@ -859,14 +869,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: RPG-Test
+  metroPackageName: RPG-Stuff
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: RPG-Test
+  metroApplicationDescription: RPG-Stuff
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -935,7 +945,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
@@ -950,3 +960,6 @@ PlayerSettings:
   insecureHttpOption: 0
   androidVulkanDenyFilterList: []
   androidVulkanAllowFilterList: []
+  androidVulkanDeviceFilterListAsset: {fileID: 0}
+  d3d12DeviceFilterListAsset: {fileID: 0}
+  allowedHttpConnections: 3

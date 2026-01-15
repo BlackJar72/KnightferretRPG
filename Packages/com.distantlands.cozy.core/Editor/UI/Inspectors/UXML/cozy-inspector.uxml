@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Template name="banner" src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Components/UXML/banner.uxml?fileID=9197481963319205126&amp;guid=d1ed574b2a121c24496c06cb642391aa&amp;type=3#banner" />
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement style="flex-grow: 1; margin-left: -15px; margin-right: -6px; background-color: rgba(0, 0, 0, 0.49);">
+        <ui:Instance template="banner" name="banner" />
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 100%; flex-direction: column; margin-right: 0; margin-left: 0; overflow: hidden; height: 100%;">
+            <ui:VisualElement name="home-page" style="flex-grow: 1; display: flex;">
+                <uie:Toolbar style="justify-content: flex-start; padding-left: 5px; align-items: stretch;">
+                    <uie:ToolbarSearchField name="searchbar" style="flex-shrink: 1;" />
+                    <ui:VisualElement style="flex-grow: 1;" />
+                    <uie:ToolbarButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="add-module" style="-unity-text-align: middle-center; width: 30px; align-items: center; justify-content: center; flex-shrink: 0;" />
+                    <uie:ToolbarButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="styles" style="-unity-text-align: upper-left; width: 28px; align-items: center; justify-content: center; flex-shrink: 0;" />
+                    <uie:ToolbarButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="scene-tools" style="-unity-text-align: upper-left; width: 28px; align-items: center; justify-content: center; flex-shrink: 0;" />
+                    <uie:ToolbarButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="settings" style="-unity-text-align: upper-left; width: 28px; align-items: center; justify-content: center; flex-shrink: 0;" />
+                </uie:Toolbar>
+                <ui:VisualElement name="search-results" class="section-bg" style="padding-top: 0; padding-right: 8px; padding-bottom: 0; padding-left: 16px;" />
+                <ui:ScrollView style="height: auto;">
+                    <Tooltip message="&lt;b&gt;&lt;i&gt;Thank you for purchasing COZY: Stylized Weather 3!&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;br&gt;To help you stay organized and only use what you need, COZY is split into sub-sections called &lt;b&gt;Modules&lt;/b&gt;. The weather sphere comes with a few modules enabled by default, but you can add new ones by clicking the + button above!" style="display: none;" />
+                    <Tooltip message="You can disable tooltips in the &lt;b&gt;settings menu&lt;/b&gt;" />
+                    <ui:VisualElement name="widget-container" style="flex-grow: 1;" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+            <ui:VisualElement name="modular-page" style="flex-grow: 1; display: none;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

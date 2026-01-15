@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:ScrollView>
+        <ui:Label tabindex="-1" text="Orientation" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+        <ui:VisualElement class="section-bg">
+            <ui:EnumField label="Lock to Camera" type="DistantLands.Cozy.CozyWeather+LockToCameraStyle, DistantLands.Cozy.Runtime" binding-path="lockToCamera" class="unity-base-field__aligned" style="height: 20px;" />
+            <ui:Toggle label="Custom Center" binding-path="centerAroundCustomObject" name="Toggle" class="unity-base-field__aligned" />
+            <uie:PropertyField binding-path="customPivot" class="unity-base-field__aligned" />
+        </ui:VisualElement>
+        <Tooltip message="Use the toggles below to change the art style for the sky, clouds and fog" />
+        <ui:Label tabindex="-1" text="Lighting" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1 unity-base-field__aligned" />
+        <ui:VisualElement class="section-bg">
+            <Tooltip message="Control aspects of COZY&apos;s lighting" />
+            <uie:PropertyField binding-path="usePhysicalSunHeight" class="unity-base-field__aligned" />
+            <uie:PropertyField binding-path="handleSceneLighting" class="unity-base-field__aligned" />
+            <uie:PropertyField name="separateSunLightAndTransform" binding-path="separateSunLightAndTransform" class="unity-base-field__aligned" />
+            <ui:VisualElement name="sunLightAndTransformContainer" class="pl-4">
+                <uie:PropertyField binding-path="sunTransform" class="unity-base-field__aligned" />
+                <uie:PropertyField binding-path="sunLight" class="unity-base-field__aligned" />
+            </ui:VisualElement>
+            <uie:PropertyField binding-path="disableSunAtNight" class="unity-base-field__aligned" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Game" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1 unity-base-field__aligned" />
+        <ui:VisualElement class="section-bg">
+            <uie:TagField label="Trigger Tag" value="Player" binding-path="cozyTriggerTag" class="unity-base-field__aligned" />
+            <Tooltip message="Don&apos;t destroy on load? Use this toggle to make COZY persist even when the current scene changes." />
+            <uie:PropertyField binding-path="dontDestroyOnLoad" class="unity-base-field__aligned" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Editor" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1 unity-base-field__aligned" />
+        <ui:VisualElement class="section-bg">
+            <ui:Toggle label="Update in Edit Mode" name="update-in-edit-mode" class="unity-base-field__aligned" style="height: 16px;" />
+            <ui:Toggle label="Fog" name="fog" class="unity-base-field__aligned" style="height: 16px;" />
+            <ui:Toggle label="Follow Camera" name="follow-camera" class="unity-base-field__aligned" />
+            <ui:Toggle label="Gizmos" name="gizmos" class="unity-base-field__aligned" />
+            <ui:Toggle label="Tooltips" name="tooltips" class="unity-base-field__aligned" />
+            <ui:Toggle label="Graphs" name="graphs" class="unity-base-field__aligned" />
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>

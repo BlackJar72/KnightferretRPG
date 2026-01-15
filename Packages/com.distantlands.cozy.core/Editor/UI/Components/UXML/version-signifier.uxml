@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement class="version-signifier console-status">
+        <ui:Label tabindex="-1" text="v0.0.0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="version-number" />
+    </ui:VisualElement>
+</ui:UXML>

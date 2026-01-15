@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:VisualElement name="tabs" class="tab-group" style="background-color: rgba(0, 0, 0, 0.3);">
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="lighting" class="tab selected" style="flex-grow: 1; flex-shrink: 1; flex-direction: row-reverse;">
+            <ui:Label tabindex="-1" text="Lighting" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="fog" class="tab" style="flex-grow: 1; flex-shrink: 1;">
+            <ui:Label tabindex="-1" text="Fog" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="clouds" class="tab" style="flex-grow: 1; flex-shrink: 1;">
+            <ui:Label tabindex="-1" text="Clouds" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="celestials" class="tab" style="flex-grow: 1; flex-shrink: 1;">
+            <ui:Label tabindex="-1" text="Celestials" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:Button>
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(57, 57, 57);">
+        <ui:Label tabindex="-1" text="Atmosphere &amp; Lighting" parse-escape-sequences="true" display-tooltip-when-elided="true" name="content-label" class="h1" />
+        <ui:VisualElement name="content-container" />
+    </ui:VisualElement>
+</ui:UXML>

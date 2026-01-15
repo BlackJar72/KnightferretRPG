@@ -74,9 +74,11 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 
-/[Aa]ssets/[0Oo]ther/
-/[Aa]ssets/[Pp]lugin/
-/[Aa]ssets/[Tt]extMesh*
+/[Aa]ssets/
+!/[Aa]ssets/KnightFerret/
+!/[Aa]ssets/DemoGame/
+!/[Aa]ssets/TestGame/
+
 
 
 # KDE Advanced Text Editor (Kate)

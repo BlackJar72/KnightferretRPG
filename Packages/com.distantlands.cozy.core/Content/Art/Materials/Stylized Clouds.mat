@@ -1,0 +1,410 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Stylized Clouds
+  m_Shader: {fileID: 4800000, guid: 6e32dc928e1ddf448be492d0266a7cb2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  m_InvalidKeywords:
+  - _ADD_PRECOMPUTED_VELOCITY
+  - _ENABLE_FOG_ON_TRANSPARENT
+  - _SURFACE_TYPE_TRANSPARENT
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - DistortionVectors
+  - TransparentBackface
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - CZY_ChemtrailsTexture:
+        m_Texture: {fileID: 2800000, guid: 9b3476b4df9abf8479476bae1bcd8a84, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - CZY_LuxuryVariationTexture:
+        m_Texture: {fileID: 2800000, guid: 59cb97507f14c1d468e967d73ca67a9b, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _Altocumulus:
+        m_Texture: {fileID: 2800000, guid: f33b9a1f2410c8d429fc3d8e4bde2874, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BorderClouds1:
+        m_Texture: {fileID: 2800000, guid: 5054a748d0ecd72408e17cbdc92f07cb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BorderClouds2:
+        m_Texture: {fileID: 2800000, guid: 9a76ce8f2c182c247834c19603ff2068, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ChemtrailsTex1:
+        m_Texture: {fileID: 2800000, guid: 9b3476b4df9abf8479476bae1bcd8a84, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ChemtrailsTex2:
+        m_Texture: {fileID: 2800000, guid: 9b3476b4df9abf8479476bae1bcd8a84, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ChemtrailsTexture:
+        m_Texture: {fileID: 2800000, guid: 9b3476b4df9abf8479476bae1bcd8a84, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CirrostratusTexture:
+        m_Texture: {fileID: 2800000, guid: bf43c8d7b74e204469465f36dfff7d6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CirrusTexture:
+        m_Texture: {fileID: 2800000, guid: 302629ebb64a0e345948779662fc2cf3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CloudTexture:
+        m_Texture: {fileID: 2800000, guid: 27248a215d4e5fe449733cb0631f0785, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DenseOvercast:
+        m_Texture: {fileID: 2800000, guid: f23d809bb3bc90548972f185c1d8bee8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HighBorder:
+        m_Texture: {fileID: 2800000, guid: 5054a748d0ecd72408e17cbdc92f07cb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HighNimbus:
+        m_Texture: {fileID: 2800000, guid: cf1e011d4126f5b45af1e0c5c8162509, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowNimbus:
+        m_Texture: {fileID: 2800000, guid: 8b7b5fa7d0504eb4084b8d451bdb4dac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MediumBorder:
+        m_Texture: {fileID: 2800000, guid: 9a76ce8f2c182c247834c19603ff2068, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MediumNimbus:
+        m_Texture: {fileID: 2800000, guid: aafa15e7fb9760b4d93ef145502eab4b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MostlyCloudy:
+        m_Texture: {fileID: 2800000, guid: 0134c7641e0c9d74a9f6f685c2896bb9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MostlyCloudy1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: 27248a215d4e5fe449733cb0631f0785, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Overcast:
+        m_Texture: {fileID: 2800000, guid: 46d8a16f4016e1f4a8ac3708aee5235d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PartlyCloudy:
+        m_Texture: {fileID: 2800000, guid: e3b160def498b4445b967278d48785d9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PartlyCloudy1:
+        m_Texture: {fileID: 2800000, guid: f33b9a1f2410c8d429fc3d8e4bde2874, type: 3}
+        m_Scale: {x: 0.5, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UVTexture:
+        m_Texture: {fileID: 2800000, guid: 950c502e14bc5ea4f84fcb3fe41061c6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - CZY_ChemtrailsMultiplier: 2
+    - CZY_LuxuryVariationAmount: 43.14
+    - _ACScale: 0.5
+    - _AddPrecomputedVelocity: 1
+    - _AlphaClip: 0
+    - _AlphaCutoff: 0.5
+    - _AlphaCutoffEnable: 1
+    - _AlphaDstBlend: 10
+    - _AlphaSrcBlend: 1
+    - _AltoCumulusMultiplier: 1
+    - _AltoCumulusScale: 0.5
+    - _AltocumulusMultiplier: 0.51
+    - _AltocumulusScale: 0.67
+    - _Angle: 0.671
+    - _BlendMode: 0
+    - _BorderCloudsAmount: 1
+    - _BorderCloudsAmount1: 1
+    - _BorderEffect: 1
+    - _BorderHeight: 0.846
+    - _BorderSmoothness: 0.928
+    - _BorderVariation: 0.956
+    - _BumpScale: 1
+    - _CZY_LuxuryVariationAmount: 1
+    - _CZY_LuxuryVariationScale: 10
+    - _ChemtrailsMoveSpeed: 0.5
+    - _ChemtrailsMultiplier: 0
+    - _ChemtrialMoveSpeed: 1
+    - _ChemtrialsMoveSpeed: 1
+    - _CirrostratusMoveSpeed: 0.5
+    - _CirrostratusMoveSpeed1: 0
+    - _CirrostratusMultiplier: 0
+    - _CirrusMoveSpeed: 0.56
+    - _CirrusMultiplier: 2
+    - _ClippingThreshold: 0.5
+    - _CloudCohesion: 0.85
+    - _CloudCohesion1: 0.6741176
+    - _CloudCover: 1
+    - _CloudCoverageScale: 400
+    - _CloudFlareFalloff: 10.8
+    - _CloudHeight: 0
+    - _CloudScale: 1
+    - _CloudShadowMultiplier: 0
+    - _CloudSmoothness: 0.54
+    - _CloudTextureChangeSpeed: 0.5
+    - _CloudTextureMultiplier: 2
+    - _CloudThickness: 2.02
+    - _CloudThickness1: 4
+    - _Coverage: 0.61
+    - _Coverage1: 0
+    - _CrystalEffect: 0
+    - _CrystalScale: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
+    - _CumulusCloudsAmount: 0.244
+    - _CumulusCoverage: 1
+    - _CumulusCoverageMultiplier: 0
+    - _CumulusCoverageMultiplier1: 1
+    - _Cutoff: 0.5
+    - _DenseOvercastScale: 2
+    - _DetailAmount: 25
+    - _DetailNormalMapScale: 1
+    - _DetailScale: 1.5
+    - _DistortionEnable: 0
+    - _DistortionOnly: 0
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedGIMode: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 10
+    - _EnableFogOnTransparent: 1
+    - _EnvironmentReflections: 1
+    - _Flatness: 20
+    - _Flatness1: 1.9
+    - _Float0: -0.06
+    - _Float1: 0.6
+    - _Float2: 0
+    - _Float3: 1
+    - _Fog: 1
+    - _FogAmount: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Light: 1
+    - _LightAmount: 1
+    - _MainCloudScale: 12
+    - _Max: 0.7
+    - _MaxCloudCover: 1.1
+    - _Metallic: 0
+    - _Min: -11.43
+    - _MinCloudCover: 0.9
+    - _Mode: 0
+    - _MoonFlareFalloff: 29.2
+    - _MostlyCloudyScale: 1
+    - _MostlyCloudyScale1: 2
+    - _Multiplier: 5.85
+    - _Multiplier1: 0.7351663
+    - _NimbusHeight: 1
+    - _NimbusHeightEffect: 1
+    - _NimbusMultiplier: 0
+    - _NimbusVariation: 0.945
+    - _NoiseScale: 0.1
+    - _OcclusionStrength: 1
+    - _OpaqueCullMode: 2
+    - _OvercastScale: 2
+    - _Parallax: 0.02
+    - _PartlyCloudyScale: 2
+    - _PosterizationEffect: 143
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _ReceivesSSR: 1
+    - _ReceivesSSRTransparent: 0
+    - _RenderQueueType: 4
+    - _RequireSplitLighting: 0
+    - _Scale: 1
+    - _Scale1: 6.9
+    - _Scale2: 32.7
+    - _Sensitivity: 0.02
+    - _ShadowingAmount: 0.97
+    - _ShadowingDistance: 0.03
+    - _ShadowingDistance1: 0.07
+    - _SmoothnessTextureChannel: 0
+    - _Softness: 1.45
+    - _SpecularHighlights: 1
+    - _Spherize: 1
+    - _Spherize1: 0.7351663
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _SunFlareFalloff: 8.337856
+    - _SunFlareFalloff1: 0.2
+    - _SupportDecals: 1
+    - _SurfaceType: 1
+    - _TImeOffset: 0
+    - _TextureAmount: 0.48
+    - _Threshold: 0.21
+    - _TransAmbient: 0.222
+    - _TransDirect: 1
+    - _TransNormalDistortion: 0.126
+    - _TransScattering: 7.2
+    - _TransShadow: 0.9
+    - _Translucency: 3.7
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UVSec: 0
+    - _UseShadowThreshold: 0
+    - _WindSpeed: 0.75
+    - _WindSpeed1: 0
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestGBuffer: 3
+    - _ZTestTransparent: 4
+    - _ZWrite: 0
+    - __dirty: 1
+    m_Colors:
+    - _ACWindSpeed: {r: -0.1, g: 0.5, b: 0, a: 0}
+    - _AlphaRemap: {r: 0, g: 3, b: 0, a: 0}
+    - _AltoCloudColor: {r: 1.9315467, g: 1.0057776, b: 0.71151704, a: 1}
+    - _AltoCloudColor1: {r: 0.8160377, g: 0.9787034, b: 1, a: 0}
+    - _AltoCumulusWindSpeed: {r: -0.1, g: 0.5, b: 0, a: 0}
+    - _AltocumulusWindSpeed: {r: -0.1, g: 0.5, b: 0, a: 0}
+    - _CloudColor: {r: 0.62829137, g: 0.37301764, b: 0.3247843, a: 1}
+    - _CloudColor1: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 0}
+    - _CloudCoverageMovement: {r: 5, g: 20, b: 0, a: 0}
+    - _CloudDetailColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 0}
+    - _CloudFlareColor: {r: 2.7294118, g: 2.3843138, b: 1.882353, a: 1}
+    - _CloudHighlightColor: {r: 12.068991, g: 3.2244587, b: 0.731369, a: 1}
+    - _CloudHighlightColor1: {r: 1, g: 1, b: 1, a: 0}
+    - _CloudHighlightColorr: {r: 1, g: 1, b: 1, a: 0}
+    - _CloudScale: {r: 0.01, g: 0.05, b: 0.01, a: 0}
+    - _CloudTextureColor: {r: 2.670157, g: 2.670157, b: 2.670157, a: 1}
+    - _CloudWind1: {r: 0.6, g: -0.8, b: 0, a: 0}
+    - _CloudWind2: {r: 0.1, g: 0.2, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color0: {r: 1, g: 1, b: 1, a: 0}
+    - _CrystalEffect: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _DarkCloudColor: {r: 0.19357423, g: 0.3507278, b: 0.5471698, a: 0}
+    - _DenseOvercastOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _DetailWind: {r: 0.3, g: 0.8, b: 0, a: 0}
+    - _DistantCloudsColor: {r: 0.627451, g: 0.91146094, b: 1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _LightCloudColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MainCloudWindDir: {r: 0.3, g: 0.1, b: 0, a: 0}
+    - _MainCloudWindDir1: {r: 0.1, g: 0.2, b: 0, a: 0}
+    - _MoonColor: {r: 0.013460134, g: 0.020876668, b: 0.022828387, a: 1}
+    - _MoonDirection: {r: 7.628955e-10, g: 0.99996185, b: 0.008726478, a: 0}
+    - _MostlyCloudyOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _MostlyCloudyOffset1: {r: 0, g: 0, b: 0, a: 0}
+    - _Offset: {r: 0.38, g: 0, b: 0, a: 0}
+    - _OvercastOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _PartlyCloudyOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _SecondLayer: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0}
+    - _SecondLayer1: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 0}
+    - _ShadowDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _StormDirection: {r: 0.07382531, g: -0, b: -0.9972712, a: 0}
+    - _SunDirection: {r: -0.24941644, g: 0.937376, b: -0.24314111, a: 0}
+    - _SunDirection1: {r: 0, g: 0, b: 0, a: 0}
+    - _TexturePanDirection: {r: 0.1, g: 1, b: 0.1, a: 0}
+    - _UnlitColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector0: {r: 0.12, g: 1.5, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

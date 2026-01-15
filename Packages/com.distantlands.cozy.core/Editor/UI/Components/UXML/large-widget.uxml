@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <ui:Button text="&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="widget-button" class="module-widget module-widget-lg">
+        <ui:VisualElement name="upper-container" style="flex-grow: 1; flex-direction: row; height: 50%; align-items: center;">
+            <ui:VisualElement name="icon" style="margin-top: 3px; margin-right: 3px; margin-bottom: 3px; margin-left: 3px; width: 40px; height: 40px;" />
+            <ui:VisualElement style="flex-grow: 1; justify-content: center; flex-shrink: 0;">
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="title" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dynamic-status" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="lower-container" style="flex-grow: 1; height: 50%; align-items: flex-start; white-space: normal; -unity-text-align: middle-left; width: 100%;" />
+    </ui:Button>
+</ui:UXML>

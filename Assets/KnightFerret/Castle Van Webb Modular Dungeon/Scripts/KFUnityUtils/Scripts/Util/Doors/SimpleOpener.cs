@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -14,11 +16,9 @@ namespace kfutils {
         public abstract void Open();
 
 
-        internal void SetStateOpen(bool isOpen)
-        {
-            if(isOpen) Open();
-            else Close();
-        }
+        public abstract void SetStateOpen(bool beOpen);
+
+
     }
 
 }

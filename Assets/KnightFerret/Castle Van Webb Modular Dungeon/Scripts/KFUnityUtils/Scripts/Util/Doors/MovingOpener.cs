@@ -13,8 +13,8 @@ namespace kfutils {
         [SerializeField] float timeToOpen = 2f;
         [SerializeField] bool open;
 
-        private bool moving;
-        private float t, startT;
+        protected bool moving;
+        protected float t, startT;
 
 
         void Start() {
@@ -36,7 +36,7 @@ namespace kfutils {
         }
 
 
-        private void DoOpen() {
+        protected void DoOpen() {
             open = true;
             moving = true;
             startT = Time.time;
@@ -44,7 +44,7 @@ namespace kfutils {
         }
 
 
-        private void DoClose() {
+        protected void DoClose() {
             open = false;
             moving = true;
             startT = Time.time;
@@ -59,7 +59,7 @@ namespace kfutils {
         }
 
 
-        private IEnumerator Opening() {
+        protected IEnumerator Opening() {
             while (moving) {
                 yield return new WaitForFixedUpdate();
                 t = Mathf.Clamp((Time.fixedTime - startT) / timeToOpen, 0f, 1f);
@@ -69,13 +69,19 @@ namespace kfutils {
         }
 
 
-        private IEnumerator Closing() {
+        protected IEnumerator Closing() {
             while (moving) {
                 yield return new WaitForFixedUpdate();
                 t = Mathf.Clamp((Time.fixedTime - startT) / timeToOpen, 0f, 1f);
                 door.transform.localPosition = Vector3.Slerp(openPos.localPosition, closedPos.localPosition, t);
                 moving = (t < 1f);
             }
+        }
+
+
+        public override void SetStateOpen(bool beOpen)
+        {
+            open = beOpen;
         }
 
 

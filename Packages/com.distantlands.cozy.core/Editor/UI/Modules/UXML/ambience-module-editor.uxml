@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.distantlands.cozy.core/Editor/UI/Globals.uss?fileID=7433441132597879392&amp;guid=60b39676bc45100478c0c8a083850788&amp;type=3#Globals" />
+    <Graph>
+        <Graph name="distribution-map" style="height: 250px;" />
+        <Graph name="distribution-map-key" style="flex-direction: row; flex-wrap: wrap;" />
+        <Tooltip message="Shows the chances that each profile will play based on the current information. To edit these chances, use the &lt;a href=&quot;https://distant-lands.gitbook.io/cozy-stylized-weather-documentation/how-it-works/weighted-random-chance-wrc&quot;&gt;WRC system&lt;/a&gt; on the ambience profiles." />
+    </Graph>
+    <ui:Label tabindex="-1" text="Profiles to Forecast" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="profiles-forecast-container" class="section-bg">
+        <ui:ListView show-add-remove-footer="true" reorderable="true" selection-type="Multiple" reorder-mode="Animated" show-alternating-row-backgrounds="ContentOnly" show-border="true" binding-path="ambienceProfiles" name="ambience-profile-list" show-bound-collection-size="true" class="hide-element-title" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="Current Information" parse-escape-sequences="true" display-tooltip-when-elided="true" class="h1" />
+    <ui:VisualElement name="current-information-container" class="section-bg" />
+</ui:UXML>

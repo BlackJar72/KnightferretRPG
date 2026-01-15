@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement class="unity-base-field">
+        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="label" class="unity-base-field__label" />
+        <ui:Slider high-value="1" show-input-field="false" style="flex-grow: 1;" />
+        <ui:IntegerField value="42" name="hours" />
+        <ui:Label tabindex="-1" text=":" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-center;" />
+        <ui:IntegerField value="42" name="minutes" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -27,12 +27,10 @@ namespace kfutils.rpg.ui {
         public virtual bool SwapWith(InventorySlotUI other) {
             if(!CanSwapSlotTypes(other)) return false;
             if(inventory.OwnedByPC) InventoryManagement.SignalSlotsSwapped(SlotDataFromSlot(), other.SlotDataFromSlot());
-            //else InventoryManagement.SignalSlotEmptied(other.SlotDataFromSlot());
-            //if((other == null) || (other.item == null) || (item == null)) return false;
+            else InventoryManagement.SignalSlotEmptied(other.SlotDataFromSlot());
             if((other.item.item == item.item) && item.item.IsStackable) {
-                InvType otherType = other is EquipmentSlotUI ? InvType.EQUIPT : InvType.MAIN;
                 item.stackSize += other.item.stackSize;
-                other.inventory.RemoveItem(other.item, otherType);
+                other.inventory.RemoveItem(other.item);
             } else {
                 item.slot = other.slotNumber;
                 other.item.slot = slotNumber;
@@ -40,17 +38,15 @@ namespace kfutils.rpg.ui {
                     ItemStack localItem = item;
                     ItemStack otherItem = other.item;
                     ItemStack otherHand = null;
-                    InvType localType = this is EquipmentSlotUI ? InvType.EQUIPT : InvType.MAIN;
-                    InvType otherType = other is EquipmentSlotUI ? InvType.EQUIPT : InvType.MAIN;
-                    if(NeedsTwoHands(other.item.item.EquiptType) && (inventory is EquiptmentSlots)) {
+                    if((other.item.item.EquiptType == EEquiptSlot.HANDS) && (inventory is EquiptmentSlots)) {
                         EquiptmentSlots eqiptSlots = inventory as EquiptmentSlots;
                         otherHand = eqiptSlots.GetOtherHandItem(slotNumber);
                     }
-                    inventory.RemoveItem(item, otherType);
-                    other.inventory.RemoveItem(other.item, localType);
+                    inventory.RemoveItem(item);
+                    other.inventory.RemoveItem(other.item);
                     other.inventory.AddItemToSlot(item.slot, localItem);
                     inventory.AddItemToSlot(other.item.slot, otherItem);
-                    if((otherHand != null) && (otherHand.item != null) && NeedsTwoHands(otherHand.item.EquiptType)) {
+                    if((otherHand != null) && (otherHand.item != null) && (otherHand.item.EquiptType != EEquiptSlot.HANDS)) {
                         other.inventory.AddToFirstEmptySlot(otherHand);
                     }
                     GameManager.Instance.UI.HideItemToolTip();
@@ -59,12 +55,6 @@ namespace kfutils.rpg.ui {
             inventory.SignalUpdate(); 
             InventoryManagement.SigalHotbarUpdate();
             return true;          
-        }
-
-
-        private bool NeedsTwoHands(EEquiptSlot equiptType)
-        {
-            return (equiptType == EEquiptSlot.HANDS) || (equiptType == EEquiptSlot.BOW);
         }
 
 
@@ -93,7 +83,7 @@ namespace kfutils.rpg.ui {
             number = Mathf.Min(number, item.stackSize);
             item.stackSize -= number;
             if(item.stackSize < 1) {
-                inventory.RemoveItem(item, MyType);
+                inventory.RemoveItem(item);
                 icon.sprite = null;
                 icon.enabled = false;
             } else if(item.item.IsStackable && (numberText != null)) {
@@ -120,9 +110,6 @@ namespace kfutils.rpg.ui {
         public void SetText(int number) {
             numberText.SetText(number.ToString());
         }
-
-
-        public InvType MyType => this is EquipmentSlotUI ? InvType.EQUIPT : InvType.MAIN;
 
 
 #region Drag and Drop
@@ -184,12 +171,12 @@ namespace kfutils.rpg.ui {
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
                 if (inventory == InventoryManagement.currentContainerInventory) {
                     EntityManagement.playerCharacter.AddToMainInventory(item);
-                    inventory.RemoveItem(item, MyType);
+                    inventory.RemoveItem(item);
                 } else if(eventData.clickCount == 2) {
 #pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
                     if (GameManager.Instance.UI.IsContainerUIVisible) {
                         InventoryManagement.currentContainerInventory.AddToFirstEmptySlot(item);
-                        inventory.RemoveItem(item, MyType);
+                        inventory.RemoveItem(item);
                     } else {
                         EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);
                         GameManager.Instance.UI.HideItemToolTip();

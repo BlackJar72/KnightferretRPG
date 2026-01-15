@@ -51,10 +51,6 @@ namespace kfutils.rpg.ui
             saveNames.Clear();
             loadNames.Clear();
             string folder = Application.persistentDataPath + Path.DirectorySeparatorChar + SavedGame.saveSubdir;
-            if(!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
             files = Directory.GetFiles(folder);
             foreach (string filename in files)
             {

@@ -18,9 +18,6 @@ namespace kfutils.rpg {
         [SerializeField] GameItemSet itemsInGame;
         public GameItemSet ItemsInGame => itemsInGame;
 
-        [SerializeField] GameEffecttList worldEffectsInGame;
-        public GameEffecttList EffectsInGame => worldEffectsInGame;
-
         private static GameManager instance;
         public static GameManager Instance { get => instance; }
 
@@ -52,15 +49,11 @@ namespace kfutils.rpg {
             #if UNITY_EDITOR
             itemsInGame.Awake();
             #endif
-            EntityManagement.playerCharacter = playerCharacter;
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
-            for (int i = 0; i < itemsInGame.Length; i++)
+            ItemPrototype[] itemPrototypes = itemsInGame.Items;
+            for (int i = 0; i < itemPrototypes.Length; i++)
             {
-                ItemManagement.AddItemPrototype(itemsInGame[i]);
-            }
-            for (int i = 0; i < worldEffectsInGame.Length; i++)
-            {
-                ObjectManagement.AddEffectPrototype(worldEffectsInGame[i]);
+                ItemManagement.AddItemPrototype(itemPrototypes[i]);
             }
             EntityManagement.Initialize();
         }

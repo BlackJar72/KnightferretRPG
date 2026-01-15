@@ -41,10 +41,9 @@ namespace kfutils.rpg {
 
 
         public void UnequiptCurrentItem() {
-            if ((equiptItem is IUsable usable) && (usable.IsReal)) usable.OnUnequipt();
+            if (equiptItem is IUsable usable) usable.OnUnequipt();
             if (equiptItem != null) Destroy(equiptItem.gameObject);
         }
-
 
 
         public ItemEquipt EquiptArmor(ItemEquipt prefab) {

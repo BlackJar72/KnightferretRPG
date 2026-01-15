@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,16 +15,6 @@ namespace kfutils.rpg.ui {
 
 
         public SlotData GetSlot(int index) => hotBar.GetSlot(index);
-
-
-        public List<SlotData> GetEquiptSlotsOverlapping(SlotData next)
-        {
-            if((next.filled) && (next.inventory == InvType.MAIN)) {
-                ItemStack stack = EntityManagement.playerCharacter.Inventory.GetItemInSlot(next.invSlot);
-                if((stack != null) && (stack.item != null)) return hotBar.GetEquiptSlotsOverlapping(next);
-            }
-            return null;
-        }
 
 
         private void OnEnable()

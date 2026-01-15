@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 
 namespace kfutils.rpg {
-    [RequireComponent(typeof(AudioSource))]
+
     public class PCActing : PCMoving, ICombatant
     {
 
@@ -16,7 +16,6 @@ namespace kfutils.rpg {
         [SerializeField] ParticleSystem magicSparkles;
 
         [SerializeField] protected CharacterEquipt itemLocations;
-        [SerializeField] protected CharacterEquipt itemBodyLocations;
         [SerializeField] protected BlockArea blockArea;
 
         [Tooltip("There need to be three of these, for high, mid, and low (in that order)")]
@@ -393,9 +392,6 @@ namespace kfutils.rpg {
         }
 
 
-        public ItemAmmo GetAmmoItem() => itemLocations.GetAmmoItem();
-
-
         protected virtual void Interact(InputAction.CallbackContext context)
         {
             AimParams aim;
@@ -519,10 +515,9 @@ namespace kfutils.rpg {
         {
             if (item != null)
             {
-
-                itemBodyLocations.EquipItem(item);
                 ItemEquipt equipt = itemLocations.EquipItem(item);
-                if (equipt is IUsable usable)
+                IUsable usable = equipt as IUsable;
+                if (usable != null)
                 {
                     usable.OnEquipt(this);
                 }
@@ -541,7 +536,6 @@ namespace kfutils.rpg {
             if (item != null)
             {
                 itemLocations.UnequipItem(item);
-                itemBodyLocations.UnequipItem(item);
             }
         }
 
@@ -549,7 +543,6 @@ namespace kfutils.rpg {
         public virtual void UnequiptItemFromBody(EEquiptSlot slot)
         {
             itemLocations.UnequipItem(slot);
-            itemBodyLocations.UnequipItem(slot);
         }
 
 
@@ -566,16 +559,9 @@ namespace kfutils.rpg {
             if (isCasting) return;
             ItemEquipt requipt = itemLocations.GetRHandItem();
             ItemShield shield = itemLocations.GetLHandItem() as ItemShield;
-            WeaponBow bow = itemLocations.GetLHandItem() as WeaponBow;
-            if((bow != null) && (stamina.UseStamina(bow.StaminaCost)))
-            {
-                bow.OnUse(this);
-                return;
-            }
             if (chargingAction && (requipt != null))
             {
-                IUsable usable = requipt as IUsable;
-                if ((usable != null) && !blocking)
+                if ((requipt is IUsable usable) && !blocking)
                 {
                     if (stamina.UseStamina(usable.StaminaCost))
                     {
@@ -587,10 +573,6 @@ namespace kfutils.rpg {
                     shield.OnUse(this);
                 }
             }
-            else if (blocking && (shield != null) && stamina.UseStamina(shield.StaminaCost))
-            {
-                shield.OnUse(this);
-            }
             chargingAction = false;
         }
 
@@ -600,16 +582,9 @@ namespace kfutils.rpg {
             chargingAction = false;
             ItemEquipt requipt = itemLocations.GetRHandItem();
             ItemShield shield = itemLocations.GetLHandItem() as ItemShield;
-            WeaponBow bow = itemLocations.GetLHandItem() as WeaponBow;
-            if((bow != null) && (stamina.UseStamina(bow.StaminaCost)))
-            {
-                bow.OnUse(this);
-                return;
-            }
             if (requipt)
             {
-                IUsable usable = requipt as IUsable;
-                if ((usable != null) && !blocking)
+                if ((requipt is IUsable usable) && !blocking)
                 {
                     if (stamina.UseStamina(usable.PowerAttackCost))
                     {
