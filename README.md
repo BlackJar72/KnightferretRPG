@@ -1,5 +1,8 @@
 # Knightferret RPG
 
+After a crash, some file corruption, a deletion, and a restart, this project
+is a broken.  But here.
+
 My current RPG project, intendend to be well architected and flexible (unlike Caverns of Evil) -- and and also designed more as a framework, with game content 
 mostly separate (as a "Test Game," not included, in the development project -- though a lot of the test game would have been the basis of a real game). 
 
