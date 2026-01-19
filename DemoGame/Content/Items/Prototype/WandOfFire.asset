@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c605cc92f54f3a2a459023e4034e61, type: 3}
+  m_Name: WandOfFire
+  m_EditorClassIdentifier: 
+  id: WAND-001
+  itemName: Wand of Fire
+  icon: {fileID: 21300000, guid: 42ad694fdee8c0144aefcd4dcf2022c0, type: 3}
+  isStackable: 0
+  itemType: 7
+  equiptType: 5
+  description: Use to cast a fireball
+  weight: 2
+  value:
+    copper: 300000
+  worldItem: {fileID: 684672035755019203, guid: ddd64ee6ff4609b73a00f4ea9fbd3fbb, type: 3}
+  equiptItem: {fileID: 6882595520094804357, guid: df0f4910d17dd1c0f851f59e4ffaf593, type: 3}

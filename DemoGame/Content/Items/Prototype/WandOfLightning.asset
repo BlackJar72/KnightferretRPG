@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c605cc92f54f3a2a459023e4034e61, type: 3}
+  m_Name: WandOfLightning
+  m_EditorClassIdentifier: 
+  id: WAND-002
+  itemName: Wind of Lightning
+  icon: {fileID: 21300000, guid: 9b3bd2b6a01377f40ba2de12889c2667, type: 3}
+  isStackable: 0
+  itemType: 7
+  equiptType: 5
+  description: Casts a lightning bold
+  weight: 2
+  value:
+    copper: 200000
+  worldItem: {fileID: 5437204970291881485, guid: a45479817e2e6f49ab610d1c53ad6e2a, type: 3}
+  equiptItem: {fileID: 7666869127772323691, guid: a95eb897727ecc772935a5c5e8bd4846, type: 3}

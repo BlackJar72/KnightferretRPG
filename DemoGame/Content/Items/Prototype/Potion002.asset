@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c605cc92f54f3a2a459023e4034e61, type: 3}
+  m_Name: Potion002
+  m_EditorClassIdentifier: 
+  id: POTION-002
+  itemName: FIre Resist Potion
+  icon: {fileID: 21300000, guid: ef1b88d07303a5c41898509097610402, type: 3}
+  isStackable: 1
+  itemType: 6
+  equiptType: 5
+  description: Stops you from burnng
+  weight: 0
+  value:
+    copper: 0
+  activity:
+    theNeeds: 0
+    activityType: 0
+    satisfaction: 0
+    desireabilityFactor: 1
+    timeToDo: 0
+    useAction: {fileID: 0}
+    endCondition: 0
+    codeToRunAtStart: 0
+    codeToRunContinuously: 0
+    codeToRunAtEnd: 0
+  worldItem: {fileID: -3840960236249750150, guid: bc8da6f163e5625659d6035bfa7e4830, type: 3}
+  equiptItem: {fileID: -4938303939108132710, guid: 9fe76cc51425bc936980a6ee43cfcfe5, type: 3}

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c605cc92f54f3a2a459023e4034e61, type: 3}
+  m_Name: RShield01
+  m_EditorClassIdentifier: 
+  id: RSHIELD-01
+  itemName: Round Shield
+  icon: {fileID: -1847239011, guid: edfa4c53bb7b2a347bac9e4ef8025b6f, type: 3}
+  isStackable: 0
+  itemType: 2
+  equiptType: 6
+  description: A sturdy round shield
+  weight: 5
+  value:
+    copper: 2500
+  activity:
+    theNeeds: 0
+    activityType: 0
+    satisfaction: 0
+    desireabilityFactor: 1
+    timeToDo: 0
+    useAction: {fileID: 0}
+    endCondition: 0
+    codeToRunAtStart: 0
+    codeToRunContinuously: 0
+    codeToRunAtEnd: 0
+  worldItem: {fileID: 7359830540494499136, guid: e44f9a7cfdf4242c6af35054d2204ca9, type: 3}
+  equiptItem: {fileID: -9094780443547325974, guid: 873dd24949332c2529a77227d983c406, type: 3}

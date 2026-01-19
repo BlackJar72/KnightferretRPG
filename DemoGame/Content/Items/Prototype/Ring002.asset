@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c605cc92f54f3a2a459023e4034e61, type: 3}
+  m_Name: Ring002
+  m_EditorClassIdentifier: 
+  id: RING-002
+  itemName: Silver-Lapis Ring
+  icon: {fileID: 0}
+  isStackable: 0
+  itemType: 0
+  equiptType: 8
+  description: A silver ring set with a lapis lazuli
+  weight: 0
+  value:
+    copper: 250000
+  activity:
+    theNeeds: 0
+    activityType: 0
+    satisfaction: 0
+    desireabilityFactor: 1
+    timeToDo: 0
+    useAction: {fileID: 0}
+    activityRun: 0
+    codeToRun: 0
+  worldItem: {fileID: 3540657579899093733, guid: 2444a11c481942984bf146ca02a81a9c, type: 3}
+  equiptItem: {fileID: -4702158092096648556, guid: 851067d6ecb59306cb67428758fd6c39, type: 3}

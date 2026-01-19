@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c605cc92f54f3a2a459023e4034e61, type: 3}
+  m_Name: Potion001
+  m_EditorClassIdentifier: 
+  id: POTION-001
+  itemName: Health Potion
+  icon: {fileID: 1811771535, guid: 0a82f2e6deaed1eb7a771567c595d104, type: 3}
+  isStackable: 1
+  itemType: 6
+  equiptType: 5
+  description: Heals some wounds
+  weight: 1
+  value:
+    copper: 10000
+  activity:
+    theNeeds: 0
+    activityType: 6
+    satisfaction: 1
+    desireabilityFactor: 1
+    timeToDo: 1
+    useAction: {fileID: 11400000, guid: e5c6f38d991553ab19e24e8ab17e745b, type: 2}
+    endCondition: 0
+    codeToRunAtStart: 0
+    codeToRunContinuously: 0
+    codeToRunAtEnd: 0
+  worldItem: {fileID: -3840960236249750150, guid: 719a25dc434d0c548a61ad9db56a85f7, type: 3}
+  equiptItem: {fileID: -4938303939108132710, guid: e8a69b14b07a04c5fafc0eb17770de8c, type: 3}

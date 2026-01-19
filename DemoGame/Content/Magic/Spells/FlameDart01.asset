@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47c6bc1b5d42985a84dcfdea8f323e5, type: 3}
+  m_Name: FlameDart01
+  m_EditorClassIdentifier: 
+  id: FIREBALL01
+  spellName: Flame Dart
+  icon: {fileID: 761661222, guid: 35d6c688f814103df86759ac7337bf33, type: 3}
+  description: Shoot a fiery projectile doing damage roughly equivalent to an arrow.
+  castType: 2
+  spellEffect: {fileID: 11400000, guid: 196e2fb38110472d38d272b80e26318c, type: 2}
+  manaCost: 5
+  range: 64
+  castTime: 1
+  difficulty: 9
+  castParticles: {fileID: 0}
+  castSound:
+    sound: {fileID: 8300000, guid: 5287d5d30591a1c8f87a5c2ab702df84, type: 3}
+    volume: 1
+    pitch: 1

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea1537ec8d21b888bbcc523e2dae762, type: 3}
+  m_Name: InitialPCData
+  m_EditorClassIdentifier: 
+  startingPosition:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  startingItems:
+  - item:
+      prototype: {fileID: 11400000, guid: faa0d52a91abdcfdf863dceb617936f0, type: 2}
+      transformData:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 0}
+        scale: {x: 0, y: 0, z: 0}
+      metadata:
+        xp: 0
+        isQuestItem: 0
+        isStollen: 0
+        ownerID: 
+      physics: 0
+    stackSize: 1
+    equipt: 1
+  startingSpells: []
+  startingMoney: 1200
+  gameStartTime:
+    second: 0
+    minute: 30
+    hour: 8
+    day: 3
+    month: 0

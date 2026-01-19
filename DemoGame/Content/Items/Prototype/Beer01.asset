@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c605cc92f54f3a2a459023e4034e61, type: 3}
+  m_Name: Beer01
+  m_EditorClassIdentifier: 
+  id: BEER-001
+  itemName: Glass of Beer
+  icon: {fileID: -1061107833, guid: 66a6766f97066b2d085d999c85412866, type: 3}
+  isStackable: 0
+  itemType: 6
+  equiptType: 5
+  description: A glass of beer
+  weight: 1
+  value:
+    copper: 5
+  activity:
+    theNeeds: 10
+    activityType: 2
+    satisfaction: 0.1
+    desireabilityFactor: 1.5
+    timeToDo: 10
+    useAction: {fileID: 11400000, guid: 62663897f3174a54f8c745d51074c4a3, type: 2}
+    endCondition: 0
+    codeToRunAtStart: 0
+    codeToRunContinuously: 0
+    codeToRunAtEnd: 0
+  worldItem: {fileID: -2735296322394848937, guid: afb1538ad451146fea9b159faa69073b, type: 3}
+  equiptItem: {fileID: -1155377966397055181, guid: acf227e127049f33e85a71ab7b98b8dc, type: 3}
