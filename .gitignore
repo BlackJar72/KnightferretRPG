@@ -73,11 +73,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-
+# Only Include my Creations
 /[Aa]ssets/
-!/[Aa]ssets/KnightFerret/
-!/[Aa]ssets/DemoGame/
-!/[Aa]ssets/TestGame/
+!/[Aa]ssets/Game/
 /[Pp]ackages/
 !/[Pp]ackages/manifest.json
 !/[Pp]ackages/packages-lock.json
