@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using Animancer;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -78,7 +79,7 @@ namespace kfutils.rpg {
 
         protected float looky;
         protected Vector2[] moveIn = new Vector2[4];
-        protected Vector2[] lookIn = new Vector2[4];
+        protected Vector2 lookIn = Vector2.zero;
 
         protected sealed override void MakePC(string id) { base.MakePC(PC); }
 
@@ -417,17 +418,17 @@ namespace kfutils.rpg {
             Vector3 eyePos = new Vector3(camPivot.transform.position.x,
                     eyeY.position.y, camPivot.transform.position.z);
             camPivot.transform.position = eyePos;
-            lookIn[0] = lookIn[1]; lookIn[1] = lookIn[2];
-            lookIn[2] = lookAction.ReadValue<Vector2>(); // * Options.lookSensitivity;
-            lookIn[3] = ((lookIn[0] + lookIn[1] + lookIn[2]) / 3f);
+            lookIn = Options.ProcessLook(lookAction.ReadValue<Vector2>());
+            //Debug.Log("Mouse: Input -> " + lookAction.ReadValue<Vector2>() + "; Smoothed -> " + lookIn);
         }
 
 
         protected void GetMoveInput()
         {
             moveIn[0] = moveIn[1]; moveIn[1] = moveIn[2];
-            moveIn[2] = moveAction.ReadValue<Vector2>(); // * Options.moveSensitivity;
+            moveIn[2] = moveAction.ReadValue<Vector2>();// * Options.MoveSensitivity;
             moveIn[3] = ((moveIn[0] + moveIn[1] + moveIn[2]) / 3f);
+            moveIn[2] = Options.ProcessMove(moveAction.ReadValue<Vector2>());
         }
 
 
@@ -598,14 +599,18 @@ namespace kfutils.rpg {
 
             transform.rotation = Quaternion.Euler(
                     transform.eulerAngles.x,
-                    transform.eulerAngles.y + lookIn[3].x,
+                    transform.eulerAngles.y + lookIn.x,
                     transform.eulerAngles.z
             );
 
-            looky = Mathf.Clamp(looky - lookIn[3].y, -70f, 70f);
+            looky = Mathf.Clamp(looky - lookIn.y, -70f, 70f);
             camPivot.transform.rotation = Quaternion.Euler(looky / 2, transform.eulerAngles.y, 0).normalized;
             playerCam.transform.localRotation = Quaternion.Euler(looky / 2, camPivot.transform.eulerAngles.z, 0).normalized;
         }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public float GetDirectionalSpeedAdj() => (Vector3.Dot(hVelocity.normalized, transform.forward) * 0.25f) + 0.75f;
 
 
         protected void LandMove()
@@ -645,6 +650,7 @@ namespace kfutils.rpg {
                 }
 
                 hVelocity = newVelocity;
+                hVelocity *= GetDirectionalSpeedAdj();
             }
 
             onGround = characterController.isGrounded;
@@ -736,6 +742,7 @@ namespace kfutils.rpg {
             vSpeed -= vSpeed * Time.deltaTime; // Drag
 
             hVelocity = newVelocity;
+            hVelocity *= GetDirectionalSpeedAdj();
             hVelocity.y = 0;
 
             if (camPivot.transform.position.y > (WorldManagement.SeaLevel + 0.25f)) vSpeed = Mathf.Min(vSpeed, 0);
