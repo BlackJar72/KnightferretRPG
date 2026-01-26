@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -29,8 +30,10 @@ namespace kfutils.rpg
             }
         }
 
-
-
+        internal static int GetEquiptSlotForType(object equiptType)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

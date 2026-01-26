@@ -104,10 +104,10 @@ namespace kfutils.skies
             float darkness = Mathf.Clamp01(1.5f - (brightness * 3.0f));
             //Debug.Log("brightness " + brightness + " => darkness " + darkness);
             // Bloom
-            // mainPostVolume.TryGet(out Bloom bloom);
-            // bloom.intensity.value = darkness;
-            // bloom.threshold.value = 0.9f - (0.65f * darkness);
-            // bloom.scatter.value = 0.7f + (0.3f * darkness);
+            mainPostVolume.TryGet(out Bloom bloom);
+            bloom.intensity.value = darkness;
+            bloom.threshold.value = 0.9f - (0.65f * darkness);
+            bloom.scatter.value = 0.7f + (0.3f * darkness);
             // Color Adjustment
             mainPostVolume.TryGet(out ColorAdjustments colorAdjustments);
             colorAdjustments.postExposure.value = -darkness;
