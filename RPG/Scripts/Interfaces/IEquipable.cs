@@ -10,13 +10,17 @@ namespace kfutils.rpg
         public bool IsOnHotbar { get; set; }
 
         // Current found in ItemStack
-        public ItemPrototype item { get; set; }
-        public int stackSize { get; set; }
-        public int slot { get; set; }
+        public ItemPrototype Item { get; set; }
+        public int StackSize { get; set; }
+        public int Slot { get; set; }
         // Currently found in Spell
         public int Difficulty { get; }
 
         public void Equip();
+        public void UnEquip();
+
+        public void AddToHotbar();
+        public void RemoveFromHotbar();
         
     }
 

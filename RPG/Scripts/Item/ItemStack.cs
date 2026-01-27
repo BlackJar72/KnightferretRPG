@@ -3,8 +3,8 @@ using UnityEngine;
 namespace kfutils.rpg {
 
     [System.Serializable]
-    public class ItemStack {
-
+    public class ItemStack : IEquipable 
+    {
         [System.Serializable]
         public class ProtoStack {
             public ItemData item;
@@ -21,11 +21,26 @@ namespace kfutils.rpg {
         public ItemPrototype item;
         [SerializeField] string id;
         public int stackSize;
-        public int slot; 
+        public int slot;
+        private bool isEquipped;
+        private bool isOnHotbar; 
         
         public string ID => id;
 
-        
+        public bool IsEquipped { get => isEquipped; set => isEquipped = value; }
+        public bool IsOnHotbar { get => isOnHotbar; set => isOnHotbar = value; }
+        public ItemPrototype Item { get => item; set => item = value; }
+        public int StackSize { get => stackSize; set => stackSize = value; }
+        public int Slot { get => slot; set => slot = value; }
+        public int Difficulty => int.MinValue;
+
+
+        public void Equip() => isEquipped = true;
+        public void UnEquip() => isEquipped = false;
+        public void AddToHotbar() => isOnHotbar = true;
+        public void RemoveFromHotbar() => isOnHotbar = false;
+
+
         public ItemStack(ItemPrototype item, int number, int slot = -1) {
             this.item = item;
             this.stackSize = number;
@@ -80,7 +95,6 @@ namespace kfutils.rpg {
         {
             return new ActivityHolder(item.Activity, item.GetItemUtility(activityType, ai), this);
         }
-        
 
 
     }

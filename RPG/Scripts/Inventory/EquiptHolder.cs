@@ -28,14 +28,33 @@ namespace kfutils.rpg {
     /// allowing spell to be equipped to the hands if desired. 
     /// </summary>
     [System.Serializable]
-    public class EquiptHolder : MonoBehaviour
+    public class EquiptHolder : MonoBehaviour 
     {
         [SerializeField] IEquipable held;
 
 
-        public IEquipable Held => held; 
+        public IEquipable Held => held;
+
+        public bool IsEquipped { get => held.IsEquipped; set => held.IsEquipped = value; }
+        public bool IsOnHotbar { get => held.IsOnHotbar; set => held.IsOnHotbar = value; }
+        public ItemPrototype item { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int stackSize { get => held.StackSize; set => held.StackSize = value; }
+        public int slot { get => held.Slot; set => held.Slot = value; }
+        public int Difficulty => held.Difficulty;
 
 
+        public void Equip(IEquipable equipable)
+        {
+            UnEquip();
+            held = equipable;
+            held.IsEquipped = true;
+        }
+
+
+        public void UnEquip()
+        {
+            held.IsEquipped = false;
+        }
 
 
 
