@@ -74,14 +74,14 @@ namespace kfutils {
         }
 
         public static Damages FireResist(Damages damages) {
-            if((damages.type & ~DamageType.physical) > 0) {
+            if(((damages.type & DamageType.fire) > 0) && ((damages.type & DamageType.physical) == 0)) {
                 damages *= 0.5;
             }
             return damages;
         }
 
         public static Damages FireImmune(Damages damages) {
-            if((damages.type & ~DamageType.physical) > 0) {
+            if(((damages.type & DamageType.fire) > 0) && ((damages.type & DamageType.physical) == 0)) {
                 damages *= 0;
             }
             return damages;
