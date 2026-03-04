@@ -49,7 +49,8 @@ could.  Then, will PC gaming as we know it still exist in a few years?  Will I s
 using computers and going online, or with the leftists ban my operating system and
 (opensource in general) by then in thier authoritarian quest for control?
 
-More informations on why this is being abandoned is here:
+More informations on why this is being abandoned is here: 
+
 https://youtu.be/uFekI_6tbQw?si=SdmYcxiGkYN8V9sK
 
 One things I'd like to ask PLEASE DO NOT USE MY ART WORK (UI).  I included it so my own UI 
