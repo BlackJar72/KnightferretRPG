@@ -44,10 +44,11 @@ unlicensed freeware is to cover my own butt, just in case.
 This is unlikely to be completed for various reasons.  Perhaps if I'd made some different
 choices, notably if I didn't decide to take in a puppy who would ultimately become more
 important to me than any game could be; hadn't taken a year off while he was young and
-prioritized him since, putting me a good year and half ahead at least. Perhaps I still
-could.  Then, will PC gaming as we know it still exist in a few years?  Will I still be
-using computers and going online, or will the leftists ban my operating system and
-(opensource in general) by then in thier (and big tech's) authoritarian quest for control?
+prioritized him since, putting me a good year and half ahead at least. Then big games are
+less interesting than they use to be, even to play them.  Perhaps I still could.  Then,
+will PC gaming as we know it still exist in a few years?  Will I still be using computers
+and going online, or will the leftists ban my operating system and (opensource in general)
+by then in thier (and big tech's) authoritarian quest for control?
 
 More informations on why this is being abandoned is here: 
 
