@@ -27,6 +27,10 @@ several unused shaders that didn't belong anywhere else, including outline and l
 screen space shaders and a recreation of the spectre effect from classic doom (perhaps 
 would have work for some kind of shadow people/creatures).
 
+The inventory and related system work great for one handed items, but the hotbar breaks
+with anything two handed and would likely need to be re-written.  It should probably use
+some kind of reference wrapper for equipt and hotbar slots.
+
 Many parts were based on ideas cherry picked from "Data Orient Design" as well as ideas (not 
 code) seen in other projects (such as having a "scene-loader" scene).  Also, static contexts 
 are required to share data or move objects between scenes in Unity, for anyone wondering 
@@ -35,8 +39,18 @@ about the static "management" classes.
 This is under the MIT license. I'm open to other licensing agreements if you just don't want 
 to include the license with everything (contact me if so), so long as they waive any claims 
 liability or warrantee.  The main reason I use licenses instead of just dropping things as 
-unlicensed freeware is to cover my own butt, just in case.nd simplified many things. These 
-were a good idea. 
+unlicensed freeware is to cover my own butt, just in case.
+
+This is unlikely to be completed for various reasons.  Perhaps if I'd made some different
+choices, notably if I didn't decide to take in a puppy who would ultimately become more
+important to me than any game could be; hadn't taken a year off while he was young and
+prioritized him since, putting me a good year and half ahead at least. Perhaps I still
+could.  Then, will PC gaming as we know it still exist in a few years?  Will I still be
+using computers and going online, or with the leftists ban my operating system and
+(opensource in general) by then in thier authoritarian quest for control?
+
+More informations on why this is being abandoned is here:
+https://youtu.be/uFekI_6tbQw?si=SdmYcxiGkYN8V9sK
 
 One things I'd like to ask PLEASE DO NOT USE MY ART WORK (UI).  I included it so my own UI 
 wouldn't be broken and have to be rebuilt if I have to download this again, please, if you 

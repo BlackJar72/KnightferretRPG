@@ -4,13 +4,26 @@ using UnityEngine;
 
 namespace kfutils {
 
+
+    /// <summary>
+    /// An enum of damage types.  Avoiding the "elemental magic" cliche (why should a boulder
+    /// do physical damage when thrown by a trebuchet but an identical boulder do "earth"
+    /// damage when conjured by a spell?!).
+    ///
+    /// This is designed to be easily extended for specific uses.  Want to have werewolves
+    /// that are weal to silver? Add "silver" as a constant and use it with DamageAdjusters.
+    /// Creatures resistant to piercing but weak to crushing? Add piercing, cutting, and
+    /// crushing.  Just remember these are flags, and must thus be powers of 2, most clearly
+    /// written as 0x1 << n, since n tell anyone the order while also avoiding any multiplication
+    /// error.
+    /// </summary>
     [System.Serializable]
     [Flags]
     public enum DamageType {
         physical = 0x1 << 0,
         fire = 0x1 << 1,
         electric = 0x1 << 2,
-        acid = 0x1 << 3,
+        caustic = 0x1 << 3, // Originally called "acid," but any burning/corroive substance
         poison = 0x1 << 4,
         magic = 0x1 << 5,
         cold = 0x1 << 6,
