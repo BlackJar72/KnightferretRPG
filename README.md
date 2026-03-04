@@ -46,7 +46,7 @@ choices, notably if I didn't decide to take in a puppy who would ultimately beco
 important to me than any game could be; hadn't taken a year off while he was young and
 prioritized him since, putting me a good year and half ahead at least. Perhaps I still
 could.  Then, will PC gaming as we know it still exist in a few years?  Will I still be
-using computers and going online, or with the leftists ban my operating system and
+using computers and going online, or will the leftists ban my operating system and
 (opensource in general) by then in thier authoritarian quest for control?
 
 More informations on why this is being abandoned is here: 
