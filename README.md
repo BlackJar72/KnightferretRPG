@@ -1,5 +1,7 @@
 # Knightferret RPG
 
+## Due to the flurry of new age verification laws I do not have the infrastructure to comply with, I will not be making or working on videogames or any other standalone software applications. ##
+
 My current RPG project, intendend to be well architected and flexible (unlike Caverns of Evil) -- and and also designed more as a framework, with game content 
 mostly separate (as a "Test Game," not included, in the development project -- though a lot of the test game would have been the basis of a real game). 
 
