@@ -14,6 +14,7 @@ namespace kfutils.rpg.ui {
 
 
         void Update() {
+            if(float.IsNaN(playerCharacter.stamina.RelativeStamina)) return;
             staminaBar.SetBar(playerCharacter.stamina.RelativeStamina);
             shockBar.SetBar(playerCharacter.health.RelativeShock);
             woundBar.SetBar(playerCharacter.health.RelativeWound);

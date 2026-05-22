@@ -157,6 +157,7 @@ namespace kfutils.rpg {
         {
             if (!busy)
             {
+                Debug.Log(damageFactor);
                 AbstractAction action;
                 if (damageFactor > 1.1f)
                 {
@@ -167,12 +168,11 @@ namespace kfutils.rpg {
                 {
                     action = useAnimation.Primary;
                     useAnimation.PrimarySound.Play(audioSource);
-
                 }
 
-                if (attacker is PCActing)
+                if (attacker is PCActing pcActing)
                 {
-                    attackState = attacker.PlayAction(useAnimation.Primary.mask, action.GetSequential(attack), OnUseAnimationEnd, 0, attackTime);
+                    attackState = pcActing.PlayAction(useAnimation.Primary.mask, action.GetSequential(attack), OnUseAnimationEnd, 0, attackTime);
                 }
                 else
                 {

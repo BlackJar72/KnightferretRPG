@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace kfutils.rpg {
 
     [System.Serializable]
-    public class ItemStack {
+    public class ItemStack : IInventoryResident {
 
         [System.Serializable]
         public class ProtoStack {
@@ -25,6 +27,12 @@ namespace kfutils.rpg {
         
         public string ID => id;
 
+        public Sprite Icon => item.Icon;
+
+        public int SlotNumber => slot;
+
+        public List<StackRef> refs;
+
         
         public ItemStack(ItemPrototype item, int number, int slot = -1) {
             this.item = item;
@@ -32,6 +40,7 @@ namespace kfutils.rpg {
             this.slot = slot;
             if(item != null) id = item.ID + System.Guid.NewGuid();
             else id = "";
+            refs = new();
         }
 
         
@@ -40,6 +49,7 @@ namespace kfutils.rpg {
             this.stackSize = number;
             this.slot = slot;
             id = ID;
+            refs = new();
         }
 
 
@@ -80,7 +90,52 @@ namespace kfutils.rpg {
         {
             return new ActivityHolder(item.Activity, item.GetItemUtility(activityType, ai), this);
         }
-        
+
+
+
+        //-----------------------------------------------------------------------------------------------------------//
+        //                                      STACK REFENCE SUPPORT                                                //
+        //-----------------------------------------------------------------------------------------------------------//
+
+
+        public void BeAssignedRef(StackRef reference)
+        {
+            if(!refs.Contains(reference)) refs.Add(reference);
+        } 
+
+
+        public void UnasignRef(StackRef reference)
+        {
+            refs.Remove(reference);
+        }
+
+
+        /// <summary>
+        /// Must be called with the item stack is removed from the inventory, whether by being moved to another inventory,  
+        /// emptied and destroyed, or otherwise.  This will clean up its reference.
+        /// </summary>
+        public void BeRemoved()
+        {
+            foreach(StackRef reference in refs) reference.ClearRef();
+            #if UNITY_EDITOR
+            // Should I just log?  Or throw an exception?
+            if(refs.Count > 0) Debug.LogError("References removed but list is not clear!  (" + item.ID + " : " + ID 
+                                            + " of size " + stackSize + " in slot " + slot + ")");
+            #endif
+            refs.Clear();
+        }
+
+
+        /// <summary>
+        /// When it is activated in the inventory UI (or by the hotbar);
+        /// 
+        /// This should generally EQUIP or UNEQUIP the item.
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public void Activate()
+        {
+            throw new System.NotImplementedException();
+        }
 
 
     }

@@ -75,7 +75,7 @@ namespace kfutils {
 
         public static Damages FireResist(Damages damages) {
             if(((damages.type & DamageType.fire) > 0) && ((damages.type & DamageType.physical) == 0)) {
-                damages *= 0.5;
+                damages *= 0.5f;
             }
             return damages;
         }
@@ -86,6 +86,7 @@ namespace kfutils {
             }
             return damages;
         }
+    }
     #endregion
 
 
