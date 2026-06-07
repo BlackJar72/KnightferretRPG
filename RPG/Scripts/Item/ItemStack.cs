@@ -30,6 +30,10 @@ namespace kfutils.rpg {
         public Sprite Icon => item.Icon;
 
         public int SlotNumber => slot;
+        public int StackSize { get => stackSize; set => stackSize = value; }
+        public EEquiptSlot EquiptType => item.EquiptType;
+        public float Weight => item.Weight;
+        public bool IsStackable => item.IsStackable;
 
         public List<StackRef> refs;
 

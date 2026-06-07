@@ -3,11 +3,13 @@ using UnityEngine.EventSystems;
 
 namespace kfutils.rpg.ui {
 
-    public class EquipmentSlotUI : InventorySlotUI {
+    public class EquipmentSlotUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, 
+                                   IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler  {
 
         public EquiptmentPanel equiptPanel;
 
-
+// Must re-write (in the new, unimplemented methods I think)
+/*
         public override bool SwapWith(InventorySlotUI other) {
             if(base.SwapWith(other)) {
                 if((inventory == other.inventory) && (item.slot != slotNumber)) {
@@ -60,15 +62,68 @@ namespace kfutils.rpg.ui {
 
 
         public override void EquipItem() {
-                    InventorySlotUI other = equiptPanel.MainInventoryPanel.GetFirstEmptrySlot();
-                    if(other != null) {
-                        if(other != null) {
-                            other.SwapWith(this);
-                        }
-                    }
-
+            InventorySlotUI other = equiptPanel.MainInventoryPanel.GetFirstEmptrySlot();
+            if(other != null) {
+                if(other != null) {
+                    other.SwapWith(this);
                 }
+            }
 
+        }
+
+*/
+
+#region Drag and Drop
+
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        #endregion
 
     }
 

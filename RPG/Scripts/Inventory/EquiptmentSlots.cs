@@ -9,18 +9,18 @@ namespace kfutils.rpg {
 
 
     [Serializable]
-    public class EquiptmentSlots : IInventory<ItemStack> {
+    public class EquiptmentSlots : IInventory<StackRef> {
 
         public bool belongsToPC = false;
 
-        public ItemStack[] slots = new ItemStack[12];
+        public StackRef[] slots = new StackRef[12];
 
         private float weight;
         public float Weight { get => weight; }
 
         public int Count => slots.Length;
 
-        public ItemStack GetItem(int index) => slots[index];
+        public StackRef GetItem(int index) => slots[index];
 
         public CharacterInventory mainInventory;
 
@@ -70,53 +70,53 @@ namespace kfutils.rpg {
         }
 
 
-        public bool AddItemNoSlot(ItemStack item)
+        public bool AddItemNoSlot(StackRef item)
         {
-            int slot = ItemUtils.GetEquiptSlotForType(item.item.EquiptType);
-            if ((slot == 6) && slots[6].stackSize > 0) slot = 5;
+            int slot = ItemUtils.GetEquiptSlotForType(item.Item.EquiptType);
+            if ((slot == 6) && slots[6].StackSize > 0) slot = 5;
             if ((slot > -1) && (slot < 12)) return AddItemToSlot(slot, item);
             return false;
         }
 
 
-        public bool AddItemToSlot(int slot, ItemStack item)
+        public bool AddItemToSlot(int slot, StackRef item)
         {
-            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
+            if ((item != null) && (item.Item != null) && (item.Item.EquiptType == EEquiptSlot.HANDS)) return AddTwoHandedItem(item);
             slots[slot] = item;
-            item.slot = slot;
+            item.Slot = slot;
             if (mainInventory.Owner == null) EquipItemDelayed(item);
-            else mainInventory.Owner.EquiptItemToBody(item);
+            else mainInventory.Owner.EquiptItemToBody(item.Item as ItemStack); // FIXME!
             SignalUpdate();
             return true;
         }
 
 
-        IEnumerator EquipItemDelayed(ItemStack item)
+        IEnumerator EquipItemDelayed(StackRef item)
         {
             yield return new WaitForSeconds(0.05f);
             yield return new WaitForEndOfFrame(); 
-            mainInventory.Owner.EquiptItemToBody(item);
+            mainInventory.Owner.EquiptItemToBody(item.Item as ItemStack);
         }
 
 
-        public ItemStack GetLHandItem() => slots[lhand];
-        public ItemStack GetRHandItem() => slots[rhand];
+        public StackRef GetLHandItem() => slots[lhand];
+        public StackRef GetRHandItem() => slots[rhand];
 
 
-        public ItemStack GetOtherHandItem(int slot) {
+        public StackRef GetOtherHandItem(int slot) {
             if(slot == rhand) return slots[lhand];
             else return slots[rhand];
         }
 
 
-        public bool AddTwoHandedItem(ItemStack item) {
-            if(item.slot == lhand) item.slot = rhand;
-            if(item.slot == rhand) {
-                item.slot = rhand;
+        public bool AddTwoHandedItem(StackRef item) {
+            if(item.Slot == lhand) item.Slot = rhand;
+            if(item.Slot == rhand) {
+                item.Slot = rhand;
                 slots[rhand] = item;
-                slots[lhand] = item.Copy();
-                slots[lhand].slot = lhand;
-                mainInventory.Owner.EquiptItemToBody(item);
+                slots[lhand].CoAssign(item);
+                slots[lhand].Slot = lhand;
+                mainInventory.Owner.EquiptItemToBody(item.Item as ItemStack); // FIXME
                 mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
                 SignalUpdate();
                 return true;
@@ -125,42 +125,42 @@ namespace kfutils.rpg {
         }
 
 
-        public int AddToFirstEmptySlot(ItemStack item) {
-            AddItemToSlot(item.slot, item);
-            return item.slot;
+        public int AddToFirstEmptySlot(StackRef item) {
+            AddItemToSlot(item.Slot, item);
+            return item.Slot;
         }
 
 
-        public int AddToFirstReallyEmptySlot(ItemStack item) {
-            AddItemToSlot(item.slot, item);
-            return item.slot;
+        public int AddToFirstReallyEmptySlot(StackRef item) {
+            AddItemToSlot(item.Slot, item);
+            return item.Slot;
         }
 
 
         public float CalculateWeight() {
             weight = 0f;
             for(int i = 0; i < slots.Length; i++) {
-                if((slots[i].item != null) && !((i == lhand) && (slots[i].item.EquiptType == EEquiptSlot.HANDS))) {
-                    weight += slots[i].stackSize * slots[i].item.Weight;
+                if((slots[i].Item != null) && !((i == lhand) && (slots[i].Item.EquiptType == EEquiptSlot.HANDS))) {
+                    weight += slots[i].StackSize * slots[i].Item.Weight; 
                 }
             }
             return weight;
         }
 
 
-        public ItemStack GetByBackingIndex(int index) {
+        public StackRef GetByBackingIndex(int index) {
             return slots[index];
         }
 
 
-        public ItemStack GetItemInSlot(int slot) {
+        public StackRef GetItemInSlot(int slot) {
             return slots[slot];
         }
 
 
-        private void ClearTwoHandedItem(ItemStack stack) {
-            slots[rhand] = new ItemStack(null, 0, rhand);
-            slots[lhand] = new ItemStack(null, 0, lhand); 
+        private void ClearTwoHandedItem(StackRef stack) {
+            slots[rhand].ClearRef();
+            slots[lhand].ClearRef(); 
             mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
             mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
             SignalUpdate();           
@@ -179,27 +179,27 @@ namespace kfutils.rpg {
 
 
         public int GetNumberInSlot(int slot) {
-            return slots[slot].stackSize;
+            return slots[slot].StackSize;
         }
 
 
-        public bool HasItem(ItemStack item) {
+        public bool HasItem(StackRef item) {
             bool output = false;
             for(int i = 0; (i < slots.Length) && !output; i++) {
-                output = output || (slots[i].item = item.item);
+                output = output || (slots[i].Item == item.Item);
             }
             return output;
         }
 
 
         public void RemoveFromSlot(int slot, int number) {
-            number = Mathf.Min(number, slots[slot].stackSize);
-            slots[slot].stackSize -= number;
-            if(slots[slot].stackSize < 1) {
-                if(slots[slot].item.IsStackable) {
-                    ItemManagement.itemRegistry.Remove(slots[slot].ID);
+            number = Mathf.Min(number, slots[slot].StackSize);
+            slots[slot].StackSize -= number;
+            if(slots[slot].StackSize < 1) {
+                if(slots[slot].Item.IsStackable) {
+                    ItemManagement.itemRegistry.Remove(slots[slot].Item.ID);
                 }
-                mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
+                mainInventory.Owner.UnequiptItemFromBody(slots[slot].Item as ItemStack); //FIXME
                 RemoveAllFromSlot(slot);
             } else {
                 SignalSlotUpdate(slot);
@@ -208,12 +208,12 @@ namespace kfutils.rpg {
 
 
         public void RemoveAllFromSlot(int slot) {
-                if(((slot == rhand) || (slot == lhand)) && (slots[slot] != null) && (slots[slot].item != null) 
-                            && (slots[slot].item.EquiptType == EEquiptSlot.HANDS)) {
+                if(((slot == rhand) || (slot == lhand)) && (slots[slot] != null) && (slots[slot].Item != null) 
+                            && (slots[slot].Item.EquiptType == EEquiptSlot.HANDS)) {
                     ClearTwoHandedItem(slots[slot]);
                 } else {
-                    mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
-                    slots[slot] = new ItemStack(null, 0, slot);
+                    mainInventory.Owner.UnequiptItemFromBody(slots[slot].Item as ItemStack); // FIXME
+                    slots[slot].ClearRef();
                     SignalUpdate();
                 }
             SignalUpdate();
@@ -232,15 +232,15 @@ namespace kfutils.rpg {
         // Other ways, that avoid code duplication, would complicate things greatly in other ways.
         public void ConsumeItem(int slot, int number)
         {
-            number = Mathf.Min(number, slots[slot].stackSize);
-            slots[slot].stackSize -= number;
-            if (slots[slot].stackSize < 1)
+            number = Mathf.Min(number, slots[slot].StackSize);
+            slots[slot].StackSize -= number;
+            if (slots[slot].StackSize < 1)
             {
-                if (slots[slot].item.IsStackable)
+                if (slots[slot].Item.IsStackable)
                 {
-                    ItemManagement.itemRegistry.Remove(slots[slot].ID);
+                    ItemManagement.itemRegistry.Remove(slots[slot].Item.ID);
                 }
-                mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
+                mainInventory.Owner.UnequiptItemFromBody(slots[slot].Item as ItemStack); // FIXME
                 RemoveAllFromSlot(slot);
                 ClearHotbarSlot(slot);
             }
@@ -261,15 +261,15 @@ namespace kfutils.rpg {
         }
 
 
-        public void RemoveItem(ItemStack item)
+        public void RemoveItem(StackRef item)
         {
-            if ((item != null) && (item.item != null) && (item.item.EquiptType == EEquiptSlot.HANDS)) ClearTwoHandedItem(item);
+            if ((item != null) && (item.Item != null) && (item.Item.EquiptType == EEquiptSlot.HANDS)) ClearTwoHandedItem(item);
             else for (int i = 0; i < slots.Length; i++)
                 {
                     if (slots[i] == item)
                     {
-                        mainInventory.Owner.UnequiptItemFromBody(item);
-                        slots[i] = new ItemStack(null, 0, i);
+                        mainInventory.Owner.UnequiptItemFromBody(item.Item as ItemStack); // FIXME
+                        slots[i].ClearRef();
                         SignalUpdate();
                         return;
                     }
@@ -278,17 +278,19 @@ namespace kfutils.rpg {
 
 
         public virtual void SignalUpdate() {
+            // TODO (FIXME?): Is this needed?  How should this functionality now be handled if so?
             if (belongsToPC)
             {
-                InventoryManagement.SignalInventoryUpdate(this);
+                //InventoryManagement.SignalInventoryUpdate(this);
             }
             CalculateWeight();
         }
 
 
         public virtual void SignalSlotUpdate(int slot) {
-            if (belongsToPC) InventoryManagement.SignalSlotUpdate(this, slot);
-            CalculateWeight();
+            // TODO (FIXME?): Is this needed?  How should this functionality now be handled if so?
+            //if (belongsToPC) InventoryManagement.SignalSlotUpdate(this, slot);
+            //CalculateWeight();
         }
 
 
@@ -302,7 +304,7 @@ namespace kfutils.rpg {
         }
 
 
-        public ItemStack GetItemForSlotType(EEquiptSlot slotID)
+        public StackRef GetItemForSlotType(EEquiptSlot slotID)
         {
             if (slotID == EEquiptSlot.HANDS)
             {
@@ -310,7 +312,7 @@ namespace kfutils.rpg {
             }
             for (int i = 0; i < slots.Length; i++)
             {
-                if ((slots[i].item != null) && slots[i].item.EquiptType == slotID) return slots[i];
+                if ((slots[i].Item != null) && slots[i].Item.EquiptType == slotID) return slots[i];
             }
             return null;
         }
@@ -319,7 +321,7 @@ namespace kfutils.rpg {
         public bool OwnedByPC => belongsToPC;
         
 
-        public static bool BelongsToPC(IInventory<ItemStack> inv) => inv.OwnedByPC;
+        public static bool BelongsToPC(IInventory<StackRef> inv) => inv.OwnedByPC;
     }
 
 
