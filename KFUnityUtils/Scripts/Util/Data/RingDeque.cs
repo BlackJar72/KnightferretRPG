@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Text;
 using UnityEngine;
 
 
-// FIXME: THis should just be in kfutils, not RPG specfic
 namespace kfutils
 {
     /// <summary>
@@ -20,6 +20,9 @@ namespace kfutils
     /// Elements can be removed (but not added) to the middle of the deque, though this 
     /// is not how it is typcally meant to be used.  Adding to the middle is not allowed 
     /// as it would not be clear which end to ovewrite if full. 
+    /// 
+    /// The original purpose was to store queue actions chosen by a game AI, specifically 
+    /// a utility AI (think of how actions are queued by sim characters in a Sims game).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class RingDeque<T> : IEnumerable<T>, ICollection<T>
@@ -29,13 +32,13 @@ namespace kfutils
         private int stop;
         private int count;
 
-        public int capacity => data.Length;
-        public int Count => count;
+        [Pure] public int Capacity => data.Length;
+        [Pure] public int Count => count;
 
-        public bool IsReadOnly => false;
-        public bool IsFull => count >= data.Length;
-        public bool HasSpace => count < data.Length;
-        public bool IsEmpty => count < 1;
+        [Pure] public bool IsReadOnly => false;
+        [Pure] public bool IsFull => count >= data.Length;
+        [Pure] public bool HasSpace => count < data.Length;
+        [Pure] public bool IsEmpty => count < 1;
 
 
         public RingDeque(int capacity)
@@ -309,7 +312,7 @@ namespace kfutils
 
 
         /// <summary>
-        /// Removes tha element at the given index.
+        /// Removes the element at the given index.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
