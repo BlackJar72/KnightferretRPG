@@ -15,7 +15,7 @@ namespace kfutils {
         }
 
         [System.Serializable]
-        protected struct Stage {
+        private struct Stage {
             public Vector3 start, end;
             public float timeToMove;
             public Stage(Vector3 start, Vector3 end, float timeToReach) {
@@ -29,9 +29,9 @@ namespace kfutils {
         [SerializeField] DoorPos[] positions;
         [SerializeField] bool open;
 
-        [SerializeField] protected Stage[] stages;
-        protected bool moving;
-        protected float t, startT;
+        [SerializeField] private Stage[] stages;
+        private bool moving;
+        private float t, startT;
 
 
         void Awake() {
@@ -69,7 +69,7 @@ namespace kfutils {
         }
 
 
-        protected void DoOpen() {
+        private void DoOpen() {
             open = true;
             moving = stages != null;
             startT = Time.time;
@@ -77,7 +77,7 @@ namespace kfutils {
         }
 
 
-        protected void DoClose() {
+        private void DoClose() {
             open = false;
             moving = stages != null;
             startT = Time.time;
@@ -92,7 +92,7 @@ namespace kfutils {
         }
 
 
-        protected IEnumerator Opening() {
+        private IEnumerator Opening() {
             int i = 0;
             while (moving) {
                 yield return new WaitForFixedUpdate();
@@ -107,7 +107,7 @@ namespace kfutils {
         }
 
 
-        protected IEnumerator Closing() {
+        private IEnumerator Closing() {
             int i = stages.Length - 1;
             while (moving) {
                 yield return new WaitForFixedUpdate();
@@ -120,13 +120,6 @@ namespace kfutils {
                 moving = (i > -1);
             }
         }
-
-
-        public override void SetStateOpen(bool beOpen)
-        {
-            open = beOpen;
-        }
-        
 
     }
 

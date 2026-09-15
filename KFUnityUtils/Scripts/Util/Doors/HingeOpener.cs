@@ -24,10 +24,10 @@ namespace kfutils {
         [SerializeField] float timeToOpen = 1f;
         [SerializeField] bool open;
 
-        protected bool moving;
-        protected Quaternion closedQ;
-        protected Quaternion openQ;
-        protected float t, startT;
+        private bool moving;
+        private Quaternion closedQ;
+        private Quaternion openQ;
+        private float t, startT;
 
 
         // Start is called before the first frame update
@@ -58,12 +58,6 @@ namespace kfutils {
             } else {
                 hinge.transform.localRotation = closedQ;
             }
-        }
-
-
-        public override void SetStateOpen(bool beOpen)
-        {
-            open = beOpen;
         }
 
 
@@ -100,7 +94,7 @@ namespace kfutils {
         }
 
 
-        protected IEnumerator Opening() {
+        private IEnumerator Opening() {
             while (moving) {
                 yield return new WaitForFixedUpdate();
                 t = Mathf.Clamp((Time.fixedTime - startT) / timeToOpen, 0f, 1f);
@@ -110,7 +104,7 @@ namespace kfutils {
         }
 
 
-        protected IEnumerator Closing() {
+        private IEnumerator Closing() {
             while (moving) {
                 yield return new WaitForFixedUpdate();
                 t = Mathf.Clamp((Time.fixedTime - startT) / timeToOpen, 0f, 1f);
@@ -118,8 +112,6 @@ namespace kfutils {
                 moving = (t < 1f);
             }
         }
-
-
     }
 
 }

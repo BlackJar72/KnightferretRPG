@@ -2674,7 +2674,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.083333336
+  m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 55754eba534b089a2a9977fb75ed0890, type: 2}
   m_BuildHeightMesh: 0
@@ -2756,7 +2756,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7a8f02b3bc7de2e3aa045295e250e578, type: 2}
+  - {fileID: 2100000, guid: 097ab24cb4d481eb0ac80117846e491a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3024,7 +3024,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7a8f02b3bc7de2e3aa045295e250e578, type: 2}
+  - {fileID: 2100000, guid: 097ab24cb4d481eb0ac80117846e491a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3740,6 +3740,7 @@ Terrain:
   m_AllowAutoConnect: 1
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
+  m_EnableHeightmapLODFrustumCulling: 1
   m_TreeMotionVectorModeOverride: 3
 --- !u!4 &575832489
 Transform:
@@ -4510,7 +4511,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7a8f02b3bc7de2e3aa045295e250e578, type: 2}
+  - {fileID: 2100000, guid: 097ab24cb4d481eb0ac80117846e491a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6453,7 +6454,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7a8f02b3bc7de2e3aa045295e250e578, type: 2}
+  - {fileID: 2100000, guid: 097ab24cb4d481eb0ac80117846e491a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15936,7 +15937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1d425c75ce5646f8c5c8a6136919d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 5678490123974313761}
+  door: {fileID: 0}
   id: DOOR_fb2ce281-d9a1-4ee2-985f-ff2ff6a89837
   defaultOpenState: 0
 --- !u!1001 &53589971357104399
@@ -18580,17 +18581,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2080378925958347725, guid: 980d57e21a2ce8daeb5d0701636ba2e2, type: 3}
   m_PrefabInstance: {fileID: 254942027085839787}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &254942027085839790 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6273343789219255412, guid: 980d57e21a2ce8daeb5d0701636ba2e2, type: 3}
-  m_PrefabInstance: {fileID: 254942027085839787}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1a7f9e02ee3734cf863f665426df463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &259217118751378621
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100699,17 +100689,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2080378925958347725, guid: 980d57e21a2ce8daeb5d0701636ba2e2, type: 3}
   m_PrefabInstance: {fileID: 5678490123974313758}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5678490123974313761 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6273343789219255412, guid: 980d57e21a2ce8daeb5d0701636ba2e2, type: 3}
-  m_PrefabInstance: {fileID: 5678490123974313758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1a7f9e02ee3734cf863f665426df463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &5678763621809065496
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -107043,7 +107022,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c4095c410f0aed34c8aa312a427cf21a, type: 2}
+  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134310,7 +134289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1d425c75ce5646f8c5c8a6136919d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 254942027085839790}
+  door: {fileID: 0}
   id: DOOR_ea89de78-3c77-47be-af6b-07d1accc1fda
   defaultOpenState: 0
 --- !u!33 &7967982316433333740

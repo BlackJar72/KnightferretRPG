@@ -71,6 +71,10 @@ namespace kfutils.rpg {
 
         public virtual void Register()
         {
+            owner ??= GetComponent<IActor>();
+
+            Debug.Log("owner = " + owner);
+
             EquiptmentSlots data = InventoryManagement.GetEquiptData(owner.ID);
             if (data == null)
             {

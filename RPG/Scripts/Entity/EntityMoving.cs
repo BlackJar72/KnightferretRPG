@@ -187,8 +187,10 @@ namespace kfutils.rpg {
             navSeeker.gameObject.SetActive(false);
             controller.enabled = false;
             moveLayer = animancer.Layers[0]; // This may not be defined when reloading a scene
+            Debug.Log("PREPARING DEATH ANIMATION!");
             moveLayer.SetMask(deathAnimation.mask);
             moveState = moveLayer.Play(deathAnimation.anim);
+            Debug.Log("SHOULD BE DOING DEATH ANIMATION! ");
             moveState.Time = 0;
         }
 
