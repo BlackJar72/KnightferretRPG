@@ -7,11 +7,14 @@ using UnityEngine;
 namespace kfutils {
 
     public interface IDoorOpener {
+        
         void Open();
 
         void Close();
 
         void Activate();
+
+        void SetStateOpen(bool beOpen);
 
     }
 

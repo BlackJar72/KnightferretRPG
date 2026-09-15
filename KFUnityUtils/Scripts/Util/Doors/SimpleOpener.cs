@@ -16,6 +16,9 @@ namespace kfutils {
         public abstract void Open();
 
 
+        public abstract void SetStateOpen(bool beOpen);
+
+
     }
 
 }

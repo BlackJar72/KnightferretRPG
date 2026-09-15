@@ -26,6 +26,13 @@ namespace kfutils {
                 door.Open();
         }
 
+
+        public override void SetStateOpen(bool beOpen)
+        {
+            foreach(SimpleOpener door in doors)
+                door.SetStateOpen(beOpen);
+        }
+
     }
 
 }
