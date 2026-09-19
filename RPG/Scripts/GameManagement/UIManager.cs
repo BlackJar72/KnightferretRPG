@@ -201,7 +201,7 @@ namespace kfutils.rpg {
 
         public void ShowPauseMenu()
         {
-            Debug.Log("Showing Pause Menu!");
+            //Debug.Log("Showing Pause Menu!");
             crossHairs.SetHidden();
             Cursor.lockState = CursorLockMode.None;
             EntityManagement.playerCharacter.AllowActions(false);
@@ -212,7 +212,7 @@ namespace kfutils.rpg {
 
         public void HidePauseMenu()
         {
-            Debug.Log("Hiding Pause Menu!");
+            //Debug.Log("Hiding Pause Menu!");
             System.Exception e = new ();
             Debug.Log(e);
             Debug.Log(e.StackTrace);
