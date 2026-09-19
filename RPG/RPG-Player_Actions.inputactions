@@ -124,18 +124,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "3fdef13f-b209-4683-88d7-4d718396a16e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "TogglePauseMenu",
                     "type": "Button",
-                    "id": "6088c3c6-e4c3-43e7-8461-3893983452ec",
+                    "id": "3fdef13f-b209-4683-88d7-4d718396a16e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -145,7 +136,7 @@
                     "name": "DragItem",
                     "type": "Button",
                     "id": "bde60107-6583-447d-9394-301264fdd1cd",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -680,10 +671,10 @@
                     "name": "",
                     "id": "6cb1548b-0d79-4bfd-9ff1-45acebec9bc2",
                     "path": "<Keyboard>/escape",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Pause",
+                    "action": "TogglePauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -694,7 +685,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Pause",
+                    "action": "TogglePauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -904,17 +895,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hotbar9",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "781f9067-8e78-46c5-a56e-17bae0606afd",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TogglePauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
