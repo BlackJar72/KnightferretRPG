@@ -10912,6 +10912,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1420669361}
     m_Modifications:
+    - target: {fileID: 204651926234911506, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2742839639428746217, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
       propertyPath: m_Name
       value: Door 01
@@ -10960,16 +10964,72 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5262043554128166059, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5262043554128166060, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1763592376}
+    - targetCorrespondingSourceObject: {fileID: 204651926234911506, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1763592377}
   m_SourcePrefab: {fileID: 100100000, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
 --- !u!4 &1763592372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7532914953304150089, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
   m_PrefabInstance: {fileID: 1763592371}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1763592373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5262043554578345707, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
+  m_PrefabInstance: {fileID: 1763592371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1763592374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5262043554128166060, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
+  m_PrefabInstance: {fileID: 1763592371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1763592375 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 204651926234911506, guid: 5b399ededa966b75297d82ac3e6f17fe, type: 3}
+  m_PrefabInstance: {fileID: 1763592371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1763592376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763592374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603ac86ea8394d36285f52493233219f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hinge: {fileID: 1763592373}
+  axisOfRotation: 1
+  side: 0
+  closedAngle: 0
+  openAngle: -85
+  timeToOpen: 1
+  open: 0
+--- !u!114 &1763592377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763592375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1d425c75ce5646f8c5c8a6136919d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door: {fileID: 1763592376}
+  id: TEST_DOOR_01
+  defaultOpenState: 0
 --- !u!1 &1764019780
 GameObject:
   m_ObjectHideFlags: 0
