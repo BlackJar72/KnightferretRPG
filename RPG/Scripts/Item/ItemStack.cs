@@ -75,8 +75,23 @@ namespace kfutils.rpg {
         //-----------------------------------------------------------------------------------------------------------//
         //                                     INVENTORY REFERANT CODE                                               //
         //-----------------------------------------------------------------------------------------------------------//
+        #region INVENTORY REFERANT CODE 
 
         private IInvReferant.ReferantRemoval referantRemoval;
+        // This is here because the interface requires it though not directly used; 
+        // attempting to use this directly results in a compiler error flagged by the IDE. 
+        event IInvReferant.ReferantRemoval IInvReferant.SignalReferantRemoval
+        {
+        add
+            {
+                referantRemoval += value;
+            }
+
+            remove
+            {
+                referantRemoval -= value;
+            }
+        }
 
 
         public void AddReference(ui.IInvReference reference)
@@ -98,23 +113,10 @@ namespace kfutils.rpg {
         }
 
 
-        // This is here because the interface requires it though not directly used; 
-        // attempting to use this directly results in a compiler error flagged by the IDE. 
-        event IInvReferant.ReferantRemoval IInvReferant.SignalReferantRemoval
-        {
-        add
-            {
-                referantRemoval += value;
-            }
-
-            remove
-            {
-                referantRemoval -= value;
-            }
-        }
-
-
         
+
+        #endregion 
+
 
         //-----------------------------------------------------------------------------------------------------------//
         //                                       UTILITY AI SUPPORT                                                  //
