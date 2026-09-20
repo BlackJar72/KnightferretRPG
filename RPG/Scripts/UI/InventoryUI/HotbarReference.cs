@@ -7,8 +7,8 @@ namespace kfutils.rpg.ui {
 
 
     [RequireComponent(typeof(Image))]
-    public class HotbarReference : MonoBehaviour, IInvReference, IPointerDownHandler, IBeginDragHandler, IDragHandler, 
-                                   IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class HotbarReference : MonoBehaviour, IInvReference, 
+                                   IDropHandler, IPointerClickHandler //, IBeginDragHandler, IDragHandler, IEndDragHandler 
     {
         [SerializeField] Sprite unselectedImage;
         [SerializeField] Sprite selectedImage;
@@ -84,23 +84,35 @@ namespace kfutils.rpg.ui {
         #region Mouse / Pointer Devise Handling
 
 
+/* 
+        // public void OnBeginDrag(PointerEventData eventData)
+        // {
+        //     //Debug.Log("public void OnBeginDrag(PointerEventData eventData)");
+        //     if(icon.sprite != null) {
+        //         icon.transform.SetParent(GetComponentInParent<Canvas>().rootCanvas.transform);
+        //         GameManager.Instance.UI.HideItemToolTip();
+        //         GameManager.Instance.UI.HideItemStackManipulator();
+        //     }
+        // }
 
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            //Debug.Log("public void OnBeginDrag(PointerEventData eventData)");
-            if(icon.sprite != null) {
-                icon.transform.SetParent(GetComponentInParent<Canvas>().rootCanvas.transform);
-                GameManager.Instance.UI.HideItemToolTip();
-                GameManager.Instance.UI.HideItemStackManipulator();
-            }
-        }
+
+        // public void OnDrag(PointerEventData eventData)
+        // {
+        //     //Debug.Log("public void OnDrag(PointerEventData eventData)");
+        //     icon.transform.position = Input.mousePosition;
+        // }
 
 
-        public void OnDrag(PointerEventData eventData)
-        {
-            //Debug.Log("public void OnDrag(PointerEventData eventData)");
-            icon.transform.position = Input.mousePosition;
-        }
+        // public void OnEndDrag(PointerEventData eventData)
+        // {
+        //     //Debug.Log("public void OnEndDrag(PointerEventData eventData)");
+        //     icon.transform.SetParent(transform);
+        //     icon.transform.localPosition = Vector2.zero;  
+        //     GameObject under = eventData.pointerCurrentRaycast.gameObject;
+        //     if((under == null) || !under.TryGetComponent<HotbarReference>(out HotbarReference other))
+        //     ClearReferant();
+        // } 
+*/
 
 
         public void OnDrop(PointerEventData eventData)
@@ -121,38 +133,9 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            //Debug.Log("public void OnEndDrag(PointerEventData eventData)");
-            icon.transform.SetParent(transform);
-            icon.transform.localPosition = Vector2.zero;  
-            GameObject under = eventData.pointerCurrentRaycast.gameObject;
-            if((under == null) || !under.TryGetComponent<HotbarReference>(out HotbarReference other))
-            ClearReferant();
-        }
-
-
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("public void OnPointerClick(PointerEventData eventData)");
-        }
-
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            Debug.Log("public void OnPointerDown(PointerEventData eventData)");
-        }
-
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            Debug.Log("public void OnPointerEnter(PointerEventData eventData)");
-        }
-
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            Debug.Log("public void OnPointerExit(PointerEventData eventData)");
+            ClearReferant();
         }
 
 
