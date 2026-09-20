@@ -3,7 +3,7 @@ using UnityEngine;
 namespace kfutils.rpg {
 
     [System.Serializable]
-    public class ItemStack {
+    public class ItemStack : IInvReferant {
 
         [System.Serializable]
         public class ProtoStack {
@@ -21,9 +21,10 @@ namespace kfutils.rpg {
         public ItemPrototype item;
         [SerializeField] string id;
         public int stackSize;
-        public int slot; 
-        
+        public int slot;
+
         public string ID => id;
+        public Sprite Icon => item.Icon;
 
         
         public ItemStack(ItemPrototype item, int number, int slot = -1) {
@@ -70,6 +71,50 @@ namespace kfutils.rpg {
         }
 
 
+
+        //-----------------------------------------------------------------------------------------------------------//
+        //                                     INVENTORY REFERANT CODE                                               //
+        //-----------------------------------------------------------------------------------------------------------//
+
+        private IInvReferant.ReferantRemoval referantRemoval;
+
+
+        public void AddReference(ui.IInvReference reference)
+        {
+            referantRemoval += reference.OnReferantRemoved;
+        }
+
+
+        public void RemoveReference(ui.IInvReference reference)
+        {            
+            referantRemoval -= reference.OnReferantRemoved;
+        }
+
+
+        public void RemoveReferant()
+        {
+            referantRemoval?.Invoke(this);
+            referantRemoval = null;
+        }
+
+
+        // This is here because the interface requires it though not directly used; 
+        // attempting to use this directly results in a compiler error flagged by the IDE. 
+        event IInvReferant.ReferantRemoval IInvReferant.SignalReferantRemoval
+        {
+        add
+            {
+                referantRemoval += value;
+            }
+
+            remove
+            {
+                referantRemoval -= value;
+            }
+        }
+
+
+        
 
         //-----------------------------------------------------------------------------------------------------------//
         //                                       UTILITY AI SUPPORT                                                  //

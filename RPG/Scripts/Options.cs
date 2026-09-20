@@ -7,7 +7,7 @@ namespace kfutils.rpg {
     public static class Options
     {
         private static float lookSensitivity = 1.0f;
-        private static float lookDeadzone = 3.0f;
+        private static float lookDeadzone = 0.0f;
         private static int lookSmoothing = 3;
         private static Vector2[] lookArray = new Vector2[lookSmoothing + 1]; 
 
