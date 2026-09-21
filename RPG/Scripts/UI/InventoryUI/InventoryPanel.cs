@@ -176,6 +176,27 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public bool RespondToHotbar(ItemStack stack) {
+            if(inventory.GetItemInSlot(stack.Slot) == stack)
+            {
+                for (int i = 0; i < inventorySlots.Count; i++)
+                {
+                    if (inventorySlots[i].item.slot == stack.Slot)
+                    {
+                        inventorySlots[i].EquipItem();
+                        return false;
+                    }
+                }
+            }
+            else if(inventory.GetEquiptmentSlots().GetItemInSlot(stack.Slot) == stack)
+            {
+                equiptPanel.RespondToHotbar(stack);
+                return true;
+            }
+            return false;
+        }
+
+
     }
 
 

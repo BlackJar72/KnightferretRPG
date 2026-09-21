@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -8,114 +9,33 @@ namespace kfutils.rpg {
     public class HotBar
     {
 
-        [SerializeField] SlotData[] slots = new SlotData[9];
+        [SerializeField] ui.HotbarReference[] slots = new ui.HotbarReference[9];
 
 
-        public SlotData GetSlot(int index) => slots[index];
+        public void ActivateSlot(int slot) => slots[slot].Activate();
 
-
-        public void CopyInto(HotBar other)
+        internal void Clear()
         {
-            for (int i = 0; i < slots.Length; i++) slots[i] = other.slots[i];
+            for(int i = 0; i < slots.Length; i++) slots[i].ClearReferant();
         }
 
 
-        /// <summary>
-        /// This if either (or both) slots have been moved, this should 
-        /// move them.
-        /// </summary>
-        /// <param name="slot1"></param>
-        /// <param name="slot2"></param>
-        public void OnSlotsSwapped(SlotData slot1, SlotData slot2)
-        {
-            //Debug.Log("public void OnSlotsSwapped(SlotData slot1, SlotData slot2)");
-            bool tmp = slot1.filled;
-            slot1.filled = slot2.filled;
-            slot2.filled = tmp;
-            int cur1 = -1, cur2 = -1;
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i] == slot1) cur1 = i;
-                if (slots[i] == slot2) cur2 = i;
-            }
-            if (cur1 > -1) slots[cur1] = slot2;
-            if (cur2 > -1) slots[cur2] = slot1;
-        }
-
-
-        public bool OnSlotEmptied(SlotData slot)
-        {
-            //Debug.Log("public bool OnSlotEmptied(SlotData slot)");
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i] == slot)
-                {
-                    slots[i].filled = false;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        public void CleanUpDuplicates(int slotNumber, SlotData slot)
-        {
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if ((i != slotNumber) && (slots[i] == slot))
-                {
-                    slots[i].inventory = InvType.NONE;
-                    slots[i].invSlot = -1;
-                    slots[i].filled = false;
-                }
-            }
-        }
-
-
-        public bool RemoveEquiptSlot(int slot)
-        {
-            //Debug.Log("public bool RemoveEquiptSlot(int slot)");
-            bool changed = false;
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if ((slots[i].inventory == InvType.EQUIPT) && (slots[i].invSlot == slot))
-                {
-                    slots[i].inventory = InvType.NONE;
-                    slots[i].invSlot = -1;
-                    slots[i].filled = false;
-                    changed = true;
-                }
-            }
-            return changed;
-        }
-
-
-        public void Clear()
+        public void MarkSelected(IInvReferant referant)
         {
             for(int i = 0; i < slots.Length; i++)
-            {                
-                slots[i].inventory = InvType.NONE;
-                slots[i].invSlot = -1;
-                slots[i].filled = false;
-            }
-        }
-
-
-        public void UnequipSpell()
-        {
-            for (int i = 0; i < slots.Length; i++)
             {
-                if (slots[i].inventory == InvType.SPELLS)
-                {
-                    slots[i].inventory = InvType.NONE;
-                    slots[i].invSlot = -1;
-                    slots[i].filled = false;
-                }
+                if(slots[i].HoldsReferant(referant)) slots[i].SetSelected(true);
             }
         }
 
 
-
+        public void MarkUnselected(IInvReferant referant)
+        {
+            for(int i = 0; i < slots.Length; i++)
+            {
+                if(slots[i].HoldsReferant(referant)) slots[i].SetSelected(false);
+            }
+        }
 
 
     }

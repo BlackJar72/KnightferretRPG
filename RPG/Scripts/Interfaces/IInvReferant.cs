@@ -20,6 +20,9 @@ namespace kfutils.rpg {
         public event ReferantRemoval SignalReferantRemoval;
 
         public Sprite Icon { get; }
+        public int StackSize { get; }
+        public int Slot { get; }
+
         public void AddReference(IInvReference reference);
         public void RemoveReference(IInvReference reference);
         public void RemoveReferant();

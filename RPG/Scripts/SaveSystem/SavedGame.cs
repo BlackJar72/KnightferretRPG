@@ -169,7 +169,7 @@ namespace kfutils.rpg {
             InventoryManagement.SetSpellbookData(spellbookData);
             InventoryManagement.SetEquiptData(equiptData);
             InventoryManagement.SetMoneyData(moneyData);
-            InventoryManagement.hotBar.CopyInto(hotbar);
+            //InventoryManagement.hotBar.CopyInto(hotbar); // FIXME:  Save new hotback (how?)
             EntityManagement.SetEntityRegistry(entityRegistry);
             ObjectManagement.LoadData(worldObjectData, worldTimedData);
             WorldManagement.SetChunkData(chunkData);

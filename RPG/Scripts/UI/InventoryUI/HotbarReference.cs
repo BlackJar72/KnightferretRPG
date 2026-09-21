@@ -13,6 +13,7 @@ namespace kfutils.rpg.ui {
         [SerializeField] Sprite unselectedImage;
         [SerializeField] Sprite selectedImage;
         [SerializeField] Image icon;
+        [SerializeField] InventoryPanel inventoryPanel;
 
         private IInvReferant referant;
         private Image image;
@@ -75,6 +76,25 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void Activate()
+        {
+            bool unequip = false;
+            if(referant is ItemStack stack) unequip = inventoryPanel.RespondToHotbar(stack);
+            // TODO: Do the same with spells, once they have been made to implement IInvReferant.
+        }
+
+
+        public bool HoldsReferant(IInvReferant referant)
+        {
+            return this.referant == referant;
+        }
+
+
+        public void SetSelected(bool selected)
+        {
+            if(selected) image.sprite = selectedImage;
+            else image.sprite = unselectedImage;
+        }
 
 
         //-----------------------------------------------------------------------------------------------------------//

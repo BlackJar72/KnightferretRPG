@@ -24,7 +24,6 @@ namespace kfutils.rpg {
         public int slot;
 
         public string ID => id;
-        public Sprite Icon => item.Icon;
 
         
         public ItemStack(ItemPrototype item, int number, int slot = -1) {
@@ -76,6 +75,11 @@ namespace kfutils.rpg {
         //                                     INVENTORY REFERANT CODE                                               //
         //-----------------------------------------------------------------------------------------------------------//
         #region INVENTORY REFERANT CODE 
+
+        public int StackSize => stackSize;
+        public int Slot => slot;
+        public Sprite Icon => item.Icon;
+
 
         private IInvReferant.ReferantRemoval referantRemoval;
         // This is here because the interface requires it though not directly used; 

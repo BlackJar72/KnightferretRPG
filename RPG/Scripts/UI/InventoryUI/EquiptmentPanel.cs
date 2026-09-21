@@ -130,6 +130,11 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void RespondToHotbar(ItemStack stack) {
+            slots[stack.Slot].EquipItem();
+        }
+
+
 
     }
 

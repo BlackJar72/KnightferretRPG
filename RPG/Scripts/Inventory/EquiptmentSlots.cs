@@ -246,21 +246,10 @@ namespace kfutils.rpg {
                 slots[slot].RemoveReferant();
                 mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
                 RemoveAllFromSlot(slot);
-                ClearHotbarSlot(slot);
             }
             else
             {
                 SignalSlotUpdate(slot);
-            }
-        }
-
-
-        private void ClearHotbarSlot(int slot)
-        {
-            PlayerInventory playerInventory = mainInventory as PlayerInventory;
-            if (playerInventory != null)
-            {
-                playerInventory.Hotbar.RemoveEquiptSlot(slot);
             }
         }
 

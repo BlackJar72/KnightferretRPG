@@ -10,10 +10,10 @@ namespace kfutils.rpg {
 
         [SerializeField] TMP_Text moneyText;
         [SerializeField] TMP_Text weightText;
-        [SerializeField] HotbarUI hotbarUI;
+        [SerializeField] HotBar hotbar;
         [SerializeField] PCActing pc;
 
-        public HotbarUI Hotbar => hotbarUI;
+        public HotBar Hotbar => hotbar;
 
 
         protected override void Awake()
@@ -74,13 +74,13 @@ namespace kfutils.rpg {
         public override bool OwnedByPC => true;
 
 
-        public void UseHotbar(int slotNumber)
+        public int FindItem(ItemStack item)
         {
-            SlotData slot = hotbarUI.GetSlot(slotNumber);
-            if (slot.filled && !pc.IsCasting)
+            for(int i = 0; i < inventory.Count; i++)
             {
-                InventoryManagement.SigalHotbarActivated(slot);
+                if(inventory[i] == item) return i;
             }
+            return -1; // Use this as code for not present
         }
 
 

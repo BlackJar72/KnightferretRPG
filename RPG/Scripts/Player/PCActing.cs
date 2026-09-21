@@ -308,15 +308,15 @@ namespace kfutils.rpg {
 
         #region QuickSlots
 
-        public void QuickSlot1(InputAction.CallbackContext context) => inventory.UseHotbar(0);
-        public void QuickSlot2(InputAction.CallbackContext context) => inventory.UseHotbar(1);
-        public void QuickSlot3(InputAction.CallbackContext context) => inventory.UseHotbar(2);
-        public void QuickSlot4(InputAction.CallbackContext context) => inventory.UseHotbar(3);
-        public void QuickSlot5(InputAction.CallbackContext context) => inventory.UseHotbar(4);
-        public void QuickSlot6(InputAction.CallbackContext context) => inventory.UseHotbar(5);
-        public void QuickSlot7(InputAction.CallbackContext context) => inventory.UseHotbar(6);
-        public void QuickSlot8(InputAction.CallbackContext context) => inventory.UseHotbar(7);
-        public void QuickSlot9(InputAction.CallbackContext context) => inventory.UseHotbar(8);
+        public void QuickSlot1(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(0);
+        public void QuickSlot2(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(1);
+        public void QuickSlot3(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(2);
+        public void QuickSlot4(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(3);
+        public void QuickSlot5(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(4);
+        public void QuickSlot6(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(5);
+        public void QuickSlot7(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(6);
+        public void QuickSlot8(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(7);
+        public void QuickSlot9(InputAction.CallbackContext context) => inventory.Hotbar.ActivateSlot(8);
 
 
         #endregion
@@ -515,9 +515,9 @@ namespace kfutils.rpg {
         {
             if (item != null)
             {
+                inventory.Hotbar.MarkSelected(item);
                 ItemEquipt equipt = itemLocations.EquipItem(item);
-                IUsable usable = equipt as IUsable;
-                if (usable != null)
+                if(equipt is IUsable usable)
                 {
                     usable.OnEquipt(this);
                 }
@@ -535,6 +535,7 @@ namespace kfutils.rpg {
         {
             if (item != null)
             {
+                inventory.Hotbar.MarkUnselected(item);
                 itemLocations.UnequipItem(item);
             }
         }

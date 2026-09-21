@@ -175,6 +175,7 @@ namespace kfutils.rpg {
                             ItemManagement.itemRegistry.Remove(inventory[i].ID);
                         }
                         inventory[i].RemoveReferant();
+                        // FIXME:  Complete USE animation before unequipping item
                         inventory.RemoveAt(i);
                         SignalUpdate();
                         SignalSlotEmptied(slot);
