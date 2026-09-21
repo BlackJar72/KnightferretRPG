@@ -26,7 +26,12 @@ namespace kfutils.rpg.ui {
 
         public virtual bool SwapWith(InventorySlotUI other) {
             if(!CanSwapSlotTypes(other)) return false;
-            if(inventory.OwnedByPC) InventoryManagement.SignalSlotsSwapped(SlotDataFromSlot(), other.SlotDataFromSlot());
+            if(!(inventory.OwnedByPC && other.inventory.OwnedByPC))
+            {
+                item.RemoveReferant();
+                other.item.RemoveReferant();
+            }
+            if(inventory.OwnedByPC) InventoryManagement.SignalSlotsSwapped(SlotDataFromSlot(), other.SlotDataFromSlot()); 
             else InventoryManagement.SignalSlotEmptied(other.SlotDataFromSlot());
             if((other.item.item == item.item) && item.item.IsStackable) {
                 item.stackSize += other.item.stackSize;
@@ -165,29 +170,35 @@ namespace kfutils.rpg.ui {
 
 
         public virtual void OnPointerClick(PointerEventData eventData) {
-            if(eventData.button == PointerEventData.InputButton.Left) {
-                GameManager.Instance.UI.HideItemToolTip();
-                GameManager.Instance.UI.HideItemStackManipulator();
-#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
-                if (inventory == InventoryManagement.currentContainerInventory) {
-                    EntityManagement.playerCharacter.AddToMainInventory(item);
-                    inventory.RemoveItem(item);
-                } else if(eventData.clickCount == 2) {
-#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
-                    if (GameManager.Instance.UI.IsContainerUIVisible) {
-                        InventoryManagement.currentContainerInventory.AddToFirstEmptySlot(item);
+            if((item != null) && (item.item != null)) {
+                if(eventData.button == PointerEventData.InputButton.Left) {
+                    GameManager.Instance.UI.HideItemToolTip();
+                    GameManager.Instance.UI.HideItemStackManipulator();
+    #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+                    if (inventory == InventoryManagement.currentContainerInventory) {
+                        EntityManagement.playerCharacter.AddToMainInventory(item);
                         inventory.RemoveItem(item);
-                    } else {
-                        EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);
-                        GameManager.Instance.UI.HideItemToolTip();
-                        if(destination != null) {
-                            destination.SwapWith(this);
+                    } else if(eventData.clickCount == 2) {
+    #pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
+                        if (GameManager.Instance.UI.IsContainerUIVisible) {
+                            InventoryManagement.currentContainerInventory.AddToFirstEmptySlot(item);
+                            inventory.RemoveItem(item);
+                        } else {
+                            EquipmentSlotUI destination = inventoryPanel.EquiptPanel.GetSlotForEquipt(item.item);
+                            GameManager.Instance.UI.HideItemToolTip();
+                            if(destination != null) {
+                                destination.SwapWith(this);
+                            }
                         }
                     }
+                } else if(eventData.button == PointerEventData.InputButton.Right) {
+                    GameManager.Instance.UI.HideItemToolTip();
+                    GameManager.Instance.UI.ShowItemStackManipulator(this);
                 }
-            } else if(eventData.button == PointerEventData.InputButton.Right) {
-                GameManager.Instance.UI.HideItemToolTip();
-                GameManager.Instance.UI.ShowItemStackManipulator(this);
+            }
+            else
+            {
+                GameManager.Instance.UI.HideItemStackManipulator();
             }
         }
 

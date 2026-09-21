@@ -243,7 +243,7 @@ namespace kfutils.rpg {
 
         public void PlayEquipAnimation(IActor user)
         {
-            if (user.ActionState.NormalizedTime >= 1)
+            if ((user.ActionState.NormalizedTime >= 1) && (equiptAnim != null))
             {
                 user.PlayAction(useAnimation.Primary.mask, equiptAnim, OnEqipAnimationEnd, 0);
                 busy = true;

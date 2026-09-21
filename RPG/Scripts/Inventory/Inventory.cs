@@ -174,6 +174,7 @@ namespace kfutils.rpg {
                         {
                             ItemManagement.itemRegistry.Remove(inventory[i].ID);
                         }
+                        inventory[i].RemoveReferant();
                         inventory.RemoveAt(i);
                         SignalUpdate();
                         SignalSlotEmptied(slot);
@@ -194,6 +195,7 @@ namespace kfutils.rpg {
             {
                 if (inventory[i].slot == slot)
                 {
+                    inventory[slot].RemoveReferant();
                     inventory.RemoveAt(i);
                     SignalUpdate();
                     SignalSlotEmptied(slot);

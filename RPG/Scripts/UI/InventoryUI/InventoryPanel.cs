@@ -145,6 +145,9 @@ namespace kfutils.rpg.ui {
         protected void UpdateSlot(IInventory<ItemStack> inv, int slot) {
 #pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
             if (inventory == inv) {
+                Debug.Log("inventorySlots.Count = " + inventorySlots.Count + "; inventorySlots[slot] = " + inventorySlots[slot]);
+                Debug.Log("inventorySlots[slot].item = " + inventorySlots[slot].item);
+                Debug.Log("inventorySlots[slot].item.item = " + inventorySlots[slot].item.item);
                 if((slot < inventorySlots.Count) && (inventorySlots[slot] != null) 
                             && inventorySlots[slot].item.item.IsStackable) {
                     inventorySlots[slot].SetText(inventorySlots[slot].item.stackSize);

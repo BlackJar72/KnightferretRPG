@@ -44,11 +44,13 @@ namespace kfutils.rpg.ui {
             referant = null;
             icon.gameObject.SetActive(false);
             image.sprite = unselectedImage;
+            Debug.Log("OnReferantRemoved(IInvReferant referant)");
         }
 
 
         public void SetReferant(IInvReferant referant)
         {
+            Debug.Log("SetReferant(IInvReferant referant)");
             this.referant = referant;
             referant.AddReference(this);
             icon.sprite = referant.Icon;
@@ -58,15 +60,12 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void ClearReferant()
-        {
-            if(referant != null) OnReferantRemoved(referant);
-            referant = null;
-        }
+        public void ClearReferant() => OnReferantRemoved(referant);
 
 
         public void SwapWith(HotbarReference other)
         {
+            Debug.Log("SwapWith(HotbarReference other)");
             IInvReferant otherItem = other.referant;
             IInvReferant thisItem = referant;
             ClearReferant();
@@ -121,7 +120,7 @@ namespace kfutils.rpg.ui {
             if(other == gameObject) return;
             if(other.TryGetComponent<InventorySlotUI>(out InventorySlotUI invslot))
             {
-                if(invslot.item != referant) {
+                if(invslot.inventory.OwnedByPC) {
                     ClearReferant();
                     SetReferant(invslot.item);
                 }

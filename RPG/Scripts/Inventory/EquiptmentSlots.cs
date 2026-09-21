@@ -199,6 +199,7 @@ namespace kfutils.rpg {
                 if(slots[slot].item.IsStackable) {
                     ItemManagement.itemRegistry.Remove(slots[slot].ID);
                 }
+                slots[slot].RemoveReferant();
                 mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
                 RemoveAllFromSlot(slot);
             } else {
@@ -210,8 +211,10 @@ namespace kfutils.rpg {
         public void RemoveAllFromSlot(int slot) {
                 if(((slot == rhand) || (slot == lhand)) && (slots[slot] != null) && (slots[slot].item != null) 
                             && (slots[slot].item.EquiptType == EEquiptSlot.HANDS)) {
+                    slots[slot].RemoveReferant();
                     ClearTwoHandedItem(slots[slot]);
                 } else {
+                    slots[slot].RemoveReferant();
                     mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
                     slots[slot] = new ItemStack(null, 0, slot);
                     SignalUpdate();
@@ -240,6 +243,7 @@ namespace kfutils.rpg {
                 {
                     ItemManagement.itemRegistry.Remove(slots[slot].ID);
                 }
+                slots[slot].RemoveReferant();
                 mainInventory.Owner.UnequiptItemFromBody(slots[slot]);
                 RemoveAllFromSlot(slot);
                 ClearHotbarSlot(slot);
