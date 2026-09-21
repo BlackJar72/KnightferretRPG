@@ -45,7 +45,10 @@ namespace kfutils.rpg {
         public Sound CastSound => castSound; 
 
 
-        
+        public KnownSpell MakeKnown() => new(this);
+
+
+        public static implicit operator KnownSpell(Spell spell) => spell.MakeKnown();
 
     }
 

@@ -130,7 +130,7 @@ namespace kfutils.rpg {
         }
 
 
-        public void ShowSpellToolTip(Spell spell)
+        public void ShowSpellToolTip(KnownSpell spell)
         {
             if (!itemStackManipulator.IsVisible) itemToolTipUI.ShowSpellToolTip(spell);
         }

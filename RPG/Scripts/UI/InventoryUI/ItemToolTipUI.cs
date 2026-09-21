@@ -227,7 +227,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void ShowSpellToolTip(Spell spell) {
+        public void ShowSpellToolTip(KnownSpell spell) {
             itemName.SetText(spell.Name);
 
             SetDescription(spell.Description);
@@ -254,7 +254,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        private string GetSpellRangeString(Spell spell)
+        private string GetSpellRangeString(KnownSpell spell)
         {
             switch(spell.CastType)
             {

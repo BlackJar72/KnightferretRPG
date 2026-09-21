@@ -11,9 +11,9 @@ namespace kfutils.rpg.ui {
         [SerializeField] Image icon;
         [SerializeField] bool belongsToPC;
 
-        [SerializeField] public Spell currentSpell;
+        [SerializeField] public KnownSpell currentSpell;
 
-        public Spell CurrentSpell => currentSpell;
+        public KnownSpell CurrentSpell => currentSpell;
 
 
         protected virtual void Start()
@@ -79,7 +79,7 @@ namespace kfutils.rpg.ui {
         public void RespondToHotbar(SlotData slot) {
             if (slot.inventory == InvType.SPELLS)
             {
-                Spell otherSpell = EntityManagement.playerCharacter.Spells.Spells[slot.invSlot];
+                KnownSpell otherSpell = EntityManagement.playerCharacter.Spells.Spells[slot.invSlot];
                 if (otherSpell == currentSpell)
                 {
                     currentSpell = null;

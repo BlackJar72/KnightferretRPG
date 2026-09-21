@@ -20,7 +20,7 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void AddSpell(Spell spell, int slot) {
+        public void AddSpell(KnownSpell spell, int slot) {
             slot %= 2;
             if(slot == 0) {
                 spell01.AddSpell(spell, slot);

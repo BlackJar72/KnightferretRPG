@@ -11,7 +11,7 @@ namespace kfutils.rpg
     public class SpellbookData
     {
         protected readonly string id;
-        public List<Spell> inventory;
+        public List<KnownSpell> inventory;
         public string ID => id;
         public SpellbookData(Spellbook inv)
         {
@@ -21,12 +21,12 @@ namespace kfutils.rpg
     }
     
 
-    public class Spellbook : MonoBehaviour, IInventory<Spell>, ISerializationCallbackReceiver
+    public class Spellbook : MonoBehaviour, IInventory<KnownSpell>, ISerializationCallbackReceiver
     {
 
         [SerializeField] protected string id;
 
-        [SerializeField] List<Spell> spells;
+        [SerializeField] List<KnownSpell> spells;
 
         [SerializeField] bool unlocked = false; // Spells should not normally be removed from list; can make it possible in special circumstances
         [SerializeField] bool belongsToPC = false;
@@ -38,7 +38,7 @@ namespace kfutils.rpg
 
         public bool Unlocked => unlocked;
         public bool OwnedByPC => belongsToPC;
-        public List<Spell> Spells => spells;
+        public List<KnownSpell> Spells => spells;
         public string ID => id;
 
         public void SetID(string ID) => id ??= ID;
@@ -80,7 +80,7 @@ namespace kfutils.rpg
         }
 
 
-        public bool AddItemToSlot(int slot, Spell spell)
+        public bool AddItemToSlot(int slot, KnownSpell spell)
         {
             for (int i = 0; i < spells.Count; i++)
             {
@@ -92,14 +92,14 @@ namespace kfutils.rpg
         }
 
 
-        public int AddToFirstEmptySlot(Spell spell)
+        public int AddToFirstEmptySlot(KnownSpell spell)
         {
             AddItemToSlot(spells.Count, spell);
             return spells.Count - 1;
         }
 
 
-        public int AddToFirstReallyEmptySlot(Spell spell)
+        public int AddToFirstReallyEmptySlot(KnownSpell spell)
         {
             AddItemToSlot(spells.Count, spell);
             return spells.Count - 1;
@@ -109,13 +109,13 @@ namespace kfutils.rpg
         public float CalculateWeight() => 0.0f;
 
 
-        public Spell GetByBackingIndex(int index)
+        public KnownSpell GetByBackingIndex(int index)
         {
             return spells[index];
         }
 
 
-        public Spell GetItemInSlot(int slot)
+        public KnownSpell GetItemInSlot(int slot)
         {
             return GetByBackingIndex(slot);
         }
@@ -134,7 +134,7 @@ namespace kfutils.rpg
         }
 
 
-        public bool HasItem(Spell spell)
+        public bool HasItem(KnownSpell spell)
         {
             for (int i = 0; i < spells.Count; i++)
             {
@@ -164,7 +164,7 @@ namespace kfutils.rpg
         }
 
 
-        public void RemoveItem(Spell spell)
+        public void RemoveItem(KnownSpell spell)
         {
             if (unlocked)
             {
