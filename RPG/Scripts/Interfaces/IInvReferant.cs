@@ -4,7 +4,7 @@ using kfutils.rpg.ui;
 
 namespace kfutils.rpg {
 
-    public interface IInvReferant
+    public interface IInvReferant : IHaveStringID 
     {
         public delegate void ReferantRemoval(IInvReferant referant);
 

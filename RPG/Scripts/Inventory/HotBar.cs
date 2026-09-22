@@ -38,6 +38,12 @@ namespace kfutils.rpg {
         }
 
 
+        public void CopyInto(HotBar other)
+        {
+            for(int i = 0; i < slots.Length; i++) slots[i].SetReferant(other.slots[i].Item);            
+        }
+
+
     }
 
 

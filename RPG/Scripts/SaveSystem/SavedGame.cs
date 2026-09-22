@@ -56,7 +56,7 @@ namespace kfutils.rpg {
             spellbookData = InventoryManagement.spellbookData;
             equiptData = InventoryManagement.equiptData;
             moneyData = InventoryManagement.moneyData;
-            hotbar = InventoryManagement.hotBar;
+            hotbar = EntityManagement.playerCharacter.Inventory.Hotbar;//InventoryManagement.hotBar;
             entityRegistry = EntityManagement.EntityRegistry;
             worldObjectData = ObjectManagement.WorldObjectData;
             worldTimedData = ObjectManagement.WorldTimedData;
@@ -169,7 +169,7 @@ namespace kfutils.rpg {
             InventoryManagement.SetSpellbookData(spellbookData);
             InventoryManagement.SetEquiptData(equiptData);
             InventoryManagement.SetMoneyData(moneyData);
-            //InventoryManagement.hotBar.CopyInto(hotbar); // FIXME:  Save new hotback (how?)
+            //EntityManagement.playerCharacter.Inventory.Hotbar.CopyInto(hotbar); // FIXME:  Save new hotback (how?)
             EntityManagement.SetEntityRegistry(entityRegistry);
             ObjectManagement.LoadData(worldObjectData, worldTimedData);
             WorldManagement.SetChunkData(chunkData);

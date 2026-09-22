@@ -5,15 +5,8 @@ using UnityEngine.UI;
 
 namespace kfutils.rpg.ui {
 
-    public struct HotbarRefData  
-    {
-        public string id;
-        public int slot;
-        public bool equipped;
-    }
 
-
-    [RequireComponent(typeof(Image))]
+    [RequireComponent(typeof(Image))][System.Serializable]
     public class HotbarReference : MonoBehaviour, IInvReference, 
                                    IDropHandler, IPointerClickHandler //, IBeginDragHandler, IDragHandler, IEndDragHandler 
     {
@@ -25,9 +18,10 @@ namespace kfutils.rpg.ui {
 
         private IInvReferant referant;
         private Image image;
-        private bool equipt = false;
+        private bool equipped = false;
 
         public IInvReferant Item => referant;
+        public bool Equipped => equipped;
 
 
         // // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -96,7 +90,7 @@ namespace kfutils.rpg.ui {
 
         public void SetSelected(bool selected)
         {
-            equipt = selected;
+            equipped = selected;
             if(selected) image.sprite = selectedImage;
             else image.sprite = unselectedImage;
         }
