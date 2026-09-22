@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 namespace kfutils.rpg.ui {
 
+    public struct HotbarRefData  
+    {
+        public string id;
+        public int slot;
+        public bool equipped;
+    }
+
 
     [RequireComponent(typeof(Image))]
     public class HotbarReference : MonoBehaviour, IInvReference, 
@@ -18,6 +25,7 @@ namespace kfutils.rpg.ui {
 
         private IInvReferant referant;
         private Image image;
+        private bool equipt = false;
 
         public IInvReferant Item => referant;
 
@@ -65,7 +73,6 @@ namespace kfutils.rpg.ui {
 
         public void SwapWith(HotbarReference other)
         {
-            Debug.Log("SwapWith(HotbarReference other)");
             IInvReferant otherItem = other.referant;
             IInvReferant thisItem = referant;
             ClearReferant();
@@ -77,8 +84,7 @@ namespace kfutils.rpg.ui {
 
         public void Activate()
         {
-            bool unequip = false;
-            if(referant is ItemStack stack) unequip = inventoryPanel.RespondToHotbar(stack);
+            if(referant is ItemStack stack) inventoryPanel.RespondToHotbar(stack);
         }
 
 
@@ -90,6 +96,7 @@ namespace kfutils.rpg.ui {
 
         public void SetSelected(bool selected)
         {
+            equipt = selected;
             if(selected) image.sprite = selectedImage;
             else image.sprite = unselectedImage;
         }
@@ -143,11 +150,6 @@ namespace kfutils.rpg.ui {
                     SetReferant(invslot.item);
                 }
             } 
-            // else if(other.TryGetComponent<SpellEntry>(out SpellEntry spellEntry))
-            // {
-            //     ClearReferant();
-            //     SetReferant(spellEntry.Spell);
-            // }
             else if (other.TryGetComponent<HotbarReference>(out HotbarReference otherRef))
             {
                 SwapWith(otherRef);
