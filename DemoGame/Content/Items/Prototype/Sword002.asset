@@ -22,5 +22,16 @@ MonoBehaviour:
   weight: 4
   value:
     copper: 5000
+  activity:
+    theNeeds: 0
+    activityType: 0
+    satisfaction: 0
+    desireabilityFactor: 1
+    timeToDo: 0
+    useAction: {fileID: 0}
+    endCondition: 0
+    codeToRunAtStart: 0
+    codeToRunContinuously: 0
+    codeToRunAtEnd: 0
   worldItem: {fileID: -5495107153524974041, guid: 095d22ac2f8bc2b9ea1d72a519c955c0, type: 3}
   equiptItem: {fileID: 2608674957769372857, guid: 816cfd688c3de8841be1e1822da7b63b, type: 3}

@@ -163,6 +163,7 @@ namespace kfutils.rpg {
             slots[lhand] = new ItemStack(null, 0, lhand); 
             mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.RHAND);
             mainInventory.Owner.UnequiptItemFromBody(EEquiptSlot.LHAND);
+            if(mainInventory is PlayerInventory inventory) inventory.Hotbar.MarkUnselected(stack);
             SignalUpdate();           
         }
 

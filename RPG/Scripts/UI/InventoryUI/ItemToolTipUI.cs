@@ -227,34 +227,36 @@ namespace kfutils.rpg.ui {
         }
 
 
-        public void ShowSpellToolTip(KnownSpell spell) {
-            itemName.SetText(spell.Name);
+        public void ShowSpellToolTip(Spell spell) {
+            try {
+                itemName.SetText(spell.Name);
 
-            SetDescription(spell.Description);
+                SetDescription(spell.Description);
 
-            itemWeight.SetInfo(null);
-            itemValue.SetInfo(null);
+                itemWeight.SetInfo(null);
+                itemValue.SetInfo(null);
 
-            itemDamage.SetInfo(null);
-            itemSpeed.SetInfo(null);
-            itemDmgType.SetInfo(null);
-            itemAP.SetInfo(null);
-            itemBlock.SetInfo(null);
-            itemStability.SetInfo(null);
-            itemParry.SetInfo(null);
-            itemAR.SetInfo(null);
+                itemDamage.SetInfo(null);
+                itemSpeed.SetInfo(null);
+                itemDmgType.SetInfo(null);
+                itemAP.SetInfo(null);
+                itemBlock.SetInfo(null);
+                itemStability.SetInfo(null);
+                itemParry.SetInfo(null);
+                itemAR.SetInfo(null);
 
-            castTime.SetInfo(spell.CastTime.ToString());
-            manaCost.SetInfo(spell.ManaCost.ToString());
-            range.SetInfo(GetSpellRangeString(spell));
+                castTime.SetInfo(spell.CastTime.ToString());
+                manaCost.SetInfo(spell.ManaCost.ToString());
+                range.SetInfo(GetSpellRangeString(spell));
 
-            finalSpace.gameObject.SetActive(false); 
+                finalSpace.gameObject.SetActive(false); 
 
-            gameObject.SetActive(true);
+                gameObject.SetActive(true);
+            } catch (System.Exception) { }
         }
 
 
-        private string GetSpellRangeString(KnownSpell spell)
+        private string GetSpellRangeString(Spell spell)
         {
             switch(spell.CastType)
             {

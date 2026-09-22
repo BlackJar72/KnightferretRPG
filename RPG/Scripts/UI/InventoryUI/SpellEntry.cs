@@ -9,20 +9,20 @@ namespace kfutils.rpg.ui {
     public class SpellEntry : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, 
                               IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
-        private KnownSpell spell;
+        private Spell spell;
         private int slot;
 
         [SerializeField] GameObject spellSlot;
         [SerializeField] Image spellIcon;
         [SerializeField] TMP_Text spellName;
 
-        public KnownSpell Spell { get => spell; }
+        public Spell Spell { get => spell; }
         public Image Icon => spellIcon;
 
         private Image dragged;
 
 
-        public void AddSpell(KnownSpell spell, int slot) {
+        public void AddSpell(Spell spell, int slot) {
             gameObject.SetActive(true);
             this.spell = spell;
             this.slot = slot;

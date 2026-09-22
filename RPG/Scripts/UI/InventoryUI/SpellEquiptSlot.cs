@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,9 +10,9 @@ namespace kfutils.rpg.ui {
         [SerializeField] Image icon;
         [SerializeField] bool belongsToPC;
 
-        [SerializeField] public KnownSpell currentSpell;
+        [SerializeField] public Spell currentSpell;
 
-        public KnownSpell CurrentSpell => currentSpell;
+        public Spell CurrentSpell => currentSpell;
 
 
         protected virtual void Start()
@@ -49,6 +48,15 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public void EquiptSpell(Spell spell) 
+        {
+            currentSpell = spell;
+            icon.sprite = spell.Icon;
+            icon.gameObject.SetActive(true);
+            InventoryManagement.SigalHotbarUpdate();
+        }
+
+
         public void OnPointerEnter(PointerEventData eventData) {
             if(currentSpell != null) GameManager.Instance.UI.ShowSpellToolTip(currentSpell);
         }
@@ -79,7 +87,7 @@ namespace kfutils.rpg.ui {
         public void RespondToHotbar(SlotData slot) {
             if (slot.inventory == InvType.SPELLS)
             {
-                KnownSpell otherSpell = EntityManagement.playerCharacter.Spells.Spells[slot.invSlot];
+                Spell otherSpell = EntityManagement.playerCharacter.Spells.Spells[slot.invSlot];
                 if (otherSpell == currentSpell)
                 {
                     currentSpell = null;
@@ -93,6 +101,22 @@ namespace kfutils.rpg.ui {
                 }
                 InventoryManagement.SigalHotbarUpdate();
             }
+        }
+
+
+        public void RespondToHotbar(Spell spell) {
+            if (spell == currentSpell)
+            {
+                currentSpell = null;
+                icon.gameObject.SetActive(false);
+            }
+            else
+            {
+                currentSpell = spell;
+                icon.sprite = spell.Icon;
+                icon.gameObject.SetActive(true);
+            }
+            InventoryManagement.SigalHotbarUpdate();
         }
 
 

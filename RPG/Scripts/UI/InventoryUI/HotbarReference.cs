@@ -14,6 +14,7 @@ namespace kfutils.rpg.ui {
         [SerializeField] Sprite selectedImage;
         [SerializeField] Image icon;
         [SerializeField] InventoryPanel inventoryPanel;
+        [SerializeField] SpellEquiptSlot spellSlot;
 
         private IInvReferant referant;
         private Image image;
@@ -44,14 +45,12 @@ namespace kfutils.rpg.ui {
         {
             referant = null;
             icon.gameObject.SetActive(false);
-            image.sprite = unselectedImage;
-            Debug.Log("OnReferantRemoved(IInvReferant referant)");
+            image.sprite = unselectedImage;;
         }
 
 
         public void SetReferant(IInvReferant referant)
         {
-            Debug.Log("SetReferant(IInvReferant referant)");
             this.referant = referant;
             referant.AddReference(this);
             icon.sprite = referant.Icon;
@@ -80,7 +79,6 @@ namespace kfutils.rpg.ui {
         {
             bool unequip = false;
             if(referant is ItemStack stack) unequip = inventoryPanel.RespondToHotbar(stack);
-            // TODO: Do the same with spells, once they have been made to implement IInvReferant.
         }
 
 
@@ -145,6 +143,11 @@ namespace kfutils.rpg.ui {
                     SetReferant(invslot.item);
                 }
             } 
+            // else if(other.TryGetComponent<SpellEntry>(out SpellEntry spellEntry))
+            // {
+            //     ClearReferant();
+            //     SetReferant(spellEntry.Spell);
+            // }
             else if (other.TryGetComponent<HotbarReference>(out HotbarReference otherRef))
             {
                 SwapWith(otherRef);
