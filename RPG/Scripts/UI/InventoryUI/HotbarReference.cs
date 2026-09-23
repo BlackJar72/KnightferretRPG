@@ -5,6 +5,40 @@ using UnityEngine.UI;
 
 namespace kfutils.rpg.ui {
 
+    [System.Serializable]
+    public enum InventoryType
+    {
+        INVALID = -1,
+        EMPTY = 0,
+        MAIN = 1,
+        EQUIPT = 2,
+        SPELL = 3
+    }
+
+
+    [System.Serializable]
+    public struct HotbarRefData
+    {
+        public int slot;
+        public InventoryType inventory;
+        public HotbarRefData(HotbarReference reference)
+        {
+            if(reference.Item == null)
+            {
+                slot = -1;
+                inventory = InventoryType.EMPTY;
+            }
+            else
+            {
+                slot = reference.Item.Slot;
+                // This a new type to hold a known Spell is needed, like ItemStack is for Item.
+                if(reference is Spell) inventory = InventoryType.SPELL; // FIXME!
+                else inventory = reference.InventoryPanel.GetInventoryType(reference.Item);
+            }
+        }
+    }
+
+
 
     [RequireComponent(typeof(Image))][System.Serializable]
     public class HotbarReference : MonoBehaviour, IInvReference, 
@@ -22,6 +56,7 @@ namespace kfutils.rpg.ui {
 
         public IInvReferant Item => referant;
         public bool Equipped => equipped;
+        public InventoryPanel InventoryPanel => inventoryPanel;
 
 
         // // Start is called once before the first execution of Update after the MonoBehaviour is created

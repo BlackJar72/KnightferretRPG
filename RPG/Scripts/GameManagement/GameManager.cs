@@ -18,6 +18,9 @@ namespace kfutils.rpg {
         [SerializeField] GameItemSet itemsInGame;
         public GameItemSet ItemsInGame => itemsInGame;
 
+        [SerializeField] GameSpellSet spellsInGame;
+        public GameSpellSet SpellsInGame => spellsInGame;
+
         private static GameManager instance;
         public static GameManager Instance { get => instance; }
 
@@ -210,6 +213,7 @@ namespace kfutils.rpg {
             EntityManagement.playerCharacter.Inventory.OnEnable();
             EntityManagement.playerCharacter.Spells.OnEnable();
             InventoryManagement.SignalLoadNPCInventoryData();
+            EntityManagement.playerCharacter.Inventory.Hotbar.ReconstructFromData(savedGame.HotBar);
             WorldManagement.SignalGameReloaded();
             UI.HideLoadingScreen();
             Time.timeScale = 1.0f;

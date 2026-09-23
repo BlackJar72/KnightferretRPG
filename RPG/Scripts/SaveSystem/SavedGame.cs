@@ -34,7 +34,9 @@ namespace kfutils.rpg {
         [SerializeField] Dictionary<string, GDataExpiring> worldTimedData;
 
         [SerializeField] string currentWorldspace;
-        [SerializeField] HotBar hotbar;
+        [SerializeField] HotBarData hotbar;
+        
+        public HotBarData HotBar => hotbar;
 
 
         // Active Lists
@@ -56,7 +58,7 @@ namespace kfutils.rpg {
             spellbookData = InventoryManagement.spellbookData;
             equiptData = InventoryManagement.equiptData;
             moneyData = InventoryManagement.moneyData;
-            hotbar = EntityManagement.playerCharacter.Inventory.Hotbar;//InventoryManagement.hotBar;
+            hotbar = EntityManagement.playerCharacter.Inventory.Hotbar.GetData();//InventoryManagement.hotBar;
             entityRegistry = EntityManagement.EntityRegistry;
             worldObjectData = ObjectManagement.WorldObjectData;
             worldTimedData = ObjectManagement.WorldTimedData;
@@ -154,7 +156,7 @@ namespace kfutils.rpg {
             spellbookData = ES3.Load<Dictionary<string, SpellbookData>>("SpellbookData", fileName);
             equiptData = ES3.Load<Dictionary<string, EquiptmentSlots>>("EquiptData", fileName);
             moneyData = ES3.Load<Dictionary<string, Money>>("MoneyData", fileName);
-            hotbar = ES3.Load<HotBar>("HotBar", fileName);
+            hotbar = ES3.Load<HotBarData>("HotBar", fileName);
             entityRegistry = ES3.Load<Dictionary<string, EntityData>>("EntityRegistry", fileName);
             worldObjectData = ES3.Load<Dictionary<string, GData>>("WorldObjectData", fileName);
             worldTimedData  = ES3.Load<Dictionary<string, GDataExpiring>>("WorldTimedData", fileName);
@@ -190,7 +192,7 @@ namespace kfutils.rpg {
 
         /// <summary>
         /// Call this from player character class (PCTaling and its ancestors) after the game object has been properly 
-        /// loaded (during Start() at least for now) to load data that needs to be set.  This needed because loading to 
+        /// loaded (during Start() at least for now) to load data that needs to be set.  This needed because loading too 
         /// early creates an error as the objects do not exist, while trying to cache the data into a static context crashes 
         /// the engine for some reason.
         /// </summary>

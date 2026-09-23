@@ -197,6 +197,14 @@ namespace kfutils.rpg.ui {
         }
 
 
+        public InventoryType GetInventoryType(IInvReferant stack) {
+            if(inventory.GetItemInSlot(stack.Slot) == stack) return InventoryType.MAIN;
+            else if(inventory.GetEquiptmentSlots().GetItemInSlot(stack.Slot) == stack) 
+                return InventoryType.EQUIPT;
+            return InventoryType.INVALID;
+        }
+
+
         public bool IsItemEquipt(ItemStack stack) {
             if(inventory.GetItemInSlot(stack.Slot) == stack) return false;
             else if(inventory.GetEquiptmentSlots().GetItemInSlot(stack.Slot) == stack) return true;
