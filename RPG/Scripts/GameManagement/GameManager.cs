@@ -20,6 +20,8 @@ namespace kfutils.rpg {
 
         [SerializeField] GameSpellSet spellsInGame;
         public GameSpellSet SpellsInGame => spellsInGame;
+        public int GetSpellID(Spell spell) => GetSpellID(spell);
+        public Spell GetSpell(int id) => GetSpell(id); 
 
         private static GameManager instance;
         public static GameManager Instance { get => instance; }

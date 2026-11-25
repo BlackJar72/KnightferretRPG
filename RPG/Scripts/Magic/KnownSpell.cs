@@ -10,9 +10,14 @@ namespace kfutils.rpg {
         // private and readonly broke it before.  We are now using 
         // the Python "consenting adults" philosophy; just don't 
         // change / write to this! 
-        public Spell spell; 
-
+        //
+        // A NEW APPROACH: ACCESS EVERYTHING THROUGH A NUMBER AND A STATIC 
+        // LIST TO HOPEFULLY PREVENT UNITY FROM MAKING BROKEN COPIES OF THE
+        // SPELL OBJECT (WHICH CREATE NULL REFERENCE ERRORS)!
+        int id;
+        
         // Accessor Properties
+        public Spell spell => GameManager.Instance.GetSpell(id);
         public string ID { get => spell.ID; }
         public string Name { get => spell.Name; }
         public Sprite Icon {get => spell.Icon; } 
@@ -33,7 +38,7 @@ namespace kfutils.rpg {
                     => (a is null) || (b is null) || (a.spell != b.spell);
 
 
-        public KnownSpell(Spell spell) => this.spell = spell;
+        public KnownSpell(Spell spell) => id = spell.NumberID;
 
 
         public override bool Equals(object obj)

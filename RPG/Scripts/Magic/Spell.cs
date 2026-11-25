@@ -29,10 +29,11 @@ namespace kfutils.rpg {
         [SerializeField] GameObject castParticles;
         [SerializeField] Sound castSound;
 
-
+        private int numberID;
 
         // Accessor Properties
         public string ID { get => id; }
+        public int NumberID { get => numberID; }
         public string Name { get => spellName; }
         public Sprite Icon {get => icon; } 
         public string Description { get => description; }
@@ -63,6 +64,12 @@ namespace kfutils.rpg {
         public override int GetHashCode()
         {
             return ID.GetHashCode();
+        }
+
+
+        // A separete method, to avoid accidental assignment
+        public void SetNumberID(int id) {
+            numberID = id;
         }
 
 
