@@ -54,6 +54,7 @@ namespace kfutils.rpg {
             #if UNITY_EDITOR
             itemsInGame.Awake();
             #endif
+            spellsInGame.Awake();
             WorldManagement.SetupWorldspaceRegistry(worldspaces);
             ItemPrototype[] itemPrototypes = itemsInGame.Items;
             for (int i = 0; i < itemPrototypes.Length; i++)
